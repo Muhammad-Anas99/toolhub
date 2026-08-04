@@ -5,18 +5,28 @@ import {
   FaExpand,
   FaCrop,
   FaRotate,
+  FaObjectGroup,
+  FaObjectUngroup,
+  FaFilePdf,
+  FaFileWord,
+  FaCode,
+  FaLock,
+  FaMagnifyingGlass,
+  FaBroom,
+  FaFont,
+  FaListOl,
+  FaWandMagicSparkles,
+  FaImages,
+  FaEyeDropper,
+  FaPalette,
+  FaKey,
+  FaHashtag,
+  FaInstagram,
+  FaYoutube,
 } from 'react-icons/fa6'
 
-export const categories = [
-  {
-    id: 'image-tools',
-    name: 'Image Tools',
-    slug: 'image-tools',
-    description: 'Convert, compress, resize, crop and rotate images in your browser.',
-  },
-]
-
 export const tools = [
+  // ---------- Image Tools ----------
   {
     id: 'jpg-to-png',
     name: 'JPG to PNG',
@@ -25,6 +35,7 @@ export const tools = [
     category: 'image-tools',
     description: 'Convert JPG images to PNG format while preserving quality.',
     icon: FaFileImage,
+    badge: 'popular',
     comingSoon: true,
   },
   {
@@ -35,6 +46,7 @@ export const tools = [
     category: 'image-tools',
     description: 'Convert PNG images to JPG format with adjustable quality.',
     icon: FaImage,
+    badge: 'popular',
     comingSoon: true,
   },
   {
@@ -45,6 +57,7 @@ export const tools = [
     category: 'image-tools',
     description: 'Convert images to and from the modern WEBP format.',
     icon: FaFileImage,
+    badge: 'new',
     comingSoon: true,
   },
   {
@@ -55,6 +68,7 @@ export const tools = [
     category: 'image-tools',
     description: 'Reduce image file size without noticeably affecting quality.',
     icon: FaCompress,
+    badge: 'popular',
     comingSoon: true,
   },
   {
@@ -87,12 +101,240 @@ export const tools = [
     icon: FaRotate,
     comingSoon: true,
   },
+
+  // ---------- PDF Tools ----------
+  {
+    id: 'merge-pdf',
+    name: 'Merge PDF',
+    slug: 'merge-pdf',
+    path: '/tools/merge-pdf',
+    category: 'pdf-tools',
+    description: 'Combine multiple PDF files into a single document.',
+    icon: FaObjectGroup,
+    badge: 'popular',
+    comingSoon: true,
+  },
+  {
+    id: 'split-pdf',
+    name: 'Split PDF',
+    slug: 'split-pdf',
+    path: '/tools/split-pdf',
+    category: 'pdf-tools',
+    description: 'Split a PDF into separate pages or page ranges.',
+    icon: FaObjectUngroup,
+    comingSoon: true,
+  },
+  {
+    id: 'compress-pdf',
+    name: 'Compress PDF',
+    slug: 'compress-pdf',
+    path: '/tools/compress-pdf',
+    category: 'pdf-tools',
+    description: 'Shrink PDF file size while keeping it readable.',
+    icon: FaFilePdf,
+    comingSoon: true,
+  },
+  {
+    id: 'pdf-to-word',
+    name: 'PDF to Word',
+    slug: 'pdf-to-word',
+    path: '/tools/pdf-to-word',
+    category: 'pdf-tools',
+    description: 'Convert PDF documents into editable Word files.',
+    icon: FaFileWord,
+    badge: 'new',
+    comingSoon: true,
+  },
+
+  // ---------- Developer Tools ----------
+  {
+    id: 'json-formatter',
+    name: 'JSON Formatter',
+    slug: 'json-formatter',
+    path: '/tools/json-formatter',
+    category: 'developer-tools',
+    description: 'Format, validate and beautify JSON data instantly.',
+    icon: FaCode,
+    badge: 'popular',
+    comingSoon: true,
+  },
+  {
+    id: 'base64-encoder',
+    name: 'Base64 Encoder / Decoder',
+    slug: 'base64-encoder',
+    path: '/tools/base64-encoder',
+    category: 'developer-tools',
+    description: 'Encode or decode Base64 strings and files.',
+    icon: FaLock,
+    comingSoon: true,
+  },
+  {
+    id: 'regex-tester',
+    name: 'Regex Tester',
+    slug: 'regex-tester',
+    path: '/tools/regex-tester',
+    category: 'developer-tools',
+    description: 'Test and debug regular expressions with live matches.',
+    icon: FaMagnifyingGlass,
+    comingSoon: true,
+  },
+  {
+    id: 'code-minifier',
+    name: 'Code Minifier',
+    slug: 'code-minifier',
+    path: '/tools/code-minifier',
+    category: 'developer-tools',
+    description: 'Minify CSS, JavaScript and HTML to reduce file size.',
+    icon: FaBroom,
+    badge: 'new',
+    comingSoon: true,
+  },
+
+  // ---------- Text Tools ----------
+  {
+    id: 'word-counter',
+    name: 'Word Counter',
+    slug: 'word-counter',
+    path: '/tools/word-counter',
+    category: 'text-tools',
+    description: 'Count words, characters, sentences and paragraphs.',
+    icon: FaFont,
+    badge: 'popular',
+    comingSoon: true,
+  },
+  {
+    id: 'case-converter',
+    name: 'Case Converter',
+    slug: 'case-converter',
+    path: '/tools/case-converter',
+    category: 'text-tools',
+    description: 'Convert text between upper, lower, title and sentence case.',
+    icon: FaListOl,
+    comingSoon: true,
+  },
+  {
+    id: 'lorem-ipsum-generator',
+    name: 'Lorem Ipsum Generator',
+    slug: 'lorem-ipsum-generator',
+    path: '/tools/lorem-ipsum-generator',
+    category: 'text-tools',
+    description: 'Generate placeholder text for mockups and designs.',
+    icon: FaFont,
+    comingSoon: true,
+  },
+
+  // ---------- AI Tools ----------
+  {
+    id: 'ai-background-remover',
+    name: 'AI Background Remover',
+    slug: 'ai-background-remover',
+    path: '/tools/ai-background-remover',
+    category: 'ai-tools',
+    description: 'Remove image backgrounds automatically using AI.',
+    icon: FaWandMagicSparkles,
+    badge: 'new',
+    comingSoon: true,
+  },
+  {
+    id: 'ai-image-upscaler',
+    name: 'AI Image Upscaler',
+    slug: 'ai-image-upscaler',
+    path: '/tools/ai-image-upscaler',
+    category: 'ai-tools',
+    description: 'Upscale images to higher resolution with AI.',
+    icon: FaImages,
+    badge: 'new',
+    comingSoon: true,
+  },
+
+  // ---------- Color Tools ----------
+  {
+    id: 'color-picker',
+    name: 'Color Picker',
+    slug: 'color-picker',
+    path: '/tools/color-picker',
+    category: 'color-tools',
+    description: 'Pick colors from an image and get their exact codes.',
+    icon: FaEyeDropper,
+    comingSoon: true,
+  },
+  {
+    id: 'palette-generator',
+    name: 'Palette Generator',
+    slug: 'palette-generator',
+    path: '/tools/palette-generator',
+    category: 'color-tools',
+    description: 'Generate beautiful, harmonious color palettes.',
+    icon: FaPalette,
+    badge: 'popular',
+    comingSoon: true,
+  },
+  {
+    id: 'gradient-generator',
+    name: 'Gradient Generator',
+    slug: 'gradient-generator',
+    path: '/tools/gradient-generator',
+    category: 'color-tools',
+    description: 'Create smooth CSS gradients with a visual editor.',
+    icon: FaPalette,
+    comingSoon: true,
+  },
+
+  // ---------- Security Tools ----------
+  {
+    id: 'password-generator',
+    name: 'Password Generator',
+    slug: 'password-generator',
+    path: '/tools/password-generator',
+    category: 'security-tools',
+    description: 'Generate strong, random and secure passwords.',
+    icon: FaKey,
+    badge: 'popular',
+    comingSoon: true,
+  },
+  {
+    id: 'hash-generator',
+    name: 'Hash Generator',
+    slug: 'hash-generator',
+    path: '/tools/hash-generator',
+    category: 'security-tools',
+    description: 'Generate MD5, SHA-1 and SHA-256 hashes from text.',
+    icon: FaHashtag,
+    comingSoon: true,
+  },
+
+  // ---------- Social Media Tools ----------
+  {
+    id: 'instagram-post-resizer',
+    name: 'Instagram Post Resizer',
+    slug: 'instagram-post-resizer',
+    path: '/tools/instagram-post-resizer',
+    category: 'social-media-tools',
+    description: 'Resize images to fit Instagram posts and stories.',
+    icon: FaInstagram,
+    comingSoon: true,
+  },
+  {
+    id: 'youtube-thumbnail-downloader',
+    name: 'YouTube Thumbnail Downloader',
+    slug: 'youtube-thumbnail-downloader',
+    path: '/tools/youtube-thumbnail-downloader',
+    category: 'social-media-tools',
+    description: 'Download thumbnail images from any YouTube video.',
+    icon: FaYoutube,
+    badge: 'new',
+    comingSoon: true,
+  },
 ]
 
 export function getToolsByCategory(categorySlug) {
   return tools.filter((tool) => tool.category === categorySlug)
 }
 
-export function getCategoryBySlug(slug) {
-  return categories.find((category) => category.slug === slug)
+export function getToolBySlug(slug) {
+  return tools.find((tool) => tool.slug === slug)
+}
+
+export function getFeaturedTools() {
+  return tools.filter((tool) => tool.badge === 'popular')
 }
