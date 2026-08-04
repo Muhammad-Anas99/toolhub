@@ -11,6 +11,7 @@ import { categories } from '../../data/categories.js'
 const NAV_LINKS = [
   { label: 'Blog', to: '/blog' },
   { label: 'About', to: '/about' },
+  { label: 'All Tools', to: '/tools' },
 ]
 
 export default function Navbar() {
