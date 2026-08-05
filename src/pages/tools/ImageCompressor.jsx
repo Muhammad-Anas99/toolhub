@@ -1,14 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
 import ToolLayout from '../../components/tools/ToolLayout.jsx'
-import DropZone from '../../components/tools/DropZone.jsx'
-import FileInfoCard from '../../components/tools/FileInfoCard.jsx'
+import ToolWorkspace from '../../components/tools/ToolWorkspace.jsx'
 import PreviewPanel from '../../components/tools/PreviewPanel.jsx'
 import ProgressBar from '../../components/tools/ProgressBar.jsx'
 import DownloadPanel from '../../components/tools/DownloadPanel.jsx'
-import ErrorMessage from '../../components/tools/ErrorMessage.jsx'
 import Slider from '../../components/ui/Slider.jsx'
 import { useImageUpload } from '../../hooks/useImageUpload.js'
+import { useToolResult } from '../../hooks/useToolResult.js'
 import { compressImage } from '../../lib/imageProcessing.js'
 import { downloadBlob, buildOutputFilename } from '../../lib/downloadBlob.js'
 import { getToolBySlug } from '../../data/tools.js'
@@ -19,29 +17,15 @@ const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 
 export default function ImageCompressor() {
   const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 25 })
+  const { status, result, run, clearResult } = useToolResult()
   const [quality, setQuality] = useState(70)
-  const [status, setStatus] = useState('idle') // idle | processing | done
-  const [result, setResult] = useState(null)
   const debounceRef = useRef(null)
 
-  async function runCompression(currentQuality) {
-    if (!upload.file) return
-    setStatus('processing')
-    upload.setError(null)
-
-    try {
-      const { blob, width, height } = await compressImage(upload.file, {
-        quality: currentQuality / 100,
-      })
-      setResult((previous) => {
-        if (previous?.url) URL.revokeObjectURL(previous.url)
-        return { blob, url: URL.createObjectURL(blob), width, height }
-      })
-      setStatus('done')
-    } catch (error) {
-      upload.setError(error.message || 'Something went wrong while compressing this image.')
-      setStatus('idle')
-    }
+  function runCompression(currentQuality) {
+    run(
+      () => compressImage(upload.file, { quality: currentQuality / 100 }),
+      (error) => upload.setError(error.message || 'Something went wrong while compressing this image.')
+    )
   }
 
   // Re-compress automatically (debounced) whenever the quality slider moves,
@@ -60,75 +44,58 @@ export default function ImageCompressor() {
   }
 
   function handleReset() {
-    if (result?.url) URL.revokeObjectURL(result.url)
-    setResult(null)
-    setStatus('idle')
+    clearResult()
     setQuality(70)
     upload.reset()
   }
 
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs['image-compressor']}>
-      <div className="space-y-6">
-        <AnimatePresence>
-          {upload.error && (
-            <ErrorMessage message={upload.error} onDismiss={() => upload.setError(null)} />
-          )}
-        </AnimatePresence>
-
-        {!upload.file ? (
-          <DropZone
-            dropZoneProps={upload.dropZoneProps}
-            inputProps={upload.inputProps}
-            acceptedTypes={ACCEPTED_TYPES}
-            maxSizeMB={25}
-            isDragActive={upload.isDragActive}
+      <ToolWorkspace
+        upload={upload}
+        acceptedTypes={ACCEPTED_TYPES}
+        maxSizeMB={25}
+        onRemove={handleReset}
+      >
+        <div className="card p-5">
+          <Slider
+            label="Quality"
+            value={quality}
+            onChange={setQuality}
+            min={10}
+            max={95}
+            step={5}
+            valueLabel={`${quality}%`}
           />
-        ) : (
-          <div className="space-y-5">
-            <FileInfoCard file={upload.file} dimensions={upload.dimensions} onRemove={handleReset} />
+          <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">
+            Lower quality means a smaller file. Adjust the slider to preview the trade-off.
+          </p>
+          {!result && (
+            <button
+              type="button"
+              onClick={() => runCompression(quality)}
+              className="btn-primary mt-4 w-full sm:w-auto"
+              disabled={status === 'processing'}
+            >
+              {status === 'processing' ? 'Compressing...' : 'Compress Image'}
+            </button>
+          )}
+        </div>
 
-            <div className="card p-5">
-              <Slider
-                label="Quality"
-                value={quality}
-                onChange={setQuality}
-                min={10}
-                max={95}
-                step={5}
-                valueLabel={`${quality}%`}
-              />
-              <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">
-                Lower quality means a smaller file. Adjust the slider to preview the trade-off.
-              </p>
-              {!result && (
-                <button
-                  type="button"
-                  onClick={() => runCompression(quality)}
-                  className="btn-primary mt-4 w-full sm:w-auto"
-                  disabled={status === 'processing'}
-                >
-                  {status === 'processing' ? 'Compressing...' : 'Compress Image'}
-                </button>
-              )}
-            </div>
+        {status === 'processing' && !result && <ProgressBar label="Compressing..." />}
 
-            {status === 'processing' && !result && <ProgressBar label="Compressing..." />}
-
-            {result && (
-              <>
-                <PreviewPanel before={upload.previewUrl} after={result.url} afterLabel="Compressed" />
-                <DownloadPanel
-                  originalSize={upload.file.size}
-                  outputSize={result.blob.size}
-                  onDownload={handleDownload}
-                  onReset={handleReset}
-                />
-              </>
-            )}
-          </div>
+        {result && (
+          <>
+            <PreviewPanel before={upload.previewUrl} after={result.url} afterLabel="Compressed" />
+            <DownloadPanel
+              originalSize={upload.file.size}
+              outputSize={result.blob.size}
+              onDownload={handleDownload}
+              onReset={handleReset}
+            />
+          </>
         )}
-      </div>
+      </ToolWorkspace>
     </ToolLayout>
   )
 }

@@ -50,7 +50,3 @@ export function getRecentPosts(count = 3) {
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, count)
 }
-
-export function getPostBySlug(slug) {
-  return blogPosts.find((post) => post.slug === slug)
-}

@@ -9,8 +9,10 @@ import MegaMenu from './MegaMenu.jsx'
 import { categories } from '../../data/categories.js'
 
 const NAV_LINKS = [
+  { label: 'All Tools', to: '/tools' },
   { label: 'Blog', to: '/blog' },
   { label: 'About', to: '/about' },
+  { label: 'Contact', to: '/contact' }
 ]
 
 export default function Navbar() {
@@ -55,7 +57,10 @@ export default function Navbar() {
             className="flex items-center gap-2"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-sm font-bold text-white">
+            <span
+              aria-hidden="true"
+              className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-sm font-bold text-white"
+            >
               T
             </span>
             <span className="text-lg font-bold text-slate-900 dark:text-white">ToolHub</span>

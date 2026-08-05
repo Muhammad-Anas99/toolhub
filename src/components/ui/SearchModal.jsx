@@ -8,19 +8,46 @@ import { tools } from '../../data/tools.js'
 export default function SearchModal({ isOpen, onClose }) {
   const [query, setQuery] = useState('')
   const inputRef = useRef(null)
+  const dialogRef = useRef(null)
+  const previouslyFocusedRef = useRef(null)
 
   useEffect(() => {
     if (isOpen) {
+      previouslyFocusedRef.current = document.activeElement
       setQuery('')
       // Focus the input after the open animation starts.
       const timer = setTimeout(() => inputRef.current?.focus(), 50)
       return () => clearTimeout(timer)
     }
+    // Return focus to whatever triggered the modal (e.g. the navbar search
+    // button) once it closes, so keyboard users don't lose their place.
+    previouslyFocusedRef.current?.focus?.()
   }, [isOpen])
 
   useEffect(() => {
     function handleKeyDown(event) {
-      if (event.key === 'Escape') onClose()
+      if (event.key === 'Escape') {
+        onClose()
+        return
+      }
+
+      // Basic focus trap: keep Tab/Shift+Tab cycling within the dialog.
+      if (event.key === 'Tab' && dialogRef.current) {
+        const focusable = dialogRef.current.querySelectorAll(
+          'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])'
+        )
+        if (focusable.length === 0) return
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault()
+          last.focus()
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault()
+          first.focus()
+        }
+      }
     }
     if (isOpen) {
       document.addEventListener('keydown', handleKeyDown)
@@ -65,6 +92,7 @@ export default function SearchModal({ isOpen, onClose }) {
             role="dialog"
             aria-modal="true"
             aria-label="Search tools"
+            ref={dialogRef}
             className="fixed left-1/2 top-24 z-[70] w-[92vw] max-w-xl -translate-x-1/2"
           >
             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900">

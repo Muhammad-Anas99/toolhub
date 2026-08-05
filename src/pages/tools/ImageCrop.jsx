@@ -1,16 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
 import { HiOutlineArrowUturnLeft, HiOutlineArrowUturnRight } from 'react-icons/hi2'
 import ToolLayout from '../../components/tools/ToolLayout.jsx'
-import DropZone from '../../components/tools/DropZone.jsx'
-import FileInfoCard from '../../components/tools/FileInfoCard.jsx'
-import CropStage from '../../components/tools/CropStage.jsx'
+import ToolWorkspace from '../../components/tools/ToolWorkspace.jsx'
+import CropStage from '../../components/tools/image/CropStage.jsx'
 import PreviewPanel from '../../components/tools/PreviewPanel.jsx'
 import ProgressBar from '../../components/tools/ProgressBar.jsx'
 import DownloadPanel from '../../components/tools/DownloadPanel.jsx'
-import ErrorMessage from '../../components/tools/ErrorMessage.jsx'
 import Slider from '../../components/ui/Slider.jsx'
 import { useImageUpload } from '../../hooks/useImageUpload.js'
+import { useToolResult } from '../../hooks/useToolResult.js'
 import { rotateFlipImage, cropImage } from '../../lib/imageProcessing.js'
 import { downloadBlob, buildOutputFilename } from '../../lib/downloadBlob.js'
 import { getToolBySlug } from '../../data/tools.js'
@@ -23,14 +21,13 @@ const STAGE_MAX_HEIGHT = 420
 
 export default function ImageCrop() {
   const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 25 })
+  const { status, result, run, clearResult, setStatus } = useToolResult()
 
   // The "working" image is the current source for cropping — starts as the
   // uploaded file and is replaced whenever the user rotates before cropping.
   const [working, setWorking] = useState(null) // { blob, url, width, height }
   const [zoom, setZoom] = useState(1)
   const [box, setBox] = useState(null)
-  const [status, setStatus] = useState('idle') // idle | rotating | cropping | done
-  const [result, setResult] = useState(null)
 
   useEffect(() => {
     if (upload.file && upload.previewUrl && upload.dimensions) {
@@ -70,7 +67,7 @@ export default function ImageCrop() {
 
   async function handleRotate(direction) {
     if (!working) return
-    setStatus('rotating')
+    setStatus('processing')
     upload.setError(null)
 
     try {
@@ -88,7 +85,7 @@ export default function ImageCrop() {
     }
   }
 
-  async function handleApplyCrop() {
+  function handleApplyCrop() {
     if (!working || !box) return
     const scale = baseScale * zoom
     const crop = {
@@ -98,132 +95,108 @@ export default function ImageCrop() {
       height: Math.round(box.height / scale),
     }
 
-    setStatus('cropping')
-    upload.setError(null)
-
-    try {
-      const { blob, width, height } = await cropImage(working.blob, { crop })
-      setResult((previous) => {
-        if (previous?.url) URL.revokeObjectURL(previous.url)
-        return { blob, url: URL.createObjectURL(blob), width, height }
-      })
-      setStatus('done')
-    } catch (error) {
-      upload.setError(error.message || 'Something went wrong while cropping this image.')
-      setStatus('idle')
-    }
+    run(
+      () => cropImage(working.blob, { crop }),
+      (error) => upload.setError(error.message || 'Something went wrong while cropping this image.')
+    )
   }
 
   function handleDownload() {
     if (!result) return
-    downloadBlob(result.blob, buildOutputFilename(upload.file.name, upload.file.name.split('.').pop(), '-cropped'))
+    downloadBlob(
+      result.blob,
+      buildOutputFilename(upload.file.name, upload.file.name.split('.').pop(), '-cropped')
+    )
   }
 
   function handleReset() {
-    if (result?.url) URL.revokeObjectURL(result.url)
-    setResult(null)
-    setStatus('idle')
+    clearResult()
     setZoom(1)
     upload.reset()
   }
 
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs['image-crop']}>
-      <div className="space-y-6">
-        <AnimatePresence>
-          {upload.error && (
-            <ErrorMessage message={upload.error} onDismiss={() => upload.setError(null)} />
-          )}
-        </AnimatePresence>
-
-        {!upload.file ? (
-          <DropZone
-            dropZoneProps={upload.dropZoneProps}
-            inputProps={upload.inputProps}
-            acceptedTypes={ACCEPTED_TYPES}
-            maxSizeMB={25}
-            isDragActive={upload.isDragActive}
-          />
-        ) : (
-          <div className="space-y-5">
-            <FileInfoCard file={upload.file} dimensions={upload.dimensions} onRemove={handleReset} />
-
-            {!result && working && box && (
-              <>
-                <div className="card space-y-4 p-5">
-                  <div className="flex flex-wrap items-center justify-center gap-3">
-                    <button
-                      type="button"
-                      onClick={() => handleRotate('left')}
-                      disabled={status === 'rotating'}
-                      className="btn-secondary"
-                    >
-                      <HiOutlineArrowUturnLeft className="h-4 w-4" />
-                      Rotate Left
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleRotate('right')}
-                      disabled={status === 'rotating'}
-                      className="btn-secondary"
-                    >
-                      <HiOutlineArrowUturnRight className="h-4 w-4" />
-                      Rotate Right
-                    </button>
-                  </div>
-
-                  <Slider
-                    label="Zoom"
-                    value={zoom}
-                    onChange={setZoom}
-                    min={1}
-                    max={3}
-                    step={0.1}
-                    valueLabel={`${zoom.toFixed(1)}x`}
-                  />
-                </div>
-
-                {status === 'rotating' ? (
-                  <ProgressBar label="Rotating..." />
-                ) : (
-                  <CropStage
-                    imageUrl={working.url}
-                    displayWidth={displayWidth}
-                    displayHeight={displayHeight}
-                    box={box}
-                    onBoxChange={setBox}
-                  />
-                )}
-
+      <ToolWorkspace
+        upload={upload}
+        acceptedTypes={ACCEPTED_TYPES}
+        maxSizeMB={25}
+        onRemove={handleReset}
+      >
+        {!result && working && box && (
+          <>
+            <div className="card space-y-4 p-5">
+              <div className="flex flex-wrap items-center justify-center gap-3">
                 <button
                   type="button"
-                  onClick={handleApplyCrop}
-                  disabled={status === 'cropping'}
-                  className="btn-primary w-full sm:w-auto"
+                  onClick={() => handleRotate('left')}
+                  disabled={status === 'processing'}
+                  className="btn-secondary"
                 >
-                  {status === 'cropping' ? 'Cropping...' : 'Apply Crop'}
+                  <HiOutlineArrowUturnLeft className="h-4 w-4" />
+                  Rotate Left
                 </button>
-              </>
+                <button
+                  type="button"
+                  onClick={() => handleRotate('right')}
+                  disabled={status === 'processing'}
+                  className="btn-secondary"
+                >
+                  <HiOutlineArrowUturnRight className="h-4 w-4" />
+                  Rotate Right
+                </button>
+              </div>
+
+              <Slider
+                label="Zoom"
+                value={zoom}
+                onChange={setZoom}
+                min={1}
+                max={3}
+                step={0.1}
+                valueLabel={`${zoom.toFixed(1)}x`}
+              />
+            </div>
+
+            {status === 'processing' ? (
+              <ProgressBar label="Processing..." />
+            ) : (
+              <CropStage
+                imageUrl={working.url}
+                displayWidth={displayWidth}
+                displayHeight={displayHeight}
+                box={box}
+                onBoxChange={setBox}
+              />
             )}
 
-            {result && (
-              <>
-                <PreviewPanel before={upload.previewUrl} after={result.url} afterLabel="Cropped" />
-                <DownloadPanel
-                  originalSize={upload.file.size}
-                  outputSize={result.blob.size}
-                  onDownload={handleDownload}
-                  onReset={handleReset}
-                >
-                  <p className="text-xs text-emerald-700 dark:text-emerald-400">
-                    Cropped to {result.width} &times; {result.height}px
-                  </p>
-                </DownloadPanel>
-              </>
-            )}
-          </div>
+            <button
+              type="button"
+              onClick={handleApplyCrop}
+              disabled={status === 'processing'}
+              className="btn-primary w-full sm:w-auto"
+            >
+              {status === 'processing' ? 'Cropping...' : 'Apply Crop'}
+            </button>
+          </>
         )}
-      </div>
+
+        {result && (
+          <>
+            <PreviewPanel before={upload.previewUrl} after={result.url} afterLabel="Cropped" />
+            <DownloadPanel
+              originalSize={upload.file.size}
+              outputSize={result.blob.size}
+              onDownload={handleDownload}
+              onReset={handleReset}
+            >
+              <p className="text-xs text-emerald-700 dark:text-emerald-400">
+                Cropped to {result.width} &times; {result.height}px
+              </p>
+            </DownloadPanel>
+          </>
+        )}
+      </ToolWorkspace>
     </ToolLayout>
   )
 }

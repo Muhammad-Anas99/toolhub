@@ -11,13 +11,3 @@ export function formatBytes(bytes, decimals = 1) {
 
   return `${value.toFixed(exponent === 0 ? 0 : decimals)} ${units[exponent]}`
 }
-
-/**
- * Return a "X% smaller" style string comparing an original and new byte size.
- */
-export function formatSavings(originalBytes, newBytes) {
-  if (!originalBytes) return '0%'
-  const diff = originalBytes - newBytes
-  const percent = (diff / originalBytes) * 100
-  return `${percent.toFixed(1)}%`
-}

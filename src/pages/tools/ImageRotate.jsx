@@ -1,6 +1,6 @@
 import React from 'react'
 import ToolLayout from '../../components/tools/ToolLayout.jsx'
-import RotateFlipTool from '../../components/tools/RotateFlipTool.jsx'
+import RotateFlipTool from '../../components/tools/image/RotateFlipTool.jsx'
 import { getToolBySlug } from '../../data/tools.js'
 import { toolFaqs } from '../../data/toolFaq.js'
 
