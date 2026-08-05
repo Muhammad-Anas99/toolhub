@@ -10,12 +10,37 @@ import PrivacyPolicy from './pages/PrivacyPolicy.jsx'
 import Terms from './pages/Terms.jsx'
 import NotFound from './pages/NotFound.jsx'
 
+// Image tools (Phase 3 - fully working, browser-based)
+import JpgToPng from './pages/tools/JpgToPng.jsx'
+import PngToJpg from './pages/tools/PngToJpg.jsx'
+import WebpToPng from './pages/tools/WebpToPng.jsx'
+import WebpToJpg from './pages/tools/WebpToJpg.jsx'
+import ConvertToWebp from './pages/tools/ConvertToWebp.jsx'
+import ImageCompressor from './pages/tools/ImageCompressor.jsx'
+import ImageResizer from './pages/tools/ImageResizer.jsx'
+import ImageCrop from './pages/tools/ImageCrop.jsx'
+import ImageRotate from './pages/tools/ImageRotate.jsx'
+import FlipImage from './pages/tools/FlipImage.jsx'
+
 export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/tools" element={<Tools />} />
+
+        {/* Image tools */}
+        <Route path="/tools/jpg-to-png" element={<JpgToPng />} />
+        <Route path="/tools/png-to-jpg" element={<PngToJpg />} />
+        <Route path="/tools/webp-to-png" element={<WebpToPng />} />
+        <Route path="/tools/webp-to-jpg" element={<WebpToJpg />} />
+        <Route path="/tools/convert-to-webp" element={<ConvertToWebp />} />
+        <Route path="/tools/image-compressor" element={<ImageCompressor />} />
+        <Route path="/tools/image-resizer" element={<ImageResizer />} />
+        <Route path="/tools/image-crop" element={<ImageCrop />} />
+        <Route path="/tools/image-rotate" element={<ImageRotate />} />
+        <Route path="/tools/flip-image" element={<FlipImage />} />
+
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<Blog />} />

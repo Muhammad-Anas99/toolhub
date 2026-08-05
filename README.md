@@ -37,37 +37,44 @@ toolhub/
 │   │   │   ├── MegaMenu.jsx
 │   │   │   ├── Footer.jsx
 │   │   │   └── Layout.jsx
+│   │   ├── tools/
+│   │   │   ├── ToolLayout.jsx        (shell every tool page uses)
+│   │   │   ├── Breadcrumb.jsx
+│   │   │   ├── ToolHeader.jsx
+│   │   │   ├── DropZone.jsx          (drag & drop + click upload)
+│   │   │   ├── FileInfoCard.jsx
+│   │   │   ├── PreviewPanel.jsx      (single or before/after preview)
+│   │   │   ├── ProgressBar.jsx
+│   │   │   ├── DownloadPanel.jsx
+│   │   │   ├── ErrorMessage.jsx
+│   │   │   ├── RelatedTools.jsx
+│   │   │   ├── ToolFAQSection.jsx
+│   │   │   ├── ImageConverterTool.jsx (generic core: powers 5 format-conversion tools)
+│   │   │   ├── RotateFlipTool.jsx     (shared core: powers Rotate + Flip)
+│   │   │   └── CropStage.jsx          (draggable/resizable crop box)
 │   │   └── ui/
-│   │       ├── Container.jsx
-│   │       ├── ThemeToggle.jsx
-│   │       ├── ToolCard.jsx
-│   │       ├── CategoryCard.jsx
-│   │       ├── StatCounter.jsx
-│   │       ├── TestimonialCard.jsx
-│   │       ├── BlogCard.jsx
-│   │       ├── FAQAccordion.jsx
-│   │       ├── SearchModal.jsx
-│   │       └── SEO.jsx
+│   │       ├── Container.jsx, ThemeToggle.jsx, ToolCard.jsx, CategoryCard.jsx
+│   │       ├── StatCounter.jsx, TestimonialCard.jsx, BlogCard.jsx
+│   │       ├── FAQAccordion.jsx, SearchModal.jsx, Slider.jsx, SEO.jsx
 │   ├── context/
 │   │   └── ThemeContext.jsx
+│   ├── hooks/
+│   │   └── useImageUpload.js         (shared upload/drag-drop/validation state)
+│   ├── lib/
+│   │   ├── imageProcessing.js        (canvas-based convert/compress/resize/rotate/crop)
+│   │   ├── fileValidation.js
+│   │   ├── formatBytes.js
+│   │   └── downloadBlob.js
 │   ├── data/
-│   │   ├── tools.js
-│   │   ├── categories.js
-│   │   ├── blog.js
-│   │   ├── testimonials.js
-│   │   └── faq.js
+│   │   ├── tools.js, categories.js, blog.js, testimonials.js, faq.js, toolFaq.js
 │   ├── pages/
-│   │   ├── Home.jsx
-│   │   ├── Tools.jsx
-│   │   ├── About.jsx
-│   │   ├── Contact.jsx
-│   │   ├── Blog.jsx
-│   │   ├── PrivacyPolicy.jsx
-│   │   ├── Terms.jsx
-│   │   └── NotFound.jsx
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── index.css
+│   │   ├── Home.jsx, Tools.jsx, About.jsx, Contact.jsx, Blog.jsx
+│   │   ├── PrivacyPolicy.jsx, Terms.jsx, NotFound.jsx
+│   │   └── tools/
+│   │       ├── JpgToPng.jsx, PngToJpg.jsx, WebpToPng.jsx, WebpToJpg.jsx
+│   │       ├── ConvertToWebp.jsx, ImageCompressor.jsx, ImageResizer.jsx
+│   │       └── ImageCrop.jsx, ImageRotate.jsx, FlipImage.jsx
+│   ├── App.jsx, main.jsx, index.css
 ├── index.html
 ├── tailwind.config.js
 ├── postcss.config.js
@@ -77,9 +84,12 @@ toolhub/
 
 ## Adding a new tool
 
-1. Add an entry to the `tools` array in `src/data/tools.js` (name, slug, path, category, description, icon, optional `badge: 'popular' | 'new'`).
-2. Once the tool's page is built, remove `comingSoon: true` from its entry so its card becomes clickable.
-3. Create the tool's page component under `src/pages/tools/` and register its route in `src/App.jsx`.
+1. Add an entry to the `tools` array in `src/data/tools.js` (name, slug, path, category, description, icon, optional `badge`, `comingSoon: false` once it's built).
+2. Add FAQ content for it in `src/data/toolFaq.js`, keyed by the tool's slug.
+3. Build the tool's page under `src/pages/tools/`, wrapping it in `<ToolLayout tool={tool} faqItems={toolFaqs['your-slug']}>`. Reuse `DropZone`, `FileInfoCard`, `PreviewPanel`, `ProgressBar`, `DownloadPanel`, `ErrorMessage` from `src/components/tools/`, and the processing helpers in `src/lib/imageProcessing.js` (add a new exported function there if the transform doesn't exist yet).
+4. Register the route in `src/App.jsx`.
+
+If the new tool is another format conversion, it likely doesn't need a new page at all — reuse `ImageConverterTool` with different `acceptedTypes`/`outputMimeType` props, the way the 5 conversion tools do.
 
 ## Adding a new category
 
@@ -89,6 +99,8 @@ Add an entry to the `categories` array in `src/data/categories.js`, including an
 
 **Phase 1 (complete):** Frontend scaffold, routing, layout, dark/light mode, homepage, and tools listing page.
 
-**Phase 2 (complete):** Premium SaaS-style redesign — categories mega menu, command-palette search (⌘K), redesigned homepage (hero, featured tools, categories, features, stats, testimonials, FAQ, blog preview), improved Tools page with URL-synced filters, About/Contact/Blog/Privacy Policy/Terms pages, upgraded footer.
+**Phase 2 (complete):** Premium SaaS-style redesign — categories mega menu, command-palette search (⌘K), redesigned homepage, improved Tools page with URL-synced filters, About/Contact/Blog/Privacy Policy/Terms pages, upgraded footer.
 
-**Phase 3 (upcoming):** Express backend, MongoDB, authentication, dashboards, and the actual tool logic (currently all tools are marked `comingSoon` in the data layer and are non-clickable in the UI).
+**Phase 3 (complete):** All 10 image tools are fully working, entirely in the browser via the Canvas API — no backend involved. JPG→PNG, PNG→JPG, WEBP→PNG, WEBP→JPG, Convert to WEBP, Image Compressor, Image Resizer, Image Cropper, Image Rotator, Flip Image. Built on a reusable tool architecture (`ToolLayout`, `DropZone`, `PreviewPanel`, `DownloadPanel`, etc.) so future tools — PDF, developer, text, AI, color, security, social — can be added with minimal new code.
+
+**Next up:** Express backend, MongoDB, authentication, and dashboards (explicitly out of scope for Phase 3).
