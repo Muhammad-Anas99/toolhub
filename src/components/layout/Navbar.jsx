@@ -9,10 +9,8 @@ import MegaMenu from './MegaMenu.jsx'
 import { categories } from '../../data/categories.js'
 
 const NAV_LINKS = [
-  { label: 'All Tools', to: '/tools' },
   { label: 'Blog', to: '/blog' },
   { label: 'About', to: '/about' },
-  { label: 'Contact', to: '/contact' }
 ]
 
 export default function Navbar() {

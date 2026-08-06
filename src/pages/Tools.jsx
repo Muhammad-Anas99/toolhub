@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2'
 import Container from '../components/ui/Container.jsx'
 import ToolCard from '../components/ui/ToolCard.jsx'
 import SEO from '../components/ui/SEO.jsx'
-import { tools } from '../data/tools.js'
-import { categories, getCategoryBySlug } from '../data/categories.js'
+import { useTools } from '../hooks/useTools.js'
+import { useCategories } from '../hooks/useCategories.js'
 
 export default function Tools() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -40,21 +40,19 @@ export default function Tools() {
     updateFilters(query, slug)
   }
 
-  const filteredTools = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase()
+  // Data now comes from the API (src/hooks/useTools.js, useCategories.js),
+  // with an automatic fallback to the local data files in src/data/ if the
+  // backend isn't reachable — see each hook for details. Filtering by
+  // category/search happens inside the hook either way, so this page
+  // doesn't need to know which source is currently active.
+  const { tools: filteredTools, loading: toolsLoading } = useTools({
+    category: activeCategory,
+    search: query,
+  })
+  const { categories } = useCategories()
 
-    return tools.filter((tool) => {
-      const matchesCategory = activeCategory === 'all' || tool.category === activeCategory
-      const matchesQuery =
-        normalizedQuery.length === 0 ||
-        tool.name.toLowerCase().includes(normalizedQuery) ||
-        tool.description.toLowerCase().includes(normalizedQuery)
-
-      return matchesCategory && matchesQuery
-    })
-  }, [query, activeCategory])
-
-  const activeCategoryData = activeCategory !== 'all' ? getCategoryBySlug(activeCategory) : null
+  const activeCategoryData =
+    activeCategory !== 'all' ? categories.find((category) => category.slug === activeCategory) : null
 
   return (
     <>
@@ -119,7 +117,9 @@ export default function Tools() {
         </div>
 
         <p className="mt-6 text-center text-sm text-slate-400 dark:text-slate-500">
-          {filteredTools.length} {filteredTools.length === 1 ? 'tool' : 'tools'} found
+          {toolsLoading
+            ? 'Loading tools...'
+            : `${filteredTools.length} ${filteredTools.length === 1 ? 'tool' : 'tools'} found`}
         </p>
 
         <div className="mt-8">
@@ -130,12 +130,14 @@ export default function Tools() {
               ))}
             </div>
           ) : (
-            <div className="mx-auto max-w-md py-16 text-center">
-              <p className="text-slate-500 dark:text-slate-400">
-                No tools found{query ? ` for "${query}"` : ''}. Try a different search term or
-                category.
-              </p>
-            </div>
+            !toolsLoading && (
+              <div className="mx-auto max-w-md py-16 text-center">
+                <p className="text-slate-500 dark:text-slate-400">
+                  No tools found{query ? ` for "${query}"` : ''}. Try a different search term or
+                  category.
+                </p>
+              </div>
+            )
           )}
         </div>
       </Container>

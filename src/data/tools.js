@@ -366,7 +366,3 @@ export function getToolsByCategory(categorySlug) {
 export function getToolBySlug(slug) {
   return tools.find((tool) => tool.slug === slug)
 }
-
-export function getFeaturedTools() {
-  return tools.filter((tool) => tool.badge === 'popular')
-}

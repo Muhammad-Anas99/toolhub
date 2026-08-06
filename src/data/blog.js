@@ -44,9 +44,3 @@ export const blogPosts = [
     author: 'ToolHub Team',
   },
 ]
-
-export function getRecentPosts(count = 3) {
-  return [...blogPosts]
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, count)
-}

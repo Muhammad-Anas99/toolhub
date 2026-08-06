@@ -19,11 +19,11 @@ import TestimonialCard from '../components/ui/TestimonialCard.jsx'
 import BlogCard from '../components/ui/BlogCard.jsx'
 import FAQAccordion from '../components/ui/FAQAccordion.jsx'
 import SEO from '../components/ui/SEO.jsx'
-import { tools, getFeaturedTools } from '../data/tools.js'
-import { categories } from '../data/categories.js'
+import { useTools } from '../hooks/useTools.js'
+import { useCategories } from '../hooks/useCategories.js'
+import { useBlogPosts } from '../hooks/useBlogPosts.js'
 import { testimonials } from '../data/testimonials.js'
 import { faqs } from '../data/faq.js'
-import { getRecentPosts } from '../data/blog.js'
 
 const FEATURES = [
   {
@@ -61,8 +61,16 @@ const FEATURES = [
 export default function Home() {
   const navigate = useNavigate()
   const [heroQuery, setHeroQuery] = useState('')
-  const featuredTools = getFeaturedTools().slice(0, 6)
-  const recentPosts = getRecentPosts(3)
+
+  // Data comes from the API (src/hooks/), with an automatic fallback to
+  // the local data files in src/data/ if the backend isn't reachable —
+  // see each hook for details.
+  const { tools } = useTools()
+  const { categories } = useCategories()
+  const { posts: blogPosts } = useBlogPosts()
+
+  const featuredTools = tools.filter((tool) => tool.badge === 'popular').slice(0, 6)
+  const recentPosts = blogPosts.slice(0, 3)
 
   function handleHeroSearch(event) {
     event.preventDefault()
