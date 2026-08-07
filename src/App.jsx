@@ -2,9 +2,11 @@ import React, { Suspense, lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/layout/Layout.jsx'
 import PageLoader from './components/ui/PageLoader.jsx'
+import ProtectedRoute from './components/auth/ProtectedRoute.jsx'
+import DashboardLayout from './components/dashboard/DashboardLayout.jsx'
 
 // Route-level code splitting: each page is only downloaded when it's
-// visited, instead of bundling all 17 pages into a single initial chunk.
+// visited, instead of bundling all pages into a single initial chunk.
 const Home = lazy(() => import('./pages/Home.jsx'))
 const Tools = lazy(() => import('./pages/Tools.jsx'))
 const About = lazy(() => import('./pages/About.jsx'))
@@ -25,6 +27,22 @@ const ImageResizer = lazy(() => import('./pages/tools/ImageResizer.jsx'))
 const ImageCrop = lazy(() => import('./pages/tools/ImageCrop.jsx'))
 const ImageRotate = lazy(() => import('./pages/tools/ImageRotate.jsx'))
 const FlipImage = lazy(() => import('./pages/tools/FlipImage.jsx'))
+
+// Auth (Phase 5)
+const Login = lazy(() => import('./pages/auth/Login.jsx'))
+const Register = lazy(() => import('./pages/auth/Register.jsx'))
+const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword.jsx'))
+const ResetPassword = lazy(() => import('./pages/auth/ResetPassword.jsx'))
+const VerifyEmail = lazy(() => import('./pages/auth/VerifyEmail.jsx'))
+
+// User dashboard (Phase 5)
+const Dashboard = lazy(() => import('./pages/dashboard/Dashboard.jsx'))
+const Profile = lazy(() => import('./pages/dashboard/Profile.jsx'))
+const Favorites = lazy(() => import('./pages/dashboard/Favorites.jsx'))
+const History = lazy(() => import('./pages/dashboard/History.jsx'))
+const Downloads = lazy(() => import('./pages/dashboard/Downloads.jsx'))
+const Settings = lazy(() => import('./pages/dashboard/Settings.jsx'))
+const Subscription = lazy(() => import('./pages/dashboard/Subscription.jsx'))
 
 export default function App() {
   return (
@@ -51,6 +69,30 @@ export default function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<Terms />} />
+
+          {/* Auth */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
+
+          {/* User dashboard - requires authentication */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<DashboardLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="favorites" element={<Favorites />} />
+              <Route path="history" element={<History />} />
+              <Route path="downloads" element={<Downloads />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="subscription" element={<Subscription />} />
+            </Route>
+          </Route>
+
+          {/* Admin dashboard routes land here next session — the backend
+              endpoints (protect + authorize('admin')) are already live. */}
+
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

@@ -22,9 +22,9 @@ const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
  * and 90/180/270 shortcuts; `mode="flip"` surfaces horizontal/vertical
  * flip. Both share the same canvas transform logic underneath.
  */
-export default function RotateFlipTool({ mode }) {
+export default function RotateFlipTool({ mode, toolSlug, toolName, category }) {
   const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 25 })
-  const { status, result, run, clearResult } = useToolResult()
+  const { status, result, run, clearResult } = useToolResult({ toolSlug, toolName, category })
   const [degrees, setDegrees] = useState(0)
   const [flipHorizontal, setFlipHorizontal] = useState(false)
   const [flipVertical, setFlipVertical] = useState(false)
@@ -166,4 +166,7 @@ export default function RotateFlipTool({ mode }) {
 
 RotateFlipTool.propTypes = {
   mode: PropTypes.oneOf(['rotate', 'flip']).isRequired,
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

@@ -17,7 +17,7 @@ const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 
 export default function ImageResizer() {
   const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 25 })
-  const { status, result, run, clearResult } = useToolResult()
+  const { status, result, run, clearResult } = useToolResult({ toolSlug: tool.slug, toolName: tool.name, category: tool.category })
   const [mode, setMode] = useState('pixels') // pixels | percentage
   const [width, setWidth] = useState('')
   const [height, setHeight] = useState('')

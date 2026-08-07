@@ -9,7 +9,7 @@ const tool = getToolBySlug('flip-image')
 export default function FlipImage() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs['flip-image']}>
-      <RotateFlipTool mode="flip" />
+      <RotateFlipTool mode="flip" toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

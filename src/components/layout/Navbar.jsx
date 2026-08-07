@@ -6,7 +6,9 @@ import Container from '../ui/Container.jsx'
 import ThemeToggle from '../ui/ThemeToggle.jsx'
 import SearchModal from '../ui/SearchModal.jsx'
 import MegaMenu from './MegaMenu.jsx'
+import UserMenu from './UserMenu.jsx'
 import { categories } from '../../data/categories.js'
+import { useAuth } from '../../context/AuthContext.jsx'
 
 const NAV_LINKS = [
   { label: 'Blog', to: '/blog' },
@@ -14,6 +16,7 @@ const NAV_LINKS = [
 ]
 
 export default function Navbar() {
+  const { isAuthenticated } = useAuth()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMobileCategoriesOpen, setIsMobileCategoriesOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -86,6 +89,21 @@ export default function Navbar() {
               </kbd>
             </button>
             <ThemeToggle />
+            {isAuthenticated ? (
+              <UserMenu />
+            ) : (
+              <div className="flex items-center gap-2">
+                <Link
+                  to="/login"
+                  className="px-3 py-1.5 text-sm font-medium text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                >
+                  Sign in
+                </Link>
+                <Link to="/register" className="btn-primary px-3.5 py-1.5 text-sm">
+                  Sign up
+                </Link>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-1 md:hidden">
@@ -177,6 +195,35 @@ export default function Navbar() {
                   {link.label}
                 </NavLink>
               ))}
+
+              <div className="my-1 border-t border-slate-200 dark:border-slate-800" />
+
+              {isAuthenticated ? (
+                <NavLink
+                  to="/dashboard"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
+                >
+                  Dashboard
+                </NavLink>
+              ) : (
+                <>
+                  <NavLink
+                    to="/login"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
+                  >
+                    Sign in
+                  </NavLink>
+                  <NavLink
+                    to="/register"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="rounded-lg px-3 py-2.5 text-sm font-medium text-brand-600 hover:bg-brand-50 dark:text-brand-400 dark:hover:bg-brand-950"
+                  >
+                    Sign up
+                  </NavLink>
+                </>
+              )}
             </Container>
           </motion.div>
         )}

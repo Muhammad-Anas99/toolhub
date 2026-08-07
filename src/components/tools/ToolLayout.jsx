@@ -34,7 +34,7 @@ export default function ToolLayout({ tool, children, faqItems }) {
         />
 
         <div className="mt-8">
-          <ToolHeader icon={tool.icon} title={tool.name} description={tool.description} />
+          <ToolHeader icon={tool.icon} title={tool.name} description={tool.description} toolSlug={tool.slug} />
         </div>
 
         <div className="mx-auto mt-10 max-w-3xl">{children}</div>

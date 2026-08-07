@@ -13,6 +13,9 @@ export default function WebpToJpg() {
         acceptedTypes={['image/webp']}
         outputMimeType="image/jpeg"
         outputExtension="jpg"
+        toolSlug={tool.slug}
+        toolName={tool.name}
+        category={tool.category}
       />
     </ToolLayout>
   )

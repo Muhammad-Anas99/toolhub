@@ -3,6 +3,7 @@ import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import compression from 'compression'
+import cookieParser from 'cookie-parser'
 import { config } from './config/env.js'
 import { requestLogger } from './middleware/logger.js'
 import { apiRateLimiter } from './middleware/rateLimiter.js'
@@ -30,14 +31,16 @@ export function createApp() {
       // preview URL, and without this, every preview would be silently
       // blocked by CORS even though production works fine.
       //
-      // Tradeoff, stated plainly: this accepts requests from *any*
-      // *.vercel.app site, not just your own preview deployments, since
-      // there's no way to know your project's preview URL pattern from
-      // here. That's an acceptable loosening for a public read API with
-      // no cookie-based auth yet — but once Phase 5 adds authentication,
-      // replace the regex below with your actual project's preview
-      // pattern (e.g. /^toolhub-[a-z0-9-]+-your-team\.vercel\.app$/,
-      // visible in your Vercel dashboard) instead of the open wildcard.
+      // Tradeoff, stated plainly: `credentials: true` below means the
+      // refresh-token cookie (Phase 5 auth) is sent cross-origin to any
+      // allowed origin, and this regex accepts requests from *any*
+      // *.vercel.app site, not just your own preview deployments — there's
+      // no way to know your project's specific preview URL pattern from
+      // here. Once you know your real Vercel team/project slug, replace
+      // the regex below with something like
+      // /^toolhub-[a-z0-9-]+-your-team\.vercel\.app$/ instead of the open
+      // wildcard, to stop other Vercel-hosted sites from being able to
+      // make credentialed requests against this API.
       origin(origin, callback) {
         const isAllowed =
           !origin || // same-origin / non-browser requests (e.g. curl, health checks)
@@ -55,6 +58,7 @@ export function createApp() {
   // --- Body parsing ----------------------------------------------------------
   app.use(express.json({ limit: '2mb' }))
   app.use(express.urlencoded({ extended: true, limit: '2mb' }))
+  app.use(cookieParser())
   app.use(sanitizeInput)
 
   // --- Rate limiting (API routes only) ---------------------------------------

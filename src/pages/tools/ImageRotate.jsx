@@ -9,7 +9,7 @@ const tool = getToolBySlug('image-rotate')
 export default function ImageRotate() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs['image-rotate']}>
-      <RotateFlipTool mode="rotate" />
+      <RotateFlipTool mode="rotate" toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

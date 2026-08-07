@@ -66,7 +66,9 @@ Set these environment variables on this project (Settings → Environment Variab
 | `MONGODB_URI` | your Atlas connection string |
 | `CLIENT_URL` | your frontend's Vercel URL (you can update this after step 3, then redeploy) |
 | `NODE_ENV` | `production` |
-| `RATE_LIMIT_WINDOW_MS`, `RATE_LIMIT_MAX`, `UPLOAD_MAX_FILE_SIZE_MB`, `UPLOAD_DIR` | defaults from `.env.example` work fine |
+| `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET` | two different long random strings — generate each with `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"`. **Do not reuse the same value for both.** |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM_EMAIL` | your email provider's credentials — without these, verification/reset emails only get logged to Vercel's function logs, not actually delivered to users |
+| `RATE_LIMIT_WINDOW_MS`, `RATE_LIMIT_MAX`, `UPLOAD_MAX_FILE_SIZE_MB`, `UPLOAD_DIR`, `BCRYPT_SALT_ROUNDS` | defaults from `.env.example` work fine |
 
 Then enable **Vercel Blob**: project → Storage tab → Create → Blob. This automatically sets `BLOB_READ_WRITE_TOKEN` for you — you don't add it by hand.
 
@@ -91,13 +93,21 @@ cd server
 npm run seed
 ```
 
+### 5. Create your admin account
+Same idea — run locally, pointed at production:
+```bash
+# with ADMIN_EMAIL / ADMIN_PASSWORD set in your local .env:
+npm run seed:admin
+```
+Sign in at `https://<your-frontend>.vercel.app/login` with those credentials, then change the password from Dashboard → Settings.
+
 ### Known platform constraints worth knowing about
 - **Request body size:** Vercel's Hobby plan caps request bodies at 4.5MB — this is why `UPLOAD_MAX_FILE_SIZE_MB` defaults to 4 now, not the 10 it was before. Upgrade to Pro if you need larger uploads.
 - **Function duration:** `server/vercel.json` sets `maxDuration: 30` (seconds) for the API function. Fine for everything currently in this API.
 - **CORS and preview deployments:** every PR/branch gets a unique preview URL on Vercel. `server/app.js` allows any `*.vercel.app` origin (not just your own) so previews aren't silently broken by CORS — there's a comment right above that code explaining the tradeoff and how to tighten it once Phase 5 adds real authentication.
 - **Cold starts:** the first request after a period of inactivity will be slower (new function instance + fresh MongoDB connection). Normal for serverless, not a bug.
-
-
+- **Cross-domain cookies (Phase 5 auth):** the refresh-token cookie is set with `sameSite: 'none'` and `secure: true` in production (see `server/controllers/authController.js`) specifically because the frontend and backend live on two different `*.vercel.app` domains — this is what makes the browser send the cookie cross-site at all. Both requirements need HTTPS, which Vercel provides automatically, so this works out of the box. If you ever see login succeed but the session not persisting on refresh, check the cookie in DevTools → Application → Cookies — if it's missing entirely, the most common cause is `VITE_API_URL` pointing somewhere that doesn't match where the cookie was actually set.
+## Project Structure
 
 ```
 toolhub/
@@ -107,49 +117,53 @@ toolhub/
 ├── src/
 │   ├── components/
 │   │   ├── layout/
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── MegaMenu.jsx
-│   │   │   ├── Footer.jsx
-│   │   │   └── Layout.jsx
+│   │   │   ├── Navbar.jsx, MegaMenu.jsx, Footer.jsx, Layout.jsx
+│   │   │   └── UserMenu.jsx           (account dropdown - dashboard/admin/sign out)
+│   │   ├── auth/
+│   │   │   └── ProtectedRoute.jsx     (route guard, optional requireRole prop)
+│   │   ├── dashboard/
+│   │   │   ├── DashboardLayout.jsx    (sidebar shell for all /dashboard/* pages)
+│   │   │   └── HistoryList.jsx        (shared by History + Downloads pages)
 │   │   ├── tools/
-
-│   │   │   ├── ToolLayout.jsx        (shell every tool page uses)
-│   │   │   ├── Breadcrumb.jsx
-│   │   │   ├── ToolHeader.jsx
-│   │   │   ├── DropZone.jsx          (drag & drop + click upload)
-│   │   │   ├── FileInfoCard.jsx
-│   │   │   ├── PreviewPanel.jsx      (single or before/after preview)
-│   │   │   ├── ProgressBar.jsx
-│   │   │   ├── DownloadPanel.jsx
-│   │   │   ├── ErrorMessage.jsx
-│   │   │   ├── RelatedTools.jsx
-│   │   │   ├── ToolFAQSection.jsx
-│   │   │   ├── ImageConverterTool.jsx (generic core: powers 5 format-conversion tools)
-│   │   │   ├── RotateFlipTool.jsx     (shared core: powers Rotate + Flip)
-│   │   │   └── CropStage.jsx          (draggable/resizable crop box)
+│   │   │   ├── ToolLayout.jsx         (shell every tool page uses)
+│   │   │   ├── Breadcrumb.jsx, ToolHeader.jsx, FavoriteButton.jsx
+│   │   │   ├── DropZone.jsx, FileInfoCard.jsx, ToolWorkspace.jsx
+│   │   │   ├── PreviewPanel.jsx, ProgressBar.jsx, DownloadPanel.jsx, ErrorMessage.jsx
+│   │   │   ├── RelatedTools.jsx, ToolFAQSection.jsx
+│   │   │   └── image/                 (image-format-specific engines; future pdf/, text/ etc. go alongside)
+│   │   │       ├── ImageConverterTool.jsx  (generic core: powers 5 format-conversion tools)
+│   │   │       ├── RotateFlipTool.jsx      (shared core: powers Rotate + Flip)
+│   │   │       └── CropStage.jsx           (draggable/resizable crop box, keyboard-operable)
 │   │   └── ui/
 │   │       ├── Container.jsx, ThemeToggle.jsx, ToolCard.jsx, CategoryCard.jsx
-│   │       ├── StatCounter.jsx, TestimonialCard.jsx, BlogCard.jsx
+│   │       ├── StatCounter.jsx, TestimonialCard.jsx, BlogCard.jsx, PageLoader.jsx
 │   │       ├── FAQAccordion.jsx, SearchModal.jsx, Slider.jsx, SEO.jsx
 │   ├── context/
-│   │   └── ThemeContext.jsx
+│   │   ├── ThemeContext.jsx
+│   │   └── AuthContext.jsx            (user, access token, login/register/logout, silent refresh)
 │   ├── hooks/
-│   │   ├── useImageUpload.js, useToolResult.js  (image-tool state, shared across all 10 tools)
+│   │   ├── useImageUpload.js, useToolResult.js  (image-tool state; also logs conversions)
 │   │   └── useTools.js, useCategories.js, useBlogPosts.js, useSiteSettings.js  (API + local fallback)
 │   ├── lib/
 │   │   ├── imageProcessing.js        (canvas-based convert/compress/resize/rotate/crop)
 │   │   ├── fileValidation.js, formatBytes.js, downloadBlob.js
-│   │   └── api.js, iconRegistry.js   (backend integration)
+│   │   ├── api.js                    (all API calls, including auth's silent-refresh-and-retry)
+│   │   ├── tokenStore.js             (in-memory access token — never localStorage)
+│   │   └── iconRegistry.js           (backend integration)
 │   ├── data/
 │   │   ├── tools.js, categories.js, blog.js, testimonials.js, faq.js, toolFaq.js
 │   │   └── (local fallback source when the API is unreachable — see "How the frontend and backend connect")
 │   ├── pages/
 │   │   ├── Home.jsx, Tools.jsx, About.jsx, Contact.jsx, Blog.jsx
 │   │   ├── PrivacyPolicy.jsx, Terms.jsx, NotFound.jsx
-│   │   └── tools/
-│   │       ├── JpgToPng.jsx, PngToJpg.jsx, WebpToPng.jsx, WebpToJpg.jsx
-│   │       ├── ConvertToWebp.jsx, ImageCompressor.jsx, ImageResizer.jsx
-│   │       └── ImageCrop.jsx, ImageRotate.jsx, FlipImage.jsx
+│   │   ├── tools/
+│   │   │   ├── JpgToPng.jsx, PngToJpg.jsx, WebpToPng.jsx, WebpToJpg.jsx
+│   │   │   ├── ConvertToWebp.jsx, ImageCompressor.jsx, ImageResizer.jsx
+│   │   │   └── ImageCrop.jsx, ImageRotate.jsx, FlipImage.jsx
+│   │   ├── auth/
+│   │   │   └── Login.jsx, Register.jsx, ForgotPassword.jsx, ResetPassword.jsx, VerifyEmail.jsx
+│   │   └── dashboard/
+│   │       └── Dashboard.jsx, Profile.jsx, Favorites.jsx, History.jsx, Downloads.jsx, Settings.jsx, Subscription.jsx
 │   ├── App.jsx, main.jsx, index.css
 ├── index.html
 ├── tailwind.config.js
@@ -181,10 +195,19 @@ Add an entry to the `categories` array in `src/data/categories.js`, including an
 
 **Phase 4 (complete):** Backend foundation — Node/Express/MongoDB REST API under `server/` (see `server/README.md`), covering Tools, Categories, Blog, and Site Settings with full CRUD, validation, centralized error handling, rate limiting, security headers, input sanitization, and file uploads. Frontend integration layer added (`src/lib/api.js`, `src/lib/iconRegistry.js`, `src/hooks/use*.js`) with automatic fallback to local data — `Home.jsx` and `Tools.jsx` are fully wired to the API.
 
+**Phase 5 (backend + user-facing complete; admin UI next):**
+- **Authentication** — register, login, logout, JWT access + refresh tokens (rotation, httpOnly cookie), forgot/reset password, email verification. Full details in `server/README.md`'s "Authentication" section.
+- **User dashboard** — Overview, Profile (edit name/email/avatar), Favorites, Conversion History, Downloads, Settings (change password, resend verification), Subscription (Free/Premium/Pro display, no payment yet). All under `/dashboard`, protected by `ProtectedRoute`.
+- **Favorites & history wired into the tools themselves** — every tool page has a Favorite button (`FavoriteButton` in `ToolHeader`), and every successful conversion is logged automatically via `useToolResult` (works for signed-out users too, for site-wide analytics, without a personal history entry).
+- **Roles & plans** — `User.role` (`user`/`admin`) and `User.plan` (`free`/`premium`/`pro`) are separate fields by design. All previously-open admin write routes (tools, categories, blog, settings, uploads) are now behind `protect` + `authorize('admin')`.
+- **Analytics backend** — `GET /api/analytics/overview` (admin-only) returns total/daily/monthly active users, total conversions, top tools, top categories, country and device breakdowns, all in one call. Country comes from Vercel's `x-vercel-ip-country` header automatically; device from a lightweight User-Agent check.
+- **Not yet built — the Admin Dashboard UI.** The backend fully supports it (every endpoint above, plus admin-only blog draft endpoints at `/api/blog/admin/*`), but there's no frontend for it yet: no `/admin` pages for User Management, Tool Management, Category Management, Blog CMS, Analytics Dashboard, Site Settings, or Reports. The navbar's `UserMenu` already links to `/admin` for admin users — that link currently 404s until this is built. This is next session's focus.
+
 **Next steps:**
-- Finish wiring `MegaMenu`, `Footer`, `SearchModal`, `RelatedTools`, and `Blog.jsx` to the same hooks `Home.jsx`/`Tools.jsx` already use (`useCategories`, `useTools`, `useBlogPosts`) — mechanical, low-risk work following the existing pattern.
-- Wire `useSiteSettings` into the places that currently hardcode "ToolHub" (page titles, footer, SEO defaults) once you're ready for the site name/SEO/social links to be editable via the API.
-- Phase 5: authentication (JWT), admin dashboard for managing tools/categories/blog/settings through the UI instead of directly in MongoDB, and locking down the currently-open write routes (see the "Write routes are open right now" note in `server/README.md`).
+- Build the Admin Dashboard UI (`/admin/*` routes, `AdminLayout`, and one page per section) against the already-complete backend endpoints — this is the main remaining piece of Phase 5.
+- Finish wiring `MegaMenu`, `Footer`, `SearchModal`, `RelatedTools`, and the public `Blog.jsx` listing to the API hooks (`useCategories`, `useTools`, `useBlogPosts`) the same way `Home.jsx`/`Tools.jsx` already are.
+- Wire `useSiteSettings` into the places that currently hardcode "ToolHub" (page titles, footer, SEO defaults).
+- Payment integration for Premium/Pro plans, once you're ready for it.
 
 ## Pre-Phase-4 audit (code quality, accessibility, performance)
 

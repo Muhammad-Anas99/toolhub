@@ -17,17 +17,29 @@ npm run dev    # starts the API on http://localhost:5000 (nodemon, auto-restarts
 
 ## Environment variables
 
-See `.env.example` for the full list with defaults. The only one you must set yourself is `MONGODB_URI` — everything else has a sensible default for local development.
+See `.env.example` for the full list with defaults. You must set `MONGODB_URI`, `JWT_ACCESS_SECRET`, and `JWT_REFRESH_SECRET` yourself — everything else has a sensible default for local development.
 
 | Variable | Purpose |
 |---|---|
 | `NODE_ENV` | `development` or `production` |
 | `PORT` | Port the API listens on (default `5000`) |
 | `MONGODB_URI` | MongoDB Atlas (or local) connection string |
-| `CLIENT_URL` | Frontend origin, used for CORS |
-| `RATE_LIMIT_WINDOW_MS` / `RATE_LIMIT_MAX` | API rate limiting |
+| `CLIENT_URL` | Frontend origin, used for CORS and building email links |
+| `RATE_LIMIT_WINDOW_MS` / `RATE_LIMIT_MAX` | General API rate limiting |
 | `UPLOAD_MAX_FILE_SIZE_MB` / `UPLOAD_DIR` | File upload limits and storage location |
-| `JWT_SECRET` / `JWT_EXPIRES_IN` | Reserved for Phase 5 (authentication) — unused by anything right now |
+| `JWT_ACCESS_SECRET` / `JWT_REFRESH_SECRET` | Two *different* secrets for signing access vs refresh tokens — generate each with `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"` |
+| `JWT_ACCESS_EXPIRES_IN` / `JWT_REFRESH_EXPIRES_IN` | Token lifetimes (defaults: 15 minutes / 30 days) |
+| `BCRYPT_SALT_ROUNDS` | Password hashing cost factor (default `12`) |
+| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASSWORD` / `SMTP_FROM_EMAIL` / `SMTP_FROM_NAME` | Email delivery for verification/reset links. **Leave blank for local dev** — emails are logged to the console instead of sent. Fill in before production. |
+| `ADMIN_NAME` / `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Used only by `npm run seed:admin` (see below) |
+
+### Creating your first admin account
+
+```bash
+npm run seed:admin
+```
+
+Reads `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `.env` and creates (or promotes) that account to the `admin` role, with its email pre-verified so you can sign in immediately. **Change the password after your first login** — the seeded one lives in plaintext in your `.env` file.
 
 ## Folder structure
 
@@ -39,12 +51,16 @@ server/
 ├── server.js           entry point for traditional hosting (local dev, Render, Railway, ...)
 ├── config/         env.js (central config object), db.js (cached Mongoose connection)
 ├── controllers/    thin HTTP handlers — call services, format the response
-├── middleware/      errorHandler, notFound, logger, rateLimiter, sanitizeInput, upload
+│   ├── toolController.js, categoryController.js, blogController.js, settingsController.js, uploadController.js
+│   └── authController.js, userController.js, favoriteController.js, historyController.js, analyticsController.js
+├── middleware/      errorHandler, notFound, logger, rateLimiter (general + stricter authRateLimiter), sanitizeInput, upload
+│   ├── auth.js       protect (requires valid access token), authorize(...roles), attachUserIfPresent (optional auth)
 │   └── validators/  express-validator chains, one file per resource
-├── models/          Mongoose schemas: Tool, Category, Blog, SiteSettings
+├── models/          Mongoose schemas: Tool, Category, Blog, SiteSettings, User, Favorite, ConversionHistory
 ├── routes/           Express routers, one file per resource, combined in index.js
 ├── services/         Mongoose queries live here, not in controllers (clean architecture)
-├── utils/             ApiError, ApiResponse, asyncHandler, slugify, seed script + data
+├── utils/             ApiError, ApiResponse, asyncHandler, slugify, jwt.js, email.js, requestMeta.js
+│                        + seed script/data, seedAdmin.js (creates the first admin account)
 ├── uploads/            local-dev fallback storage for uploads (see "File uploads" below)
 └── vercel.json          routes all requests to api/index.js when deployed on Vercel
 ```
@@ -92,7 +108,50 @@ Every response is shaped `{ success, message, data, meta? }` on success, or `{ s
 ### Uploads
 | Method | Route | Notes |
 |---|---|---|
-| POST | `/api/uploads` | `multipart/form-data`, field name `file`. Images only (jpg/png/webp/gif/svg), size limit from `UPLOAD_MAX_FILE_SIZE_MB`. Stores to **Vercel Blob** if `BLOB_READ_WRITE_TOKEN` is set (automatic on Vercel once you enable Blob storage), otherwise falls back to writing into the local `uploads/` folder for local development. |
+| POST | `/api/uploads` | Admin only. `multipart/form-data`, field name `file`. Images only (jpg/png/webp/gif/svg), size limit from `UPLOAD_MAX_FILE_SIZE_MB`. Stores to **Vercel Blob** if `BLOB_READ_WRITE_TOKEN` is set (automatic on Vercel once you enable Blob storage), otherwise falls back to writing into the local `uploads/` folder for local development. |
+
+### Auth
+| Method | Route | Notes |
+|---|---|---|
+| POST | `/api/auth/register` | Creates an account, signs in immediately, sends a verification email |
+| POST | `/api/auth/login` | |
+| POST | `/api/auth/logout` | Requires auth. Revokes the current refresh token |
+| POST | `/api/auth/refresh` | Uses the httpOnly refresh cookie — no body needed |
+| GET | `/api/auth/me` | Requires auth. Returns the current user |
+| POST | `/api/auth/verify-email` | Body: `{ token }` |
+| POST | `/api/auth/resend-verification` | Requires auth |
+| POST | `/api/auth/forgot-password` | Body: `{ email }`. Always returns success, regardless of whether the email exists |
+| POST | `/api/auth/reset-password` | Body: `{ token, password }`. Invalidates all existing sessions |
+
+### Users
+| Method | Route | Notes |
+|---|---|---|
+| PUT | `/api/users/me` | Requires auth. Update own name/email/avatar |
+| PUT | `/api/users/me/password` | Requires auth. Body: `{ currentPassword, newPassword }` |
+| GET | `/api/users` | Admin only. Query params: `role`, `plan`, `search` |
+| GET | `/api/users/:id` | Admin only |
+| PUT | `/api/users/:id` | Admin only. Body: any of `{ role, plan, name, isEmailVerified }` |
+| DELETE | `/api/users/:id` | Admin only |
+
+### Favorites
+| Method | Route | Notes |
+|---|---|---|
+| GET | `/api/favorites` | Requires auth |
+| POST | `/api/favorites` | Requires auth. Body: `{ toolSlug }` |
+| DELETE | `/api/favorites/:toolSlug` | Requires auth |
+
+### Conversion history
+| Method | Route | Notes |
+|---|---|---|
+| POST | `/api/history` | Works signed-out too (logs anonymously, still counts toward analytics). Body: `{ toolSlug, toolName, category, originalFileName? }` |
+| GET | `/api/history` | Requires auth. Query params: `page`, `limit` |
+| DELETE | `/api/history` | Requires auth. Clears all of the current user's history |
+| DELETE | `/api/history/:id` | Requires auth |
+
+### Analytics
+| Method | Route | Notes |
+|---|---|---|
+| GET | `/api/analytics/overview` | Admin only. Returns total/daily/monthly active users, total conversions, top tools, top categories, country and device breakdowns — all in one call |
 
 ## Deploying to Vercel
 
@@ -103,9 +162,19 @@ Full step-by-step instructions live in the root `README.md`'s "Deploying to Verc
 - Enable **Vercel Blob** (project → Storage tab) so file uploads persist — Vercel sets `BLOB_READ_WRITE_TOKEN` automatically.
 - Run `npm run seed` locally (pointed at your production `MONGODB_URI`) — it's a one-off script, not something that runs inside a serverless function.
 
-## Write routes are open right now — by design
+## Authentication (Phase 5)
 
-POST/PUT/DELETE routes currently have no auth check. Phase 4 explicitly excludes authentication — see the `// Auth-protected in Phase 5` comment above the relevant routes in each `routes/*.js` file. When auth is added, a `protect` (and optionally `authorize('admin')`) middleware slots into those exact lines with no other changes needed. **Do not deploy this API publicly before Phase 5 lands** — anyone with the URL can currently create/edit/delete data.
+JWT-based, with refresh-token rotation:
+
+- **Access token**: short-lived (15 min default), returned in the response body, sent by the frontend as `Authorization: Bearer <token>`. Kept in memory only on the frontend (`src/lib/tokenStore.js`) — never localStorage.
+- **Refresh token**: long-lived (30 days default), stored as an **httpOnly cookie** (JavaScript can never read it — the main defense against XSS-based token theft), scoped to `/api/auth`. Rotated on every use: each refresh invalidates the old token and issues a new one, so a stolen-and-reused old token fails.
+- Both token types use separate secrets (`JWT_ACCESS_SECRET` / `JWT_REFRESH_SECRET`) so a leak of one can't forge the other.
+- Passwords hashed with bcrypt (`BCRYPT_SALT_ROUNDS`, default 12).
+- Email verification and password reset both use single-use, hashed, time-limited tokens (verification: 24h, reset: 1h) — only the hash is ever stored, same principle as refresh tokens.
+- `forgot-password` always returns the same response whether or not the email exists, to prevent using it to enumerate registered accounts.
+- Auth endpoints (`/register`, `/login`, `/forgot-password`) have a stricter rate limit (`authRateLimiter`) than the general API.
+
+**All previously-open write routes are now protected.** Every `POST`/`PUT`/`DELETE` on tools, categories, blog posts, settings, and uploads requires `protect` + `authorize('admin')`. Regular users can only act on their own data (profile, favorites, history) via `protect` alone.
 
 ## Icon names
 

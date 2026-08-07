@@ -4,12 +4,23 @@ import categoryRoutes from './categoryRoutes.js'
 import blogRoutes from './blogRoutes.js'
 import settingsRoutes from './settingsRoutes.js'
 import uploadRoutes from './uploadRoutes.js'
+import authRoutes from './authRoutes.js'
+import userRoutes from './userRoutes.js'
+import favoriteRoutes from './favoriteRoutes.js'
+import historyRoutes from './historyRoutes.js'
+import analyticsRoutes from './analyticsRoutes.js'
 
 const router = Router()
 
 router.get('/health', (req, res) => {
   res.json({ success: true, message: 'ToolHub API is running', timestamp: new Date().toISOString() })
 })
+
+router.use('/auth', authRoutes)
+router.use('/users', userRoutes)
+router.use('/favorites', favoriteRoutes)
+router.use('/history', historyRoutes)
+router.use('/analytics', analyticsRoutes)
 
 router.use('/tools', toolRoutes)
 router.use('/categories', categoryRoutes)

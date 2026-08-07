@@ -14,9 +14,17 @@ import { downloadBlob, buildOutputFilename } from '../../../lib/downloadBlob.js'
  * power JPG->PNG, PNG->JPG, WEBP->PNG, WEBP->JPG and "Convert to WEBP"
  * without duplicating any upload/convert/download logic.
  */
-export default function ImageConverterTool({ acceptedTypes, outputMimeType, outputExtension, maxSizeMB = 25 }) {
+export default function ImageConverterTool({
+  acceptedTypes,
+  outputMimeType,
+  outputExtension,
+  maxSizeMB = 25,
+  toolSlug,
+  toolName,
+  category,
+}) {
   const upload = useImageUpload({ acceptedTypes, maxSizeMB })
-  const { status, result, run, clearResult } = useToolResult()
+  const { status, result, run, clearResult } = useToolResult({ toolSlug, toolName, category })
 
   function handleConvert() {
     run(
@@ -72,4 +80,7 @@ ImageConverterTool.propTypes = {
   outputMimeType: PropTypes.string.isRequired,
   outputExtension: PropTypes.string.isRequired,
   maxSizeMB: PropTypes.number,
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

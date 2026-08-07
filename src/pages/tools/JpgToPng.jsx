@@ -13,6 +13,9 @@ export default function JpgToPng() {
         acceptedTypes={['image/jpeg']}
         outputMimeType="image/png"
         outputExtension="png"
+        toolSlug={tool.slug}
+        toolName={tool.name}
+        category={tool.category}
       />
     </ToolLayout>
   )

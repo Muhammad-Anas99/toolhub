@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
+import FavoriteButton from './FavoriteButton.jsx'
 
-export default function ToolHeader({ icon: Icon, title, description }) {
+export default function ToolHeader({ icon: Icon, title, description, toolSlug }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -19,6 +20,12 @@ export default function ToolHeader({ icon: Icon, title, description }) {
         {title}
       </h1>
       <p className="mt-3 text-slate-500 dark:text-slate-400">{description}</p>
+
+      {toolSlug && (
+        <div className="mt-4">
+          <FavoriteButton toolSlug={toolSlug} />
+        </div>
+      )}
     </motion.div>
   )
 }
@@ -27,4 +34,5 @@ ToolHeader.propTypes = {
   icon: PropTypes.elementType,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  toolSlug: PropTypes.string,
 }

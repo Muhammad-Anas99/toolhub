@@ -30,11 +30,32 @@ export const config = {
     directory: process.env.UPLOAD_DIR || 'uploads',
   },
 
-  // Not used yet — reserved so Phase 5 (authentication) can read these
-  // without any changes to how config is loaded.
   jwt: {
-    secret: process.env.JWT_SECRET,
-    expiresIn: process.env.JWT_EXPIRES_IN || '7d',
+    accessSecret: requireInProduction(process.env.JWT_ACCESS_SECRET, 'JWT_ACCESS_SECRET') || 'dev-only-access-secret-do-not-use-in-production',
+    refreshSecret: requireInProduction(process.env.JWT_REFRESH_SECRET, 'JWT_REFRESH_SECRET') || 'dev-only-refresh-secret-do-not-use-in-production',
+    accessExpiresIn: process.env.JWT_ACCESS_EXPIRES_IN || '15m',
+    refreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '30d',
+    // Matches JWT_REFRESH_EXPIRES_IN in milliseconds, for setting the
+    // refresh-token cookie's maxAge. Kept as a plain number here (rather
+    // than parsing the string above) so it's trivial to read/verify.
+    refreshExpiresInMs: 30 * 24 * 60 * 60 * 1000,
+  },
+
+  bcryptSaltRounds: Number(process.env.BCRYPT_SALT_ROUNDS) || 12,
+
+  smtp: {
+    host: process.env.SMTP_HOST || '',
+    port: Number(process.env.SMTP_PORT) || 587,
+    user: process.env.SMTP_USER || '',
+    password: process.env.SMTP_PASSWORD || '',
+    fromEmail: process.env.SMTP_FROM_EMAIL || 'noreply@toolhub.example.com',
+    fromName: process.env.SMTP_FROM_NAME || 'ToolHub',
+  },
+
+  admin: {
+    name: process.env.ADMIN_NAME || 'Admin',
+    email: process.env.ADMIN_EMAIL || '',
+    password: process.env.ADMIN_PASSWORD || '',
   },
 }
 

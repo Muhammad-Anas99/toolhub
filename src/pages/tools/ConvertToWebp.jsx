@@ -13,6 +13,9 @@ export default function ConvertToWebp() {
         acceptedTypes={['image/jpeg', 'image/png']}
         outputMimeType="image/webp"
         outputExtension="webp"
+        toolSlug={tool.slug}
+        toolName={tool.name}
+        category={tool.category}
       />
     </ToolLayout>
   )
