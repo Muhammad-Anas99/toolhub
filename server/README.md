@@ -30,7 +30,7 @@ See `.env.example` for the full list with defaults. You must set `MONGODB_URI`, 
 | `JWT_ACCESS_SECRET` / `JWT_REFRESH_SECRET` | Two *different* secrets for signing access vs refresh tokens — generate each with `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"` |
 | `JWT_ACCESS_EXPIRES_IN` / `JWT_REFRESH_EXPIRES_IN` | Token lifetimes (defaults: 15 minutes / 30 days) |
 | `BCRYPT_SALT_ROUNDS` | Password hashing cost factor (default `12`) |
-| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASSWORD` / `SMTP_FROM_EMAIL` / `SMTP_FROM_NAME` | Email delivery for verification/reset links. **Leave blank for local dev** — emails are logged to the console instead of sent. Fill in before production. |
+| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` / `EMAIL_FROM` | Email delivery — verification, password reset, welcome, and security alert emails all go through this. Configured for Brevo by default (see `.env.example`), but works with any SMTP provider. **Leave blank for local dev** — emails are logged to the console instead of sent. |
 | `ADMIN_NAME` / `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Used only by `npm run seed:admin` (see below) |
 
 ### Creating your first admin account
@@ -171,6 +171,7 @@ JWT-based, with refresh-token rotation:
 - Both token types use separate secrets (`JWT_ACCESS_SECRET` / `JWT_REFRESH_SECRET`) so a leak of one can't forge the other.
 - Passwords hashed with bcrypt (`BCRYPT_SALT_ROUNDS`, default 12).
 - Email verification and password reset both use single-use, hashed, time-limited tokens (verification: 24h, reset: 1h) — only the hash is ever stored, same principle as refresh tokens.
+- Four email flows, all in `server/utils/email.js`: verification (on register), password reset (on forgot-password), a welcome email (sent once, right after verification succeeds — not at registration, since the address isn't confirmed yet), and a security alert (sent on password reset, password change, and email address change — invalidates other sessions and tells the account owner, in case it wasn't them). Email-address changes alert the *old* address, not the new one, so an attacker changing the email to lock someone out can't also suppress the warning.
 - `forgot-password` always returns the same response whether or not the email exists, to prevent using it to enumerate registered accounts.
 - Auth endpoints (`/register`, `/login`, `/forgot-password`) have a stricter rate limit (`authRateLimiter`) than the general API.
 

@@ -47,9 +47,11 @@ export const config = {
     host: process.env.SMTP_HOST || '',
     port: Number(process.env.SMTP_PORT) || 587,
     user: process.env.SMTP_USER || '',
-    password: process.env.SMTP_PASSWORD || '',
-    fromEmail: process.env.SMTP_FROM_EMAIL || 'noreply@toolhub.example.com',
-    fromName: process.env.SMTP_FROM_NAME || 'ToolHub',
+    pass: process.env.SMTP_PASS || '',
+    // Accepts either a bare address ("noreply@toolhub.com") or a full
+    // "Name <email>" string ("ToolHub <noreply@toolhub.com>") — used
+    // as-is for the `from` field on every outgoing email.
+    emailFrom: process.env.EMAIL_FROM || 'ToolHub <noreply@toolhub.example.com>',
   },
 
   admin: {

@@ -7,7 +7,7 @@ import {
   hashToken,
   generateOneTimeToken,
 } from '../utils/jwt.js'
-import { sendVerificationEmail, sendPasswordResetEmail } from '../utils/email.js'
+import { sendVerificationEmail, sendPasswordResetEmail, sendWelcomeEmail, sendSecurityAlertEmail } from '../utils/email.js'
 import { config } from '../config/env.js'
 
 const EMAIL_VERIFICATION_EXPIRY_MS = 24 * 60 * 60 * 1000 // 24 hours
@@ -131,6 +131,13 @@ export async function verifyEmail(rawToken) {
   user.emailVerificationTokenHash = undefined
   user.emailVerificationExpires = undefined
   await user.save()
+
+  // Fire-and-forget: a slow or failed welcome email should never make
+  // email verification itself appear to fail.
+  sendWelcomeEmail(user).catch((error) => {
+    console.error('[authService] Failed to send welcome email:', error.message)
+  })
+
   return user
 }
 
@@ -168,5 +175,10 @@ export async function resetPassword(rawToken, newPassword) {
   // reset, they shouldn't stay logged in on the account either.
   user.refreshTokens = []
   await user.save()
+
+  sendSecurityAlertEmail(user, { action: 'Your password was reset' }).catch((error) => {
+    console.error('[authService] Failed to send security alert email:', error.message)
+  })
+
   return user
 }

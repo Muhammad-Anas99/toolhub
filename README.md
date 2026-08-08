@@ -67,7 +67,7 @@ Set these environment variables on this project (Settings → Environment Variab
 | `CLIENT_URL` | your frontend's Vercel URL (you can update this after step 3, then redeploy) |
 | `NODE_ENV` | `production` |
 | `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET` | two different long random strings — generate each with `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"`. **Do not reuse the same value for both.** |
-| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM_EMAIL` | your email provider's credentials — without these, verification/reset emails only get logged to Vercel's function logs, not actually delivered to users |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `EMAIL_FROM` | your Brevo (or other provider) SMTP credentials — without these, verification/reset/welcome/security emails only get logged to Vercel's function logs, not actually delivered to users |
 | `RATE_LIMIT_WINDOW_MS`, `RATE_LIMIT_MAX`, `UPLOAD_MAX_FILE_SIZE_MB`, `UPLOAD_DIR`, `BCRYPT_SALT_ROUNDS` | defaults from `.env.example` work fine |
 
 Then enable **Vercel Blob**: project → Storage tab → Create → Blob. This automatically sets `BLOB_READ_WRITE_TOKEN` for you — you don't add it by hand.

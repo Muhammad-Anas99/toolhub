@@ -1,5 +1,6 @@
 import User from '../models/User.js'
 import { ApiError } from '../utils/ApiError.js'
+import { sendSecurityAlertEmail } from '../utils/email.js'
 
 export async function updateProfile(userId, { name, email, avatar }) {
   const user = await User.findById(userId)
@@ -8,10 +9,22 @@ export async function updateProfile(userId, { name, email, avatar }) {
   if (email && email.toLowerCase() !== user.email) {
     const existing = await User.findOne({ email: email.toLowerCase() })
     if (existing) throw ApiError.conflict('An account with this email already exists')
+
+    const previousEmail = user.email
     user.email = email
     // Changing email invalidates verification — they need to re-verify
     // the new address.
     user.isEmailVerified = false
+
+    // Notify the OLD address, not the new one — if someone else is
+    // changing the email to lock the real owner out, they need to hear
+    // about it at the address they can still access.
+    sendSecurityAlertEmail(
+      { name: user.name, email: previousEmail },
+      { action: `Your account email was changed to ${email}` }
+    ).catch((error) => {
+      console.error('[userService] Failed to send security alert email:', error.message)
+    })
   }
 
   if (name) user.name = name
@@ -30,6 +43,11 @@ export async function changePassword(userId, newPassword) {
   // password changes.
   user.refreshTokens = []
   await user.save()
+
+  sendSecurityAlertEmail(user, { action: 'Your password was changed' }).catch((error) => {
+    console.error('[userService] Failed to send security alert email:', error.message)
+  })
+
   return user
 }
 
