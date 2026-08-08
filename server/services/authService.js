@@ -23,6 +23,17 @@ async function issueTokens(user, userAgent = '') {
   const accessToken = signAccessToken(user)
   const refreshToken = signRefreshToken(user)
 
+  // Defensive guard: `refreshTokens` has `select: false` on the schema
+  // (same as `password`), so any query that fetches a user without
+  // explicitly re-selecting it gets `undefined` here, not `[]`. The login
+  // bug this guarded against is fixed at its call site too (see
+  // login() below) — this stays as a second line of defense so the same
+  // mistake at some future call site degrades to "start a fresh session
+  // list" instead of crashing the request.
+  if (!Array.isArray(user.refreshTokens)) {
+    user.refreshTokens = []
+  }
+
   user.refreshTokens.push({
     tokenHash: hashToken(refreshToken),
     userAgent,
@@ -60,7 +71,7 @@ export async function register({ name, email, password }, { baseUrl, userAgent }
 }
 
 export async function login({ email, password }, { userAgent } = {}) {
-  const user = await User.findOne({ email: email.toLowerCase() }).select('+password')
+  const user = await User.findOne({ email: email.toLowerCase() }).select('+password +refreshTokens')
   if (!user || !(await user.comparePassword(password))) {
     throw ApiError.unauthorized('Incorrect email or password')
   }

@@ -34,6 +34,18 @@ export function errorHandler(err, req, res, next) {
 
   if (statusCode >= 500) {
     console.error('[error]', err)
+
+    // Everything above this point (ApiError, ValidationError, CastError,
+    // duplicate key) is a deliberate, recognized error type with a
+    // message that's safe to show a client. Anything still at 500 here is
+    // an *unexpected* bug — its message is an internal implementation
+    // detail (e.g. "Cannot read properties of undefined (reading 'push')"),
+    // not something written for a client to read. Show a generic message
+    // in production; keep the real one in development so it's still
+    // useful while debugging locally.
+    if (!isDevelopment) {
+      message = 'Something went wrong on our end. Please try again.'
+    }
   }
 
   res.status(statusCode).json({
