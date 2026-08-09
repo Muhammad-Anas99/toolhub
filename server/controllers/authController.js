@@ -9,13 +9,25 @@ import { sendVerificationEmail } from '../utils/email.js'
 
 const REFRESH_COOKIE_NAME = 'toolhub_refresh_token'
 
+// Whether the frontend is served over HTTPS on a different origin than
+// this API — the case that needs SameSite=None; Secure so the browser
+// will send the cookie cross-site at all. Deriving this from CLIENT_URL's
+// own protocol (which must already be set correctly for CORS and email
+// links to work) rather than relying solely on NODE_ENV avoids a whole
+// class of bugs where NODE_ENV=production was never actually set on the
+// deployed backend — e.g. two separate Vercel projects, cookie set with
+// SameSite=Lax by mistake, browser silently refuses to send it back on
+// the cross-site refresh call, and the user gets logged out on reload
+// even though login itself appeared to work fine.
+const useCrossSiteCookie = isProduction || config.clientUrl.startsWith('https://')
+
 // httpOnly means client-side JavaScript can never read this cookie — the
 // single biggest reason a refresh token is meaningfully safer here than in
 // localStorage, which is readable by any script (including an XSS payload).
 const REFRESH_COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: isProduction,
-  sameSite: isProduction ? 'none' : 'lax', // 'none' needed cross-site in prod (separate Vercel domains)
+  secure: useCrossSiteCookie,
+  sameSite: useCrossSiteCookie ? 'none' : 'lax',
   maxAge: config.jwt.refreshExpiresInMs,
   path: '/api/auth',
 }

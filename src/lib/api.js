@@ -13,10 +13,23 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
  * request — required for the silent-refresh flow in AuthContext.
  */
 async function request(path, options = {}) {
+  // Destructuring `headers` out first, then explicitly setting `headers`
+  // and `credentials` LAST in the fetch call below (after `...restOptions`)
+  // is deliberate: an object spread later in a literal always wins over
+  // one earlier. Putting `...options` before `headers`/`credentials` used
+  // to let it silently overwrite the carefully-merged Content-Type header
+  // with whatever (incomplete) headers object the caller passed in —
+  // which meant every authorizedRequest() call (any authenticated POST/PUT
+  // with a JSON body) was sent with no Content-Type at all, so Express's
+  // body parser skipped it entirely and the backend saw an empty req.body.
+  // This is what actually broke favorites, profile updates, and admin
+  // CRUD, not just this endpoint or that one.
+  const { headers: extraHeaders, ...restOptions } = options
+
   const response = await fetch(`${API_BASE_URL}${path}`, {
+    ...restOptions,
     credentials: 'include',
-    headers: { 'Content-Type': 'application/json', ...options.headers },
-    ...options,
+    headers: { 'Content-Type': 'application/json', ...extraHeaders },
   })
 
   let body
@@ -125,10 +138,11 @@ export const api = {
   removeFavorite: (toolSlug) => authorizedRequest(`/favorites/${toolSlug}`, { method: 'DELETE' }),
 
   // --- Conversion history -----------------------------------------------------------
-  logConversion: (data) => request('/history', { method: 'POST', body: JSON.stringify(data) }), // works signed-out too
+  logConversion: (data) => authorizedRequest('/history', { method: 'POST', body: JSON.stringify(data) }), // works signed-out too — authorizedRequest only attaches a token when one exists
   getMyHistory: (params = {}) => authorizedRequest(`/history${toQuery(params)}`),
   clearMyHistory: () => authorizedRequest('/history', { method: 'DELETE' }),
   deleteHistoryEntry: (id) => authorizedRequest(`/history/${id}`, { method: 'DELETE' }),
+  adminGetAllHistory: (params = {}) => authorizedRequest(`/history/admin/all${toQuery(params)}`),
 
   // --- Admin: users --------------------------------------------------------------
   adminGetUsers: (params = {}) => authorizedRequest(`/users${toQuery(params)}`),

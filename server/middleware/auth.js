@@ -57,10 +57,19 @@ export function authorize(...allowedRoles) {
 }
 
 /**
- * Like `protect`, but doesn't fail when there's no token — just leaves
- * `req.user` undefined. Used on routes that behave differently for
- * logged-in vs anonymous users without requiring login (e.g. logging
- * conversion history against a user when available, anonymously otherwise).
+ * Like `protect`, but doesn't fail when there's no token at all — leaves
+ * `req.user` undefined and proceeds anonymously. Used on routes that
+ * behave differently for logged-in vs anonymous users without requiring
+ * login (e.g. logging conversion history against a user when available,
+ * anonymously otherwise).
+ *
+ * Important distinction from a missing token: if a token IS present but
+ * expired or invalid, this throws 401 rather than quietly falling back to
+ * anonymous. That 401 is what makes the frontend's `authorizedRequest`
+ * (src/lib/api.js) run its silent-refresh-and-retry logic — without this,
+ * a conversion made right as a 15-minute access token expires would
+ * silently get attributed to "anonymous" instead of the signed-in user,
+ * since nothing would ever prompt a refresh.
  */
 export const attachUserIfPresent = asyncHandler(async (req, res, next) => {
   const header = req.headers.authorization || ''
@@ -71,13 +80,15 @@ export const attachUserIfPresent = asyncHandler(async (req, res, next) => {
     return
   }
 
+  let payload
   try {
-    const payload = verifyAccessToken(token)
-    const user = await User.findById(payload.sub)
-    if (user) req.user = user
+    payload = verifyAccessToken(token)
   } catch {
-    // Invalid/expired token on an optional-auth route — proceed as anonymous.
+    throw ApiError.unauthorized('Your session has expired. Please sign in again.')
   }
+
+  const user = await User.findById(payload.sub)
+  if (user) req.user = user
 
   next()
 })

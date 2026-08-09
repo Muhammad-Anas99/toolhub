@@ -8,10 +8,26 @@ import { api } from '../../lib/api.js'
 
 const PLAN_LABELS = { free: 'Free', premium: 'Premium', pro: 'Pro' }
 
+function formatRelativeDate(dateString) {
+  const date = new Date(dateString)
+  const diffMs = Date.now() - date.getTime()
+  const diffMinutes = Math.round(diffMs / 60000)
+
+  if (diffMinutes < 1) return 'Just now'
+  if (diffMinutes < 60) return `${diffMinutes}m ago`
+  const diffHours = Math.round(diffMinutes / 60)
+  if (diffHours < 24) return `${diffHours}h ago`
+  const diffDays = Math.round(diffHours / 24)
+  if (diffDays < 7) return `${diffDays}d ago`
+  return date.toLocaleDateString()
+}
+
 export default function Dashboard() {
   const { user } = useAuth()
   const [favoritesCount, setFavoritesCount] = useState(null)
   const [historyCount, setHistoryCount] = useState(null)
+  const [recentActivity, setRecentActivity] = useState(null)
+  const [activityError, setActivityError] = useState(null)
 
   useEffect(() => {
     let cancelled = false
@@ -26,12 +42,19 @@ export default function Dashboard() {
       })
 
     api
-      .getMyHistory({ limit: 1 })
-      .then(({ meta }) => {
-        if (!cancelled) setHistoryCount(meta?.total ?? 0)
+      .getMyHistory({ limit: 5 })
+      .then(({ data, meta }) => {
+        if (!cancelled) {
+          setHistoryCount(meta?.total ?? 0)
+          setRecentActivity(data)
+        }
       })
-      .catch(() => {
-        if (!cancelled) setHistoryCount(0)
+      .catch((err) => {
+        if (!cancelled) {
+          setHistoryCount(0)
+          setRecentActivity([])
+          setActivityError(err.message || 'Could not load recent activity.')
+        }
       })
 
     return () => {
@@ -84,6 +107,44 @@ export default function Dashboard() {
             </Link>
           </motion.div>
         ))}
+      </div>
+
+      <div className="card mt-6 p-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-base font-semibold text-slate-900 dark:text-white">Recent activity</h2>
+          <Link
+            to="/dashboard/history"
+            className="inline-flex items-center gap-1 text-sm font-medium text-brand-600 dark:text-brand-400"
+          >
+            View all
+            <HiArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        </div>
+
+        <div className="mt-4">
+          {recentActivity === null ? (
+            <p className="py-4 text-sm text-slate-400 dark:text-slate-500">Loading...</p>
+          ) : activityError ? (
+            <p className="py-4 text-sm text-rose-600 dark:text-rose-400">{activityError}</p>
+          ) : recentActivity.length > 0 ? (
+            <ul className="divide-y divide-slate-100 dark:divide-slate-800">
+              {recentActivity.map((entry) => (
+                <li key={entry._id} className="flex items-center justify-between gap-4 py-3">
+                  <span className="truncate text-sm font-medium text-slate-900 dark:text-white">
+                    {entry.toolName}
+                  </span>
+                  <span className="flex-shrink-0 text-xs text-slate-400 dark:text-slate-500">
+                    {formatRelativeDate(entry.createdAt)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="py-4 text-sm text-slate-500 dark:text-slate-400">
+              No conversions yet. Use any tool and it&apos;ll show up here.
+            </p>
+          )}
+        </div>
       </div>
 
       <div className="card mt-6 p-6">

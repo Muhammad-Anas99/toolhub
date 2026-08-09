@@ -15,7 +15,11 @@ export const config = {
 
   mongoUri: requireInProduction(process.env.MONGODB_URI, 'MONGODB_URI') || 'mongodb://127.0.0.1:27017/toolhub',
 
-  clientUrl: process.env.CLIENT_URL || 'http://localhost:5173',
+  // Trailing slash stripped so it's safe to use both for exact-match CORS
+  // comparisons (browser Origin headers never have a trailing slash) and
+  // for building URLs like `${clientUrl}/verify-email` without risking a
+  // double slash.
+  clientUrl: (process.env.CLIENT_URL || 'http://localhost:5173').replace(/\/+$/, ''),
 
   rateLimit: {
     windowMs: Number(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes

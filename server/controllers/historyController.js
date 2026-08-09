@@ -47,3 +47,29 @@ export const deleteHistoryEntry = asyncHandler(async (req, res) => {
   await historyService.deleteHistoryEntry(req.user._id, req.params.id)
   sendSuccess(res, { message: 'History entry deleted' })
 })
+
+/**
+ * Admin-only: every conversion across all users, newest first, with the
+ * performing user's name/email attached where known. `user: null` on the
+ * underlying record (an anonymous conversion) is shaped into an explicit
+ * `{ name: 'Anonymous', email: null }` here so the frontend never has to
+ * special-case a missing user object.
+ */
+export const getAllHistoryAdmin = asyncHandler(async (req, res) => {
+  const { page, limit } = req.query
+  const result = await historyService.listAllHistoryAdmin({ page, limit })
+
+  const items = result.items.map((entry) => ({
+    id: entry._id,
+    toolSlug: entry.toolSlug,
+    toolName: entry.toolName,
+    category: entry.category,
+    createdAt: entry.createdAt,
+    user: entry.user ? { id: entry.user._id, name: entry.user.name, email: entry.user.email } : { name: 'Anonymous', email: null },
+  }))
+
+  sendSuccess(res, {
+    data: items,
+    meta: { total: result.total, page: result.page, pages: result.pages },
+  })
+})

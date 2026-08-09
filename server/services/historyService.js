@@ -39,3 +39,26 @@ export async function deleteHistoryEntry(userId, entryId) {
   if (!entry) throw ApiError.notFound('History entry not found')
   return entry
 }
+
+/**
+ * Admin view of every conversion, across all users. Populates the user's
+ * name/email from the existing `user` relationship (see
+ * models/ConversionHistory.js) rather than storing a redundant copy of
+ * that data on every single history record — a copy would drift out of
+ * sync the moment a user changed their name or email.
+ */
+export async function listAllHistoryAdmin({ page = 1, limit = 50 } = {}) {
+  const safeLimit = Math.min(Number(limit) || 50, MAX_PAGE_SIZE)
+  const safePage = Math.max(Number(page) || 1, 1)
+
+  const [items, total] = await Promise.all([
+    ConversionHistory.find({})
+      .sort({ createdAt: -1 })
+      .skip((safePage - 1) * safeLimit)
+      .limit(safeLimit)
+      .populate('user', 'name email'),
+    ConversionHistory.countDocuments({}),
+  ])
+
+  return { items, total, page: safePage, pages: Math.ceil(total / safeLimit) }
+}

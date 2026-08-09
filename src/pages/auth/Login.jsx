@@ -51,7 +51,7 @@ export default function Login() {
               Welcome back
             </h1>
             <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-              Sign in to access your favorites and conversion history.
+              {location.state?.message || 'Sign in to access your favorites and conversion history.'}
             </p>
           </div>
 

@@ -22,6 +22,14 @@ import apiRoutes from './routes/index.js'
 export function createApp() {
   const app = express()
 
+  // Vercel (and most serverless/proxy platforms) terminates TLS at the
+  // edge and forwards to this function over an internal connection —
+  // without this, Express can't tell the request was actually HTTPS, and
+  // express-rate-limit can't correctly identify client IPs from
+  // X-Forwarded-For, silently rate-limiting everyone as if they shared one
+  // IP (the proxy's).
+  app.set('trust proxy', 1)
+
   // --- Security & core middleware -----------------------------------------
   app.use(helmet())
   app.use(
