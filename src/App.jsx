@@ -34,6 +34,7 @@ const Register = lazy(() => import('./pages/auth/Register.jsx'))
 const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword.jsx'))
 const ResetPassword = lazy(() => import('./pages/auth/ResetPassword.jsx'))
 const VerifyEmail = lazy(() => import('./pages/auth/VerifyEmail.jsx'))
+const CheckEmail = lazy(() => import('./pages/auth/CheckEmail.jsx'))
 
 // User dashboard (Phase 5)
 const Dashboard = lazy(() => import('./pages/dashboard/Dashboard.jsx'))
@@ -76,6 +77,7 @@ export default function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/verify-email" element={<VerifyEmail />} />
+          <Route path="/check-email" element={<CheckEmail />} />
 
           {/* User dashboard - requires authentication */}
           <Route element={<ProtectedRoute />}>

@@ -11,6 +11,7 @@ import {
 } from 'react-icons/hi2'
 import Container from '../ui/Container.jsx'
 import { useAuth } from '../../context/AuthContext.jsx'
+import EmailVerificationBanner from './EmailVerificationBanner.jsx'
 
 const NAV_ITEMS = [
   { label: 'Overview', to: '/dashboard', icon: HiOutlineSquares2X2, end: true },
@@ -35,6 +36,8 @@ export default function DashboardLayout() {
           Manage your account, favorites, and conversion history.
         </p>
       </div>
+
+      <EmailVerificationBanner />
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[220px_1fr]">
         <nav className="flex gap-1 overflow-x-auto lg:flex-col lg:overflow-visible">

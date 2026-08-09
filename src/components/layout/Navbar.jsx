@@ -6,13 +6,24 @@ import Container from '../ui/Container.jsx'
 import ThemeToggle from '../ui/ThemeToggle.jsx'
 import SearchModal from '../ui/SearchModal.jsx'
 import MegaMenu from './MegaMenu.jsx'
+import CategoryToolsDropdown from './CategoryToolsDropdown.jsx'
 import UserMenu from './UserMenu.jsx'
 import { categories } from '../../data/categories.js'
 import { useAuth } from '../../context/AuthContext.jsx'
 
+// Desktop: hover dropdowns showing that category's tools directly, next to
+// the full "Categories" mega menu. Mobile: simple tap-through links to the
+// filtered Tools page instead (hover doesn't apply on touch, and mobile
+// already has the full Categories accordion for browsing everything).
+const CATEGORY_SHORTCUTS = [
+  { label: 'Image Tools', slug: 'image-tools' },
+  { label: 'PDF Tools', slug: 'pdf-tools' },
+]
+
 const NAV_LINKS = [
   { label: 'Blog', to: '/blog' },
   { label: 'About', to: '/about' },
+  { label: 'Contact', to: '/contact' },
 ]
 
 export default function Navbar() {
@@ -69,6 +80,9 @@ export default function Navbar() {
 
           <div className="hidden items-center gap-8 md:flex">
             <MegaMenu />
+            {CATEGORY_SHORTCUTS.map((shortcut) => (
+              <CategoryToolsDropdown key={shortcut.slug} categorySlug={shortcut.slug} label={shortcut.label} />
+            ))}
             {NAV_LINKS.map((link) => (
               <NavLink key={link.to} to={link.to} className={linkClasses}>
                 {link.label}

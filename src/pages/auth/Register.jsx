@@ -51,7 +51,7 @@ export default function Register() {
     setIsSubmitting(true)
     try {
       await register(form)
-      navigate('/dashboard', { replace: true })
+      navigate('/check-email', { replace: true })
     } catch (err) {
       setFormError(err.message || 'Something went wrong. Please try again.')
     } finally {
