@@ -8,7 +8,7 @@ import Slider from '../../components/ui/Slider.jsx'
 import { useImageUpload } from '../../hooks/useImageUpload.js'
 import { useToolResult } from '../../hooks/useToolResult.js'
 import { compressImage } from '../../lib/imageProcessing.js'
-import { downloadBlob, buildOutputFilename } from '../../lib/downloadBlob.js'
+import { buildOutputFilename } from '../../lib/downloadBlob.js'
 import { getToolBySlug } from '../../data/tools.js'
 import { toolFaqs } from '../../data/toolFaq.js'
 
@@ -17,7 +17,7 @@ const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 
 export default function ImageCompressor() {
   const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 25 })
-  const { status, result, run, clearResult } = useToolResult({ toolSlug: tool.slug, toolName: tool.name, category: tool.category })
+  const { status, result, run, clearResult, download } = useToolResult({ toolSlug: tool.slug, toolName: tool.name, category: tool.category })
   const [quality, setQuality] = useState(70)
   const debounceRef = useRef(null)
 
@@ -40,7 +40,7 @@ export default function ImageCompressor() {
 
   function handleDownload() {
     if (!result) return
-    downloadBlob(result.blob, buildOutputFilename(upload.file.name, 'jpg', '-compressed'))
+    download(result.blob, buildOutputFilename(upload.file.name, 'jpg', '-compressed'))
   }
 
   function handleReset() {

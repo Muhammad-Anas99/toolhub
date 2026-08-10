@@ -48,6 +48,22 @@ const conversionHistorySchema = new mongoose.Schema(
       enum: ['desktop', 'mobile', 'tablet', 'unknown'],
       default: 'unknown',
     },
+    // Set only when the user actually clicks Download for this result —
+    // logging a conversion (processing finished) and downloading it are
+    // different events. See historyService.markDownloaded /
+    // controllers/historyController.js markDownloaded, and
+    // src/hooks/useToolResult.js on the frontend, which is the single
+    // place that calls the mark-as-downloaded endpoint right after
+    // triggering the real browser download.
+    downloaded: {
+      type: Boolean,
+      default: false,
+      index: true,
+    },
+    downloadedAt: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true }
 )

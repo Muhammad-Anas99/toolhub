@@ -142,6 +142,8 @@ export const api = {
   getMyHistory: (params = {}) => authorizedRequest(`/history${toQuery(params)}`),
   clearMyHistory: () => authorizedRequest('/history', { method: 'DELETE' }),
   deleteHistoryEntry: (id) => authorizedRequest(`/history/${id}`, { method: 'DELETE' }),
+  markDownloaded: (id) => authorizedRequest(`/history/${id}/download`, { method: 'PATCH' }),
+  getMyDownloads: (params = {}) => authorizedRequest(`/history/downloads${toQuery(params)}`),
   adminGetAllHistory: (params = {}) => authorizedRequest(`/history/admin/all${toQuery(params)}`),
 
   // --- Admin: users --------------------------------------------------------------

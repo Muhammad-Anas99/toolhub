@@ -144,9 +144,11 @@ Every response is shaped `{ success, message, data, meta? }` on success, or `{ s
 | Method | Route | Notes |
 |---|---|---|
 | POST | `/api/history` | Works signed-out too (logs anonymously, still counts toward analytics). Body: `{ toolSlug, toolName, category, originalFileName? }` |
-| GET | `/api/history` | Requires auth. Query params: `page`, `limit` |
+| GET | `/api/history` | Requires auth. Every conversion, regardless of whether it was downloaded. Query params: `page`, `limit` |
 | DELETE | `/api/history` | Requires auth. Clears all of the current user's history |
 | DELETE | `/api/history/:id` | Requires auth |
+| PATCH | `/api/history/:id/download` | Requires auth. Marks a conversion as downloaded — called once, right after the browser download is actually triggered (see `src/hooks/useToolResult.js`). Distinct from POST above, which fires when processing finishes, not when the user downloads the result. |
+| GET | `/api/history/downloads` | Requires auth. Only conversions where `downloaded: true` — a genuinely different set from GET `/api/history` above, not the same list relabeled. Sorted by `downloadedAt`. |
 
 ### Analytics
 | Method | Route | Notes |

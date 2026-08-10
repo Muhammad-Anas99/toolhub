@@ -16,8 +16,9 @@ export default function Downloads() {
 
       <div className="mt-6">
         <HistoryList
+          mode="downloads"
           emptyTitle="No downloads yet"
-          emptyDescription="Anything you download from a tool will be listed here."
+          emptyDescription="Click Download on any tool's result and it'll show up here."
         />
       </div>
     </>

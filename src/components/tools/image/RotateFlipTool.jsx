@@ -13,7 +13,7 @@ import DownloadPanel from '../DownloadPanel.jsx'
 import { useImageUpload } from '../../../hooks/useImageUpload.js'
 import { useToolResult } from '../../../hooks/useToolResult.js'
 import { rotateFlipImage } from '../../../lib/imageProcessing.js'
-import { downloadBlob, buildOutputFilename } from '../../../lib/downloadBlob.js'
+import { buildOutputFilename } from '../../../lib/downloadBlob.js'
 
 const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 
@@ -24,7 +24,7 @@ const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
  */
 export default function RotateFlipTool({ mode, toolSlug, toolName, category }) {
   const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 25 })
-  const { status, result, run, clearResult } = useToolResult({ toolSlug, toolName, category })
+  const { status, result, run, clearResult, download } = useToolResult({ toolSlug, toolName, category })
   const [degrees, setDegrees] = useState(0)
   const [flipHorizontal, setFlipHorizontal] = useState(false)
   const [flipVertical, setFlipVertical] = useState(false)
@@ -77,7 +77,7 @@ export default function RotateFlipTool({ mode, toolSlug, toolName, category }) {
   function handleDownload() {
     if (!result) return
     const extension = upload.file.name.split('.').pop()
-    downloadBlob(
+    download(
       result.blob,
       buildOutputFilename(upload.file.name, extension, mode === 'flip' ? '-flipped' : '-rotated')
     )

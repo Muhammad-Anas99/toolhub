@@ -49,6 +49,26 @@ export const deleteHistoryEntry = asyncHandler(async (req, res) => {
 })
 
 /**
+ * Called once, right after the browser download is actually triggered —
+ * see src/hooks/useToolResult.js. Distinct from logConversion (which
+ * fires when processing finishes, regardless of whether the user ever
+ * downloads the result).
+ */
+export const markDownloaded = asyncHandler(async (req, res) => {
+  const entry = await historyService.markDownloaded(req.user._id, req.params.id)
+  sendSuccess(res, { message: 'Download recorded', data: entry })
+})
+
+export const getMyDownloads = asyncHandler(async (req, res) => {
+  const { page, limit } = req.query
+  const result = await historyService.listMyDownloads(req.user._id, { page, limit })
+  sendSuccess(res, {
+    data: result.items,
+    meta: { total: result.total, page: result.page, pages: result.pages },
+  })
+})
+
+/**
  * Admin-only: every conversion across all users, newest first, with the
  * performing user's name/email attached where known. `user: null` on the
  * underlying record (an anonymous conversion) is shaped into an explicit

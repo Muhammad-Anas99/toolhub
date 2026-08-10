@@ -10,7 +10,7 @@ import Slider from '../../components/ui/Slider.jsx'
 import { useImageUpload } from '../../hooks/useImageUpload.js'
 import { useToolResult } from '../../hooks/useToolResult.js'
 import { rotateFlipImage, cropImage } from '../../lib/imageProcessing.js'
-import { downloadBlob, buildOutputFilename } from '../../lib/downloadBlob.js'
+import { buildOutputFilename } from '../../lib/downloadBlob.js'
 import { getToolBySlug } from '../../data/tools.js'
 import { toolFaqs } from '../../data/toolFaq.js'
 
@@ -21,7 +21,7 @@ const STAGE_MAX_HEIGHT = 420
 
 export default function ImageCrop() {
   const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 25 })
-  const { status, result, run, clearResult, setStatus } = useToolResult({ toolSlug: tool.slug, toolName: tool.name, category: tool.category })
+  const { status, result, run, clearResult, setStatus, download } = useToolResult({ toolSlug: tool.slug, toolName: tool.name, category: tool.category })
 
   // The "working" image is the current source for cropping — starts as the
   // uploaded file and is replaced whenever the user rotates before cropping.
@@ -103,7 +103,7 @@ export default function ImageCrop() {
 
   function handleDownload() {
     if (!result) return
-    downloadBlob(
+    download(
       result.blob,
       buildOutputFilename(upload.file.name, upload.file.name.split('.').pop(), '-cropped')
     )

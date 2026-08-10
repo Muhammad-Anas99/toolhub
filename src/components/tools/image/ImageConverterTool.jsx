@@ -7,7 +7,7 @@ import DownloadPanel from '../DownloadPanel.jsx'
 import { useImageUpload } from '../../../hooks/useImageUpload.js'
 import { useToolResult } from '../../../hooks/useToolResult.js'
 import { convertImageFormat } from '../../../lib/imageProcessing.js'
-import { downloadBlob, buildOutputFilename } from '../../../lib/downloadBlob.js'
+import { buildOutputFilename } from '../../../lib/downloadBlob.js'
 
 /**
  * Generic image format converter. Configured per-tool via props so it can
@@ -24,7 +24,7 @@ export default function ImageConverterTool({
   category,
 }) {
   const upload = useImageUpload({ acceptedTypes, maxSizeMB })
-  const { status, result, run, clearResult } = useToolResult({ toolSlug, toolName, category })
+  const { status, result, run, clearResult, download } = useToolResult({ toolSlug, toolName, category })
 
   function handleConvert() {
     run(
@@ -35,7 +35,7 @@ export default function ImageConverterTool({
 
   function handleDownload() {
     if (!result) return
-    downloadBlob(result.blob, buildOutputFilename(upload.file.name, outputExtension))
+    download(result.blob, buildOutputFilename(upload.file.name, outputExtension))
   }
 
   function handleReset() {

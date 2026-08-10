@@ -8,7 +8,7 @@ import DownloadPanel from '../../components/tools/DownloadPanel.jsx'
 import { useImageUpload } from '../../hooks/useImageUpload.js'
 import { useToolResult } from '../../hooks/useToolResult.js'
 import { resizeImage } from '../../lib/imageProcessing.js'
-import { downloadBlob, buildOutputFilename } from '../../lib/downloadBlob.js'
+import { buildOutputFilename } from '../../lib/downloadBlob.js'
 import { getToolBySlug } from '../../data/tools.js'
 import { toolFaqs } from '../../data/toolFaq.js'
 
@@ -17,7 +17,7 @@ const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 
 export default function ImageResizer() {
   const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 25 })
-  const { status, result, run, clearResult } = useToolResult({ toolSlug: tool.slug, toolName: tool.name, category: tool.category })
+  const { status, result, run, clearResult, download } = useToolResult({ toolSlug: tool.slug, toolName: tool.name, category: tool.category })
   const [mode, setMode] = useState('pixels') // pixels | percentage
   const [width, setWidth] = useState('')
   const [height, setHeight] = useState('')
@@ -75,7 +75,7 @@ export default function ImageResizer() {
 
   function handleDownload() {
     if (!result) return
-    downloadBlob(
+    download(
       result.blob,
       buildOutputFilename(upload.file.name, upload.file.name.split('.').pop(), '-resized')
     )

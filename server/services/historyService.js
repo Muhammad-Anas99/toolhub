@@ -41,6 +41,45 @@ export async function deleteHistoryEntry(userId, entryId) {
 }
 
 /**
+ * Marks a specific conversion as downloaded — called once, right after
+ * the browser download is actually triggered (see
+ * src/hooks/useToolResult.js on the frontend). Scoped to the requesting
+ * user via the same { _id, user } pattern as deleteHistoryEntry, so a
+ * user can only mark their own conversions.
+ */
+export async function markDownloaded(userId, entryId) {
+  const entry = await ConversionHistory.findOneAndUpdate(
+    { _id: entryId, user: userId },
+    { downloaded: true, downloadedAt: new Date() },
+    { new: true }
+  )
+  if (!entry) throw ApiError.notFound('History entry not found')
+  return entry
+}
+
+/**
+ * Only conversions the user actually downloaded — distinct from
+ * listMyHistory, which returns every conversion regardless of whether it
+ * was ever downloaded.
+ */
+export async function listMyDownloads(userId, { page = 1, limit = 20 } = {}) {
+  const safeLimit = Math.min(Number(limit) || 20, MAX_PAGE_SIZE)
+  const safePage = Math.max(Number(page) || 1, 1)
+
+  const query = { user: userId, downloaded: true }
+
+  const [items, total] = await Promise.all([
+    ConversionHistory.find(query)
+      .sort({ downloadedAt: -1 })
+      .skip((safePage - 1) * safeLimit)
+      .limit(safeLimit),
+    ConversionHistory.countDocuments(query),
+  ])
+
+  return { items, total, page: safePage, pages: Math.ceil(total / safeLimit) }
+}
+
+/**
  * Admin view of every conversion, across all users. Populates the user's
  * name/email from the existing `user` relationship (see
  * models/ConversionHistory.js) rather than storing a redundant copy of
