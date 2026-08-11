@@ -17,9 +17,13 @@ function fileFilter(req, file, cb) {
  * written to disk. Vercel's filesystem is read-only/ephemeral in
  * production, so disk writes there either fail outright or vanish the
  * moment the function instance recycles — memory storage works
- * identically in every environment, and uploadController.js decides where
- * the buffer ultimately goes (Vercel Blob in production, local disk as a
- * dev-only fallback — see that file for details).
+ * identically in every environment, and services/storageService.js
+ * decides where the buffer ultimately goes (Vercel Blob in production,
+ * local disk as a dev-only fallback — see that file for details).
+ *
+ * Shared by the admin content-upload route (POST /api/uploads) and the
+ * user Downloads route (POST /api/downloads) — same file-handling rules
+ * apply to both.
  */
 export const upload = multer({
   storage: multer.memoryStorage(),

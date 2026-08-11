@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Container from '../components/ui/Container.jsx'
 import SEO from '../components/ui/SEO.jsx'
 
@@ -71,9 +72,14 @@ export default function Terms() {
                 Your content
               </h2>
               <p className="mt-2 leading-relaxed">
-                You retain all rights to files you process using ToolHub. For tools that run
-                entirely in your browser, we never receive or store your files. Where a tool
-                requires uploading a file, this is disclosed on that tool's page.
+                You retain all rights to files you process using ToolHub. Every tool processes
+                your file directly in your browser — the original file you upload is never sent
+                to us. If you create an account and click Download on a result, we retain a copy
+                of that specific output file so it can appear in your Downloads library; see our{' '}
+                <Link to="/privacy-policy" className="text-brand-600 dark:text-brand-400">
+                  Privacy Policy
+                </Link>{' '}
+                for details. You can remove any item from your Downloads library at any time.
               </p>
             </section>
 

@@ -143,12 +143,19 @@ Every response is shaped `{ success, message, data, meta? }` on success, or `{ s
 ### Conversion history
 | Method | Route | Notes |
 |---|---|---|
-| POST | `/api/history` | Works signed-out too (logs anonymously, still counts toward analytics). Body: `{ toolSlug, toolName, category, originalFileName? }` |
-| GET | `/api/history` | Requires auth. Every conversion, regardless of whether it was downloaded. Query params: `page`, `limit` |
+| POST | `/api/history` | Works signed-out too (logs anonymously, still counts toward analytics). Body: `{ toolSlug, toolName, category, originalFileName? }`. Metadata only — never the actual file. |
+| GET | `/api/history` | Requires auth. Every conversion, regardless of whether it was ever downloaded. Query params: `page`, `limit` |
 | DELETE | `/api/history` | Requires auth. Clears all of the current user's history |
 | DELETE | `/api/history/:id` | Requires auth |
-| PATCH | `/api/history/:id/download` | Requires auth. Marks a conversion as downloaded — called once, right after the browser download is actually triggered (see `src/hooks/useToolResult.js`). Distinct from POST above, which fires when processing finishes, not when the user downloads the result. |
-| GET | `/api/history/downloads` | Requires auth. Only conversions where `downloaded: true` — a genuinely different set from GET `/api/history` above, not the same list relabeled. Sorted by `downloadedAt`. |
+
+### Downloads
+A genuinely separate model from Conversion history above (`server/models/Download.js`, not a flag on `ConversionHistory`) — created only when the user clicks Download, referencing the actual retained output file. See `server/services/storageService.js` for where that file is stored (Vercel Blob in production, local `uploads/` in dev).
+
+| Method | Route | Notes |
+|---|---|---|
+| POST | `/api/downloads` | Requires auth. `multipart/form-data`: `file` (the actual converted output), `toolSlug`, `toolName`. Called once, right after the browser download is triggered — see `src/hooks/useToolResult.js`. |
+| GET | `/api/downloads` | Requires auth. The user's downloaded-files library, newest first. Query params: `page`, `limit` |
+| DELETE | `/api/downloads/:id` | Requires auth. Removes the database record (does not currently delete the underlying Blob storage object — a known limitation, not a correctness bug). |
 
 ### Analytics
 | Method | Route | Notes |

@@ -29,10 +29,13 @@ const conversionHistorySchema = new mongoose.Schema(
       lowercase: true,
       index: true,
     },
-    // Metadata only — the actual file never touches the server (every tool
-    // processes images entirely in the browser via the Canvas API), so
-    // there is nothing here that identifies file content, just that a
-    // conversion of this type happened.
+    // Metadata only — the actual file never touches the server as part of
+    // logging a conversion (every tool processes images entirely in the
+    // browser via the Canvas API), so there is nothing here that
+    // identifies file content, just that a conversion of this type
+    // happened. Actual downloaded output files are a separate concern —
+    // see models/Download.js — created only when the user clicks Download,
+    // not at conversion time.
     originalFileName: {
       type: String,
       trim: true,
@@ -47,22 +50,6 @@ const conversionHistorySchema = new mongoose.Schema(
       type: String,
       enum: ['desktop', 'mobile', 'tablet', 'unknown'],
       default: 'unknown',
-    },
-    // Set only when the user actually clicks Download for this result —
-    // logging a conversion (processing finished) and downloading it are
-    // different events. See historyService.markDownloaded /
-    // controllers/historyController.js markDownloaded, and
-    // src/hooks/useToolResult.js on the frontend, which is the single
-    // place that calls the mark-as-downloaded endpoint right after
-    // triggering the real browser download.
-    downloaded: {
-      type: Boolean,
-      default: false,
-      index: true,
-    },
-    downloadedAt: {
-      type: Date,
-      default: null,
     },
   },
   { timestamps: true }

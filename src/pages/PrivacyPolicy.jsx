@@ -37,10 +37,17 @@ export default function PrivacyPolicy() {
                 Browser-based processing
               </h2>
               <p className="mt-2 leading-relaxed">
-                Wherever possible, ToolHub tools process your files directly in your browser.
-                Files handled this way are never uploaded to our servers and are not stored or
-                seen by us. If a tool requires uploading a file to be processed, this will be made
-                clear on that tool's page before you use it.
+                Every tool converts, compresses, resizes, crops, or rotates your file directly in
+                your browser using standard web technology (the Canvas API) — the original file
+                you upload is never sent to our servers, and we never see it.
+              </p>
+              <p className="mt-2 leading-relaxed">
+                If you create an account and click Download on a result, we retain a copy of that
+                specific output file so it can appear in your Downloads library and be downloaded
+                again later. This only happens when you explicitly click Download while signed in
+                — a result you process but never download, or process while signed out, is never
+                sent to us. You can remove an item from your Downloads library at any time, which
+                deletes our copy of that file.
               </p>
             </section>
 
@@ -49,10 +56,11 @@ export default function PrivacyPolicy() {
                 Information we collect
               </h2>
               <p className="mt-2 leading-relaxed">
-                ToolHub does not currently require account creation, and we do not collect
-                personal information as part of normal tool use. If you contact us through the
-                Contact page, we receive the name, email address, and message you choose to
-                provide, which we use solely to respond to your inquiry.
+                Creating an account is optional — every tool works without one. If you do create
+                an account, we collect your name, email address, and password (stored as a secure
+                hash, never in plain text). If you contact us through the Contact page, we receive
+                the name, email address, and message you choose to provide, which we use solely to
+                respond to your inquiry.
               </p>
             </section>
 

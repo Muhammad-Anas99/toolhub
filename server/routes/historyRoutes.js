@@ -10,13 +10,6 @@ router.post('/', attachUserIfPresent, historyController.logConversion)
 
 router.get('/', protect, historyController.getMyHistory)
 router.delete('/', protect, historyController.clearMyHistory)
-
-// Downloads — only conversions actually downloaded, distinct from the
-// full history above. Declared before "/:id" so "/downloads" is never
-// mistaken for an :id value.
-router.get('/downloads', protect, historyController.getMyDownloads)
-
-router.patch('/:id/download', protect, historyController.markDownloaded)
 router.delete('/:id', protect, historyController.deleteHistoryEntry)
 
 // Admin-only: every user's conversions, with who-did-it attached.
