@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
+Disallow: /dashboard/
+Disallow: /verify-email
+Disallow: /reset-password
+Disallow: /check-email
 
-# Sitemap: add once a real domain and build-time sitemap generation are in place.
+# Update the domain below to match your real production domain (see the
+# comment at the top of sitemap.xml).
+Sitemap: https://trytoolhub.net/sitemap.xml
+EOF
