@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { HiCheck } from 'react-icons/hi2'
 import SEO from '../../components/ui/SEO.jsx'
 import { useAuth } from '../../context/AuthContext.jsx'
+import { api } from '../../lib/api.js'
 
 const PLANS = [
   {
@@ -29,6 +30,14 @@ const PLANS = [
 
 export default function Subscription() {
   const { user } = useAuth()
+  const [usage, setUsage] = useState(null)
+
+  useEffect(() => {
+    api
+      .getMyUsage()
+      .then(({ data }) => setUsage(data))
+      .catch(() => {}) // non-critical — the page works fine without this
+  }, [])
 
   return (
     <>
@@ -39,6 +48,29 @@ export default function Subscription() {
         Premium and Pro plans are in preparation — pricing and payment aren&apos;t live yet. You&apos;re
         on the Free plan, which already includes every tool.
       </p>
+
+      {usage && (
+        <div className="mt-6 card p-5">
+          <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Your usage</h3>
+          <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+            The Free plan has no usage limit today — this is just a record of your activity.
+          </p>
+          <div className="mt-4 grid grid-cols-3 gap-4 text-center">
+            <div>
+              <p className="text-2xl font-bold text-slate-900 dark:text-white">{usage.usage.today}</p>
+              <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">Today</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-slate-900 dark:text-white">{usage.usage.month}</p>
+              <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">This month</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-slate-900 dark:text-white">{usage.usage.total}</p>
+              <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">All time</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3">
         {PLANS.map((plan) => {

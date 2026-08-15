@@ -454,6 +454,16 @@ export const tools = [
     badge: 'new',
     comingSoon: true,
   },
+  {
+    id: 'ai-image-enhancer',
+    name: 'AI Image Enhancer',
+    slug: 'ai-image-enhancer',
+    path: '/tools/ai-image-enhancer',
+    category: 'ai-tools',
+    description: 'Automatically sharpen, denoise and improve photo quality using AI.',
+    icon: FaWandMagicSparkles,
+    comingSoon: true,
+  },
 
   // ---------- Security Tools ----------
   {

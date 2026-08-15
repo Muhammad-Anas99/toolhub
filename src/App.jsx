@@ -4,6 +4,7 @@ import Layout from './components/layout/Layout.jsx'
 import PageLoader from './components/ui/PageLoader.jsx'
 import ProtectedRoute from './components/auth/ProtectedRoute.jsx'
 import DashboardLayout from './components/dashboard/DashboardLayout.jsx'
+import AdminLayout from './components/admin/AdminLayout.jsx'
 
 // Route-level code splitting: each page is only downloaded when it's
 // visited, instead of bundling all pages into a single initial chunk.
@@ -55,6 +56,9 @@ const CaseConverter = lazy(() => import('./pages/tools/CaseConverter.jsx'))
 const LoremIpsumGenerator = lazy(() => import('./pages/tools/LoremIpsumGenerator.jsx'))
 const PasswordGenerator = lazy(() => import('./pages/tools/PasswordGenerator.jsx'))
 const InstagramPostResizer = lazy(() => import('./pages/tools/InstagramPostResizer.jsx'))
+const AiBackgroundRemover = lazy(() => import('./pages/tools/AiBackgroundRemover.jsx'))
+const AiImageUpscaler = lazy(() => import('./pages/tools/AiImageUpscaler.jsx'))
+const AiImageEnhancer = lazy(() => import('./pages/tools/AiImageEnhancer.jsx'))
 
 // Auth (Phase 5)
 const Login = lazy(() => import('./pages/auth/Login.jsx'))
@@ -66,6 +70,9 @@ const CheckEmail = lazy(() => import('./pages/auth/CheckEmail.jsx'))
 
 // User dashboard (Phase 5)
 const Dashboard = lazy(() => import('./pages/dashboard/Dashboard.jsx'))
+const AdminOverview = lazy(() => import('./pages/admin/AdminOverview.jsx'))
+const AdminUsers = lazy(() => import('./pages/admin/AdminUsers.jsx'))
+const AdminTools = lazy(() => import('./pages/admin/AdminTools.jsx'))
 const Profile = lazy(() => import('./pages/dashboard/Profile.jsx'))
 const Favorites = lazy(() => import('./pages/dashboard/Favorites.jsx'))
 const History = lazy(() => import('./pages/dashboard/History.jsx'))
@@ -119,6 +126,9 @@ export default function App() {
           <Route path="/tools/lorem-ipsum-generator" element={<LoremIpsumGenerator />} />
           <Route path="/tools/password-generator" element={<PasswordGenerator />} />
           <Route path="/tools/instagram-post-resizer" element={<InstagramPostResizer />} />
+          <Route path="/tools/ai-background-remover" element={<AiBackgroundRemover />} />
+          <Route path="/tools/ai-image-upscaler" element={<AiImageUpscaler />} />
+          <Route path="/tools/ai-image-enhancer" element={<AiImageEnhancer />} />
 
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
@@ -146,8 +156,18 @@ export default function App() {
             </Route>
           </Route>
 
-          {/* Admin dashboard routes land here next session — the backend
-              endpoints (protect + authorize('admin')) are already live. */}
+          {/* Admin dashboard - requires authentication AND the admin role.
+              Non-admins hitting /admin/* are redirected to / by
+              ProtectedRoute itself (see requireRole handling there) —
+              there's no separate check needed in AdminLayout or any
+              admin page below it. */}
+          <Route element={<ProtectedRoute requireRole="admin" />}>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminOverview />} />
+              <Route path="users" element={<AdminUsers />} />
+              <Route path="tools" element={<AdminTools />} />
+            </Route>
+          </Route>
 
           <Route path="*" element={<NotFound />} />
         </Route>

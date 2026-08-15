@@ -238,6 +238,23 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- AI tools (Coming Soon pages - real content explaining what's planned) -->
+  <url>
+    <loc>https://trytoolhub.net/tools/ai-background-remover</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/ai-image-upscaler</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/ai-image-enhancer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
   <!-- Social media tools -->
   <url>
     <loc>https://trytoolhub.net/tools/instagram-post-resizer</loc>

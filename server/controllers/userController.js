@@ -2,6 +2,7 @@ import { asyncHandler } from '../utils/asyncHandler.js'
 import { sendSuccess } from '../utils/ApiResponse.js'
 import { ApiError } from '../utils/ApiError.js'
 import * as userService from '../services/userService.js'
+import * as usageService from '../services/usageService.js'
 import { verifyCurrentPassword } from './authController.js'
 import { storeFile } from '../services/storageService.js'
 
@@ -42,6 +43,16 @@ export const changeMyPassword = asyncHandler(async (req, res) => {
 
   await userService.changePassword(req.user._id, newPassword)
   sendSuccess(res, { message: 'Password changed. Please sign in again on other devices.' })
+})
+
+/**
+ * Foundation for a future "usage" panel — read-only, not used for any
+ * enforcement. See server/services/usageService.js for why this is built
+ * on the existing ConversionHistory data rather than a separate counter.
+ */
+export const getMyUsage = asyncHandler(async (req, res) => {
+  const stats = await usageService.getUserUsageStats(req.user._id)
+  sendSuccess(res, { data: stats })
 })
 
 // --- Admin -------------------------------------------------------------------------

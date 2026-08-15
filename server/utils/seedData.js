@@ -126,6 +126,7 @@ export const toolSeed = [
   // ---------- AI Tools ----------
   { name: 'AI Background Remover', slug: 'ai-background-remover', path: '/tools/ai-background-remover', category: 'ai-tools', description: 'Remove image backgrounds automatically using AI.', icon: 'FaWandMagicSparkles', badge: 'new', comingSoon: true },
   { name: 'AI Image Upscaler', slug: 'ai-image-upscaler', path: '/tools/ai-image-upscaler', category: 'ai-tools', description: 'Upscale images to higher resolution with AI.', icon: 'FaImages', badge: 'new', comingSoon: true },
+  { name: 'AI Image Enhancer', slug: 'ai-image-enhancer', path: '/tools/ai-image-enhancer', category: 'ai-tools', description: 'Automatically sharpen, denoise and improve photo quality using AI.', icon: 'FaWandMagicSparkles', comingSoon: true },
 
   // ---------- Security Tools ----------
   { name: 'Password Generator', slug: 'password-generator', path: '/tools/password-generator', category: 'security-tools', description: 'Generate strong, random and secure passwords with adjustable length and character types.', icon: 'FaKey', badge: 'popular', comingSoon: false },

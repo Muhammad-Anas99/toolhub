@@ -141,6 +141,7 @@ export const api = {
   },
   removeAvatar: () => authorizedRequest('/users/me/avatar', { method: 'DELETE' }),
   changePassword: (data) => authorizedRequest('/users/me/password', { method: 'PUT', body: JSON.stringify(data) }),
+  getMyUsage: () => authorizedRequest('/users/me/usage'),
 
   // --- Favorites -----------------------------------------------------------------
   getFavorites: () => authorizedRequest('/favorites'),

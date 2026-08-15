@@ -402,4 +402,26 @@ export const toolFaqs = {
       answer: 'Square (1080\u00d71080) for standard feed posts, Portrait (1080\u00d71350) for taller feed posts that take up more screen space, Landscape (1080\u00d7566) for wide photos, Story/Reel (1080\u00d71920) for Stories and Reels, and Profile Picture (320\u00d7320) for your account photo.',
     },
   ],
+
+  'ai-background-remover': [
+    {
+      id: 'when-available',
+      question: 'When will this be available?',
+      answer: 'This tool is prepared but not yet connected to an AI processing service. There\u2019s no fixed date \u2014 check back, or explore ToolHub\u2019s other working image tools in the meantime.',
+    },
+  ],
+  'ai-image-upscaler': [
+    {
+      id: 'when-available',
+      question: 'When will this be available?',
+      answer: 'This tool is prepared but not yet connected to an AI processing service. There\u2019s no fixed date \u2014 check back, or explore ToolHub\u2019s other working image tools in the meantime.',
+    },
+  ],
+  'ai-image-enhancer': [
+    {
+      id: 'when-available',
+      question: 'When will this be available?',
+      answer: 'This tool is prepared but not yet connected to an AI processing service. There\u2019s no fixed date \u2014 check back, or explore ToolHub\u2019s other working image tools in the meantime.',
+    },
+  ],
 }

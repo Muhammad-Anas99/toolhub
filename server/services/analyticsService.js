@@ -7,6 +7,13 @@ function startOfToday() {
   return date
 }
 
+function startOfWeek() {
+  const date = startOfToday()
+  const day = date.getDay() // 0 = Sunday
+  date.setDate(date.getDate() - day)
+  return date
+}
+
 function startOfMonth() {
   const date = new Date()
   date.setDate(1)
@@ -23,8 +30,29 @@ async function getUserCounts() {
   return { total, daily, monthly }
 }
 
+/**
+ * New account registrations — distinct from getUserCounts() above, which
+ * measures *activity* (lastActiveAt), not signups. Both are useful for
+ * different reasons: activity shows how many people are currently using
+ * the site, this shows how fast the user base itself is growing.
+ */
+async function getNewUserCounts() {
+  const [today, week, month] = await Promise.all([
+    User.countDocuments({ createdAt: { $gte: startOfToday() } }),
+    User.countDocuments({ createdAt: { $gte: startOfWeek() } }),
+    User.countDocuments({ createdAt: { $gte: startOfMonth() } }),
+  ])
+  return { today, week, month }
+}
+
 async function getConversionCounts() {
-  return ConversionHistory.countDocuments({})
+  const [total, today, week, month] = await Promise.all([
+    ConversionHistory.countDocuments({}),
+    ConversionHistory.countDocuments({ createdAt: { $gte: startOfToday() } }),
+    ConversionHistory.countDocuments({ createdAt: { $gte: startOfWeek() } }),
+    ConversionHistory.countDocuments({ createdAt: { $gte: startOfMonth() } }),
+  ])
+  return { total, today, week, month }
 }
 
 async function getMostUsedTools(limit = 5) {
@@ -69,8 +97,9 @@ async function getDeviceBreakdown() {
  * separate requests.
  */
 export async function getDashboardOverview() {
-  const [users, totalConversions, topTools, topCategories, countries, devices] = await Promise.all([
+  const [users, newUsers, conversions, topTools, topCategories, countries, devices] = await Promise.all([
     getUserCounts(),
+    getNewUserCounts(),
     getConversionCounts(),
     getMostUsedTools(),
     getMostUsedCategories(),
@@ -80,7 +109,8 @@ export async function getDashboardOverview() {
 
   return {
     users,
-    conversions: { total: totalConversions },
+    newUsers,
+    conversions,
     topTools,
     topCategories,
     countries,

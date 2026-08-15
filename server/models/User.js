@@ -83,6 +83,17 @@ const userSchema = new mongoose.Schema(
       default: 'free',
     },
 
+    // Foundation for future AI-tool usage limits — not read, deducted, or
+    // enforced anywhere yet (see server/services/usageService.js). Exists
+    // now so the schema doesn't need a migration later just to add it;
+    // every user currently has 0 and nothing currently restricts them
+    // based on this value.
+    credits: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+
     isEmailVerified: {
       type: Boolean,
       default: false,

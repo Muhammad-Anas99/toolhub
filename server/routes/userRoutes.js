@@ -22,6 +22,7 @@ router.put(
   handleValidationErrors,
   userController.changeMyPassword
 )
+router.get('/me/usage', protect, userController.getMyUsage)
 
 // Admin — user management.
 router.get('/', protect, authorize('admin'), userController.getUsers)
