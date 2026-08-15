@@ -462,10 +462,10 @@ export const tools = [
     slug: 'password-generator',
     path: '/tools/password-generator',
     category: 'security-tools',
-    description: 'Generate strong, random and secure passwords.',
+    description: 'Generate strong, random and secure passwords with adjustable length and character types.',
     icon: FaKey,
     badge: 'popular',
-    comingSoon: true,
+    comingSoon: false,
   },
 
   // ---------- Social Media Tools ----------
@@ -475,9 +475,9 @@ export const tools = [
     slug: 'instagram-post-resizer',
     path: '/tools/instagram-post-resizer',
     category: 'social-media-tools',
-    description: 'Resize images to fit Instagram posts and stories.',
+    description: 'Resize images to fit Instagram posts, stories and profile pictures.',
     icon: FaInstagram,
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     id: 'youtube-thumbnail-downloader',

@@ -20,9 +20,9 @@ export default function CategoryCard({ category }) {
     >
       <Link
         to={`/tools?category=${category.slug}`}
-        className="card group block h-full p-5 hover:border-brand-200 hover:shadow-card-hover dark:hover:border-brand-900"
+        className="card group block h-full overflow-hidden p-5 transition-colors duration-200 hover:border-brand-200 hover:shadow-card-hover dark:hover:border-brand-900"
       >
-        <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${colors.bg} ${colors.text}`}>
+        <div className={`flex h-12 w-12 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-110 ${colors.bg} ${colors.text}`}>
           <Icon className="h-5 w-5" />
         </div>
         <h3 className="mt-4 text-base font-semibold text-slate-900 dark:text-white">
@@ -31,7 +31,7 @@ export default function CategoryCard({ category }) {
         <p className="mt-1.5 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
           {category.description}
         </p>
-        <span className="mt-4 inline-block text-xs font-medium text-slate-400 dark:text-slate-500">
+        <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 transition-transform duration-200 group-hover:translate-x-0.5 dark:text-slate-500">
           {toolCount} {toolCount === 1 ? 'tool' : 'tools'}
         </span>
       </Link>

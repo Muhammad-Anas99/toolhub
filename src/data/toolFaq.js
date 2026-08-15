@@ -377,4 +377,29 @@ export const toolFaqs = {
       answer: 'They control how the count applies \u2014 e.g. asking for 5 "sentences" gives you 5 individual sentences, while 5 "paragraphs" gives you 5 full paragraphs, each made up of several sentences.',
     },
   ],
+
+  'password-generator': [
+    {
+      id: 'how-random',
+      question: 'How random are these passwords, really?',
+      answer: 'They\u2019re generated using your browser\u2019s cryptographically secure random number generator (the same class of API used for real security purposes elsewhere), not a simple pseudo-random function \u2014 and nothing about the password is ever sent anywhere, it\u2019s generated entirely on your device.',
+    },
+    {
+      id: 'strength-meaning',
+      question: 'What does the strength indicator mean?',
+      answer: 'It\u2019s a real entropy calculation (bits of randomness) based on your password\u2019s length and which character types you\u2019ve included \u2014 not a cosmetic bar. More length and more character types both increase it.',
+    },
+  ],
+  'instagram-post-resizer': [
+    {
+      id: 'fill-vs-fit',
+      question: 'What\u2019s the difference between Fill and Fit?',
+      answer: 'Fill scales your image to completely cover the target size, cropping any excess from the edges \u2014 no empty space, but some of the image may be cut off. Fit scales it to fit entirely within the target size, adding padding around it if needed \u2014 nothing is cropped, but there may be visible bars.',
+    },
+    {
+      id: 'which-size',
+      question: 'Which size should I use?',
+      answer: 'Square (1080\u00d71080) for standard feed posts, Portrait (1080\u00d71350) for taller feed posts that take up more screen space, Landscape (1080\u00d7566) for wide photos, Story/Reel (1080\u00d71920) for Stories and Reels, and Profile Picture (320\u00d7320) for your account photo.',
+    },
+  ],
 }

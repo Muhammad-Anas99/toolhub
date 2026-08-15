@@ -9,6 +9,15 @@ import {
   HiOutlineArrowPath,
   HiOutlineUserGroup,
   HiOutlineMagnifyingGlass,
+  HiOutlinePhoto,
+  HiOutlineDocumentText,
+  HiOutlineSwatch,
+  HiOutlineCommandLine,
+  HiOutlineArrowUpTray,
+  HiOutlineCog6Tooth,
+  HiOutlineArrowDownTray,
+  HiOutlineCheckCircle,
+  HiOutlineXMark,
   HiArrowRight,
 } from 'react-icons/hi2'
 import Container from '../components/ui/Container.jsx'
@@ -110,7 +119,41 @@ export default function Home() {
       <section className="relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
           <div className="absolute left-1/2 top-[-10rem] h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-gradient-to-br from-brand-300/40 via-fuchsia-200/30 to-transparent blur-3xl dark:from-brand-900/40 dark:via-fuchsia-900/20" />
+          <div className="absolute right-[-8rem] top-32 h-72 w-72 rounded-full bg-gradient-to-br from-fuchsia-300/30 to-transparent blur-3xl dark:from-fuchsia-900/20" />
+          <div className="absolute left-[-6rem] bottom-0 h-64 w-64 rounded-full bg-gradient-to-tr from-brand-200/30 to-transparent blur-3xl dark:from-brand-900/20" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,theme(colors.slate.300)_1px,transparent_0)] bg-[size:32px_32px] opacity-[0.15] dark:bg-[radial-gradient(circle_at_1px_1px,theme(colors.slate.700)_1px,transparent_0)]" />
+
+          {/* Floating tool-category glyphs — purely decorative, hidden on
+              small screens so they never compete with the hero content or
+              cause overflow on narrow viewports. */}
+          <motion.div
+            animate={{ y: [0, -14, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute left-[8%] top-24 hidden h-14 w-14 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 text-brand-500 shadow-lg backdrop-blur-sm lg:flex dark:border-slate-800/80 dark:bg-slate-900/80"
+          >
+            <HiOutlinePhoto className="h-6 w-6" />
+          </motion.div>
+          <motion.div
+            animate={{ y: [0, 14, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+            className="absolute right-[10%] top-16 hidden h-12 w-12 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 text-fuchsia-500 shadow-lg backdrop-blur-sm lg:flex dark:border-slate-800/80 dark:bg-slate-900/80"
+          >
+            <HiOutlineDocumentText className="h-5 w-5" />
+          </motion.div>
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+            className="absolute right-[6%] bottom-10 hidden h-14 w-14 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 text-emerald-500 shadow-lg backdrop-blur-sm lg:flex dark:border-slate-800/80 dark:bg-slate-900/80"
+          >
+            <HiOutlineSwatch className="h-6 w-6" />
+          </motion.div>
+          <motion.div
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+            className="absolute left-[12%] bottom-16 hidden h-11 w-11 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 text-amber-500 shadow-lg backdrop-blur-sm lg:flex dark:border-slate-800/80 dark:bg-slate-900/80"
+          >
+            <HiOutlineCommandLine className="h-5 w-5" />
+          </motion.div>
         </div>
 
         <Container className="py-20 sm:py-28">
@@ -121,6 +164,7 @@ export default function Home() {
             className="mx-auto max-w-2xl text-center"
           >
             <span className="inline-flex items-center rounded-full border border-slate-200 bg-white/60 px-3 py-1 text-xs font-medium text-slate-600 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300">
+              <span className="mr-1.5 flex h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
               8 categories &middot; {tools.length}+ tools and growing
             </span>
             <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-6xl dark:text-white">
@@ -153,6 +197,16 @@ export default function Home() {
                 </button>
               </div>
             </form>
+
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <Link to="/tools" className="btn-primary px-5 py-2.5 shadow-lg shadow-brand-500/20">
+                Browse all tools
+                <HiArrowRight className="h-4 w-4" />
+              </Link>
+              <a href="#how-it-works" className="btn-secondary px-5 py-2.5">
+                See how it works
+              </a>
+            </div>
 
             <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
               {categories.slice(0, 5).map((category) => (
@@ -261,6 +315,67 @@ export default function Home() {
         </Container>
       </section>
 
+      {/* How it works */}
+      <section id="how-it-works" className="scroll-mt-20 border-y border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/50">
+        <Container className="py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+              How it works
+            </h2>
+            <p className="mt-3 text-slate-500 dark:text-slate-400">
+              Three steps, every time. No accounts, no installs, no waiting.
+            </p>
+          </div>
+
+          <div className="relative mt-14 grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-6">
+            {/* Connecting line between steps on larger screens — purely
+                decorative, sits behind the step circles. */}
+            <div
+              className="absolute left-0 right-0 top-8 hidden h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent sm:block dark:via-slate-700"
+              aria-hidden="true"
+            />
+
+            {[
+              {
+                icon: HiOutlineArrowUpTray,
+                title: 'Choose a tool',
+                description: 'Pick from image, PDF, color, developer and text tools — search or browse by category.',
+              },
+              {
+                icon: HiOutlineCog6Tooth,
+                title: 'Upload & adjust',
+                description: 'Drop in your file, tweak the settings you need, and let ToolHub do the work in your browser.',
+              },
+              {
+                icon: HiOutlineArrowDownTray,
+                title: 'Download instantly',
+                description: 'Get your result immediately — no waiting on a server, no email, no watermark.',
+              },
+            ].map((step, index) => (
+              <motion.div
+                key={step.title}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, delay: index * 0.1 }}
+                className="relative text-center"
+              >
+                <div className="relative mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-200 bg-white text-brand-600 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-brand-400">
+                  <step.icon className="h-7 w-7" />
+                  <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-brand-600 text-xs font-bold text-white">
+                    {index + 1}
+                  </span>
+                </div>
+                <h3 className="mt-5 text-base font-semibold text-slate-900 dark:text-white">{step.title}</h3>
+                <p className="mx-auto mt-1.5 max-w-xs text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+                  {step.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
       {/* Stats */}
       <section className="bg-gradient-to-br from-brand-600 to-brand-800">
         <Container className="py-16">
@@ -278,6 +393,139 @@ export default function Home() {
               <StatCounter value={0} label="Sign-up required" />
             </div>
           </div>
+        </Container>
+      </section>
+
+      {/* Subscription plans — UI only. Premium and Pro are not active: no
+          payment integration, no billing, nothing here calls any backend
+          endpoint. Their buttons are disabled, not links, so there's no
+          way to accidentally "start" a plan that doesn't exist yet. */}
+      <section id="pricing" className="scroll-mt-20">
+        <Container className="py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+              Simple, honest pricing
+            </h2>
+            <p className="mt-3 text-slate-500 dark:text-slate-400">
+              Every tool works fully on the Free plan today. Premium and Pro are on the way.
+            </p>
+          </div>
+
+          <div className="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-6 lg:grid-cols-3">
+            {[
+              {
+                name: 'Free',
+                price: '$0',
+                cadence: 'forever',
+                description: 'Everything you need for everyday file conversion and editing.',
+                features: [
+                  'Every tool, unlimited use',
+                  'No file size gimmicks',
+                  'Favorites & conversion history',
+                  'Files never leave your browser',
+                ],
+                cta: 'Get Started',
+                highlighted: false,
+                available: true,
+              },
+              {
+                name: 'Premium',
+                price: '$4',
+                cadence: '/month',
+                description: 'Faster workflows for people using ToolHub every day.',
+                features: [
+                  'Everything in Free',
+                  'Batch processing at higher limits',
+                  'Priority tool updates',
+                  'No ads, ever',
+                ],
+                cta: 'Coming Soon',
+                highlighted: true,
+                available: false,
+              },
+              {
+                name: 'Pro',
+                price: '$12',
+                cadence: '/month',
+                description: 'Built for teams and heavier day-to-day use.',
+                features: [
+                  'Everything in Premium',
+                  'Team sharing & shared history',
+                  'Early access to new tools',
+                  'Priority support',
+                ],
+                cta: 'Coming Soon',
+                highlighted: false,
+                available: false,
+              },
+            ].map((plan, index) => (
+              <motion.div
+                key={plan.name}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, delay: index * 0.08 }}
+                className={`relative flex flex-col rounded-2xl border p-7 ${
+                  plan.highlighted
+                    ? 'border-brand-300 bg-white shadow-xl shadow-brand-500/10 dark:border-brand-800 dark:bg-slate-900'
+                    : 'border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900'
+                }`}
+              >
+                {plan.highlighted && (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-600 px-3 py-1 text-xs font-semibold text-white shadow-sm">
+                    Most popular (soon)
+                  </span>
+                )}
+                {!plan.available && (
+                  <span className="absolute right-5 top-5 rounded-full bg-amber-50 px-2.5 py-1 text-[11px] font-medium text-amber-700 dark:bg-amber-950 dark:text-amber-400">
+                    Coming soon
+                  </span>
+                )}
+
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{plan.name}</h3>
+                <p className="mt-1.5 text-sm text-slate-500 dark:text-slate-400">{plan.description}</p>
+
+                <div className="mt-5 flex items-baseline gap-1">
+                  <span className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                    {plan.price}
+                  </span>
+                  <span className="text-sm text-slate-400 dark:text-slate-500">{plan.cadence}</span>
+                </div>
+
+                <ul className="mt-6 flex-1 space-y-3">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2.5 text-sm text-slate-600 dark:text-slate-300">
+                      <HiOutlineCheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-500" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                {plan.available ? (
+                  <Link
+                    to="/register"
+                    className={`btn-primary mt-7 justify-center ${plan.highlighted ? '' : ''}`}
+                  >
+                    {plan.cta}
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    disabled
+                    aria-disabled="true"
+                    className="mt-7 flex cursor-not-allowed items-center justify-center gap-1.5 rounded-lg bg-slate-100 px-4 py-2.5 text-sm font-semibold text-slate-400 dark:bg-slate-800 dark:text-slate-500"
+                  >
+                    {plan.cta}
+                  </button>
+                )}
+              </motion.div>
+            ))}
+          </div>
+
+          <p className="mt-8 text-center text-xs text-slate-400 dark:text-slate-500">
+            Premium and Pro are not yet available for purchase — pricing shown is provisional and
+            subject to change before launch.
+          </p>
         </Container>
       </section>
 
@@ -358,6 +606,45 @@ export default function Home() {
               View all posts
             </Link>
           </div>
+        </Container>
+      </section>
+      {/* Final CTA */}
+      <section>
+        <Container className="pb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-600 via-brand-700 to-fuchsia-700 px-6 py-16 text-center sm:px-16"
+          >
+            <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[size:28px_28px]" />
+            </div>
+            <div className="relative">
+              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                Ready to get started?
+              </h2>
+              <p className="mx-auto mt-3 max-w-xl text-brand-100">
+                Create a free account to save favorites and track your history — or just dive
+                straight into a tool, no sign-up required.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                <Link
+                  to="/register"
+                  className="rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-brand-700 shadow-lg transition-transform hover:-translate-y-0.5"
+                >
+                  Create free account
+                </Link>
+                <Link
+                  to="/tools"
+                  className="rounded-lg border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+                >
+                  Browse tools
+                </Link>
+              </div>
+            </div>
+          </motion.div>
         </Container>
       </section>
     </>

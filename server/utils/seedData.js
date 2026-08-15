@@ -128,10 +128,10 @@ export const toolSeed = [
   { name: 'AI Image Upscaler', slug: 'ai-image-upscaler', path: '/tools/ai-image-upscaler', category: 'ai-tools', description: 'Upscale images to higher resolution with AI.', icon: 'FaImages', badge: 'new', comingSoon: true },
 
   // ---------- Security Tools ----------
-  { name: 'Password Generator', slug: 'password-generator', path: '/tools/password-generator', category: 'security-tools', description: 'Generate strong, random and secure passwords.', icon: 'FaKey', badge: 'popular', comingSoon: true },
+  { name: 'Password Generator', slug: 'password-generator', path: '/tools/password-generator', category: 'security-tools', description: 'Generate strong, random and secure passwords with adjustable length and character types.', icon: 'FaKey', badge: 'popular', comingSoon: false },
 
   // ---------- Social Media Tools ----------
-  { name: 'Instagram Post Resizer', slug: 'instagram-post-resizer', path: '/tools/instagram-post-resizer', category: 'social-media-tools', description: 'Resize images to fit Instagram posts and stories.', icon: 'FaInstagram', comingSoon: true },
+  { name: 'Instagram Post Resizer', slug: 'instagram-post-resizer', path: '/tools/instagram-post-resizer', category: 'social-media-tools', description: 'Resize images to fit Instagram posts, stories and profile pictures.', icon: 'FaInstagram', comingSoon: false },
   { name: 'YouTube Thumbnail Downloader', slug: 'youtube-thumbnail-downloader', path: '/tools/youtube-thumbnail-downloader', category: 'social-media-tools', description: 'Download thumbnail images from any YouTube video.', icon: 'FaYoutube', badge: 'new', comingSoon: false },
 ]
 

@@ -231,7 +231,19 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Security tools -->
+  <url>
+    <loc>https://trytoolhub.net/tools/password-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- Social media tools -->
+  <url>
+    <loc>https://trytoolhub.net/tools/instagram-post-resizer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <url>
     <loc>https://trytoolhub.net/tools/youtube-thumbnail-downloader</loc>
     <changefreq>monthly</changefreq>

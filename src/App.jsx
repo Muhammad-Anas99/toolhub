@@ -53,6 +53,8 @@ const YoutubeThumbnailDownloader = lazy(() => import('./pages/tools/YoutubeThumb
 const WordCounter = lazy(() => import('./pages/tools/WordCounter.jsx'))
 const CaseConverter = lazy(() => import('./pages/tools/CaseConverter.jsx'))
 const LoremIpsumGenerator = lazy(() => import('./pages/tools/LoremIpsumGenerator.jsx'))
+const PasswordGenerator = lazy(() => import('./pages/tools/PasswordGenerator.jsx'))
+const InstagramPostResizer = lazy(() => import('./pages/tools/InstagramPostResizer.jsx'))
 
 // Auth (Phase 5)
 const Login = lazy(() => import('./pages/auth/Login.jsx'))
@@ -115,6 +117,8 @@ export default function App() {
           <Route path="/tools/word-counter" element={<WordCounter />} />
           <Route path="/tools/case-converter" element={<CaseConverter />} />
           <Route path="/tools/lorem-ipsum-generator" element={<LoremIpsumGenerator />} />
+          <Route path="/tools/password-generator" element={<PasswordGenerator />} />
+          <Route path="/tools/instagram-post-resizer" element={<InstagramPostResizer />} />
 
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

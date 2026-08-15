@@ -295,6 +295,68 @@ export async function processImageBatch(
   }
 }
 
+/**
+ * Resizes an image to an exact target size using either "cover" (scales
+ * to fill the target, cropping any overflow — no distortion, some content
+ * may be cropped at the edges) or "contain" (scales to fit entirely
+ * within the target, padding any empty space with a background color —
+ * no cropping, no distortion). Used by the Instagram Post Resizer for
+ * fitting arbitrary source images into Instagram's fixed post/story
+ * dimensions without stretching them.
+ */
+export async function resizeToFit(file, { targetWidth, targetHeight, mode = 'cover', backgroundColor = '#ffffff', mimeType, quality = 0.92 }) {
+  const outputType = mimeType || file.type || 'image/jpeg'
+  const { img, width, height, url } = await loadImage(file)
+  try {
+    const canvas = createCanvas(targetWidth, targetHeight)
+    const ctx = canvas.getContext('2d')
+
+    // Fill the background first — needed for JPEG output (no
+    // transparency) and always needed in "contain" mode, where padding
+    // is visible around the scaled image.
+    if (outputType === 'image/jpeg' || mode === 'contain') {
+      ctx.fillStyle = backgroundColor
+      ctx.fillRect(0, 0, targetWidth, targetHeight)
+    }
+
+    const sourceRatio = width / height
+    const targetRatio = targetWidth / targetHeight
+    let drawWidth
+    let drawHeight
+
+    if (mode === 'cover') {
+      if (sourceRatio > targetRatio) {
+        drawHeight = targetHeight
+        drawWidth = targetHeight * sourceRatio
+      } else {
+        drawWidth = targetWidth
+        drawHeight = targetWidth / sourceRatio
+      }
+    } else {
+      // contain
+      if (sourceRatio > targetRatio) {
+        drawWidth = targetWidth
+        drawHeight = targetWidth / sourceRatio
+      } else {
+        drawHeight = targetHeight
+        drawWidth = targetHeight * sourceRatio
+      }
+    }
+
+    const offsetX = (targetWidth - drawWidth) / 2
+    const offsetY = (targetHeight - drawHeight) / 2
+
+    ctx.imageSmoothingEnabled = true
+    ctx.imageSmoothingQuality = 'high'
+    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight)
+
+    const blob = await canvasToBlob(canvas, outputType, quality)
+    return { blob, width: targetWidth, height: targetHeight }
+  } finally {
+    URL.revokeObjectURL(url)
+  }
+}
+
 export const MIME_LABELS = {
   'image/jpeg': 'JPG',
   'image/png': 'PNG',
