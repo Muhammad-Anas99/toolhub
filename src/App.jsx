@@ -46,6 +46,9 @@ const UuidGenerator = lazy(() => import('./pages/tools/UuidGenerator.jsx'))
 const HashGenerator = lazy(() => import('./pages/tools/HashGenerator.jsx'))
 const TimestampConverter = lazy(() => import('./pages/tools/TimestampConverter.jsx'))
 const RegexTester = lazy(() => import('./pages/tools/RegexTester.jsx'))
+const PdfToJpg = lazy(() => import('./pages/tools/PdfToJpg.jsx'))
+const PdfToPng = lazy(() => import('./pages/tools/PdfToPng.jsx'))
+const GradientGenerator = lazy(() => import('./pages/tools/GradientGenerator.jsx'))
 
 // Auth (Phase 5)
 const Login = lazy(() => import('./pages/auth/Login.jsx'))
@@ -101,6 +104,9 @@ export default function App() {
           <Route path="/tools/hash-generator" element={<HashGenerator />} />
           <Route path="/tools/timestamp-converter" element={<TimestampConverter />} />
           <Route path="/tools/regex-tester" element={<RegexTester />} />
+          <Route path="/tools/pdf-to-jpg" element={<PdfToJpg />} />
+          <Route path="/tools/pdf-to-png" element={<PdfToPng />} />
+          <Route path="/tools/gradient-generator" element={<GradientGenerator />} />
 
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

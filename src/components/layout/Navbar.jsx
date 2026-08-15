@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { HiBars3, HiXMark, HiOutlineMagnifyingGlass, HiChevronDown } from 'react-icons/hi2'
+import { HiBars3, HiXMark, HiChevronDown } from 'react-icons/hi2'
 import Container from '../ui/Container.jsx'
 import ThemeToggle from '../ui/ThemeToggle.jsx'
-import SearchModal from '../ui/SearchModal.jsx'
 import MegaMenu from './MegaMenu.jsx'
 import CategoryToolsDropdown from './CategoryToolsDropdown.jsx'
 import UserMenu from './UserMenu.jsx'
@@ -30,7 +29,6 @@ export default function Navbar() {
   const { isAuthenticated } = useAuth()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMobileCategoriesOpen, setIsMobileCategoriesOpen] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
 
   // Close the mobile menu whenever the viewport is resized back to desktop.
   useEffect(() => {
@@ -39,18 +37,6 @@ export default function Navbar() {
     }
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
-  // Keyboard shortcut: Cmd/Ctrl+K opens search.
-  useEffect(() => {
-    function handleKeyDown(event) {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
-        event.preventDefault()
-        setIsSearchOpen(true)
-      }
-    }
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
   }, [])
 
   const linkClasses = ({ isActive }) =>
@@ -91,17 +77,6 @@ export default function Navbar() {
           </div>
 
           <div className="hidden items-center gap-3 md:flex">
-            <button
-              type="button"
-              onClick={() => setIsSearchOpen(true)}
-              className="flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-slate-400 transition-colors hover:border-slate-300 hover:text-slate-600 dark:border-slate-800 dark:hover:border-slate-700 dark:hover:text-slate-300"
-            >
-              <HiOutlineMagnifyingGlass className="h-4 w-4" />
-              <span>Search</span>
-              <kbd className="ml-2 rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] font-medium text-slate-400 dark:border-slate-700 dark:bg-slate-800">
-                &#8984;K
-              </kbd>
-            </button>
             <ThemeToggle />
             {isAuthenticated ? (
               <UserMenu />
@@ -113,14 +88,6 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-1.5 md:hidden">
-            <button
-              type="button"
-              onClick={() => setIsSearchOpen(true)}
-              aria-label="Search"
-              className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
-            >
-              <HiOutlineMagnifyingGlass className="h-5 w-5" />
-            </button>
             <ThemeToggle />
             {isAuthenticated ? (
               <UserMenu />
@@ -243,8 +210,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   )
 }

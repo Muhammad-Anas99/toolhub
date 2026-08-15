@@ -288,4 +288,41 @@ export const toolFaqs = {
       answer: 'g finds all matches instead of just the first; i ignores letter case; m makes ^ and $ match the start/end of each line; s lets . match newline characters too.',
     },
   ],
+
+  'pdf-to-jpg': [
+    {
+      id: 'multi-page',
+      question: 'Can I convert every page at once?',
+      answer: 'This converts one page at a time \u2014 pick the page number and convert, then change it to grab another page.',
+    },
+    {
+      id: 'quality',
+      question: 'What resolution is the output image?',
+      answer: 'Pages are rendered at roughly 2x the PDF\u2019s native size, giving a sharp result suitable for screen viewing and most printing.',
+    },
+  ],
+  'pdf-to-png': [
+    {
+      id: 'multi-page',
+      question: 'Can I convert every page at once?',
+      answer: 'This converts one page at a time \u2014 pick the page number and convert, then change it to grab another page.',
+    },
+    {
+      id: 'why-png',
+      question: 'Why choose PNG instead of JPG here?',
+      answer: 'PNG is lossless, which matters most for pages with sharp text or line art. For photo-heavy pages, JPG usually gives a smaller file with no visible difference.',
+    },
+  ],
+  'gradient-generator': [
+    {
+      id: 'linear-vs-radial',
+      question: 'What\u2019s the difference between linear and radial?',
+      answer: 'Linear gradients transition in a straight line across a chosen direction; radial gradients spread outward from a center point in a circle.',
+    },
+    {
+      id: 'color-stops',
+      question: 'What are color stops?',
+      answer: 'Each stop is a color placed at a specific position (0\u2013100%) along the gradient. Add more stops for a multi-color blend, and drag their position sliders to adjust where each color starts.',
+    },
+  ],
 }

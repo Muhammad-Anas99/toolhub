@@ -94,8 +94,8 @@ export const toolSeed = [
   { name: 'PNG to PDF', slug: 'png-to-pdf', path: '/tools/png-to-pdf', category: 'pdf-tools', description: 'Turn a PNG image into a single-page PDF document.', icon: 'FaFileArrowUp', comingSoon: false },
   { name: 'Merge PDF', slug: 'merge-pdf', path: '/tools/merge-pdf', category: 'pdf-tools', description: 'Combine multiple PDF files into a single document, in any order.', icon: 'FaObjectGroup', badge: 'popular', comingSoon: false },
   { name: 'Split PDF', slug: 'split-pdf', path: '/tools/split-pdf', category: 'pdf-tools', description: 'Extract specific pages or page ranges from a PDF into a new document.', icon: 'FaObjectUngroup', comingSoon: false },
-  { name: 'PDF to JPG', slug: 'pdf-to-jpg', path: '/tools/pdf-to-jpg', category: 'pdf-tools', description: 'Convert PDF pages into JPG images.', icon: 'FaFileArrowDown', comingSoon: true },
-  { name: 'PDF to PNG', slug: 'pdf-to-png', path: '/tools/pdf-to-png', category: 'pdf-tools', description: 'Convert PDF pages into PNG images.', icon: 'FaFileArrowDown', comingSoon: true },
+  { name: 'PDF to JPG', slug: 'pdf-to-jpg', path: '/tools/pdf-to-jpg', category: 'pdf-tools', description: 'Convert PDF pages into JPG images, one page at a time.', icon: 'FaFileArrowDown', badge: 'new', comingSoon: false },
+  { name: 'PDF to PNG', slug: 'pdf-to-png', path: '/tools/pdf-to-png', category: 'pdf-tools', description: 'Convert PDF pages into PNG images, one page at a time.', icon: 'FaFileArrowDown', comingSoon: false },
   { name: 'Compress PDF', slug: 'compress-pdf', path: '/tools/compress-pdf', category: 'pdf-tools', description: 'Shrink PDF file size while keeping it readable.', icon: 'FaFilePdf', comingSoon: true },
   { name: 'PDF to Word', slug: 'pdf-to-word', path: '/tools/pdf-to-word', category: 'pdf-tools', description: 'Convert PDF documents into editable Word files.', icon: 'FaFileWord', comingSoon: true },
 
@@ -106,7 +106,7 @@ export const toolSeed = [
   { name: 'HEX to HSL', slug: 'hex-to-hsl', path: '/tools/hex-to-hsl', category: 'color-tools', description: 'Convert HEX color codes to HSL values instantly.', icon: 'FaSliders', comingSoon: false },
   { name: 'Color Converter', slug: 'color-converter', path: '/tools/color-converter', category: 'color-tools', description: 'Convert between HEX, RGB and HSL color formats in one place.', icon: 'FaPalette', badge: 'new', comingSoon: false },
   { name: 'Color Palette Generator', slug: 'palette-generator', path: '/tools/palette-generator', category: 'color-tools', description: 'Generate complementary, analogous, triadic and shade palettes from any color.', icon: 'FaPalette', badge: 'popular', comingSoon: false },
-  { name: 'Gradient Generator', slug: 'gradient-generator', path: '/tools/gradient-generator', category: 'color-tools', description: 'Create smooth CSS gradients with a visual editor.', icon: 'FaPalette', comingSoon: true },
+  { name: 'Gradient Generator', slug: 'gradient-generator', path: '/tools/gradient-generator', category: 'color-tools', description: 'Create smooth linear and radial CSS gradients with a visual editor.', icon: 'FaPalette', comingSoon: false },
 
   // ---------- Developer Tools (fully working) ----------
   { name: 'JSON Formatter', slug: 'json-formatter', path: '/tools/json-formatter', category: 'developer-tools', description: 'Format, beautify or minify JSON data instantly.', icon: 'FaCode', badge: 'popular', comingSoon: false },

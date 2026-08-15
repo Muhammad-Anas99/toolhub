@@ -203,9 +203,10 @@ export const tools = [
     slug: 'pdf-to-jpg',
     path: '/tools/pdf-to-jpg',
     category: 'pdf-tools',
-    description: 'Convert PDF pages into JPG images.',
+    description: 'Convert PDF pages into JPG images, one page at a time.',
     icon: FaFileArrowDown,
-    comingSoon: true,
+    badge: 'new',
+    comingSoon: false,
   },
   {
     id: 'pdf-to-png',
@@ -213,9 +214,9 @@ export const tools = [
     slug: 'pdf-to-png',
     path: '/tools/pdf-to-png',
     category: 'pdf-tools',
-    description: 'Convert PDF pages into PNG images.',
+    description: 'Convert PDF pages into PNG images, one page at a time.',
     icon: FaFileArrowDown,
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     id: 'compress-pdf',
@@ -308,9 +309,9 @@ export const tools = [
     slug: 'gradient-generator',
     path: '/tools/gradient-generator',
     category: 'color-tools',
-    description: 'Create smooth CSS gradients with a visual editor.',
+    description: 'Create smooth linear and radial CSS gradients with a visual editor.',
     icon: FaPalette,
-    comingSoon: true,
+    comingSoon: false,
   },
 
   // ---------- Developer Tools (fully working, browser-based) ----------
