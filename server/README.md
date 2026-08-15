@@ -216,7 +216,9 @@ Uses the standard OAuth 2.0 authorization code flow — the same confidential-cl
 3. **APIs & Services → Credentials → Create Credentials → OAuth client ID** → Application type: **Web application**.
 4. Under **Authorized redirect URIs**, add both, exactly:
    - `http://localhost:5000/api/auth/google/callback` (local dev)
-   - `https://<your-backend-domain>/api/auth/google/callback` (production — your deployed backend's actual domain)
+   - `https://<your-backend-domain>/api/auth/google/callback` (production)
+
+   **`<your-backend-domain>` is your *backend's* Vercel domain — e.g. `toolhub-backend-project.vercel.app` — never `trytoolhub.net`.** `trytoolhub.net` is the frontend; Google never redirects there directly. This is intentional, not a mistake to fix — see "Why the user ends up on the backend URL if `CLIENT_URL` is wrong" below for the full flow and why the *final* destination is still always the frontend.
 5. Copy the generated **Client ID** and **Client Secret**.
 
 ### Set up in your environment
@@ -227,8 +229,17 @@ Uses the standard OAuth 2.0 authorization code flow — the same confidential-cl
 | `server/.env` (local) | `GOOGLE_CLIENT_SECRET` | from step 5 above |
 | Backend Vercel project → Environment Variables | `GOOGLE_CLIENT_ID` | same value |
 | Backend Vercel project → Environment Variables | `GOOGLE_CLIENT_SECRET` | same value |
+| Backend Vercel project → Environment Variables | `CLIENT_URL` | `https://trytoolhub.net` — **the frontend's domain, never this backend's own Vercel URL.** See "Why the user ends up on the backend URL if this is wrong" below. |
 
-**Never set these on the frontend project** — the client secret has no reason to exist client-side, and doing so would expose it. Redeploy the backend after adding them on Vercel. If they're left blank, the "Continue with Google" button still renders but redirects to `/login?error=google_not_configured` instead of crashing anything.
+**Never set `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET` on the frontend project** — the client secret has no reason to exist client-side, and doing so would expose it. Redeploy the backend after adding any of these on Vercel. If Google's credentials are left blank, the "Continue with Google" button still renders but redirects to `/login?error=google_not_configured` instead of crashing anything.
+
+### Why the user ends up on the backend URL if `CLIENT_URL` is wrong
+
+The flow is: `trytoolhub.net/login` → this backend's `/api/auth/google` (a real, necessary, brief hop — Google requires the redirect_uri to be a backend endpoint, since only the backend holds the client secret needed to exchange the authorization code) → `accounts.google.com` → back to this backend's `/api/auth/google/callback` → **redirect to `${CLIENT_URL}/dashboard`**.
+
+That last step is the one that matters: it's built entirely from the `CLIENT_URL` environment variable, never hardcoded (`server/controllers/authController.js`, `googleAuthCallback`). If `CLIENT_URL` is missing, wrong, or accidentally set to this backend's own Vercel URL (an easy copy-paste mistake when you're juggling two separate Vercel projects), the user gets redirected to the wrong place after Google approves them — which is exactly what "stuck on the backend URL" looks like. Two things now guard against this:
+- `CLIENT_URL` is **required** in production — the backend refuses to start at all if it's missing, rather than silently falling back to `http://localhost:5173` and sending real users to a dead address.
+- Both OAuth handlers (`googleAuthRedirect`, `googleAuthCallback`) now wrap their entire body in try/catch, so literally any unexpected error results in a redirect back to `${CLIENT_URL}/login?error=...` — never a raw JSON error response left sitting on this backend's domain, which was the actual gap that made this bug possible even with `CLIENT_URL` set correctly.
 
 ## Icon names
 

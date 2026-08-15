@@ -19,7 +19,15 @@ export const config = {
   // comparisons (browser Origin headers never have a trailing slash) and
   // for building URLs like `${clientUrl}/verify-email` without risking a
   // double slash.
-  clientUrl: (process.env.CLIENT_URL || 'http://localhost:5173').replace(/\/+$/, ''),
+  //
+  // Required in production (requireInProduction below): if this were ever
+  // unset, it would silently default to http://localhost:5173, and every
+  // redirect built from it — Google OAuth's post-login redirect, email
+  // verification links, password reset links — would send a real user's
+  // browser to a dead local address instead of failing loudly. Better to
+  // crash at startup with a clear message than misbehave silently in
+  // production.
+  clientUrl: (requireInProduction(process.env.CLIENT_URL, 'CLIENT_URL') || 'http://localhost:5173').replace(/\/+$/, ''),
 
   rateLimit: {
     windowMs: Number(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes
