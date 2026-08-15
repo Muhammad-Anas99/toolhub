@@ -49,6 +49,7 @@ const RegexTester = lazy(() => import('./pages/tools/RegexTester.jsx'))
 const PdfToJpg = lazy(() => import('./pages/tools/PdfToJpg.jsx'))
 const PdfToPng = lazy(() => import('./pages/tools/PdfToPng.jsx'))
 const GradientGenerator = lazy(() => import('./pages/tools/GradientGenerator.jsx'))
+const PdfToWord = lazy(() => import('./pages/tools/PdfToWord.jsx'))
 
 // Auth (Phase 5)
 const Login = lazy(() => import('./pages/auth/Login.jsx'))
@@ -107,6 +108,7 @@ export default function App() {
           <Route path="/tools/pdf-to-jpg" element={<PdfToJpg />} />
           <Route path="/tools/pdf-to-png" element={<PdfToPng />} />
           <Route path="/tools/gradient-generator" element={<GradientGenerator />} />
+          <Route path="/tools/pdf-to-word" element={<PdfToWord />} />
 
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

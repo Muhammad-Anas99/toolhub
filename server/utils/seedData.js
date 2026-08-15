@@ -97,7 +97,7 @@ export const toolSeed = [
   { name: 'PDF to JPG', slug: 'pdf-to-jpg', path: '/tools/pdf-to-jpg', category: 'pdf-tools', description: 'Convert PDF pages into JPG images, one page at a time.', icon: 'FaFileArrowDown', badge: 'new', comingSoon: false },
   { name: 'PDF to PNG', slug: 'pdf-to-png', path: '/tools/pdf-to-png', category: 'pdf-tools', description: 'Convert PDF pages into PNG images, one page at a time.', icon: 'FaFileArrowDown', comingSoon: false },
   { name: 'Compress PDF', slug: 'compress-pdf', path: '/tools/compress-pdf', category: 'pdf-tools', description: 'Shrink PDF file size while keeping it readable.', icon: 'FaFilePdf', comingSoon: true },
-  { name: 'PDF to Word', slug: 'pdf-to-word', path: '/tools/pdf-to-word', category: 'pdf-tools', description: 'Convert PDF documents into editable Word files.', icon: 'FaFileWord', comingSoon: true },
+  { name: 'PDF to Word', slug: 'pdf-to-word', path: '/tools/pdf-to-word', category: 'pdf-tools', description: 'Extract text from a PDF into an editable Word document.', icon: 'FaFileWord', comingSoon: false },
 
   // ---------- Color Tools (fully working) ----------
   { name: 'Color Picker', slug: 'color-picker', path: '/tools/color-picker', category: 'color-tools', description: 'Pick colors from an image and get their exact hex, RGB and HSL codes.', icon: 'FaEyeDropper', comingSoon: false },

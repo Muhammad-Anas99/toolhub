@@ -234,9 +234,9 @@ export const tools = [
     slug: 'pdf-to-word',
     path: '/tools/pdf-to-word',
     category: 'pdf-tools',
-    description: 'Convert PDF documents into editable Word files.',
+    description: 'Extract text from a PDF into an editable Word document.',
     icon: FaFileWord,
-    comingSoon: true,
+    comingSoon: false,
   },
 
   // ---------- Color Tools (fully working, browser-based) ----------

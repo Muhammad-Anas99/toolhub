@@ -325,4 +325,22 @@ export const toolFaqs = {
       answer: 'Each stop is a color placed at a specific position (0\u2013100%) along the gradient. Add more stops for a multi-color blend, and drag their position sliders to adjust where each color starts.',
     },
   ],
+
+  'pdf-to-word': [
+    {
+      id: 'what-it-does',
+      question: 'Does this preserve the original PDF\u2019s formatting and layout?',
+      answer: 'No \u2014 this extracts the actual text content and reconstructs paragraph breaks, giving you an editable starting point. Fonts, images, tables, columns and exact positioning aren\u2019t preserved. True layout-perfect conversion is a much harder problem that even paid tools don\u2019t solve perfectly.',
+    },
+    {
+      id: 'scanned-pdfs',
+      question: 'Why does it say no text was found in my PDF?',
+      answer: 'That means your PDF is a scanned document \u2014 essentially a picture of text rather than real, selectable text. This tool extracts existing text; it doesn\u2019t perform OCR (optical character recognition) to read text out of an image.',
+    },
+    {
+      id: 'multi-page',
+      question: 'Does it handle multi-page PDFs?',
+      answer: 'Yes \u2014 every page\u2019s text is extracted and included, with a page break inserted between each page\u2019s content in the resulting Word document.',
+    },
+  ],
 }
