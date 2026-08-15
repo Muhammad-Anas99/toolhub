@@ -5,6 +5,4 @@ Disallow: /verify-email
 Disallow: /reset-password
 Disallow: /check-email
 
-# Update the domain below to match your real production domain (see the
-# comment at the top of sitemap.xml).
-Sitemap: https://toolhub.example.com/sitemap.xml
+Sitemap: https://trytoolhub.net/sitemap.xml

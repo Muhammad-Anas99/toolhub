@@ -1,121 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Replace https://toolhub.example.com below with your real production
-  domain before deploying — it must match the domain used in
-  src/components/ui/SEO.jsx (SITE_NAME/canonical URL logic) and the one
-  registered in Google Search Console.
-
   Excluded on purpose:
-    - /dashboard/* (requires login, not meant to be indexed)
+    - /dashboard/* (requires login, marked noindex in-page too)
     - /verify-email, /reset-password, /check-email (token-based/transactional,
-      not meaningful without a query param, shouldn't be indexed)
+      marked noindex in-page)
+    - /login, /register: included below (see note there)
     - Individual blog posts: blog currently has no per-post detail route
       (see src/pages/Blog.jsx) — add <url> entries here once that exists.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://toolhub.example.com/</loc>
+    <loc>https://trytoolhub.net/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://toolhub.example.com/tools</loc>
+    <loc>https://trytoolhub.net/tools</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Image tools -->
   <url>
-    <loc>https://toolhub.example.com/tools/jpg-to-png</loc>
+    <loc>https://trytoolhub.net/tools/jpg-to-png</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://toolhub.example.com/tools/png-to-jpg</loc>
+    <loc>https://trytoolhub.net/tools/png-to-jpg</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://toolhub.example.com/tools/webp-to-png</loc>
+    <loc>https://trytoolhub.net/tools/webp-to-png</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://toolhub.example.com/tools/webp-to-jpg</loc>
+    <loc>https://trytoolhub.net/tools/webp-to-jpg</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://toolhub.example.com/tools/convert-to-webp</loc>
+    <loc>https://trytoolhub.net/tools/convert-to-webp</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://toolhub.example.com/tools/image-compressor</loc>
+    <loc>https://trytoolhub.net/tools/image-compressor</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://toolhub.example.com/tools/image-resizer</loc>
+    <loc>https://trytoolhub.net/tools/image-resizer</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://toolhub.example.com/tools/image-crop</loc>
+    <loc>https://trytoolhub.net/tools/image-crop</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://toolhub.example.com/tools/image-rotate</loc>
+    <loc>https://trytoolhub.net/tools/image-rotate</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://toolhub.example.com/tools/flip-image</loc>
+    <loc>https://trytoolhub.net/tools/flip-image</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Content pages -->
   <url>
-    <loc>https://toolhub.example.com/blog</loc>
+    <loc>https://trytoolhub.net/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://toolhub.example.com/about</loc>
+    <loc>https://trytoolhub.net/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://toolhub.example.com/contact</loc>
+    <loc>https://trytoolhub.net/contact</loc>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
 
-  <!-- Auth entry points (registration/login pages themselves are fine to
-       index — it's the token-based pages listed above that aren't) -->
+  <!-- Auth entry points — the forms themselves are fine to index (someone
+       searching "toolhub login" should find this page); it's only the
+       token-based pages (verify-email, reset-password) that are excluded,
+       via noindex in-page rather than from this sitemap. -->
   <url>
-    <loc>https://toolhub.example.com/login</loc>
+    <loc>https://trytoolhub.net/login</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://toolhub.example.com/register</loc>
+    <loc>https://trytoolhub.net/register</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <!-- Legal -->
   <url>
-    <loc>https://toolhub.example.com/privacy-policy</loc>
+    <loc>https://trytoolhub.net/privacy-policy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://toolhub.example.com/terms</loc>
+    <loc>https://trytoolhub.net/terms</loc>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>

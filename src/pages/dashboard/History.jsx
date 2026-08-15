@@ -5,7 +5,7 @@ import HistoryList from '../../components/dashboard/HistoryList.jsx'
 export default function History() {
   return (
     <>
-      <SEO title="Conversion History" description="Your ToolHub conversion history." canonicalPath="/dashboard/history" />
+      <SEO title="Conversion History" description="Your ToolHub conversion history." canonicalPath="/dashboard/history" noIndex />
 
       <h2 className="text-base font-semibold text-slate-900 dark:text-white">Conversion history</h2>
       <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">

@@ -31,7 +31,7 @@ export default function Favorites() {
 
   return (
     <>
-      <SEO title="Favorites" description="Your favorite ToolHub tools." canonicalPath="/dashboard/favorites" />
+      <SEO title="Favorites" description="Your favorite ToolHub tools." canonicalPath="/dashboard/favorites" noIndex />
 
       <h2 className="text-base font-semibold text-slate-900 dark:text-white">Favorites</h2>
       <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">

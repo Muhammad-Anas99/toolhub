@@ -33,6 +33,7 @@ See `.env.example` for the full list with defaults. You must set `MONGODB_URI`, 
 | `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` / `EMAIL_FROM` | Email delivery — verification, password reset, welcome, and security alert emails all go through this. Configured for Brevo by default (see `.env.example`), but works with any SMTP provider. **Leave blank for local dev** — emails are logged to the console instead of sent. |
 | `ADMIN_NAME` / `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Used only by `npm run seed:admin` (see below) |
 | `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Optional — enables "Continue with Google". See the "Google OAuth" section below for full setup. |
+| `CONTACT_EMAIL` | Where Contact page submissions get emailed. Defaults to `flashycoderch@gmail.com` if unset. |
 
 ### Creating your first admin account
 
@@ -153,6 +154,11 @@ Every response is shaped `{ success, message, data, meta? }` on success, or `{ s
 | DELETE | `/api/history` | Requires auth. Clears all of the current user's history |
 | DELETE | `/api/history/:id` | Requires auth |
 
+### Contact
+| Method | Route | Notes |
+|---|---|---|
+| POST | `/api/contact` | Public, rate-limited. Body: `{ name, email, subject?, message, website? }` — `website` is the honeypot field, must stay empty. |
+
 ### Analytics
 | Method | Route | Notes |
 |---|---|---|
@@ -169,16 +175,23 @@ Full step-by-step instructions live in the root `README.md`'s "Deploying to Verc
 
 ## Authentication (Phase 5)
 
-JWT-based, with refresh-token rotation:
+JWT-based, with refresh-token rotation and an absolute 7-day session cap:
 
 - **Access token**: short-lived (15 min default), returned in the response body, sent by the frontend as `Authorization: Bearer <token>`. Kept in memory only on the frontend (`src/lib/tokenStore.js`) — never localStorage.
-- **Refresh token**: long-lived (30 days default), stored as an **httpOnly cookie** (JavaScript can never read it — the main defense against XSS-based token theft), scoped to `/api/auth`. Rotated on every use: each refresh invalidates the old token and issues a new one, so a stolen-and-reused old token fails.
+- **Refresh token**: 7 days by default, stored as an **httpOnly cookie** (JavaScript can never read it — the main defense against XSS-based token theft), scoped to `/api/auth`. Rotated on every use: each refresh invalidates the old token and issues a new one, so a stolen-and-reused old token fails.
+- **Absolute session cap, enforced server-side:** each refresh token entry carries a `sessionExpiresAt` (see `models/User.js`), fixed once at the original login and copied unchanged onto every token produced by rotating it. `services/authService.js`'s `refresh()` rejects once real time passes that value — independent of whether the token's own JWT signature would otherwise still validate. This is what actually stops "keep the tab open and it silently refreshes forever" from extending a session past 7 days; a rotated token's own `expiresAt` resets on each rotation, but `sessionExpiresAt` never does. The refresh cookie's `maxAge` is computed from the same value each time too, so the cookie itself doesn't quietly outlive the session it represents.
 - Both token types use separate secrets (`JWT_ACCESS_SECRET` / `JWT_REFRESH_SECRET`) so a leak of one can't forge the other.
 - Passwords hashed with bcrypt (`BCRYPT_SALT_ROUNDS`, default 12).
 - Email verification and password reset both use single-use, hashed, time-limited tokens (verification: 24h, reset: 1h) — only the hash is ever stored, same principle as refresh tokens.
 - Four email flows, all in `server/utils/email.js`: verification (on register), password reset (on forgot-password), a welcome email (sent once, right after verification succeeds — not at registration, since the address isn't confirmed yet), and a security alert (sent on password reset, password change, and email address change — invalidates other sessions and tells the account owner, in case it wasn't them). Email-address changes alert the *old* address, not the new one, so an attacker changing the email to lock someone out can't also suppress the warning.
 - `forgot-password` always returns the same response whether or not the email exists, to prevent using it to enumerate registered accounts.
 - Auth endpoints (`/register`, `/login`, `/forgot-password`) have a stricter rate limit (`authRateLimiter`) than the general API.
+
+**Migration note:** this session-cap change adds a required `sessionExpiresAt` field to refresh token entries. Any session created *before* this deploy won't have it, and `refresh()` correctly treats a missing value as expired — meaning every currently-logged-in user gets signed out once, the first time their access token expires after this deploys, and needs to log in again. After that one-time reset, everyone's on the new 7-day cap. This is expected, not a bug.
+
+## Contact form
+
+`POST /api/contact` — public, rate-limited (5 per 15 min per IP via `contactRateLimiter`), validated server-side (`middleware/validators/contactValidator.js`). Every submission is saved to MongoDB (`models/ContactMessage.js`) first — durable regardless of email outcome — then emailed to `CONTACT_EMAIL` (defaults to `flashycoderch@gmail.com`, overridable via env var) through the same Brevo/SMTP setup as every other email in the app, with the visitor's address set as Reply-To so responding in an inbox goes straight back to them. A hidden honeypot field (`website`) catches basic bots: filled in means silently no-op with a normal-looking success response, rather than an error that would teach the bot what tripped it.
 
 **All previously-open write routes are now protected.** Every `POST`/`PUT`/`DELETE` on tools, categories, blog posts, settings, and uploads requires `protect` + `authorize('admin')`. Regular users can only act on their own data (profile, favorites, history) via `protect` alone.
 

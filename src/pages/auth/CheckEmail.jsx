@@ -40,7 +40,7 @@ export default function CheckEmail() {
 
   return (
     <>
-      <SEO title="Check Your Email" description="Verify your ToolHub email address." canonicalPath="/check-email" />
+      <SEO title="Check Your Email" description="Verify your ToolHub email address." canonicalPath="/check-email" noIndex />
 
       <Container className="py-16">
         <motion.div

@@ -116,6 +116,9 @@ export const api = {
 
   getSettings: () => request('/settings'),
 
+  // --- Contact form ------------------------------------------------------------
+  submitContactForm: (data) => request('/contact', { method: 'POST', body: JSON.stringify(data) }),
+
   // --- Auth ---------------------------------------------------------------------
   register: (data) => request('/auth/register', { method: 'POST', body: JSON.stringify(data) }),
   login: (data) => request('/auth/login', { method: 'POST', body: JSON.stringify(data) }),

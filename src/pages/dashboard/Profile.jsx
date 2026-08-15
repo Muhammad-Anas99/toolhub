@@ -95,7 +95,7 @@ export default function Profile() {
 
   return (
     <>
-      <SEO title="Profile" description="Edit your ToolHub profile." canonicalPath="/dashboard/profile" />
+      <SEO title="Profile" description="Edit your ToolHub profile." canonicalPath="/dashboard/profile" noIndex />
 
       <div className="space-y-6">
         <div className="card p-6">

@@ -9,6 +9,7 @@ import userRoutes from './userRoutes.js'
 import favoriteRoutes from './favoriteRoutes.js'
 import historyRoutes from './historyRoutes.js'
 import analyticsRoutes from './analyticsRoutes.js'
+import contactRoutes from './contactRoutes.js'
 
 const router = Router()
 
@@ -21,6 +22,7 @@ router.use('/users', userRoutes)
 router.use('/favorites', favoriteRoutes)
 router.use('/history', historyRoutes)
 router.use('/analytics', analyticsRoutes)
+router.use('/contact', contactRoutes)
 
 router.use('/tools', toolRoutes)
 router.use('/categories', categoryRoutes)

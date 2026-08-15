@@ -1,0 +1,13 @@
+{
+  "name": "ToolHub — Free Online Tools",
+  "short_name": "ToolHub",
+  "description": "Free online tools to convert, compress, resize, crop and rotate your images.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b6cf6",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

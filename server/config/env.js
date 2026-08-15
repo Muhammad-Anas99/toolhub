@@ -38,11 +38,20 @@ export const config = {
     accessSecret: requireInProduction(process.env.JWT_ACCESS_SECRET, 'JWT_ACCESS_SECRET') || 'dev-only-access-secret-do-not-use-in-production',
     refreshSecret: requireInProduction(process.env.JWT_REFRESH_SECRET, 'JWT_REFRESH_SECRET') || 'dev-only-refresh-secret-do-not-use-in-production',
     accessExpiresIn: process.env.JWT_ACCESS_EXPIRES_IN || '15m',
-    refreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '30d',
+    // 7 days: this is also the ABSOLUTE session cap enforced in
+    // authService.js (see sessionExpiresAt on the refresh token schema in
+    // models/User.js) — refreshing/rotating never extends a session past
+    // this many days from the original login, even though each
+    // individual rotated token's own JWT `exp` is a fresh 7 days from
+    // when it was issued. The two concepts share one value here on
+    // purpose: there's no reason for a raw token to outlive the session
+    // it belongs to.
+    refreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
     // Matches JWT_REFRESH_EXPIRES_IN in milliseconds, for setting the
-    // refresh-token cookie's maxAge. Kept as a plain number here (rather
-    // than parsing the string above) so it's trivial to read/verify.
-    refreshExpiresInMs: 30 * 24 * 60 * 60 * 1000,
+    // refresh-token cookie's maxAge and computing sessionExpiresAt. Kept
+    // as a plain number here (rather than parsing the string above) so
+    // it's trivial to read/verify.
+    refreshExpiresInMs: 7 * 24 * 60 * 60 * 1000,
   },
 
   bcryptSaltRounds: Number(process.env.BCRYPT_SALT_ROUNDS) || 12,
@@ -71,6 +80,10 @@ export const config = {
     clientId: process.env.GOOGLE_CLIENT_ID || '',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
   },
+
+  // Where Contact page submissions get emailed. Overridable via env var
+  // without a code change; defaults to the address ToolHub actually uses.
+  contactEmail: process.env.CONTACT_EMAIL || 'flashycoderch@gmail.com',
 }
 
 export const isProduction = config.env === 'production'

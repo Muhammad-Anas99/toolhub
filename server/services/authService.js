@@ -19,10 +19,19 @@ const MAX_REFRESH_TOKENS_PER_USER = 5 // caps concurrent "remembered" devices
  * Issues a fresh access+refresh token pair for a user, storing the
  * refresh token's hash (never the raw value) so it can be revoked later
  * (logout, or if it's ever suspected to be compromised).
+ *
+ * `existingSessionExpiresAt` is the key to the 7-day absolute session
+ * cap: omit it (register/login/googleLogin all do) and a brand new
+ * 7-day-from-now deadline is set. Pass the previous token's own
+ * `sessionExpiresAt` (refresh() does this, on rotation) and that same
+ * deadline is reused unchanged — so no amount of silent refreshing ever
+ * pushes a session past 7 days from when the user actually logged in.
  */
-async function issueTokens(user, userAgent = '') {
+async function issueTokens(user, userAgent = '', existingSessionExpiresAt = null) {
   const accessToken = signAccessToken(user)
   const refreshToken = signRefreshToken(user)
+
+  const sessionExpiresAt = existingSessionExpiresAt || new Date(Date.now() + config.jwt.refreshExpiresInMs)
 
   // Defensive guard: `refreshTokens` has `select: false` on the schema
   // (same as `password`), so any query that fetches a user without
@@ -39,6 +48,7 @@ async function issueTokens(user, userAgent = '') {
     tokenHash: hashToken(refreshToken),
     userAgent,
     expiresAt: new Date(Date.now() + config.jwt.refreshExpiresInMs),
+    sessionExpiresAt,
   })
 
   // Keep the list bounded — drop the oldest sessions past the cap rather
@@ -48,7 +58,7 @@ async function issueTokens(user, userAgent = '') {
   }
 
   await user.save()
-  return { accessToken, refreshToken }
+  return { accessToken, refreshToken, sessionExpiresAt }
 }
 
 export async function register({ name, email, password }, { baseUrl, userAgent } = {}) {
@@ -106,6 +116,12 @@ export async function googleLogin(code, req, { userAgent } = {}) {
  * a brand new one. If a refresh token is ever reused after rotation
  * (i.e. someone stole an old one), the hash it's checked against won't
  * be found anymore, so the request fails.
+ *
+ * Also enforces the absolute 7-day session cap: the matched token's own
+ * `sessionExpiresAt` (fixed at the original login, unaffected by any
+ * rotation since) is checked against real time here — server-side, not
+ * just left to a frontend timer — and rejected once it's passed, even if
+ * the token's own JWT signature is still technically valid.
  */
 export async function refresh(rawRefreshToken, { userAgent } = {}) {
   if (!rawRefreshToken) {
@@ -116,7 +132,7 @@ export async function refresh(rawRefreshToken, { userAgent } = {}) {
   try {
     payload = verifyRefreshToken(rawRefreshToken)
   } catch {
-    throw ApiError.unauthorized('Your session has expired. Please sign in again.')
+    throw ApiError.unauthorized('Your session has expired. Please log in again.')
   }
 
   const user = await User.findById(payload.sub).select('+refreshTokens')
@@ -128,12 +144,25 @@ export async function refresh(rawRefreshToken, { userAgent } = {}) {
   const matchIndex = user.refreshTokens.findIndex((entry) => entry.tokenHash === incomingHash)
 
   if (matchIndex === -1) {
-    throw ApiError.unauthorized('Your session has expired. Please sign in again.')
+    throw ApiError.unauthorized('Your session has expired. Please log in again.')
   }
 
-  // Rotate: remove the consumed token, issue a new pair.
+  const matchedEntry = user.refreshTokens[matchIndex]
+
+  // The absolute cap — independent of the token's own JWT expiry, and
+  // the actual enforcement of "7 days maximum, refreshing doesn't extend
+  // it." A session past this point is rejected outright, forcing a real
+  // login rather than silently continuing.
+  if (!matchedEntry.sessionExpiresAt || matchedEntry.sessionExpiresAt.getTime() <= Date.now()) {
+    user.refreshTokens.splice(matchIndex, 1)
+    await user.save()
+    throw ApiError.unauthorized('Your session has expired after 7 days. Please log in again.')
+  }
+
+  // Rotate: remove the consumed token, issue a new pair that inherits
+  // this same session's absolute cap unchanged.
   user.refreshTokens.splice(matchIndex, 1)
-  const tokens = await issueTokens(user, userAgent)
+  const tokens = await issueTokens(user, userAgent, matchedEntry.sessionExpiresAt)
   return { user, ...tokens }
 }
 

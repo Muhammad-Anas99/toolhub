@@ -3,8 +3,9 @@ import { motion } from 'framer-motion'
 import { HiOutlineEnvelope, HiOutlineCheckCircle } from 'react-icons/hi2'
 import Container from '../components/ui/Container.jsx'
 import SEO from '../components/ui/SEO.jsx'
+import { api } from '../lib/api.js'
 
-const INITIAL_FORM = { name: '', email: '', subject: '', message: '' }
+const INITIAL_FORM = { name: '', email: '', subject: '', message: '', website: '' }
 
 function validate(form) {
   const errors = {}
@@ -26,7 +27,8 @@ function validate(form) {
 export default function Contact() {
   const [form, setForm] = useState(INITIAL_FORM)
   const [errors, setErrors] = useState({})
-  const [status, setStatus] = useState('idle') // idle | submitting | submitted
+  const [status, setStatus] = useState('idle') // idle | submitting | submitted | error
+  const [serverError, setServerError] = useState(null)
 
   function handleChange(event) {
     const { name, value } = event.target
@@ -34,19 +36,22 @@ export default function Contact() {
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: undefined }))
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
     const nextErrors = validate(form)
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length > 0) return
 
-    // No backend is connected yet — this simulates a successful submission
-    // so the form's UX can be built and tested ahead of the API integration.
+    setServerError(null)
     setStatus('submitting')
-    setTimeout(() => {
+    try {
+      await api.submitContactForm(form)
       setStatus('submitted')
       setForm(INITIAL_FORM)
-    }, 600)
+    } catch (err) {
+      setServerError(err.message || 'Something went wrong sending your message. Please try again.')
+      setStatus('error')
+    }
   }
 
   return (
@@ -93,6 +98,15 @@ export default function Contact() {
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} noValidate className="card space-y-5 p-6 sm:p-8">
+              {status === 'error' && serverError && (
+                <div
+                  role="alert"
+                  className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:border-rose-900 dark:bg-rose-950 dark:text-rose-400"
+                >
+                  {serverError}
+                </div>
+              )}
+
               <div>
                 <label htmlFor="name" className="text-sm font-medium text-slate-700 dark:text-slate-300">
                   Name
@@ -155,6 +169,24 @@ export default function Contact() {
                   className="mt-1.5 w-full resize-none rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
                 />
                 {errors.message && <p className="mt-1.5 text-xs text-rose-500">{errors.message}</p>}
+              </div>
+
+              {/* Honeypot — invisible to real visitors (off-screen, never
+                  focusable), so it stays empty for humans. A bot that
+                  fills every field it finds in the DOM populates it,
+                  which the backend uses to silently no-op the request.
+                  Not a real form field for people to answer. */}
+              <div className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+                <label htmlFor="website">Leave this field blank</label>
+                <input
+                  id="website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={form.website}
+                  onChange={handleChange}
+                />
               </div>
 
               <button

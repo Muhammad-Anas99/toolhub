@@ -33,3 +33,21 @@ export const authRateLimiter = rateLimit({
     message: 'Too many attempts. Please try again in a few minutes.',
   },
 })
+
+/**
+ * Applied to the contact form endpoint — a form that sends a real email
+ * on every successful submission is a natural target for spam, separate
+ * from the honeypot field (middleware/validators/contactValidator.js /
+ * controllers/contactController.js), which catches bots; this limits
+ * genuine repeated submissions (accidental or deliberate) from one IP.
+ */
+export const contactRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many messages sent. Please try again in a little while.',
+  },
+})

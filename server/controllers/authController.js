@@ -25,16 +25,26 @@ const useCrossSiteCookie = isProduction || config.clientUrl.startsWith('https://
 // httpOnly means client-side JavaScript can never read this cookie — the
 // single biggest reason a refresh token is meaningfully safer here than in
 // localStorage, which is readable by any script (including an XSS payload).
+// Deliberately has no `maxAge` here — that's computed per-call in
+// setRefreshCookie() below, from the actual remaining time until the
+// session's absolute 7-day cap, not a fixed window reset on every login/
+// refresh. Without this, the cookie itself would always get a fresh 7-day
+// life on every rotation even though the *session* it represents has a
+// fixed deadline — the server-side check in authService.refresh() is the
+// real enforcement either way, but a cookie that quietly outlives its own
+// session is confusing and unnecessary.
 const REFRESH_COOKIE_OPTIONS = {
   httpOnly: true,
   secure: useCrossSiteCookie,
   sameSite: useCrossSiteCookie ? 'none' : 'lax',
-  maxAge: config.jwt.refreshExpiresInMs,
   path: '/api/auth',
 }
 
-function setRefreshCookie(res, token) {
-  res.cookie(REFRESH_COOKIE_NAME, token, REFRESH_COOKIE_OPTIONS)
+function setRefreshCookie(res, token, sessionExpiresAt) {
+  const maxAge = sessionExpiresAt
+    ? Math.max(0, sessionExpiresAt.getTime() - Date.now())
+    : config.jwt.refreshExpiresInMs
+  res.cookie(REFRESH_COOKIE_NAME, token, { ...REFRESH_COOKIE_OPTIONS, maxAge })
 }
 
 function clearRefreshCookie(res) {
@@ -42,12 +52,12 @@ function clearRefreshCookie(res) {
 }
 
 export const register = asyncHandler(async (req, res) => {
-  const { user, accessToken, refreshToken } = await authService.register(req.body, {
+  const { user, accessToken, refreshToken, sessionExpiresAt } = await authService.register(req.body, {
     baseUrl: config.clientUrl,
     userAgent: req.headers['user-agent'],
   })
 
-  setRefreshCookie(res, refreshToken)
+  setRefreshCookie(res, refreshToken, sessionExpiresAt)
   sendSuccess(res, {
     statusCode: 201,
     message: 'Account created. Please check your email to verify your address.',
@@ -56,21 +66,21 @@ export const register = asyncHandler(async (req, res) => {
 })
 
 export const login = asyncHandler(async (req, res) => {
-  const { user, accessToken, refreshToken } = await authService.login(req.body, {
+  const { user, accessToken, refreshToken, sessionExpiresAt } = await authService.login(req.body, {
     userAgent: req.headers['user-agent'],
   })
 
-  setRefreshCookie(res, refreshToken)
+  setRefreshCookie(res, refreshToken, sessionExpiresAt)
   sendSuccess(res, { message: 'Logged in', data: { user, accessToken } })
 })
 
 export const refresh = asyncHandler(async (req, res) => {
   const rawRefreshToken = req.cookies?.[REFRESH_COOKIE_NAME]
-  const { user, accessToken, refreshToken } = await authService.refresh(rawRefreshToken, {
+  const { user, accessToken, refreshToken, sessionExpiresAt } = await authService.refresh(rawRefreshToken, {
     userAgent: req.headers['user-agent'],
   })
 
-  setRefreshCookie(res, refreshToken)
+  setRefreshCookie(res, refreshToken, sessionExpiresAt)
   sendSuccess(res, { message: 'Session refreshed', data: { user, accessToken } })
 })
 
@@ -160,10 +170,10 @@ export const googleAuthCallback = asyncHandler(async (req, res) => {
   }
 
   try {
-    const { refreshToken } = await authService.googleLogin(code, req, {
+    const { refreshToken, sessionExpiresAt } = await authService.googleLogin(code, req, {
       userAgent: req.headers['user-agent'],
     })
-    setRefreshCookie(res, refreshToken)
+    setRefreshCookie(res, refreshToken, sessionExpiresAt)
     res.redirect(`${config.clientUrl}/dashboard`)
   } catch (err) {
     console.error('[auth] Google sign-in failed:', err.message)

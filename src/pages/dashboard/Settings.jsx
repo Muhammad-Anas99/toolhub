@@ -30,7 +30,7 @@ export default function Settings() {
 
   return (
     <>
-      <SEO title="Settings" description="Manage your ToolHub account settings." canonicalPath="/dashboard/settings" />
+      <SEO title="Settings" description="Manage your ToolHub account settings." canonicalPath="/dashboard/settings" noIndex />
 
       {/* Email verification reminder now lives in DashboardLayout, shown on
           every dashboard page rather than just here. */}

@@ -18,7 +18,7 @@ import StatCounter from '../components/ui/StatCounter.jsx'
 import TestimonialCard from '../components/ui/TestimonialCard.jsx'
 import BlogCard from '../components/ui/BlogCard.jsx'
 import FAQAccordion from '../components/ui/FAQAccordion.jsx'
-import SEO from '../components/ui/SEO.jsx'
+import SEO, { SITE_URL } from '../components/ui/SEO.jsx'
 import { useTools } from '../hooks/useTools.js'
 import { useCategories } from '../hooks/useCategories.js'
 import { useBlogPosts } from '../hooks/useBlogPosts.js'
@@ -84,6 +84,26 @@ export default function Home() {
         title="Free Online Tools for Images, PDFs, Text and More"
         description="Convert, compress, resize, crop and rotate images for free with ToolHub. Fast, private, and works right in your browser."
         canonicalPath="/"
+        structuredData={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'ToolHub',
+            url: SITE_URL,
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: `${SITE_URL}/tools?query={search_term_string}`,
+              'query-input': 'required name=search_term_string',
+            },
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'ToolHub',
+            url: SITE_URL,
+            logo: `${SITE_URL}/icon-512.png`,
+          },
+        ]}
       />
 
       {/* Hero */}

@@ -57,7 +57,7 @@ export default function ResetPassword() {
 
   return (
     <>
-      <SEO title="Reset Password" description="Choose a new password for your ToolHub account." canonicalPath="/reset-password" />
+      <SEO title="Reset Password" description="Choose a new password for your ToolHub account." canonicalPath="/reset-password" noIndex />
 
       <Container className="py-16">
         <motion.div

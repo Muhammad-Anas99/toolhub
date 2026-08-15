@@ -31,12 +31,13 @@ function getTransporter() {
  * the console into your browser. Wire up real SMTP credentials (Brevo or
  * otherwise) before production; see the note in .env.example.
  */
-async function sendEmail({ to, subject, html, text }) {
+async function sendEmail({ to, subject, html, text, replyTo }) {
   const activeTransporter = getTransporter()
 
   if (!activeTransporter) {
     console.log('\n[email] SMTP not configured — logging email instead of sending:')
     console.log(`[email] To: ${to}`)
+    if (replyTo) console.log(`[email] Reply-To: ${replyTo}`)
     console.log(`[email] Subject: ${subject}`)
     console.log(`[email] Body:\n${text || html}\n`)
     if (!isDevelopment) {
@@ -51,8 +52,43 @@ async function sendEmail({ to, subject, html, text }) {
     subject,
     html,
     text,
+    ...(replyTo ? { replyTo } : {}),
   })
   return { delivered: true, loggedOnly: false }
+}
+
+/**
+ * Sent to the site's contact inbox when someone submits the Contact page
+ * form (see server/services/contactService.js — this only handles the
+ * email side; the message is always saved to the database first,
+ * independent of whether this send succeeds). The visitor's own address
+ * is set as Reply-To, so replying in an inbox goes straight back to them
+ * rather than to ToolHub's own From address.
+ */
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+}
+
+export async function sendContactFormEmail({ name, email, subject, message }) {
+  const displaySubject = subject ? `New contact message: ${subject}` : 'New contact message from ToolHub'
+
+  return sendEmail({
+    to: config.contactEmail,
+    replyTo: email,
+    subject: displaySubject,
+    text: `From: ${name} <${email}>\nSubject: ${subject || '(no subject)'}\n\n${message}`,
+    html: `
+      <p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p>
+      ${subject ? `<p><strong>Subject:</strong> ${escapeHtml(subject)}</p>` : ''}
+      <p><strong>Message:</strong></p>
+      <p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
+    `,
+  })
 }
 
 export async function sendVerificationEmail(user, verifyUrl) {

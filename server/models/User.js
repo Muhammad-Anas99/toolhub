@@ -8,7 +8,17 @@ const refreshTokenSchema = new mongoose.Schema(
     // alone can't be used to impersonate a session.
     tokenHash: { type: String, required: true },
     userAgent: { type: String, default: '' },
+    // This individual token's own ceiling, derived from its JWT `exp`.
     expiresAt: { type: Date, required: true },
+    // The ABSOLUTE cap for the whole session this token belongs to — set
+    // once, at the very first login, and copied unchanged onto every
+    // token produced by rotating it (see authService.issueTokens /
+    // authService.refresh). This is what stops repeated silent refreshing
+    // from extending a session indefinitely: `expiresAt` above resets on
+    // every rotation, but `sessionExpiresAt` never does, and
+    // authService.refresh() rejects once real time passes it — regardless
+    // of whether the token itself would otherwise still validate.
+    sessionExpiresAt: { type: Date, required: true },
   },
   { _id: false, timestamps: { createdAt: true, updatedAt: false } }
 )

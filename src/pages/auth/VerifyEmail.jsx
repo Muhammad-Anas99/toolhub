@@ -39,7 +39,7 @@ export default function VerifyEmail() {
 
   return (
     <>
-      <SEO title="Verify Email" description="Verify your ToolHub email address." canonicalPath="/verify-email" />
+      <SEO title="Verify Email" description="Verify your ToolHub email address." canonicalPath="/verify-email" noIndex />
 
       <Container className="py-16">
         <div className="card mx-auto flex max-w-md flex-col items-center gap-3 p-10 text-center">

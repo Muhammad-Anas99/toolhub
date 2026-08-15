@@ -11,16 +11,37 @@
     <meta name="keywords" content="online tools, image converter, image compressor, image resizer, jpg to png, png to jpg, webp converter, free tools" />
     <meta name="robots" content="index, follow" />
 
+    <!-- Open Graph (Facebook, LinkedIn, Slack, Discord, ...). Overridden
+         per-page by src/components/ui/SEO.jsx once React mounts — these
+         are the values a crawler sees before any JavaScript runs. -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://trytoolhub.net/" />
     <meta property="og:title" content="ToolHub — Free Online Tools" />
     <meta property="og:description" content="Convert, compress, resize, crop and rotate images for free. More tools coming soon." />
     <meta property="og:site_name" content="ToolHub" />
+    <meta property="og:image" content="https://trytoolhub.net/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="ToolHub — Free Online Tools" />
 
+    <!-- Twitter/X card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="ToolHub — Free Online Tools" />
     <meta name="twitter:description" content="Convert, compress, resize, crop and rotate images for free." />
+    <meta name="twitter:image" content="https://trytoolhub.net/og-image.png" />
 
+    <!-- Favicons. Both the SVG (modern browsers) and PNG/ICO fallbacks are
+         included deliberately — search engines and some browsers don't
+         reliably support SVG-only favicons, which is why an SVG-only setup
+         can fail to show an icon in search results even though it looks
+         fine in a modern browser tab. -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <title>ToolHub — Free Online Tools</title>
   </head>
   <body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased">

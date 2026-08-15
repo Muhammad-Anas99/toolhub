@@ -86,7 +86,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <SEO title="Dashboard" description="Your ToolHub dashboard." canonicalPath="/dashboard" />
+      <SEO title="Dashboard" description="Your ToolHub dashboard." canonicalPath="/dashboard" noIndex />
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
         {cards.map((card) => (
