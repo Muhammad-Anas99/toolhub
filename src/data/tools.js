@@ -142,28 +142,6 @@ export const tools = [
     icon: FaArrowsLeftRight,
     comingSoon: false,
   },
-  {
-    id: 'image-converter',
-    name: 'Image Converter',
-    slug: 'image-converter',
-    path: '/tools/image-converter',
-    category: 'image-tools',
-    description: 'Convert any image between JPG, PNG and WEBP \u2014 pick your own output format.',
-    icon: FaLayerGroup,
-    badge: 'new',
-    comingSoon: false,
-  },
-  {
-    id: 'image-editor',
-    name: 'Image Editor',
-    slug: 'image-editor',
-    path: '/tools/image-editor',
-    category: 'image-tools',
-    description: 'Convert, resize, rotate and flip up to 10 images at once, then download individually or as a ZIP.',
-    icon: FaLayerGroup,
-    badge: 'new',
-    comingSoon: false,
-  },
 
   // ---------- PDF Tools ----------
   {

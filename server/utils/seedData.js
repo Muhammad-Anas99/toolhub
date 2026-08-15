@@ -87,8 +87,6 @@ export const toolSeed = [
   { name: 'Image Cropper', slug: 'image-crop', path: '/tools/image-crop', category: 'image-tools', description: 'Crop images to the exact area you need with drag, zoom and rotate.', icon: 'FaCrop', badge: 'new', comingSoon: false },
   { name: 'Image Rotator', slug: 'image-rotate', path: '/tools/image-rotate', category: 'image-tools', description: 'Rotate images left, right, or to any 90\u00b0 increment.', icon: 'FaRotate', comingSoon: false },
   { name: 'Flip Image', slug: 'flip-image', path: '/tools/flip-image', category: 'image-tools', description: 'Flip images horizontally or vertically in one click.', icon: 'FaArrowsLeftRight', comingSoon: false },
-  { name: 'Image Converter', slug: 'image-converter', path: '/tools/image-converter', category: 'image-tools', description: 'Convert any image between JPG, PNG and WEBP \u2014 pick your own output format.', icon: 'FaLayerGroup', badge: 'new', comingSoon: false },
-  { name: 'Image Editor', slug: 'image-editor', path: '/tools/image-editor', category: 'image-tools', description: 'Convert, resize, rotate and flip up to 10 images at once, then download individually or as a ZIP.', icon: 'FaLayerGroup', badge: 'new', comingSoon: false },
 
   // ---------- PDF Tools ----------
   { name: 'JPG to PDF', slug: 'jpg-to-pdf', path: '/tools/jpg-to-pdf', category: 'pdf-tools', description: 'Turn a JPG image into a single-page PDF document.', icon: 'FaFileArrowUp', badge: 'new', comingSoon: false },

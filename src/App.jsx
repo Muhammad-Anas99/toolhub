@@ -27,7 +27,6 @@ const ImageResizer = lazy(() => import('./pages/tools/ImageResizer.jsx'))
 const ImageCrop = lazy(() => import('./pages/tools/ImageCrop.jsx'))
 const ImageRotate = lazy(() => import('./pages/tools/ImageRotate.jsx'))
 const FlipImage = lazy(() => import('./pages/tools/FlipImage.jsx'))
-const ImageConverter = lazy(() => import('./pages/tools/ImageConverter.jsx'))
 const JpgToPdf = lazy(() => import('./pages/tools/JpgToPdf.jsx'))
 const PngToPdf = lazy(() => import('./pages/tools/PngToPdf.jsx'))
 const MergePdf = lazy(() => import('./pages/tools/MergePdf.jsx'))
@@ -50,7 +49,6 @@ const PdfToJpg = lazy(() => import('./pages/tools/PdfToJpg.jsx'))
 const PdfToPng = lazy(() => import('./pages/tools/PdfToPng.jsx'))
 const GradientGenerator = lazy(() => import('./pages/tools/GradientGenerator.jsx'))
 const PdfToWord = lazy(() => import('./pages/tools/PdfToWord.jsx'))
-const ImageEditor = lazy(() => import('./pages/tools/ImageEditor.jsx'))
 const YoutubeThumbnailDownloader = lazy(() => import('./pages/tools/YoutubeThumbnailDownloader.jsx'))
 
 // Auth (Phase 5)
@@ -88,7 +86,6 @@ export default function App() {
           <Route path="/tools/image-crop" element={<ImageCrop />} />
           <Route path="/tools/image-rotate" element={<ImageRotate />} />
           <Route path="/tools/flip-image" element={<FlipImage />} />
-          <Route path="/tools/image-converter" element={<ImageConverter />} />
           <Route path="/tools/jpg-to-pdf" element={<JpgToPdf />} />
           <Route path="/tools/png-to-pdf" element={<PngToPdf />} />
           <Route path="/tools/merge-pdf" element={<MergePdf />} />
@@ -111,7 +108,6 @@ export default function App() {
           <Route path="/tools/pdf-to-png" element={<PdfToPng />} />
           <Route path="/tools/gradient-generator" element={<GradientGenerator />} />
           <Route path="/tools/pdf-to-word" element={<PdfToWord />} />
-          <Route path="/tools/image-editor" element={<ImageEditor />} />
           <Route path="/tools/youtube-thumbnail-downloader" element={<YoutubeThumbnailDownloader />} />
 
           <Route path="/about" element={<About />} />

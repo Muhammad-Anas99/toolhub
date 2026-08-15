@@ -1,21 +1,22 @@
 import React from 'react'
 import ToolLayout from '../../components/tools/ToolLayout.jsx'
-import ImageConverterTool from '../../components/tools/image/ImageConverterTool.jsx'
+import UnifiedImageTool from '../../components/tools/image/UnifiedImageTool.jsx'
 import { getToolBySlug } from '../../data/tools.js'
 import { toolFaqs } from '../../data/toolFaq.js'
 
 const tool = getToolBySlug('convert-to-webp')
+const ACCEPTED_TYPES = ['image/jpeg', 'image/png']
 
 export default function ConvertToWebp() {
   return (
-    <ToolLayout tool={tool} faqItems={toolFaqs['convert-to-webp']}>
-      <ImageConverterTool
-        acceptedTypes={['image/jpeg', 'image/png']}
-        outputMimeType="image/webp"
-        outputExtension="webp"
+    <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
+      <UnifiedImageTool
         toolSlug={tool.slug}
         toolName={tool.name}
         category={tool.category}
+        acceptedTypes={ACCEPTED_TYPES}
+        defaultFormatId="webp"
+        primaryActionLabel="Convert to WEBP"
       />
     </ToolLayout>
   )

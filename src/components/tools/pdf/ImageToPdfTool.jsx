@@ -12,7 +12,7 @@ import { buildOutputFilename } from '../../../lib/downloadBlob.js'
  * Powers both JPG→PDF and PNG→PDF — the actual operation (embed one
  * image into a new single-page PDF via pdf-lib) is identical either way;
  * only the accepted input type differs, same pattern used for image
- * format conversion (ImageConverterTool.jsx).
+ * format conversion (UnifiedImageTool.jsx).
  */
 export default function ImageToPdfTool({ acceptedTypes, toolSlug, toolName, category }) {
   const upload = useImageUpload({ acceptedTypes, maxSizeMB: 25 })

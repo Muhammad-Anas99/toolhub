@@ -122,18 +122,6 @@ export const toolFaqs = {
     },
   ],
 
-  'image-converter': [
-    {
-      id: 'formats',
-      question: 'Which formats can I convert between?',
-      answer: 'JPG, PNG and WEBP, in any direction. Pick your source image and choose whichever output format you need.',
-    },
-    {
-      id: 'quality',
-      question: 'Will converting reduce image quality?',
-      answer: 'PNG and WEBP support lossless output; converting to JPG uses a high-quality setting, so any loss is minimal and usually not noticeable.',
-    },
-  ],
 
   'jpg-to-pdf': [
     {
@@ -344,23 +332,6 @@ export const toolFaqs = {
     },
   ],
 
-  'image-editor': [
-    {
-      id: 'how-many-images',
-      question: 'How many images can I edit at once?',
-      answer: 'Up to 10 per batch. The same format, resize, rotate and flip settings apply to every image in the batch.',
-    },
-    {
-      id: 'different-sizes',
-      question: 'What happens if my images are different sizes?',
-      answer: 'Resize uses a percentage scale applied to each image\u2019s own original size, so every image keeps its correct aspect ratio even if they started at different dimensions.',
-    },
-    {
-      id: 'download-options',
-      question: 'Can I download just one image instead of all of them?',
-      answer: 'Yes \u2014 each result has its own Download button. "Download All" bundles every result into a single ZIP file if you want them all at once.',
-    },
-  ],
 
   'youtube-thumbnail-downloader': [
     {

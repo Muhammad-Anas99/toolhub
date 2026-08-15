@@ -6,9 +6,11 @@ import { downloadBlob } from '../lib/downloadBlob.js'
  * Manages the "processing result" side of every image tool: status, the
  * resulting Blob + object URL, safe cleanup on reset, logging a
  * conversion to History, and the real file download. This was previously
- * reimplemented with minor variations in ImageConverterTool,
- * ImageCompressor, ImageResizer, RotateFlipTool and ImageCrop — now those
- * all share this single implementation.
+ * reimplemented with minor variations across several tool files before
+ * being consolidated here, and later into the shared UnifiedImageTool
+ * used by every format/resize/rotate/flip tool — ImageCrop is the one
+ * exception, since its interactive crop-selection UI doesn't fit that
+ * shared multi-file pattern.
  *
  * `toolMeta` ({ toolSlug, toolName, category }) is optional — when
  * provided, the *first* successful run logs a conversion via the API
