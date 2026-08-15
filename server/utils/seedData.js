@@ -88,6 +88,7 @@ export const toolSeed = [
   { name: 'Image Rotator', slug: 'image-rotate', path: '/tools/image-rotate', category: 'image-tools', description: 'Rotate images left, right, or to any 90\u00b0 increment.', icon: 'FaRotate', comingSoon: false },
   { name: 'Flip Image', slug: 'flip-image', path: '/tools/flip-image', category: 'image-tools', description: 'Flip images horizontally or vertically in one click.', icon: 'FaArrowsLeftRight', comingSoon: false },
   { name: 'Image Converter', slug: 'image-converter', path: '/tools/image-converter', category: 'image-tools', description: 'Convert any image between JPG, PNG and WEBP \u2014 pick your own output format.', icon: 'FaLayerGroup', badge: 'new', comingSoon: false },
+  { name: 'Image Editor', slug: 'image-editor', path: '/tools/image-editor', category: 'image-tools', description: 'Convert, resize, rotate and flip up to 10 images at once, then download individually or as a ZIP.', icon: 'FaLayerGroup', badge: 'new', comingSoon: false },
 
   // ---------- PDF Tools ----------
   { name: 'JPG to PDF', slug: 'jpg-to-pdf', path: '/tools/jpg-to-pdf', category: 'pdf-tools', description: 'Turn a JPG image into a single-page PDF document.', icon: 'FaFileArrowUp', badge: 'new', comingSoon: false },
@@ -133,7 +134,7 @@ export const toolSeed = [
 
   // ---------- Social Media Tools ----------
   { name: 'Instagram Post Resizer', slug: 'instagram-post-resizer', path: '/tools/instagram-post-resizer', category: 'social-media-tools', description: 'Resize images to fit Instagram posts and stories.', icon: 'FaInstagram', comingSoon: true },
-  { name: 'YouTube Thumbnail Downloader', slug: 'youtube-thumbnail-downloader', path: '/tools/youtube-thumbnail-downloader', category: 'social-media-tools', description: 'Download thumbnail images from any YouTube video.', icon: 'FaYoutube', badge: 'new', comingSoon: true },
+  { name: 'YouTube Thumbnail Downloader', slug: 'youtube-thumbnail-downloader', path: '/tools/youtube-thumbnail-downloader', category: 'social-media-tools', description: 'Download thumbnail images from any YouTube video.', icon: 'FaYoutube', badge: 'new', comingSoon: false },
 ]
 
 

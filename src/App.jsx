@@ -50,6 +50,8 @@ const PdfToJpg = lazy(() => import('./pages/tools/PdfToJpg.jsx'))
 const PdfToPng = lazy(() => import('./pages/tools/PdfToPng.jsx'))
 const GradientGenerator = lazy(() => import('./pages/tools/GradientGenerator.jsx'))
 const PdfToWord = lazy(() => import('./pages/tools/PdfToWord.jsx'))
+const ImageEditor = lazy(() => import('./pages/tools/ImageEditor.jsx'))
+const YoutubeThumbnailDownloader = lazy(() => import('./pages/tools/YoutubeThumbnailDownloader.jsx'))
 
 // Auth (Phase 5)
 const Login = lazy(() => import('./pages/auth/Login.jsx'))
@@ -109,6 +111,8 @@ export default function App() {
           <Route path="/tools/pdf-to-png" element={<PdfToPng />} />
           <Route path="/tools/gradient-generator" element={<GradientGenerator />} />
           <Route path="/tools/pdf-to-word" element={<PdfToWord />} />
+          <Route path="/tools/image-editor" element={<ImageEditor />} />
+          <Route path="/tools/youtube-thumbnail-downloader" element={<YoutubeThumbnailDownloader />} />
 
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

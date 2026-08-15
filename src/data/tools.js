@@ -153,6 +153,17 @@ export const tools = [
     badge: 'new',
     comingSoon: false,
   },
+  {
+    id: 'image-editor',
+    name: 'Image Editor',
+    slug: 'image-editor',
+    path: '/tools/image-editor',
+    category: 'image-tools',
+    description: 'Convert, resize, rotate and flip up to 10 images at once, then download individually or as a ZIP.',
+    icon: FaLayerGroup,
+    badge: 'new',
+    comingSoon: false,
+  },
 
   // ---------- PDF Tools ----------
   {
@@ -499,7 +510,7 @@ export const tools = [
     description: 'Download thumbnail images from any YouTube video.',
     icon: FaYoutube,
     badge: 'new',
-    comingSoon: true,
+    comingSoon: false,
   },
 ]
 

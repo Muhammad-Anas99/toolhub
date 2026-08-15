@@ -343,4 +343,35 @@ export const toolFaqs = {
       answer: 'Yes \u2014 every page\u2019s text is extracted and included, with a page break inserted between each page\u2019s content in the resulting Word document.',
     },
   ],
+
+  'image-editor': [
+    {
+      id: 'how-many-images',
+      question: 'How many images can I edit at once?',
+      answer: 'Up to 10 per batch. The same format, resize, rotate and flip settings apply to every image in the batch.',
+    },
+    {
+      id: 'different-sizes',
+      question: 'What happens if my images are different sizes?',
+      answer: 'Resize uses a percentage scale applied to each image\u2019s own original size, so every image keeps its correct aspect ratio even if they started at different dimensions.',
+    },
+    {
+      id: 'download-options',
+      question: 'Can I download just one image instead of all of them?',
+      answer: 'Yes \u2014 each result has its own Download button. "Download All" bundles every result into a single ZIP file if you want them all at once.',
+    },
+  ],
+
+  'youtube-thumbnail-downloader': [
+    {
+      id: 'which-url',
+      question: 'What URL formats work?',
+      answer: 'Standard youtube.com/watch?v= links, youtu.be short links, Shorts links, embed links, or just the raw 11-character video ID.',
+    },
+    {
+      id: 'why-missing-quality',
+      question: 'Why don\u2019t I see a Max Resolution option for every video?',
+      answer: 'The highest resolution thumbnail (1280\u00d7720) only exists for videos uploaded at sufficient source resolution. When it\u2019s not available, that option is automatically hidden \u2014 the other sizes are generated for every video.',
+    },
+  ],
 }

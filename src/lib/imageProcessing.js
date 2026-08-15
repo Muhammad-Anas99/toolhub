@@ -222,6 +222,79 @@ export async function cropImage(file, { crop, mimeType, quality = 0.92 }) {
   }
 }
 
+/**
+ * Combines rotate/flip, resize, and format conversion into a single
+ * pipeline — used by the batch Image Editor, where a user can apply all
+ * three to one or many images at once instead of running them through
+ * separate tools one at a time. The transform logic itself (the rotate/
+ * flip canvas math, the resize smoothing settings, the JPEG white-
+ * background fill) is identical to rotateFlipImage/resizeImage above —
+ * this composes the same two canvas passes rather than reimplementing
+ * them, so it stays correct by construction as those get reused.
+ *
+ * Order: rotate/flip is applied first (at the image's natural size), then
+ * resize (if requested) is applied to that rotated result — matching what
+ * a user visually expects when they rotate first and then specify a
+ * target size for the now-rotated orientation.
+ */
+export async function processImageBatch(
+  file,
+  {
+    rotateDegrees = 0,
+    flipHorizontal = false,
+    flipVertical = false,
+    targetWidth = null,
+    targetHeight = null,
+    mimeType,
+    quality = 0.92,
+  } = {}
+) {
+  const outputType = mimeType || file.type || 'image/png'
+  const { img, width, height, url } = await loadImage(file)
+  try {
+    const isQuarterTurn = Math.abs(rotateDegrees % 180) === 90
+    const rotatedWidth = isQuarterTurn ? height : width
+    const rotatedHeight = isQuarterTurn ? width : height
+
+    // Pass 1: rotate/flip onto an intermediate canvas — same transform
+    // sequence as rotateFlipImage above.
+    const rotateCanvas = createCanvas(rotatedWidth, rotatedHeight)
+    const rotateCtx = rotateCanvas.getContext('2d')
+    if (outputType === 'image/jpeg') {
+      rotateCtx.fillStyle = '#ffffff'
+      rotateCtx.fillRect(0, 0, rotateCanvas.width, rotateCanvas.height)
+    }
+    const radians = (rotateDegrees * Math.PI) / 180
+    rotateCtx.translate(rotateCanvas.width / 2, rotateCanvas.height / 2)
+    rotateCtx.rotate(radians)
+    rotateCtx.scale(flipHorizontal ? -1 : 1, flipVertical ? -1 : 1)
+    rotateCtx.drawImage(img, -width / 2, -height / 2, width, height)
+
+    // Pass 2: resize (only if actually requested) onto the final canvas —
+    // same smoothing settings as resizeImage above.
+    const needsResize = Boolean(targetWidth) || Boolean(targetHeight)
+    let finalCanvas = rotateCanvas
+    if (needsResize) {
+      const finalWidth = targetWidth || rotatedWidth
+      const finalHeight = targetHeight || rotatedHeight
+      finalCanvas = createCanvas(finalWidth, finalHeight)
+      const finalCtx = finalCanvas.getContext('2d')
+      if (outputType === 'image/jpeg') {
+        finalCtx.fillStyle = '#ffffff'
+        finalCtx.fillRect(0, 0, finalCanvas.width, finalCanvas.height)
+      }
+      finalCtx.imageSmoothingEnabled = true
+      finalCtx.imageSmoothingQuality = 'high'
+      finalCtx.drawImage(rotateCanvas, 0, 0, finalCanvas.width, finalCanvas.height)
+    }
+
+    const blob = await canvasToBlob(finalCanvas, outputType, quality)
+    return { blob, width: finalCanvas.width, height: finalCanvas.height }
+  } finally {
+    URL.revokeObjectURL(url)
+  }
+}
+
 export const MIME_LABELS = {
   'image/jpeg': 'JPG',
   'image/png': 'PNG',
