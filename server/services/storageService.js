@@ -3,6 +3,7 @@ import path from 'node:path'
 import { put } from '@vercel/blob'
 import { slugify } from '../utils/slugify.js'
 import { config } from '../config/env.js'
+import { ApiError } from '../utils/ApiError.js'
 
 function buildFilename(originalName) {
   const extension = path.extname(originalName).toLowerCase()
@@ -38,6 +39,20 @@ export async function storeFile(file, req) {
       contentType: file.mimetype,
     })
     return { url: blob.url, filename }
+  }
+
+  // Vercel's serverless filesystem is read-only outside of /tmp — the
+  // local-disk fallback below would throw a confusing, generic-looking
+  // "Something went wrong" error there (an unhandled EROFS/read-only-
+  // filesystem exception), not a helpful one, if it were ever attempted
+  // on Vercel. `process.env.VERCEL` is set automatically on every Vercel
+  // deployment (production and preview alike), so this fails explicitly
+  // and clearly instead — this is a one-time configuration gap to fix
+  // (enable Blob storage), not a bug to chase.
+  if (process.env.VERCEL) {
+    throw ApiError.internal(
+      'File uploads are not configured on this deployment yet. Enable Vercel Blob storage on the backend project (Storage tab -> Create -> Blob) and redeploy — see server/README.md.'
+    )
   }
 
   const uploadDir = path.resolve(process.cwd(), config.upload.directory)

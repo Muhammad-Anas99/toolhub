@@ -170,7 +170,7 @@ Full step-by-step instructions live in the root `README.md`'s "Deploying to Verc
 
 - Deploy this `server/` folder as its own Vercel project (**Root Directory** = `server`) — `vercel.json` and `api/index.js` here handle the serverless adaptation.
 - Set `MONGODB_URI` and `CLIENT_URL` as environment variables.
-- Enable **Vercel Blob** (project → Storage tab) so file uploads persist — Vercel sets `BLOB_READ_WRITE_TOKEN` automatically.
+- **Enable Vercel Blob** (project → Storage tab → Create → Blob) — **required**, not optional, if you want any file upload to work at all (profile pictures, admin content uploads). Vercel sets `BLOB_READ_WRITE_TOKEN` automatically once enabled. Without it, `services/storageService.js` fails fast with a clear "File uploads are not configured on this deployment yet" error rather than silently attempting to write to Vercel's read-only production filesystem — but the fix either way is the same: enable Blob storage here.
 - Run `npm run seed` locally (pointed at your production `MONGODB_URI`) — it's a one-off script, not something that runs inside a serverless function.
 
 ## Authentication (Phase 5)

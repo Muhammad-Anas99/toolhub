@@ -1,5 +1,5 @@
 import { ApiError } from '../utils/ApiError.js'
-import { isDevelopment } from '../config/env.js'
+import { isDevelopment, config } from '../config/env.js'
 
 /**
  * Must be registered last, after all routes. Normalizes every error —
@@ -32,18 +32,35 @@ export function errorHandler(err, req, res, next) {
     message = `A record with this ${field} already exists`
   }
 
+  // Multer upload errors (file too large, unexpected field, etc.) -> 400.
+  // These aren't ApiError instances (multer throws its own MulterError
+  // class), so without this they'd fall through to the generic 500
+  // message below even though "your file is too large" is exactly the
+  // kind of specific, safe, useful message this handler exists to show.
+  if (err.name === 'MulterError') {
+    statusCode = 400
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      message = `File is too large. Maximum size is ${config.upload.maxFileSizeMb} MB.`
+    } else {
+      message = 'There was a problem with the uploaded file.'
+    }
+  }
+
   if (statusCode >= 500) {
     console.error('[error]', err)
 
-    // Everything above this point (ApiError, ValidationError, CastError,
-    // duplicate key) is a deliberate, recognized error type with a
-    // message that's safe to show a client. Anything still at 500 here is
-    // an *unexpected* bug — its message is an internal implementation
-    // detail (e.g. "Cannot read properties of undefined (reading 'push')"),
-    // not something written for a client to read. Show a generic message
-    // in production; keep the real one in development so it's still
-    // useful while debugging locally.
-    if (!isDevelopment) {
+    // Only genericize for errors we did NOT deliberately throw ourselves.
+    // A hand-written ApiError (even at 500/503) has a message a developer
+    // wrote on purpose to be safe and useful to show — e.g. "File uploads
+    // aren't configured on this deployment yet." An error that's still at
+    // 500 and ISN'T an ApiError is a genuine unexpected bug, whose message
+    // is an internal implementation detail (e.g. "Cannot read properties
+    // of undefined (reading 'push')"), not something written for a client
+    // to read — that's the only case this generic fallback should apply
+    // to. Previously this checked `statusCode >= 500` alone, which
+    // silently discarded every ApiError's own message too — contradicting
+    // the whole point of writing one.
+    if (!isDevelopment && !(err instanceof ApiError)) {
       message = 'Something went wrong on our end. Please try again.'
     }
   }
