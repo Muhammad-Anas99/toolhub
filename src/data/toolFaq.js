@@ -345,4 +345,36 @@ export const toolFaqs = {
       answer: 'The highest resolution thumbnail (1280\u00d7720) only exists for videos uploaded at sufficient source resolution. When it\u2019s not available, that option is automatically hidden \u2014 the other sizes are generated for every video.',
     },
   ],
+
+  'word-counter': [
+    {
+      id: 'how-sentences-counted',
+      question: 'How are sentences counted?',
+      answer: 'By counting groups of text ending in a period, exclamation mark, or question mark. Text with no ending punctuation at all still counts as one sentence.',
+    },
+    {
+      id: 'reading-time',
+      question: 'How is reading time calculated?',
+      answer: 'Based on an average reading speed of 200 words per minute \u2014 a common estimate for adult silent reading of straightforward text.',
+    },
+  ],
+  'case-converter': [
+    {
+      id: 'which-cases',
+      question: 'Which case styles are supported?',
+      answer: 'UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and kebab-case \u2014 covering both everyday writing styles and the naming conventions used in code.',
+    },
+  ],
+  'lorem-ipsum-generator': [
+    {
+      id: 'why-lorem-ipsum',
+      question: 'Why is placeholder text always "Lorem ipsum"?',
+      answer: 'It\u2019s scrambled, non-meaningful Latin-derived text that\u2019s been the design industry\u2019s standard placeholder for centuries \u2014 precisely because it looks like real text (roughly the right word lengths and letter patterns) without being distractingly readable, so it doesn\u2019t pull attention away from the layout it\u2019s filling.',
+    },
+    {
+      id: 'units',
+      question: 'What\u2019s the difference between words, sentences and paragraphs?',
+      answer: 'They control how the count applies \u2014 e.g. asking for 5 "sentences" gives you 5 individual sentences, while 5 "paragraphs" gives you 5 full paragraphs, each made up of several sentences.',
+    },
+  ],
 }

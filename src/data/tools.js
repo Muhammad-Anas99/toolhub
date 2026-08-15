@@ -405,10 +405,10 @@ export const tools = [
     slug: 'word-counter',
     path: '/tools/word-counter',
     category: 'text-tools',
-    description: 'Count words, characters, sentences and paragraphs.',
+    description: 'Count words, characters, sentences and paragraphs, with a reading time estimate.',
     icon: FaFont,
     badge: 'popular',
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     id: 'case-converter',
@@ -416,9 +416,9 @@ export const tools = [
     slug: 'case-converter',
     path: '/tools/case-converter',
     category: 'text-tools',
-    description: 'Convert text between upper, lower, title and sentence case.',
+    description: 'Convert text between upper, lower, title, sentence, camel, snake and kebab case.',
     icon: FaListOl,
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     id: 'lorem-ipsum-generator',
@@ -426,9 +426,9 @@ export const tools = [
     slug: 'lorem-ipsum-generator',
     path: '/tools/lorem-ipsum-generator',
     category: 'text-tools',
-    description: 'Generate placeholder text for mockups and designs.',
+    description: 'Generate placeholder text for mockups and designs, by words, sentences or paragraphs.',
     icon: FaFont,
-    comingSoon: true,
+    comingSoon: false,
   },
 
   // ---------- AI Tools ----------

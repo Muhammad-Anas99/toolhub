@@ -119,9 +119,9 @@ export const toolSeed = [
   { name: 'Code Minifier', slug: 'code-minifier', path: '/tools/code-minifier', category: 'developer-tools', description: 'Minify CSS, JavaScript and HTML to reduce file size.', icon: 'FaBroom', comingSoon: true },
 
   // ---------- Text Tools ----------
-  { name: 'Word Counter', slug: 'word-counter', path: '/tools/word-counter', category: 'text-tools', description: 'Count words, characters, sentences and paragraphs.', icon: 'FaFont', badge: 'popular', comingSoon: true },
-  { name: 'Case Converter', slug: 'case-converter', path: '/tools/case-converter', category: 'text-tools', description: 'Convert text between upper, lower, title and sentence case.', icon: 'FaListOl', comingSoon: true },
-  { name: 'Lorem Ipsum Generator', slug: 'lorem-ipsum-generator', path: '/tools/lorem-ipsum-generator', category: 'text-tools', description: 'Generate placeholder text for mockups and designs.', icon: 'FaFont', comingSoon: true },
+  { name: 'Word Counter', slug: 'word-counter', path: '/tools/word-counter', category: 'text-tools', description: 'Count words, characters, sentences and paragraphs, with a reading time estimate.', icon: 'FaFont', badge: 'popular', comingSoon: false },
+  { name: 'Case Converter', slug: 'case-converter', path: '/tools/case-converter', category: 'text-tools', description: 'Convert text between upper, lower, title, sentence, camel, snake and kebab case.', icon: 'FaListOl', comingSoon: false },
+  { name: 'Lorem Ipsum Generator', slug: 'lorem-ipsum-generator', path: '/tools/lorem-ipsum-generator', category: 'text-tools', description: 'Generate placeholder text for mockups and designs, by words, sentences or paragraphs.', icon: 'FaFont', comingSoon: false },
 
   // ---------- AI Tools ----------
   { name: 'AI Background Remover', slug: 'ai-background-remover', path: '/tools/ai-background-remover', category: 'ai-tools', description: 'Remove image backgrounds automatically using AI.', icon: 'FaWandMagicSparkles', badge: 'new', comingSoon: true },
