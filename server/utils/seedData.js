@@ -87,18 +87,37 @@ export const toolSeed = [
   { name: 'Image Cropper', slug: 'image-crop', path: '/tools/image-crop', category: 'image-tools', description: 'Crop images to the exact area you need with drag, zoom and rotate.', icon: 'FaCrop', badge: 'new', comingSoon: false },
   { name: 'Image Rotator', slug: 'image-rotate', path: '/tools/image-rotate', category: 'image-tools', description: 'Rotate images left, right, or to any 90\u00b0 increment.', icon: 'FaRotate', comingSoon: false },
   { name: 'Flip Image', slug: 'flip-image', path: '/tools/flip-image', category: 'image-tools', description: 'Flip images horizontally or vertically in one click.', icon: 'FaArrowsLeftRight', comingSoon: false },
+  { name: 'Image Converter', slug: 'image-converter', path: '/tools/image-converter', category: 'image-tools', description: 'Convert any image between JPG, PNG and WEBP \u2014 pick your own output format.', icon: 'FaLayerGroup', badge: 'new', comingSoon: false },
 
   // ---------- PDF Tools ----------
-  { name: 'Merge PDF', slug: 'merge-pdf', path: '/tools/merge-pdf', category: 'pdf-tools', description: 'Combine multiple PDF files into a single document.', icon: 'FaObjectGroup', badge: 'popular', comingSoon: true },
-  { name: 'Split PDF', slug: 'split-pdf', path: '/tools/split-pdf', category: 'pdf-tools', description: 'Split a PDF into separate pages or page ranges.', icon: 'FaObjectUngroup', comingSoon: true },
+  { name: 'JPG to PDF', slug: 'jpg-to-pdf', path: '/tools/jpg-to-pdf', category: 'pdf-tools', description: 'Turn a JPG image into a single-page PDF document.', icon: 'FaFileArrowUp', badge: 'new', comingSoon: false },
+  { name: 'PNG to PDF', slug: 'png-to-pdf', path: '/tools/png-to-pdf', category: 'pdf-tools', description: 'Turn a PNG image into a single-page PDF document.', icon: 'FaFileArrowUp', comingSoon: false },
+  { name: 'Merge PDF', slug: 'merge-pdf', path: '/tools/merge-pdf', category: 'pdf-tools', description: 'Combine multiple PDF files into a single document, in any order.', icon: 'FaObjectGroup', badge: 'popular', comingSoon: false },
+  { name: 'Split PDF', slug: 'split-pdf', path: '/tools/split-pdf', category: 'pdf-tools', description: 'Extract specific pages or page ranges from a PDF into a new document.', icon: 'FaObjectUngroup', comingSoon: false },
+  { name: 'PDF to JPG', slug: 'pdf-to-jpg', path: '/tools/pdf-to-jpg', category: 'pdf-tools', description: 'Convert PDF pages into JPG images.', icon: 'FaFileArrowDown', comingSoon: true },
+  { name: 'PDF to PNG', slug: 'pdf-to-png', path: '/tools/pdf-to-png', category: 'pdf-tools', description: 'Convert PDF pages into PNG images.', icon: 'FaFileArrowDown', comingSoon: true },
   { name: 'Compress PDF', slug: 'compress-pdf', path: '/tools/compress-pdf', category: 'pdf-tools', description: 'Shrink PDF file size while keeping it readable.', icon: 'FaFilePdf', comingSoon: true },
-  { name: 'PDF to Word', slug: 'pdf-to-word', path: '/tools/pdf-to-word', category: 'pdf-tools', description: 'Convert PDF documents into editable Word files.', icon: 'FaFileWord', badge: 'new', comingSoon: true },
+  { name: 'PDF to Word', slug: 'pdf-to-word', path: '/tools/pdf-to-word', category: 'pdf-tools', description: 'Convert PDF documents into editable Word files.', icon: 'FaFileWord', comingSoon: true },
 
-  // ---------- Developer Tools ----------
-  { name: 'JSON Formatter', slug: 'json-formatter', path: '/tools/json-formatter', category: 'developer-tools', description: 'Format, validate and beautify JSON data instantly.', icon: 'FaCode', badge: 'popular', comingSoon: true },
-  { name: 'Base64 Encoder / Decoder', slug: 'base64-encoder', path: '/tools/base64-encoder', category: 'developer-tools', description: 'Encode or decode Base64 strings and files.', icon: 'FaLock', comingSoon: true },
-  { name: 'Regex Tester', slug: 'regex-tester', path: '/tools/regex-tester', category: 'developer-tools', description: 'Test and debug regular expressions with live matches.', icon: 'FaMagnifyingGlass', comingSoon: true },
-  { name: 'Code Minifier', slug: 'code-minifier', path: '/tools/code-minifier', category: 'developer-tools', description: 'Minify CSS, JavaScript and HTML to reduce file size.', icon: 'FaBroom', badge: 'new', comingSoon: true },
+  // ---------- Color Tools (fully working) ----------
+  { name: 'Color Picker', slug: 'color-picker', path: '/tools/color-picker', category: 'color-tools', description: 'Pick colors from an image and get their exact hex, RGB and HSL codes.', icon: 'FaEyeDropper', comingSoon: false },
+  { name: 'HEX to RGB', slug: 'hex-to-rgb', path: '/tools/hex-to-rgb', category: 'color-tools', description: 'Convert HEX color codes to RGB values instantly.', icon: 'FaDroplet', badge: 'popular', comingSoon: false },
+  { name: 'RGB to HEX', slug: 'rgb-to-hex', path: '/tools/rgb-to-hex', category: 'color-tools', description: 'Convert RGB color values to HEX codes instantly.', icon: 'FaDroplet', comingSoon: false },
+  { name: 'HEX to HSL', slug: 'hex-to-hsl', path: '/tools/hex-to-hsl', category: 'color-tools', description: 'Convert HEX color codes to HSL values instantly.', icon: 'FaSliders', comingSoon: false },
+  { name: 'Color Converter', slug: 'color-converter', path: '/tools/color-converter', category: 'color-tools', description: 'Convert between HEX, RGB and HSL color formats in one place.', icon: 'FaPalette', badge: 'new', comingSoon: false },
+  { name: 'Color Palette Generator', slug: 'palette-generator', path: '/tools/palette-generator', category: 'color-tools', description: 'Generate complementary, analogous, triadic and shade palettes from any color.', icon: 'FaPalette', badge: 'popular', comingSoon: false },
+  { name: 'Gradient Generator', slug: 'gradient-generator', path: '/tools/gradient-generator', category: 'color-tools', description: 'Create smooth CSS gradients with a visual editor.', icon: 'FaPalette', comingSoon: true },
+
+  // ---------- Developer Tools (fully working) ----------
+  { name: 'JSON Formatter', slug: 'json-formatter', path: '/tools/json-formatter', category: 'developer-tools', description: 'Format, beautify or minify JSON data instantly.', icon: 'FaCode', badge: 'popular', comingSoon: false },
+  { name: 'JSON Validator', slug: 'json-validator', path: '/tools/json-validator', category: 'developer-tools', description: 'Check whether your JSON is valid, with the exact line and column of any error.', icon: 'FaCircleCheck', comingSoon: false },
+  { name: 'Base64 Encoder / Decoder', slug: 'base64-encoder', path: '/tools/base64-encoder', category: 'developer-tools', description: 'Encode or decode Base64 strings, with full Unicode support.', icon: 'FaLock', comingSoon: false },
+  { name: 'URL Encoder / Decoder', slug: 'url-encoder', path: '/tools/url-encoder', category: 'developer-tools', description: 'Encode or decode URLs and query string components.', icon: 'FaLink', comingSoon: false },
+  { name: 'UUID Generator', slug: 'uuid-generator', path: '/tools/uuid-generator', category: 'developer-tools', description: 'Generate random, RFC-compliant UUIDs (v4), one or in bulk.', icon: 'FaFingerprint', badge: 'new', comingSoon: false },
+  { name: 'Hash Generator', slug: 'hash-generator', path: '/tools/hash-generator', category: 'developer-tools', description: 'Generate MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes from text.', icon: 'FaHashtag', comingSoon: false },
+  { name: 'Timestamp Converter', slug: 'timestamp-converter', path: '/tools/timestamp-converter', category: 'developer-tools', description: 'Convert between Unix timestamps and human-readable dates.', icon: 'FaClock', comingSoon: false },
+  { name: 'Regex Tester', slug: 'regex-tester', path: '/tools/regex-tester', category: 'developer-tools', description: 'Test and debug regular expressions with live, highlighted matches.', icon: 'FaMagnifyingGlass', badge: 'popular', comingSoon: false },
+  { name: 'Code Minifier', slug: 'code-minifier', path: '/tools/code-minifier', category: 'developer-tools', description: 'Minify CSS, JavaScript and HTML to reduce file size.', icon: 'FaBroom', comingSoon: true },
 
   // ---------- Text Tools ----------
   { name: 'Word Counter', slug: 'word-counter', path: '/tools/word-counter', category: 'text-tools', description: 'Count words, characters, sentences and paragraphs.', icon: 'FaFont', badge: 'popular', comingSoon: true },
@@ -109,19 +128,14 @@ export const toolSeed = [
   { name: 'AI Background Remover', slug: 'ai-background-remover', path: '/tools/ai-background-remover', category: 'ai-tools', description: 'Remove image backgrounds automatically using AI.', icon: 'FaWandMagicSparkles', badge: 'new', comingSoon: true },
   { name: 'AI Image Upscaler', slug: 'ai-image-upscaler', path: '/tools/ai-image-upscaler', category: 'ai-tools', description: 'Upscale images to higher resolution with AI.', icon: 'FaImages', badge: 'new', comingSoon: true },
 
-  // ---------- Color Tools ----------
-  { name: 'Color Picker', slug: 'color-picker', path: '/tools/color-picker', category: 'color-tools', description: 'Pick colors from an image and get their exact codes.', icon: 'FaEyeDropper', comingSoon: true },
-  { name: 'Palette Generator', slug: 'palette-generator', path: '/tools/palette-generator', category: 'color-tools', description: 'Generate beautiful, harmonious color palettes.', icon: 'FaPalette', badge: 'popular', comingSoon: true },
-  { name: 'Gradient Generator', slug: 'gradient-generator', path: '/tools/gradient-generator', category: 'color-tools', description: 'Create smooth CSS gradients with a visual editor.', icon: 'FaPalette', comingSoon: true },
-
   // ---------- Security Tools ----------
   { name: 'Password Generator', slug: 'password-generator', path: '/tools/password-generator', category: 'security-tools', description: 'Generate strong, random and secure passwords.', icon: 'FaKey', badge: 'popular', comingSoon: true },
-  { name: 'Hash Generator', slug: 'hash-generator', path: '/tools/hash-generator', category: 'security-tools', description: 'Generate MD5, SHA-1 and SHA-256 hashes from text.', icon: 'FaHashtag', comingSoon: true },
 
   // ---------- Social Media Tools ----------
   { name: 'Instagram Post Resizer', slug: 'instagram-post-resizer', path: '/tools/instagram-post-resizer', category: 'social-media-tools', description: 'Resize images to fit Instagram posts and stories.', icon: 'FaInstagram', comingSoon: true },
   { name: 'YouTube Thumbnail Downloader', slug: 'youtube-thumbnail-downloader', path: '/tools/youtube-thumbnail-downloader', category: 'social-media-tools', description: 'Download thumbnail images from any YouTube video.', icon: 'FaYoutube', badge: 'new', comingSoon: true },
 ]
+
 
 export const blogSeed = [
   {
