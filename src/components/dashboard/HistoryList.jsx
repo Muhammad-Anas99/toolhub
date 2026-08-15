@@ -11,10 +11,9 @@ function formatDate(dateString) {
 }
 
 /**
- * Every conversion the user has made, regardless of whether it was ever
- * downloaded — that's the Downloads page (src/pages/dashboard/Downloads.jsx,
- * src/components/dashboard/DownloadsList.jsx), a genuinely different data
- * source (server/models/Download.js vs ConversionHistory.js here).
+ * Every conversion the user has made. There is no separate "Downloads"
+ * view of this data — History is the single record of tools/conversions
+ * used (tool name, conversion info, date/time).
  */
 export default function HistoryList({ emptyTitle, emptyDescription }) {
   const [entries, setEntries] = useState(null)

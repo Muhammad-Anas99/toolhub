@@ -5,31 +5,24 @@ import { downloadBlob } from '../lib/downloadBlob.js'
 /**
  * Manages the "processing result" side of every image tool: status, the
  * resulting Blob + object URL, safe cleanup on reset, logging a
- * conversion to History, and — via `download()` — the real browser
- * download plus persisting it to the user's Downloads library. This was
- * previously reimplemented with minor variations in ImageConverterTool,
+ * conversion to History, and the real file download. This was previously
+ * reimplemented with minor variations in ImageConverterTool,
  * ImageCompressor, ImageResizer, RotateFlipTool and ImageCrop — now those
  * all share this single implementation.
  *
- * History and Downloads are deliberately independent here, matching two
- * separate backend models (ConversionHistory vs Download — see
- * server/models/) and two separate events:
- *  - `run()` succeeding logs a History entry — "a conversion happened."
- *  - `download()` being called logs a Download entry — "the user actually
- *    downloaded this result." A processed-but-never-downloaded result
- *    only ever creates the first, never the second.
+ * `toolMeta` ({ toolSlug, toolName, category }) is optional — when
+ * provided, the *first* successful run logs a conversion via the API
+ * (works for both signed-in and anonymous users; see
+ * server/routes/historyRoutes.js). Only the first run per result logs —
+ * the Image Compressor, for example, silently re-runs on every
+ * quality-slider tick once a result exists, and without this guard each
+ * of those would log as a separate conversion. `clearResult` (starting
+ * over with a new file) resets the guard so the next file logs its own
+ * entry.
  *
- * `toolMeta` ({ toolSlug, toolName, category }) is optional. Only the
- * *first* successful run logs a History entry — the Image Compressor, for
- * example, silently re-runs on every quality-slider tick once a result
- * exists, and without this guard each of those would log as a separate
- * conversion. `clearResult` (starting over with a new file) resets the
- * guard so the next file logs its own entry.
- *
- * Both logging and download-persistence are best-effort and never block
- * or affect the actual file operations: the real download in
- * `download()` always fires synchronously and immediately, whether or not
- * the network calls around it succeed.
+ * Logging is best-effort and never blocks or affects the actual file
+ * download in `download()` — it's a secondary side effect, not the point
+ * of the interaction.
  */
 export function useToolResult(toolMeta) {
   const [status, setStatus] = useState('idle') // idle | processing | done
@@ -62,24 +55,9 @@ export function useToolResult(toolMeta) {
     [toolMeta]
   )
 
-  /**
-   * Triggers the real file download to the user's device immediately —
-   * synchronous, in-memory, never dependent on a network call — then
-   * separately (and only for signed-in users; the backend rejects
-   * anonymous callers, which is fine, since there's no Downloads page to
-   * show it in anyway) uploads the same Blob so it can be listed with a
-   * real thumbnail and re-downloaded later from the Downloads dashboard.
-   */
-  const download = useCallback(
-    (blob, filename) => {
-      downloadBlob(blob, filename)
-
-      if (toolMeta?.toolSlug && toolMeta?.toolName) {
-        api.createDownload(blob, filename, toolMeta).catch(() => {})
-      }
-    },
-    [toolMeta]
-  )
+  const download = useCallback((blob, filename) => {
+    downloadBlob(blob, filename)
+  }, [])
 
   const clearResult = useCallback(() => {
     setResult((previous) => {

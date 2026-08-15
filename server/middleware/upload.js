@@ -22,8 +22,8 @@ function fileFilter(req, file, cb) {
  * local disk as a dev-only fallback — see that file for details).
  *
  * Shared by the admin content-upload route (POST /api/uploads) and the
- * user Downloads route (POST /api/downloads) — same file-handling rules
- * apply to both.
+ * profile-picture upload route (POST /api/users/me/avatar) — same
+ * file-handling rules apply to both.
  */
 export const upload = multer({
   storage: multer.memoryStorage(),

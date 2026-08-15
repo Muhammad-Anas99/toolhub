@@ -63,6 +63,14 @@ export const config = {
     email: process.env.ADMIN_EMAIL || '',
     password: process.env.ADMIN_PASSWORD || '',
   },
+
+  // Optional — "Continue with Google" is disabled gracefully (see
+  // services/googleAuthService.js) rather than crashing the app when
+  // these aren't set, since email/password auth works fine without them.
+  google: {
+    clientId: process.env.GOOGLE_CLIENT_ID || '',
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+  },
 }
 
 export const isProduction = config.env === 'production'

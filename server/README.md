@@ -32,6 +32,7 @@ See `.env.example` for the full list with defaults. You must set `MONGODB_URI`, 
 | `BCRYPT_SALT_ROUNDS` | Password hashing cost factor (default `12`) |
 | `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` / `EMAIL_FROM` | Email delivery — verification, password reset, welcome, and security alert emails all go through this. Configured for Brevo by default (see `.env.example`), but works with any SMTP provider. **Leave blank for local dev** — emails are logged to the console instead of sent. |
 | `ADMIN_NAME` / `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Used only by `npm run seed:admin` (see below) |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Optional — enables "Continue with Google". See the "Google OAuth" section below for full setup. |
 
 ### Creating your first admin account
 
@@ -122,11 +123,15 @@ Every response is shaped `{ success, message, data, meta? }` on success, or `{ s
 | POST | `/api/auth/resend-verification` | Requires auth |
 | POST | `/api/auth/forgot-password` | Body: `{ email }`. Always returns success, regardless of whether the email exists |
 | POST | `/api/auth/reset-password` | Body: `{ token, password }`. Invalidates all existing sessions |
+| GET | `/api/auth/google` | Redirects to Google's consent screen. Not an API call the frontend fetches — the button navigates the whole page here. |
+| GET | `/api/auth/google/callback` | Google redirects here after consent. Not called directly — see the "Google OAuth" section below. |
 
 ### Users
 | Method | Route | Notes |
 |---|---|---|
-| PUT | `/api/users/me` | Requires auth. Update own name/email/avatar |
+| PUT | `/api/users/me` | Requires auth. Update own name/email/avatar (avatar as a plain string field — see the dedicated upload route below for actually uploading a file) |
+| POST | `/api/users/me/avatar` | Requires auth. `multipart/form-data`, field name `file`. Real image upload (type/size validated by the shared `upload` middleware), stored via `services/storageService.js`, sets the result as the user's avatar. |
+| DELETE | `/api/users/me/avatar` | Requires auth. Clears the avatar back to none. |
 | PUT | `/api/users/me/password` | Requires auth. Body: `{ currentPassword, newPassword }` |
 | GET | `/api/users` | Admin only. Query params: `role`, `plan`, `search` |
 | GET | `/api/users/:id` | Admin only |
@@ -147,15 +152,6 @@ Every response is shaped `{ success, message, data, meta? }` on success, or `{ s
 | GET | `/api/history` | Requires auth. Every conversion, regardless of whether it was ever downloaded. Query params: `page`, `limit` |
 | DELETE | `/api/history` | Requires auth. Clears all of the current user's history |
 | DELETE | `/api/history/:id` | Requires auth |
-
-### Downloads
-A genuinely separate model from Conversion history above (`server/models/Download.js`, not a flag on `ConversionHistory`) — created only when the user clicks Download, referencing the actual retained output file. See `server/services/storageService.js` for where that file is stored (Vercel Blob in production, local `uploads/` in dev).
-
-| Method | Route | Notes |
-|---|---|---|
-| POST | `/api/downloads` | Requires auth. `multipart/form-data`: `file` (the actual converted output), `toolSlug`, `toolName`. Called once, right after the browser download is triggered — see `src/hooks/useToolResult.js`. |
-| GET | `/api/downloads` | Requires auth. The user's downloaded-files library, newest first. Query params: `page`, `limit` |
-| DELETE | `/api/downloads/:id` | Requires auth. Removes the database record (does not currently delete the underlying Blob storage object — a known limitation, not a correctness bug). |
 
 ### Analytics
 | Method | Route | Notes |
@@ -185,6 +181,41 @@ JWT-based, with refresh-token rotation:
 - Auth endpoints (`/register`, `/login`, `/forgot-password`) have a stricter rate limit (`authRateLimiter`) than the general API.
 
 **All previously-open write routes are now protected.** Every `POST`/`PUT`/`DELETE` on tools, categories, blog posts, settings, and uploads requires `protect` + `authorize('admin')`. Regular users can only act on their own data (profile, favorites, history) via `protect` alone.
+
+## Google OAuth ("Continue with Google")
+
+Uses the standard OAuth 2.0 authorization code flow — the same confidential-client pattern any server-backed app uses, not a client-side-only token flow, which is why it needs `GOOGLE_CLIENT_SECRET` (must stay server-side, never sent to the frontend).
+
+**How it works:**
+1. Frontend button does a full-page redirect to `GET /api/auth/google`.
+2. That redirects to Google's consent screen.
+3. Google redirects back to `GET /api/auth/google/callback?code=...` (or `?error=...` if the user cancels).
+4. The backend exchanges the code for tokens directly with Google (`google-auth-library`), verifies the ID token's signature and audience, and finds-or-creates a `User` matching that email (`services/googleAuthService.js`).
+5. Same `issueTokens()` as a password login — sets the httpOnly refresh cookie, then redirects to `${CLIENT_URL}/dashboard`.
+6. **No token is ever put in a URL.** The dashboard's own silent-refresh-on-load (already built for regular login) picks up the session automatically, since the cookie is already set by the time that page's JS runs.
+
+**Account matching:** by email, not just Google's internal ID — so someone who registered with a password first and later clicks "Continue with Google" with the same address gets their *existing* account linked (and marked verified, and given an avatar if they don't have one), never a duplicate. `User.password` is optional at the schema level specifically for accounts that only ever sign in via Google; `authService.login` gives a clear "use Google instead" message if someone without a password tries the password form.
+
+### Set up in Google Cloud Console
+
+1. [console.cloud.google.com](https://console.cloud.google.com) → create or select a project.
+2. **APIs & Services → OAuth consent screen** → configure it (User type: External is fine for most cases; app name, support email, etc.). Scopes needed: `email`, `profile`, `openid` — these are non-sensitive defaults, no Google verification review required.
+3. **APIs & Services → Credentials → Create Credentials → OAuth client ID** → Application type: **Web application**.
+4. Under **Authorized redirect URIs**, add both, exactly:
+   - `http://localhost:5000/api/auth/google/callback` (local dev)
+   - `https://<your-backend-domain>/api/auth/google/callback` (production — your deployed backend's actual domain)
+5. Copy the generated **Client ID** and **Client Secret**.
+
+### Set up in your environment
+
+| Where | Variable | Value |
+|---|---|---|
+| `server/.env` (local) | `GOOGLE_CLIENT_ID` | from step 5 above |
+| `server/.env` (local) | `GOOGLE_CLIENT_SECRET` | from step 5 above |
+| Backend Vercel project → Environment Variables | `GOOGLE_CLIENT_ID` | same value |
+| Backend Vercel project → Environment Variables | `GOOGLE_CLIENT_SECRET` | same value |
+
+**Never set these on the frontend project** — the client secret has no reason to exist client-side, and doing so would expose it. Redeploy the backend after adding them on Vercel. If they're left blank, the "Continue with Google" button still renders but redirects to `/login?error=google_not_configured` instead of crashing anything.
 
 ## Icon names
 

@@ -12,13 +12,21 @@ import { getToolsByCategory } from '../../data/tools.js'
  * MegaMenu (hover on desktop, click toggle, Escape/outside-click to
  * close), just scoped to one category's tool list instead of the full
  * category browser.
+ *
+ * Deliberately caps how many tools it shows rather than scrolling — a
+ * dropdown with a scrollbar is a poor hover experience (it fights the
+ * mouse leaving the area). "View all" below always covers the rest.
  */
+const MAX_VISIBLE_TOOLS = 6
+
 export default function CategoryToolsDropdown({ categorySlug, label, onNavigate }) {
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef(null)
 
   const category = getCategoryBySlug(categorySlug)
-  const tools = getToolsByCategory(categorySlug)
+  const allTools = getToolsByCategory(categorySlug)
+  const visibleTools = allTools.slice(0, MAX_VISIBLE_TOOLS)
+  const hiddenCount = allTools.length - visibleTools.length
 
   useEffect(() => {
     if (!isOpen) return
@@ -75,9 +83,9 @@ export default function CategoryToolsDropdown({ categorySlug, label, onNavigate 
             transition={{ duration: 0.15 }}
             className="absolute left-1/2 top-full z-40 mt-3 w-72 -translate-x-1/2 rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl dark:border-slate-800 dark:bg-slate-900"
           >
-            {tools.length > 0 ? (
-              <div className="max-h-96 overflow-y-auto">
-                {tools.map((tool) => {
+            {visibleTools.length > 0 ? (
+              <div>
+                {visibleTools.map((tool) => {
                   const Icon = tool.icon
                   return (
                     <Link
@@ -113,7 +121,8 @@ export default function CategoryToolsDropdown({ categorySlug, label, onNavigate 
                 onClick={handleClose}
                 className="block rounded-xl px-3 py-2 text-sm font-medium text-brand-600 hover:bg-brand-50 dark:text-brand-400 dark:hover:bg-brand-950"
               >
-                View all {category.name} &rarr;
+                View all {category.name}
+                {hiddenCount > 0 ? ` (${allTools.length})` : ''} &rarr;
               </Link>
             </div>
           </motion.div>

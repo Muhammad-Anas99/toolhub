@@ -4,10 +4,9 @@ import { sendSuccess } from '../utils/ApiResponse.js'
 import { storeFile } from '../services/storageService.js'
 
 /**
- * Admin-only content uploads (blog images, logos, etc.) — not to be
- * confused with the user-facing Downloads flow (POST /api/downloads),
- * which uses the same underlying storeFile() but through a different,
- * differently-authorized route. See services/storageService.js.
+ * Admin-only content uploads (blog images, logos, etc.). See
+ * services/storageService.js for the underlying storage mechanism, also
+ * reused by the profile-picture upload route (POST /users/me/avatar).
  */
 export const uploadFile = asyncHandler(async (req, res) => {
   if (!req.file) {

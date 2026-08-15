@@ -41,7 +41,6 @@ const Dashboard = lazy(() => import('./pages/dashboard/Dashboard.jsx'))
 const Profile = lazy(() => import('./pages/dashboard/Profile.jsx'))
 const Favorites = lazy(() => import('./pages/dashboard/Favorites.jsx'))
 const History = lazy(() => import('./pages/dashboard/History.jsx'))
-const Downloads = lazy(() => import('./pages/dashboard/Downloads.jsx'))
 const Settings = lazy(() => import('./pages/dashboard/Settings.jsx'))
 const Subscription = lazy(() => import('./pages/dashboard/Subscription.jsx'))
 
@@ -86,7 +85,6 @@ export default function App() {
               <Route path="profile" element={<Profile />} />
               <Route path="favorites" element={<Favorites />} />
               <Route path="history" element={<History />} />
-              <Route path="downloads" element={<Downloads />} />
               <Route path="settings" element={<Settings />} />
               <Route path="subscription" element={<Subscription />} />
             </Route>

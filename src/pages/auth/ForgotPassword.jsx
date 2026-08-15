@@ -47,7 +47,7 @@ export default function ForgotPassword() {
                 password. It expires in 1 hour.
               </p>
               <Link to="/login" className="btn-secondary mt-2">
-                Back to sign in
+                Back to log in
               </Link>
             </div>
           ) : (
@@ -85,7 +85,7 @@ export default function ForgotPassword() {
 
                 <p className="text-center text-sm text-slate-500 dark:text-slate-400">
                   <Link to="/login" className="font-medium text-brand-600 dark:text-brand-400">
-                    Back to sign in
+                    Back to log in
                   </Link>
                 </p>
               </form>

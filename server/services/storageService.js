@@ -25,9 +25,9 @@ function buildFilename(originalName) {
  * which is wrong; it needs to point back at this API.
  *
  * Used by both the admin content-upload endpoint (POST /api/uploads) and
- * the user Downloads flow (POST /api/downloads) — the same underlying
- * storage mechanism, just reached from two different, differently-
- * authorized routes.
+ * the profile-picture upload endpoint (POST /api/users/me/avatar) — the
+ * same underlying storage mechanism, reached from two different,
+ * differently-authorized routes.
  */
 export async function storeFile(file, req) {
   const filename = buildFilename(file.originalname)

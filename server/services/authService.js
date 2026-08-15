@@ -9,6 +9,7 @@ import {
 } from '../utils/jwt.js'
 import { sendVerificationEmail, sendPasswordResetEmail, sendWelcomeEmail, sendSecurityAlertEmail } from '../utils/email.js'
 import { config } from '../config/env.js'
+import * as googleAuthService from './googleAuthService.js'
 
 const EMAIL_VERIFICATION_EXPIRY_MS = 24 * 60 * 60 * 1000 // 24 hours
 const PASSWORD_RESET_EXPIRY_MS = 60 * 60 * 1000 // 1 hour
@@ -72,10 +73,30 @@ export async function register({ name, email, password }, { baseUrl, userAgent }
 
 export async function login({ email, password }, { userAgent } = {}) {
   const user = await User.findOne({ email: email.toLowerCase() }).select('+password +refreshTokens')
-  if (!user || !(await user.comparePassword(password))) {
+  if (!user) {
+    throw ApiError.unauthorized('Incorrect email or password')
+  }
+  if (!user.password) {
+    throw ApiError.unauthorized('This account uses Google Sign-In. Please continue with Google instead.')
+  }
+  if (!(await user.comparePassword(password))) {
     throw ApiError.unauthorized('Incorrect email or password')
   }
 
+  const tokens = await issueTokens(user, userAgent)
+  return { user, ...tokens }
+}
+
+/**
+ * Completes the "Continue with Google" flow: verifies the authorization
+ * code with Google (see services/googleAuthService.js), finds or creates
+ * the matching user, then issues our own access+refresh tokens exactly
+ * the same way a password login does — from this point on, a Google
+ * session is indistinguishable from a password session anywhere else in
+ * the app.
+ */
+export async function googleLogin(code, req, { userAgent } = {}) {
+  const user = await googleAuthService.completeGoogleAuth(code, req)
   const tokens = await issueTokens(user, userAgent)
   return { user, ...tokens }
 }

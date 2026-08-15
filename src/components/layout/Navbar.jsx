@@ -66,7 +66,7 @@ export default function Navbar() {
         <nav className="flex h-16 items-center justify-between">
           <NavLink
             to="/"
-            className="flex items-center gap-2"
+            className="flex flex-shrink-0 items-center gap-2"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <span
@@ -90,7 +90,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="hidden items-center gap-2 md:flex">
+          <div className="hidden items-center gap-3 md:flex">
             <button
               type="button"
               onClick={() => setIsSearchOpen(true)}
@@ -106,36 +106,40 @@ export default function Navbar() {
             {isAuthenticated ? (
               <UserMenu />
             ) : (
-              <div className="flex items-center gap-2">
-                <Link
-                  to="/login"
-                  className="px-3 py-1.5 text-sm font-medium text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
-                >
-                  Sign in
-                </Link>
-                <Link to="/register" className="btn-primary px-3.5 py-1.5 text-sm">
-                  Sign up
-                </Link>
-              </div>
+              <Link to="/register" className="btn-primary px-4 py-2 text-sm shadow-sm">
+                Get Started
+              </Link>
             )}
           </div>
 
-          <div className="flex items-center gap-1 md:hidden">
+          <div className="flex items-center gap-1.5 md:hidden">
             <button
               type="button"
               onClick={() => setIsSearchOpen(true)}
               aria-label="Search"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+              className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
             >
               <HiOutlineMagnifyingGlass className="h-5 w-5" />
             </button>
             <ThemeToggle />
+            {isAuthenticated ? (
+              <UserMenu />
+            ) : (
+              // Visible directly in the navbar, not tucked inside the
+              // hamburger menu — the whole point of this being here.
+              <Link
+                to="/register"
+                className="btn-primary flex-shrink-0 whitespace-nowrap px-3 py-1.5 text-xs sm:text-sm"
+              >
+                Get Started
+              </Link>
+            )}
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen((prev) => !prev)}
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMobileMenuOpen}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+              className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
             >
               {isMobileMenuOpen ? <HiXMark className="h-6 w-6" /> : <HiBars3 className="h-6 w-6" />}
             </button>
@@ -210,31 +214,28 @@ export default function Navbar() {
                 </NavLink>
               ))}
 
-              <div className="my-1 border-t border-slate-200 dark:border-slate-800" />
-
-              {isAuthenticated ? (
-                <NavLink
-                  to="/dashboard"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
-                >
-                  Dashboard
-                </NavLink>
-              ) : (
+              {isAuthenticated && (
                 <>
+                  <div className="my-1 border-t border-slate-200 dark:border-slate-800" />
+                  <NavLink
+                    to="/dashboard"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
+                  >
+                    Dashboard
+                  </NavLink>
+                </>
+              )}
+
+              {!isAuthenticated && (
+                <>
+                  <div className="my-1 border-t border-slate-200 dark:border-slate-800" />
                   <NavLink
                     to="/login"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
                   >
-                    Sign in
-                  </NavLink>
-                  <NavLink
-                    to="/register"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="rounded-lg px-3 py-2.5 text-sm font-medium text-brand-600 hover:bg-brand-50 dark:text-brand-400 dark:hover:bg-brand-950"
-                  >
-                    Sign up
+                    Log In
                   </NavLink>
                 </>
               )}

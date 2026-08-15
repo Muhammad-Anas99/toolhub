@@ -32,7 +32,7 @@ export default function FavoriteButton({ toolSlug }) {
 
   async function handleToggle() {
     if (!isAuthenticated) {
-      navigate('/login', { state: { message: 'Sign in to save your favorite tools.' } })
+      navigate('/login', { state: { message: 'Log in to save your favorite tools.' } })
       return
     }
 

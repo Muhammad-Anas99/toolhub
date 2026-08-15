@@ -15,82 +15,82 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://trytoolhub.net/</loc>
+    <loc>https://toolhub.example.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://trytoolhub.net/tools</loc>
+    <loc>https://toolhub.example.com/tools</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Image tools -->
   <url>
-    <loc>https://trytoolhub.net/tools/jpg-to-png</loc>
+    <loc>https://toolhub.example.com/tools/jpg-to-png</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/tools/png-to-jpg</loc>
+    <loc>https://toolhub.example.com/tools/png-to-jpg</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/tools/webp-to-png</loc>
+    <loc>https://toolhub.example.com/tools/webp-to-png</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/tools/webp-to-jpg</loc>
+    <loc>https://toolhub.example.com/tools/webp-to-jpg</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/tools/convert-to-webp</loc>
+    <loc>https://toolhub.example.com/tools/convert-to-webp</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/tools/image-compressor</loc>
+    <loc>https://toolhub.example.com/tools/image-compressor</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/tools/image-resizer</loc>
+    <loc>https://toolhub.example.com/tools/image-resizer</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/tools/image-crop</loc>
+    <loc>https://toolhub.example.com/tools/image-crop</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/tools/image-rotate</loc>
+    <loc>https://toolhub.example.com/tools/image-rotate</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/tools/flip-image</loc>
+    <loc>https://toolhub.example.com/tools/flip-image</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Content pages -->
   <url>
-    <loc>https://trytoolhub.net/blog</loc>
+    <loc>https://toolhub.example.com/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/about</loc>
+    <loc>https://toolhub.example.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/contact</loc>
+    <loc>https://toolhub.example.com/contact</loc>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -98,24 +98,24 @@
   <!-- Auth entry points (registration/login pages themselves are fine to
        index — it's the token-based pages listed above that aren't) -->
   <url>
-    <loc>https://trytoolhub.net/login</loc>
+    <loc>https://toolhub.example.com/login</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/register</loc>
+    <loc>https://toolhub.example.com/register</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <!-- Legal -->
   <url>
-    <loc>https://trytoolhub.net/privacy-policy</loc>
+    <loc>https://toolhub.example.com/privacy-policy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/terms</loc>
+    <loc>https://toolhub.example.com/terms</loc>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>

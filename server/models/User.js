@@ -30,11 +30,25 @@ const userSchema = new mongoose.Schema(
       index: true,
       match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Please provide a valid email address'],
     },
+    // Not required at the schema level — accounts created via Google
+    // Sign-In have no password at all. A password-based registration
+    // always sets one (enforced by registerValidator, not here), and
+    // authService.login rejects a password-login attempt for an account
+    // that doesn't have one, directing them to use Google instead.
     password: {
       type: String,
-      required: [true, 'Password is required'],
       minlength: [8, 'Password must be at least 8 characters'],
       select: false, // never returned by default — must opt in with .select('+password')
+    },
+    // Set only for accounts created or linked via "Continue with Google"
+    // (see services/googleAuthService.js). `sparse: true` on the unique
+    // index means many users can all have no googleId at once without
+    // colliding on uniqueness — only actual duplicate Google IDs conflict.
+    googleId: {
+      type: String,
+      unique: true,
+      sparse: true,
+      select: false,
     },
     avatar: {
       type: String,
@@ -94,6 +108,11 @@ userSchema.pre('save', async function hashPassword(next) {
 })
 
 userSchema.methods.comparePassword = function comparePassword(candidate) {
+  // Google-only accounts have no password to compare against — false,
+  // not a thrown error, so callers can treat it as "wrong credentials"
+  // uniformly. (authService.login gives a more specific message for this
+  // case before it even reaches here.)
+  if (!this.password) return Promise.resolve(false)
   return bcrypt.compare(candidate, this.password)
 }
 
@@ -103,6 +122,7 @@ userSchema.methods.comparePassword = function comparePassword(candidate) {
 userSchema.methods.toJSON = function toSafeJSON() {
   const obj = this.toObject()
   delete obj.password
+  delete obj.googleId
   delete obj.refreshTokens
   delete obj.emailVerificationTokenHash
   delete obj.emailVerificationExpires

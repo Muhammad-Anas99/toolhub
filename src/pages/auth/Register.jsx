@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Container from '../../components/ui/Container.jsx'
 import SEO from '../../components/ui/SEO.jsx'
 import ErrorMessage from '../../components/tools/ErrorMessage.jsx'
+import GoogleAuthButton from '../../components/auth/GoogleAuthButton.jsx'
 import { useAuth } from '../../context/AuthContext.jsx'
 
 const INITIAL_FORM = { name: '', email: '', password: '' }
+
+const GOOGLE_ERROR_MESSAGES = {
+  google_auth_failed: 'Google sign-in was cancelled or could not be completed. Please try again.',
+  google_not_configured: 'Google sign-in is not available right now. Please create an account with email and password.',
+}
 
 function validate(form) {
   const errors = {}
@@ -29,6 +35,8 @@ function validate(form) {
 export default function Register() {
   const { register } = useAuth()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const googleError = GOOGLE_ERROR_MESSAGES[searchParams.get('error')]
 
   const [form, setForm] = useState(INITIAL_FORM)
   const [fieldErrors, setFieldErrors] = useState({})
@@ -79,77 +87,90 @@ export default function Register() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} noValidate className="card mt-8 space-y-5 p-6 sm:p-8">
+          <div className="card mt-8 space-y-5 p-6 sm:p-8">
+            {googleError && <ErrorMessage message={googleError} />}
             {formError && <ErrorMessage message={formError} onDismiss={() => setFormError(null)} />}
 
-            <div>
-              <label htmlFor="name" className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                Name
-              </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                value={form.name}
-                onChange={handleChange}
-                autoComplete="name"
-                aria-invalid={Boolean(fieldErrors.name)}
-                className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
-              />
-              {fieldErrors.name && <p className="mt-1.5 text-xs text-rose-500">{fieldErrors.name}</p>}
+            <GoogleAuthButton />
+
+            <div className="flex items-center gap-3">
+              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
+              <span className="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">
+                or
+              </span>
+              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
             </div>
 
-            <div>
-              <label htmlFor="email" className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={handleChange}
-                autoComplete="email"
-                aria-invalid={Boolean(fieldErrors.email)}
-                className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
-              />
-              {fieldErrors.email && <p className="mt-1.5 text-xs text-rose-500">{fieldErrors.email}</p>}
-            </div>
+            <form onSubmit={handleSubmit} noValidate className="space-y-5">
+              <div>
+                <label htmlFor="name" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={form.name}
+                  onChange={handleChange}
+                  autoComplete="name"
+                  aria-invalid={Boolean(fieldErrors.name)}
+                  className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                />
+                {fieldErrors.name && <p className="mt-1.5 text-xs text-rose-500">{fieldErrors.name}</p>}
+              </div>
 
-            <div>
-              <label htmlFor="password" className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                value={form.password}
-                onChange={handleChange}
-                autoComplete="new-password"
-                aria-invalid={Boolean(fieldErrors.password)}
-                className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
-              />
-              {fieldErrors.password ? (
-                <p className="mt-1.5 text-xs text-rose-500">{fieldErrors.password}</p>
-              ) : (
-                <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
-                  At least 8 characters, including a number.
-                </p>
-              )}
-            </div>
+              <div>
+                <label htmlFor="email" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  autoComplete="email"
+                  aria-invalid={Boolean(fieldErrors.email)}
+                  className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                />
+                {fieldErrors.email && <p className="mt-1.5 text-xs text-rose-500">{fieldErrors.email}</p>}
+              </div>
 
-            <button type="submit" disabled={isSubmitting} className="btn-primary w-full">
-              {isSubmitting ? 'Creating account...' : 'Create account'}
-            </button>
+              <div>
+                <label htmlFor="password" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  value={form.password}
+                  onChange={handleChange}
+                  autoComplete="new-password"
+                  aria-invalid={Boolean(fieldErrors.password)}
+                  className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                />
+                {fieldErrors.password ? (
+                  <p className="mt-1.5 text-xs text-rose-500">{fieldErrors.password}</p>
+                ) : (
+                  <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+                    At least 8 characters, including a number.
+                  </p>
+                )}
+              </div>
+
+              <button type="submit" disabled={isSubmitting} className="btn-primary w-full">
+                {isSubmitting ? 'Creating account...' : 'Create Account'}
+              </button>
+            </form>
 
             <p className="text-center text-sm text-slate-500 dark:text-slate-400">
               Already have an account?{' '}
               <Link to="/login" className="font-medium text-brand-600 dark:text-brand-400">
-                Sign in
+                Log In
               </Link>
             </p>
-          </form>
+          </div>
         </motion.div>
       </Container>
     </>

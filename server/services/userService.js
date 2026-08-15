@@ -34,6 +34,29 @@ export async function updateProfile(userId, { name, email, avatar }) {
   return user
 }
 
+/**
+ * Sets the user's avatar to a freshly-uploaded file's URL — separate from
+ * the generic `avatar` field update inside updateProfile() above, since
+ * this is reached from a dedicated upload endpoint
+ * (POST /users/me/avatar) rather than a JSON profile edit, and doesn't
+ * need any of updateProfile's email-change handling.
+ */
+export async function setAvatar(userId, avatarUrl) {
+  const user = await User.findById(userId)
+  if (!user) throw ApiError.notFound('User not found')
+  user.avatar = avatarUrl
+  await user.save()
+  return user
+}
+
+export async function removeAvatar(userId) {
+  const user = await User.findById(userId)
+  if (!user) throw ApiError.notFound('User not found')
+  user.avatar = ''
+  await user.save()
+  return user
+}
+
 export async function changePassword(userId, newPassword) {
   const user = await User.findById(userId).select('+refreshTokens')
   if (!user) throw ApiError.notFound('User not found')

@@ -3,6 +3,7 @@ import { sendSuccess } from '../utils/ApiResponse.js'
 import { ApiError } from '../utils/ApiError.js'
 import { config, isProduction } from '../config/env.js'
 import * as authService from '../services/authService.js'
+import { getGoogleAuthUrl, isGoogleConfigured } from '../services/googleAuthService.js'
 import User from '../models/User.js'
 import { generateOneTimeToken } from '../utils/jwt.js'
 import { sendVerificationEmail } from '../utils/email.js'
@@ -60,7 +61,7 @@ export const login = asyncHandler(async (req, res) => {
   })
 
   setRefreshCookie(res, refreshToken)
-  sendSuccess(res, { message: 'Signed in', data: { user, accessToken } })
+  sendSuccess(res, { message: 'Logged in', data: { user, accessToken } })
 })
 
 export const refresh = asyncHandler(async (req, res) => {
@@ -79,7 +80,7 @@ export const logout = asyncHandler(async (req, res) => {
     await authService.logout(req.user._id, rawRefreshToken)
   }
   clearRefreshCookie(res)
-  sendSuccess(res, { message: 'Signed out' })
+  sendSuccess(res, { message: 'Logged out' })
 })
 
 export const getMe = asyncHandler(async (req, res) => {
@@ -124,7 +125,50 @@ export const resetPassword = asyncHandler(async (req, res) => {
   if (!token) throw ApiError.badRequest('A reset token is required')
 
   await authService.resetPassword(token, password)
-  sendSuccess(res, { message: 'Password reset. Please sign in with your new password.' })
+  sendSuccess(res, { message: 'Password reset. Please log in with your new password.' })
+})
+
+/**
+ * Redirects the browser to Google's consent screen. A full-page redirect
+ * (not a popup) — simpler and more reliable, no popup-blocker concerns.
+ */
+export const googleAuthRedirect = asyncHandler(async (req, res) => {
+  if (!isGoogleConfigured()) {
+    res.redirect(`${config.clientUrl}/login?error=google_not_configured`)
+    return
+  }
+  res.redirect(getGoogleAuthUrl(req))
+})
+
+/**
+ * Google redirects back here with either `?code=...` (approved) or
+ * `?error=...` (denied/cancelled). On success, this sets the refresh
+ * cookie exactly like a normal login and redirects straight to the
+ * dashboard — no token is ever put in a URL. The dashboard's own
+ * ProtectedRoute + AuthContext then picks up the session automatically
+ * via the same silent-refresh flow that runs on any page load, since the
+ * cookie is already there by the time that page's JS runs.
+ */
+export const googleAuthCallback = asyncHandler(async (req, res) => {
+  const { code, error } = req.query
+
+  if (error || !code) {
+    // error === 'access_denied' when the user cancels on Google's screen —
+    // handled the same as any other failure, just sent back to /login.
+    res.redirect(`${config.clientUrl}/login?error=google_auth_failed`)
+    return
+  }
+
+  try {
+    const { refreshToken } = await authService.googleLogin(code, req, {
+      userAgent: req.headers['user-agent'],
+    })
+    setRefreshCookie(res, refreshToken)
+    res.redirect(`${config.clientUrl}/dashboard`)
+  } catch (err) {
+    console.error('[auth] Google sign-in failed:', err.message)
+    res.redirect(`${config.clientUrl}/login?error=google_auth_failed`)
+  }
 })
 
 // Exported so userController's change-password endpoint can reuse the same

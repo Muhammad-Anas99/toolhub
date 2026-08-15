@@ -38,16 +38,9 @@ export default function PrivacyPolicy() {
               </h2>
               <p className="mt-2 leading-relaxed">
                 Every tool converts, compresses, resizes, crops, or rotates your file directly in
-                your browser using standard web technology (the Canvas API) — the original file
-                you upload is never sent to our servers, and we never see it.
-              </p>
-              <p className="mt-2 leading-relaxed">
-                If you create an account and click Download on a result, we retain a copy of that
-                specific output file so it can appear in your Downloads library and be downloaded
-                again later. This only happens when you explicitly click Download while signed in
-                — a result you process but never download, or process while signed out, is never
-                sent to us. You can remove an item from your Downloads library at any time, which
-                deletes our copy of that file.
+                your browser using standard web technology (the Canvas API). The file you upload
+                is never sent to our servers, and we never see it or store it — this applies every
+                time you use a tool, whether or not you're signed in.
               </p>
             </section>
 
@@ -56,11 +49,13 @@ export default function PrivacyPolicy() {
                 Information we collect
               </h2>
               <p className="mt-2 leading-relaxed">
-                Creating an account is optional — every tool works without one. If you do create
-                an account, we collect your name, email address, and password (stored as a secure
-                hash, never in plain text). If you contact us through the Contact page, we receive
-                the name, email address, and message you choose to provide, which we use solely to
-                respond to your inquiry.
+                Creating an account is optional — every tool works without one. If you register
+                with email and password, we collect your name, email address, and password
+                (stored as a secure hash, never in plain text). If you sign in with Google
+                instead, Google provides us your name, email address, and profile picture — we
+                never see or store your Google password. If you contact us through the Contact
+                page, we receive the name, email address, and message you choose to provide,
+                which we use solely to respond to your inquiry.
               </p>
             </section>
 

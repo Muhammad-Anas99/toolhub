@@ -7,5 +7,4 @@ Disallow: /check-email
 
 # Update the domain below to match your real production domain (see the
 # comment at the top of sitemap.xml).
-Sitemap: https://trytoolhub.net/sitemap.xml
-EOF
+Sitemap: https://toolhub.example.com/sitemap.xml

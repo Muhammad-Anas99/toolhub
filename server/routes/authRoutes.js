@@ -31,4 +31,10 @@ router.post(
 )
 router.post('/reset-password', authRateLimiter, resetPasswordValidator, handleValidationErrors, authController.resetPassword)
 
+// Google OAuth. Rate-limited on the entry point only — the callback is
+// reached exclusively via Google's own redirect with a one-time code, not
+// something an attacker can usefully hammer directly.
+router.get('/google', authRateLimiter, authController.googleAuthRedirect)
+router.get('/google/callback', authController.googleAuthCallback)
+
 export default router

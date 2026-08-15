@@ -130,6 +130,13 @@ export const api = {
 
   // --- Profile (self-service) -----------------------------------------------------
   updateProfile: (data) => authorizedRequest('/users/me', { method: 'PUT', body: JSON.stringify(data) }),
+  uploadAvatar: (file) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    const token = getAccessToken()
+    return authorizedRequestWithFormData('/users/me/avatar', formData, token)
+  },
+  removeAvatar: () => authorizedRequest('/users/me/avatar', { method: 'DELETE' }),
   changePassword: (data) => authorizedRequest('/users/me/password', { method: 'PUT', body: JSON.stringify(data) }),
 
   // --- Favorites -----------------------------------------------------------------
@@ -181,21 +188,6 @@ export const api = {
     const token = getAccessToken()
     return authorizedRequestWithFormData('/uploads', formData, token)
   },
-
-  // --- Downloads (user's downloaded-files library) --------------------------------------
-  // Persists the *actual* converted output the user just downloaded to
-  // their device — see src/hooks/useToolResult.js, the only place this is
-  // called from. Requires sign-in; the backend rejects anonymous callers.
-  createDownload: (blob, filename, toolMeta) => {
-    const formData = new FormData()
-    formData.append('file', blob, filename)
-    formData.append('toolSlug', toolMeta.toolSlug)
-    formData.append('toolName', toolMeta.toolName)
-    const token = getAccessToken()
-    return authorizedRequestWithFormData('/downloads', formData, token)
-  },
-  getMyDownloads: (params = {}) => authorizedRequest(`/downloads${toQuery(params)}`),
-  deleteDownload: (id) => authorizedRequest(`/downloads/${id}`, { method: 'DELETE' }),
 }
 
 // Multipart uploads can't use the JSON `request` helper (no Content-Type:
