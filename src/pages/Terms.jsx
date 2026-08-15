@@ -75,7 +75,6 @@ export default function Terms() {
                 your file directly in your browser — the file you upload is never sent to us or
                 stored on our servers.
               </p>
-              </p>
             </section>
 
             <section>
