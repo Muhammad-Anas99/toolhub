@@ -209,6 +209,26 @@ Uses the standard OAuth 2.0 authorization code flow — the same confidential-cl
 
 **Account matching:** by email, not just Google's internal ID — so someone who registered with a password first and later clicks "Continue with Google" with the same address gets their *existing* account linked (and marked verified, and given an avatar if they don't have one), never a duplicate. `User.password` is optional at the schema level specifically for accounts that only ever sign in via Google; `authService.login` gives a clear "use Google instead" message if someone without a password tries the password form.
 
+### Branding — showing "ToolHub" instead of the backend's Vercel domain
+
+**This is a Google Cloud Console setting, not something fixable in code.** What Google's consent screen shows ("Choose an account to continue to ___") comes entirely from the OAuth consent screen's own configuration for the Google Cloud project — nothing about how this app builds requests or redirects affects it. If it's currently showing your backend's raw Vercel domain instead of "ToolHub," that means the App name field was never actually set (or saved) on this screen — Google falls back to the verified domain associated with the OAuth client's redirect URI when there's no proper app identity configured.
+
+1. Google Cloud Console → in the left sidebar, either **"OAuth consent screen"** or **"Google Auth Platform" → "Branding"** (Google has renamed/reorganized this menu over time — you'll land on the same settings either way).
+2. Set:
+   - **App name**: `ToolHub`
+   - **User support email**: your email
+   - **App logo**: upload `public/icon-512.png` from this repo directly — it's already square (512×512 PNG), well under Google's 1MB limit, and meets their minimum 120×120 requirement. No new asset needed.
+   - **Application home page**: `https://trytoolhub.net`
+   - **Application privacy policy link**: `https://trytoolhub.net/privacy-policy`
+   - **Application terms of service link**: `https://trytoolhub.net/terms`
+   - **Authorized domains**: add `trytoolhub.net`
+   - **Developer contact information**: your email
+3. Save.
+
+Two things worth knowing:
+- Changes here can take anywhere from a few minutes to a few hours to actually show up on the live consent screen — Google caches it. If it doesn't update instantly, that's expected, not a sign something's wrong.
+- ToolHub's Google sign-in only requests non-sensitive scopes (`email`, `profile`, `openid` — see `server/services/googleAuthService.js`), so the App name and logo should display correctly without needing Google's full manual app-verification review, even while the app is in "Testing" publishing status. Full verification only becomes relevant if sensitive/restricted scopes are ever added, or you move past 100 test users while still in Testing mode.
+
 ### Set up in Google Cloud Console
 
 1. [console.cloud.google.com](https://console.cloud.google.com) → create or select a project.
@@ -219,6 +239,11 @@ Uses the standard OAuth 2.0 authorization code flow — the same confidential-cl
    - `https://<your-backend-domain>/api/auth/google/callback` (production)
 
    **`<your-backend-domain>` is your *backend's* Vercel domain — e.g. `toolhub-backend-project.vercel.app` — never `trytoolhub.net`.** `trytoolhub.net` is the frontend; Google never redirects there directly. This is intentional, not a mistake to fix — see "Why the user ends up on the backend URL if `CLIENT_URL` is wrong" below for the full flow and why the *final* destination is still always the frontend.
+4b. Under **Authorized JavaScript origins** (same Credentials page, just above redirect URIs), add:
+   - `http://localhost:5173` (local dev)
+   - `https://trytoolhub.net` (production)
+
+   Honest note: this app's Google sign-in uses a server-side authorization-code exchange (the flow described above), not Google's client-side JavaScript SDK — so this field isn't strictly required for anything to work today. It's still worth setting to the *frontend's* domain (not the backend's) as standard practice and in case a client-side Google button (One Tap, etc.) is ever added later.
 5. Copy the generated **Client ID** and **Client Secret**.
 
 ### Set up in your environment
