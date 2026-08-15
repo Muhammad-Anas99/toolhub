@@ -27,6 +27,25 @@ const ImageResizer = lazy(() => import('./pages/tools/ImageResizer.jsx'))
 const ImageCrop = lazy(() => import('./pages/tools/ImageCrop.jsx'))
 const ImageRotate = lazy(() => import('./pages/tools/ImageRotate.jsx'))
 const FlipImage = lazy(() => import('./pages/tools/FlipImage.jsx'))
+const ImageConverter = lazy(() => import('./pages/tools/ImageConverter.jsx'))
+const JpgToPdf = lazy(() => import('./pages/tools/JpgToPdf.jsx'))
+const PngToPdf = lazy(() => import('./pages/tools/PngToPdf.jsx'))
+const MergePdf = lazy(() => import('./pages/tools/MergePdf.jsx'))
+const SplitPdf = lazy(() => import('./pages/tools/SplitPdf.jsx'))
+const ColorPicker = lazy(() => import('./pages/tools/ColorPicker.jsx'))
+const HexToRgb = lazy(() => import('./pages/tools/HexToRgb.jsx'))
+const RgbToHex = lazy(() => import('./pages/tools/RgbToHex.jsx'))
+const HexToHsl = lazy(() => import('./pages/tools/HexToHsl.jsx'))
+const ColorConverter = lazy(() => import('./pages/tools/ColorConverter.jsx'))
+const PaletteGenerator = lazy(() => import('./pages/tools/PaletteGenerator.jsx'))
+const JsonFormatter = lazy(() => import('./pages/tools/JsonFormatter.jsx'))
+const JsonValidator = lazy(() => import('./pages/tools/JsonValidator.jsx'))
+const Base64Encoder = lazy(() => import('./pages/tools/Base64Encoder.jsx'))
+const UrlEncoder = lazy(() => import('./pages/tools/UrlEncoder.jsx'))
+const UuidGenerator = lazy(() => import('./pages/tools/UuidGenerator.jsx'))
+const HashGenerator = lazy(() => import('./pages/tools/HashGenerator.jsx'))
+const TimestampConverter = lazy(() => import('./pages/tools/TimestampConverter.jsx'))
+const RegexTester = lazy(() => import('./pages/tools/RegexTester.jsx'))
 
 // Auth (Phase 5)
 const Login = lazy(() => import('./pages/auth/Login.jsx'))
@@ -63,6 +82,25 @@ export default function App() {
           <Route path="/tools/image-crop" element={<ImageCrop />} />
           <Route path="/tools/image-rotate" element={<ImageRotate />} />
           <Route path="/tools/flip-image" element={<FlipImage />} />
+          <Route path="/tools/image-converter" element={<ImageConverter />} />
+          <Route path="/tools/jpg-to-pdf" element={<JpgToPdf />} />
+          <Route path="/tools/png-to-pdf" element={<PngToPdf />} />
+          <Route path="/tools/merge-pdf" element={<MergePdf />} />
+          <Route path="/tools/split-pdf" element={<SplitPdf />} />
+          <Route path="/tools/color-picker" element={<ColorPicker />} />
+          <Route path="/tools/hex-to-rgb" element={<HexToRgb />} />
+          <Route path="/tools/rgb-to-hex" element={<RgbToHex />} />
+          <Route path="/tools/hex-to-hsl" element={<HexToHsl />} />
+          <Route path="/tools/color-converter" element={<ColorConverter />} />
+          <Route path="/tools/palette-generator" element={<PaletteGenerator />} />
+          <Route path="/tools/json-formatter" element={<JsonFormatter />} />
+          <Route path="/tools/json-validator" element={<JsonValidator />} />
+          <Route path="/tools/base64-encoder" element={<Base64Encoder />} />
+          <Route path="/tools/url-encoder" element={<UrlEncoder />} />
+          <Route path="/tools/uuid-generator" element={<UuidGenerator />} />
+          <Route path="/tools/hash-generator" element={<HashGenerator />} />
+          <Route path="/tools/timestamp-converter" element={<TimestampConverter />} />
+          <Route path="/tools/regex-tester" element={<RegexTester />} />
 
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

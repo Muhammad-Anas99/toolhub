@@ -228,4 +228,5 @@ export const MIME_LABELS = {
   'image/webp': 'WEBP',
   'image/gif': 'GIF',
   'image/bmp': 'BMP',
+  'application/pdf': 'PDF',
 }

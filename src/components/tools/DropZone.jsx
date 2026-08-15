@@ -11,10 +11,11 @@ export default function DropZone({
   maxSizeMB,
   isDragActive,
   label = 'Drag & drop your image here',
+  uploadLabel = 'Upload image',
 }) {
   const inputRef = useRef(null)
   const readableTypes = acceptedTypes
-    .map((type) => type.replace('image/', '').toUpperCase())
+    .map((type) => type.split('/')[1]?.toUpperCase() ?? type)
     .join(', ')
 
   return (
@@ -52,7 +53,7 @@ export default function DropZone({
         type="file"
         accept={getAcceptAttribute(acceptedTypes)}
         className="sr-only"
-        aria-label="Upload image"
+        aria-label={uploadLabel}
         {...inputProps}
       />
 
@@ -71,4 +72,5 @@ DropZone.propTypes = {
   maxSizeMB: PropTypes.number.isRequired,
   isDragActive: PropTypes.bool,
   label: PropTypes.string,
+  uploadLabel: PropTypes.string,
 }

@@ -121,4 +121,171 @@ export const toolFaqs = {
         'Flipping mirrors the image horizontally or vertically, while rotating turns it around a center point. They produce different results.',
     },
   ],
+
+  'image-converter': [
+    {
+      id: 'formats',
+      question: 'Which formats can I convert between?',
+      answer: 'JPG, PNG and WEBP, in any direction. Pick your source image and choose whichever output format you need.',
+    },
+    {
+      id: 'quality',
+      question: 'Will converting reduce image quality?',
+      answer: 'PNG and WEBP support lossless output; converting to JPG uses a high-quality setting, so any loss is minimal and usually not noticeable.',
+    },
+  ],
+
+  'jpg-to-pdf': [
+    {
+      id: 'page-size',
+      question: 'What size will the PDF page be?',
+      answer: 'The page is sized to match your image\u2019s exact pixel dimensions at 72 DPI \u2014 the image fills the whole page with no cropping or scaling.',
+    },
+    {
+      id: 'multiple-images',
+      question: 'Can I combine multiple images into one PDF?',
+      answer: 'This tool creates a PDF from one image at a time. To combine several images, convert each to PDF first, then use Merge PDF to combine them.',
+    },
+  ],
+  'png-to-pdf': [
+    {
+      id: 'transparency',
+      question: 'What happens to transparent areas of my PNG?',
+      answer: 'PDF pages don\u2019t support transparency the way PNGs do \u2014 transparent areas will typically render as white in the resulting PDF.',
+    },
+    {
+      id: 'page-size',
+      question: 'What size will the PDF page be?',
+      answer: 'The page is sized to match your image\u2019s exact pixel dimensions at 72 DPI.',
+    },
+  ],
+  'merge-pdf': [
+    {
+      id: 'order',
+      question: 'Can I control the order of the merged pages?',
+      answer: 'Yes \u2014 use the up/down arrows next to each file to reorder them before merging. Pages are combined in the order shown.',
+    },
+    {
+      id: 'limit',
+      question: 'Is there a limit to how many PDFs I can merge?',
+      answer: 'No fixed limit \u2014 add as many as you need, though very large combined files will naturally take longer to process.',
+    },
+  ],
+  'split-pdf': [
+    {
+      id: 'range-format',
+      question: 'How do I specify which pages to extract?',
+      answer: 'Use page numbers and ranges separated by commas, like "1-3, 5, 8-10". Pages are 1-indexed \u2014 page 1 is the first page.',
+    },
+    {
+      id: 'original-order',
+      question: 'Do the extracted pages keep their original content?',
+      answer: 'Yes \u2014 pages are copied exactly as they appear in the source PDF, not re-rendered or flattened.',
+    },
+  ],
+
+  'color-picker': [
+    {
+      id: 'accuracy',
+      question: 'How accurate is the picked color?',
+      answer: 'It reads the exact pixel value from the image data at the point you click \u2014 not an approximation.',
+    },
+    {
+      id: 'no-image',
+      question: 'Can I use this without uploading an image?',
+      answer: 'Yes \u2014 use the standalone color picker shown when no image is uploaded to pick any color directly.',
+    },
+  ],
+  'hex-to-rgb': [
+    {
+      id: 'formats-accepted',
+      question: 'What color formats can I type in?',
+      answer: 'Hex (#3b6cf6), rgb(59, 108, 246), or hsl(225, 90%, 60%) \u2014 all three formats show up together as soon as one is recognized.',
+    },
+  ],
+  'rgb-to-hex': [
+    {
+      id: 'input-format',
+      question: 'How do I enter an RGB value?',
+      answer: 'Type it as rgb(59, 108, 246), or just use the color picker swatch \u2014 either way, the equivalent HEX and HSL values appear immediately.',
+    },
+  ],
+  'hex-to-hsl': [
+    {
+      id: 'what-is-hsl',
+      question: 'What do the HSL numbers mean?',
+      answer: 'Hue (0\u2013360\u00b0 on the color wheel), Saturation (0\u2013100%, how vivid), and Lightness (0\u2013100%, how light or dark).',
+    },
+  ],
+  'color-converter': [
+    {
+      id: 'why-formats',
+      question: 'Why are there different color formats at all?',
+      answer: 'HEX is common in design tools and CSS, RGB maps directly to how screens render color, and HSL is often more intuitive for adjusting a color\u2019s vividness or lightness by hand.',
+    },
+  ],
+  'palette-generator': [
+    {
+      id: 'schemes',
+      question: 'What do the different palette types mean?',
+      answer: 'Complementary uses the opposite hue for contrast, analogous uses neighboring hues for harmony, triadic uses three evenly-spaced hues, and shades varies only the lightness of your one color.',
+    },
+  ],
+
+  'json-formatter': [
+    {
+      id: 'minify-vs-format',
+      question: 'What\u2019s the difference between Format and Minify?',
+      answer: 'Format adds indentation and line breaks for readability; Minify strips all unnecessary whitespace to make the file as small as possible.',
+    },
+  ],
+  'json-validator': [
+    {
+      id: 'common-errors',
+      question: 'What are common reasons JSON is invalid?',
+      answer: 'Trailing commas, unquoted keys, single quotes instead of double quotes, and missing brackets are the most frequent causes.',
+    },
+  ],
+  'base64-encoder': [
+    {
+      id: 'unicode',
+      question: 'Does this handle special characters and emoji correctly?',
+      answer: 'Yes \u2014 text is encoded as UTF-8 before Base64 encoding, so accented letters, non-Latin scripts and emoji all round-trip correctly.',
+    },
+  ],
+  'url-encoder': [
+    {
+      id: 'what-gets-encoded',
+      question: 'What characters get encoded?',
+      answer: 'Reserved and special characters (spaces, &, =, ?, and more) are converted to percent-encoded sequences so the text is safe to use in a URL.',
+    },
+  ],
+  'uuid-generator': [
+    {
+      id: 'version',
+      question: 'What version of UUID does this generate?',
+      answer: 'Version 4 \u2014 randomly generated using the browser\u2019s native cryptographically secure random number generator, not a predictable pattern.',
+    },
+  ],
+  'hash-generator': [
+    {
+      id: 'which-algorithm',
+      question: 'Which hash algorithm should I use?',
+      answer: 'SHA-256 or higher for anything security-related. MD5 and SHA-1 are still common for file checksums and compatibility, but are not considered secure for security purposes.',
+    },
+  ],
+  'timestamp-converter': [
+    {
+      id: 'what-is-unix-time',
+      question: 'What is a Unix timestamp?',
+      answer: 'The number of seconds elapsed since midnight UTC on January 1, 1970 \u2014 a compact, timezone-independent way to represent a point in time.',
+    },
+  ],
+  'regex-tester': [
+    {
+      id: 'flags',
+      question: 'What do the flags (g, i, m, s) do?',
+      answer: 'g finds all matches instead of just the first; i ignores letter case; m makes ^ and $ match the start/end of each line; s lets . match newline characters too.',
+    },
+  ],
 }

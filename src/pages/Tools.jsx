@@ -54,16 +54,27 @@ export default function Tools() {
   const activeCategoryData =
     activeCategory !== 'all' ? categories.find((category) => category.slug === activeCategory) : null
 
+  const CategoryIcon = activeCategoryData?.icon
+
   return (
     <>
       <SEO
         title={activeCategoryData ? activeCategoryData.name : 'All Tools'}
-        description="Browse every free online tool available on ToolHub, including image converters, PDF tools, developer utilities and more."
-        canonicalPath="/tools"
+        description={
+          activeCategoryData
+            ? `${activeCategoryData.description} Free, fast, and works right in your browser.`
+            : 'Browse every free online tool available on ToolHub, including image converters, PDF tools, developer utilities and more.'
+        }
+        canonicalPath={activeCategoryData ? `/tools?category=${activeCategoryData.slug}` : '/tools'}
       />
 
       <Container className="py-16">
         <div className="mx-auto max-w-2xl text-center">
+          {CategoryIcon && (
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50 text-brand-600 dark:bg-brand-950 dark:text-brand-400">
+              <CategoryIcon className="h-7 w-7" />
+            </div>
+          )}
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
             {activeCategoryData ? activeCategoryData.name : 'All tools'}
           </h1>

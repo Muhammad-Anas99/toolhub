@@ -45,3 +45,23 @@ export function validateImageFile(file, acceptedTypes, maxSizeMB = DEFAULT_MAX_F
 export function getAcceptAttribute(acceptedTypes) {
   return acceptedTypes.join(',')
 }
+
+/**
+ * Validates a non-image file (currently just PDFs) against accepted mime
+ * types and a max size — the PDF-tools equivalent of validateImageFile
+ * above, kept separate because the image version's "must start with
+ * image/" check would incorrectly reject every PDF outright.
+ */
+export function validatePdfFile(file, maxSizeMB = DEFAULT_MAX_FILE_SIZE_MB) {
+  if (!file) {
+    return { valid: false, error: 'No file was selected.' }
+  }
+  if (file.type !== 'application/pdf') {
+    return { valid: false, error: 'That file doesn\u2019t look like a PDF. Please choose a .pdf file.' }
+  }
+  const maxBytes = maxSizeMB * 1024 * 1024
+  if (file.size > maxBytes) {
+    return { valid: false, error: `File is too large. Please choose a PDF under ${maxSizeMB} MB.` }
+  }
+  return { valid: true }
+}
