@@ -33,6 +33,7 @@ import { useCategories } from '../hooks/useCategories.js'
 import { useBlogPosts } from '../hooks/useBlogPosts.js'
 import { testimonials } from '../data/testimonials.js'
 import { faqs } from '../data/faq.js'
+import AbstractIllustration from '../components/ui/AbstractIllustration.jsx'
 
 const FEATURES = [
   {
@@ -259,8 +260,12 @@ export default function Home() {
       </section>
 
       {/* Categories */}
-      <section className="border-y border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/50">
-        <Container className="py-20">
+      <section className="relative overflow-hidden border-y border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/50">
+        <AbstractIllustration
+          variant="grid"
+          className="pointer-events-none absolute -right-10 -top-10 -z-0 h-64 w-64 opacity-40 dark:opacity-20"
+        />
+        <Container className="relative py-20">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
               Browse by category
@@ -279,45 +284,64 @@ export default function Home() {
       </section>
 
       {/* Why ToolHub */}
-      <section>
+      <section className="overflow-hidden">
         <Container className="py-20">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
-              Why ToolHub
-            </h2>
-            <p className="mt-3 text-slate-500 dark:text-slate-400">
-              Built to be simple, fast, and trustworthy — every time you use it.
-            </p>
-          </div>
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+            <div>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+                Why ToolHub
+              </h2>
+              <p className="mt-3 text-slate-500 dark:text-slate-400">
+                Built to be simple, fast, and trustworthy — every time you use it.
+              </p>
 
-          <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURES.map((feature) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3 }}
-                className="text-center sm:text-left"
-              >
-                <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 sm:mx-0 dark:bg-brand-950 dark:text-brand-400">
-                  <feature.icon className="h-5 w-5" />
-                </div>
-                <h3 className="mt-4 text-base font-semibold text-slate-900 dark:text-white">
-                  {feature.title}
-                </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
+              <div className="mt-8 space-y-6">
+                {FEATURES.map((feature) => (
+                  <motion.div
+                    key={feature.title}
+                    initial={{ opacity: 0, x: -8 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3 }}
+                    className="flex gap-4"
+                  >
+                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950 dark:text-brand-400">
+                      <feature.icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-semibold text-slate-900 dark:text-white">
+                        {feature.title}
+                      </h3>
+                      <p className="mt-1 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="relative hidden lg:block"
+            >
+              <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-brand-100/60 to-fuchsia-100/40 blur-3xl dark:from-brand-950/40 dark:to-fuchsia-950/20" />
+              <AbstractIllustration variant="stack" className="mx-auto w-full max-w-md text-slate-900 dark:text-white" />
+            </motion.div>
           </div>
         </Container>
       </section>
 
       {/* How it works */}
-      <section id="how-it-works" className="scroll-mt-20 border-y border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/50">
-        <Container className="py-20">
+      <section id="how-it-works" className="relative scroll-mt-20 overflow-hidden border-y border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/50">
+        <AbstractIllustration
+          variant="flow"
+          className="pointer-events-none absolute -bottom-6 left-1/2 hidden h-24 w-72 -translate-x-1/2 opacity-[0.15] sm:block dark:opacity-10"
+        />
+        <Container className="relative py-20">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
               How it works
@@ -620,6 +644,10 @@ export default function Home() {
           >
             <div className="pointer-events-none absolute inset-0" aria-hidden="true">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[size:28px_28px]" />
+              <div className="absolute -left-10 -top-10 h-40 w-40 rounded-full border border-white/10 bg-white/5" />
+              <div className="absolute -bottom-16 -right-16 h-56 w-56 rounded-full border border-white/10 bg-white/5" />
+              <div className="absolute right-12 top-8 hidden h-3 w-3 rounded-full bg-white/30 sm:block" />
+              <div className="absolute bottom-10 left-16 hidden h-2 w-2 rounded-full bg-white/20 sm:block" />
             </div>
             <div className="relative">
               <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">

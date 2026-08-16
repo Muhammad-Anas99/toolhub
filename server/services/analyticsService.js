@@ -21,6 +21,72 @@ function startOfMonth() {
   return date
 }
 
+function daysAgo(n) {
+  const d = startOfToday()
+  d.setDate(d.getDate() - n)
+  return d
+}
+
+/**
+ * Real per-day conversion counts for the last `days` days (including
+ * today) — powers the usage-over-time chart on the admin dashboard.
+ * Days with zero conversions are filled in explicitly (rather than
+ * omitted) so the chart has a consistent number of points.
+ */
+async function getDailyActivity(days = 7) {
+  const since = daysAgo(days - 1)
+  const rows = await ConversionHistory.aggregate([
+    { $match: { createdAt: { $gte: since } } },
+    {
+      $group: {
+        _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
+        count: { $sum: 1 },
+      },
+    },
+  ])
+  const countByDate = Object.fromEntries(rows.map((row) => [row._id, row.count]))
+
+  const result = []
+  for (let i = days - 1; i >= 0; i -= 1) {
+    const date = daysAgo(i)
+    const key = date.toISOString().slice(0, 10)
+    result.push({ date: key, count: countByDate[key] || 0 })
+  }
+  return result
+}
+
+/**
+ * Real percentage change between two equal-length periods (this week vs
+ * the week before it) — computed from actual counts, never a placeholder
+ * or a hardcoded direction. Returns null when there's no prior-period
+ * data to compare against (division by zero), so the UI can hide the
+ * indicator rather than show a misleading "0%" or "+Infinity%".
+ */
+function percentChange(current, previous) {
+  if (previous === 0) return null
+  return Math.round(((current - previous) / previous) * 100)
+}
+
+async function getConversionTrend() {
+  const thisWeekStart = startOfWeek()
+  const lastWeekStart = daysAgo(startOfToday().getDay() + 7)
+  const [thisWeek, lastWeek] = await Promise.all([
+    ConversionHistory.countDocuments({ createdAt: { $gte: thisWeekStart } }),
+    ConversionHistory.countDocuments({ createdAt: { $gte: lastWeekStart, $lt: thisWeekStart } }),
+  ])
+  return { thisWeek, lastWeek, percentChange: percentChange(thisWeek, lastWeek) }
+}
+
+async function getNewUserTrend() {
+  const thisWeekStart = startOfWeek()
+  const lastWeekStart = daysAgo(startOfToday().getDay() + 7)
+  const [thisWeek, lastWeek] = await Promise.all([
+    User.countDocuments({ createdAt: { $gte: thisWeekStart } }),
+    User.countDocuments({ createdAt: { $gte: lastWeekStart, $lt: thisWeekStart } }),
+  ])
+  return { thisWeek, lastWeek, percentChange: percentChange(thisWeek, lastWeek) }
+}
+
 async function getUserCounts() {
   const [total, daily, monthly] = await Promise.all([
     User.countDocuments({}),
@@ -97,15 +163,19 @@ async function getDeviceBreakdown() {
  * separate requests.
  */
 export async function getDashboardOverview() {
-  const [users, newUsers, conversions, topTools, topCategories, countries, devices] = await Promise.all([
-    getUserCounts(),
-    getNewUserCounts(),
-    getConversionCounts(),
-    getMostUsedTools(),
-    getMostUsedCategories(),
-    getCountryBreakdown(),
-    getDeviceBreakdown(),
-  ])
+  const [users, newUsers, conversions, topTools, topCategories, countries, devices, dailyActivity, conversionTrend, newUserTrend] =
+    await Promise.all([
+      getUserCounts(),
+      getNewUserCounts(),
+      getConversionCounts(),
+      getMostUsedTools(),
+      getMostUsedCategories(),
+      getCountryBreakdown(),
+      getDeviceBreakdown(),
+      getDailyActivity(7),
+      getConversionTrend(),
+      getNewUserTrend(),
+    ])
 
   return {
     users,
@@ -115,5 +185,8 @@ export async function getDashboardOverview() {
     topCategories,
     countries,
     devices,
+    dailyActivity,
+    conversionTrend,
+    newUserTrend,
   }
 }
