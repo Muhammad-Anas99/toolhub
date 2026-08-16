@@ -1,23 +1,38 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import Container from '../components/ui/Container.jsx'
 import BlogCard from '../components/ui/BlogCard.jsx'
 import SEO from '../components/ui/SEO.jsx'
-import { blogPosts } from '../data/blog.js'
+import ErrorMessage from '../components/tools/ErrorMessage.jsx'
+import { api } from '../lib/api.js'
 
 export default function Blog() {
   const [activeCategory, setActiveCategory] = useState('all')
+  const [posts, setPosts] = useState(null)
+  const [error, setError] = useState(null)
 
-  const postCategories = useMemo(() => {
-    const unique = new Set(blogPosts.map((post) => post.category))
-    return ['all', ...unique]
+  useEffect(() => {
+    api
+      .getBlogPosts()
+      .then(({ data }) => setPosts(data))
+      .catch((err) => {
+        setError(err.message || 'Could not load blog posts.')
+        setPosts([])
+      })
   }, [])
 
+  const postCategories = useMemo(() => {
+    if (!posts) return ['all']
+    const unique = new Set(posts.map((post) => post.category).filter(Boolean))
+    return ['all', ...unique]
+  }, [posts])
+
   const filteredPosts = useMemo(() => {
-    const sorted = [...blogPosts].sort((a, b) => new Date(b.date) - new Date(a.date))
+    if (!posts) return []
+    const sorted = [...posts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     if (activeCategory === 'all') return sorted
     return sorted.filter((post) => post.category === activeCategory)
-  }, [activeCategory])
+  }, [posts, activeCategory])
 
   return (
     <>
@@ -42,28 +57,42 @@ export default function Blog() {
           </p>
         </motion.div>
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-          {postCategories.map((category) => (
-            <button
-              key={category}
-              type="button"
-              onClick={() => setActiveCategory(category)}
-              className={`rounded-full px-4 py-1.5 text-sm font-medium capitalize transition-colors ${
-                activeCategory === category
-                  ? 'bg-brand-600 text-white'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
-              }`}
-            >
-              {category === 'all' ? 'All posts' : category}
-            </button>
-          ))}
-        </div>
+        {error && <ErrorMessage message={error} onDismiss={() => setError(null)} />}
 
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredPosts.map((post) => (
-            <BlogCard key={post.id} post={post} />
-          ))}
-        </div>
+        {postCategories.length > 1 && (
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+            {postCategories.map((category) => (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setActiveCategory(category)}
+                className={`rounded-full px-4 py-1.5 text-sm font-medium capitalize transition-colors ${
+                  activeCategory === category
+                    ? 'bg-brand-600 text-white'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
+                }`}
+              >
+                {category === 'all' ? 'All posts' : category}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {posts === null ? (
+          <p className="mt-12 text-center text-sm text-slate-400 dark:text-slate-500">Loading posts...</p>
+        ) : filteredPosts.length > 0 ? (
+          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredPosts.map((post) => (
+              <BlogCard key={post.slug} post={post} />
+            ))}
+          </div>
+        ) : (
+          !error && (
+            <p className="mt-12 text-center text-sm text-slate-400 dark:text-slate-500">
+              No posts published yet — check back soon.
+            </p>
+          )
+        )}
       </Container>
     </>
   )

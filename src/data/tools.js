@@ -40,6 +40,7 @@ export const tools = [
   {
     id: 'jpg-to-png',
     name: 'JPG to PNG',
+    seoTitle: 'JPG to PNG Converter — Convert Images Online Free',
     slug: 'jpg-to-png',
     path: '/tools/jpg-to-png',
     category: 'image-tools',
@@ -51,6 +52,7 @@ export const tools = [
   {
     id: 'png-to-jpg',
     name: 'PNG to JPG',
+    seoTitle: 'PNG to JPG Converter — Convert Images Online Free',
     slug: 'png-to-jpg',
     path: '/tools/png-to-jpg',
     category: 'image-tools',
@@ -62,6 +64,7 @@ export const tools = [
   {
     id: 'webp-to-png',
     name: 'WEBP to PNG',
+    seoTitle: 'WEBP to PNG Converter — Convert Images Online Free',
     slug: 'webp-to-png',
     path: '/tools/webp-to-png',
     category: 'image-tools',
@@ -72,6 +75,7 @@ export const tools = [
   {
     id: 'webp-to-jpg',
     name: 'WEBP to JPG',
+    seoTitle: 'WEBP to JPG Converter — Convert Images Online Free',
     slug: 'webp-to-jpg',
     path: '/tools/webp-to-jpg',
     category: 'image-tools',
@@ -82,6 +86,7 @@ export const tools = [
   {
     id: 'convert-to-webp',
     name: 'Convert to WEBP',
+    seoTitle: 'Convert to WEBP — JPG & PNG to WEBP Converter',
     slug: 'convert-to-webp',
     path: '/tools/convert-to-webp',
     category: 'image-tools',
@@ -93,6 +98,7 @@ export const tools = [
   {
     id: 'image-compressor',
     name: 'Image Compressor',
+    seoTitle: 'Image Compressor — Compress JPG, PNG & WEBP Online',
     slug: 'image-compressor',
     path: '/tools/image-compressor',
     category: 'image-tools',
@@ -104,6 +110,7 @@ export const tools = [
   {
     id: 'image-resizer',
     name: 'Image Resizer',
+    seoTitle: 'Image Resizer — Resize Photos Online Free',
     slug: 'image-resizer',
     path: '/tools/image-resizer',
     category: 'image-tools',
@@ -114,6 +121,7 @@ export const tools = [
   {
     id: 'image-crop',
     name: 'Image Cropper',
+    seoTitle: 'Image Cropper — Crop Photos Online Free',
     slug: 'image-crop',
     path: '/tools/image-crop',
     category: 'image-tools',
@@ -125,6 +133,7 @@ export const tools = [
   {
     id: 'image-rotate',
     name: 'Image Rotator',
+    seoTitle: 'Image Rotator — Rotate Photos Online Free',
     slug: 'image-rotate',
     path: '/tools/image-rotate',
     category: 'image-tools',
@@ -135,6 +144,7 @@ export const tools = [
   {
     id: 'flip-image',
     name: 'Flip Image',
+    seoTitle: 'Flip Image — Mirror Photos Horizontally or Vertically',
     slug: 'flip-image',
     path: '/tools/flip-image',
     category: 'image-tools',
@@ -147,6 +157,7 @@ export const tools = [
   {
     id: 'jpg-to-pdf',
     name: 'JPG to PDF',
+    seoTitle: 'JPG to PDF Converter — Convert Images to PDF Free',
     slug: 'jpg-to-pdf',
     path: '/tools/jpg-to-pdf',
     category: 'pdf-tools',
@@ -158,6 +169,7 @@ export const tools = [
   {
     id: 'png-to-pdf',
     name: 'PNG to PDF',
+    seoTitle: 'PNG to PDF Converter — Convert Images to PDF Free',
     slug: 'png-to-pdf',
     path: '/tools/png-to-pdf',
     category: 'pdf-tools',
@@ -168,6 +180,7 @@ export const tools = [
   {
     id: 'merge-pdf',
     name: 'Merge PDF',
+    seoTitle: 'Merge PDF — Combine PDF Files Online Free',
     slug: 'merge-pdf',
     path: '/tools/merge-pdf',
     category: 'pdf-tools',
@@ -179,6 +192,7 @@ export const tools = [
   {
     id: 'split-pdf',
     name: 'Split PDF',
+    seoTitle: 'Split PDF — Extract Pages from a PDF Online',
     slug: 'split-pdf',
     path: '/tools/split-pdf',
     category: 'pdf-tools',
@@ -189,6 +203,7 @@ export const tools = [
   {
     id: 'pdf-to-jpg',
     name: 'PDF to JPG',
+    seoTitle: 'PDF to JPG Converter — Convert PDF Pages to Images',
     slug: 'pdf-to-jpg',
     path: '/tools/pdf-to-jpg',
     category: 'pdf-tools',
@@ -200,6 +215,7 @@ export const tools = [
   {
     id: 'pdf-to-png',
     name: 'PDF to PNG',
+    seoTitle: 'PDF to PNG Converter — Convert PDF Pages to Images',
     slug: 'pdf-to-png',
     path: '/tools/pdf-to-png',
     category: 'pdf-tools',
@@ -210,6 +226,7 @@ export const tools = [
   {
     id: 'compress-pdf',
     name: 'Compress PDF',
+    seoTitle: 'Compress PDF — Reduce PDF File Size Online',
     slug: 'compress-pdf',
     path: '/tools/compress-pdf',
     category: 'pdf-tools',
@@ -220,6 +237,7 @@ export const tools = [
   {
     id: 'pdf-to-word',
     name: 'PDF to Word',
+    seoTitle: 'PDF to Word Converter — Convert PDF to Editable DOCX',
     slug: 'pdf-to-word',
     path: '/tools/pdf-to-word',
     category: 'pdf-tools',
@@ -232,6 +250,7 @@ export const tools = [
   {
     id: 'color-picker',
     name: 'Color Picker',
+    seoTitle: 'Color Picker — Pick Colors from Any Image Online',
     slug: 'color-picker',
     path: '/tools/color-picker',
     category: 'color-tools',
@@ -242,6 +261,7 @@ export const tools = [
   {
     id: 'hex-to-rgb',
     name: 'HEX to RGB',
+    seoTitle: 'HEX to RGB Converter — Convert Color Codes Online',
     slug: 'hex-to-rgb',
     path: '/tools/hex-to-rgb',
     category: 'color-tools',
@@ -253,6 +273,7 @@ export const tools = [
   {
     id: 'rgb-to-hex',
     name: 'RGB to HEX',
+    seoTitle: 'RGB to HEX Converter — Convert Color Codes Online',
     slug: 'rgb-to-hex',
     path: '/tools/rgb-to-hex',
     category: 'color-tools',
@@ -263,6 +284,7 @@ export const tools = [
   {
     id: 'hex-to-hsl',
     name: 'HEX to HSL',
+    seoTitle: 'HEX to HSL Converter — Convert Color Codes Online',
     slug: 'hex-to-hsl',
     path: '/tools/hex-to-hsl',
     category: 'color-tools',
@@ -273,6 +295,7 @@ export const tools = [
   {
     id: 'color-converter',
     name: 'Color Converter',
+    seoTitle: 'Color Converter — HEX, RGB & HSL Converter Online',
     slug: 'color-converter',
     path: '/tools/color-converter',
     category: 'color-tools',
@@ -284,6 +307,7 @@ export const tools = [
   {
     id: 'palette-generator',
     name: 'Color Palette Generator',
+    seoTitle: 'Color Palette Generator — Create Color Schemes Online',
     slug: 'palette-generator',
     path: '/tools/palette-generator',
     category: 'color-tools',
@@ -295,6 +319,7 @@ export const tools = [
   {
     id: 'gradient-generator',
     name: 'Gradient Generator',
+    seoTitle: 'CSS Gradient Generator — Create Gradients Online Free',
     slug: 'gradient-generator',
     path: '/tools/gradient-generator',
     category: 'color-tools',
@@ -307,6 +332,7 @@ export const tools = [
   {
     id: 'json-formatter',
     name: 'JSON Formatter',
+    seoTitle: 'JSON Formatter — Beautify & Minify JSON Online',
     slug: 'json-formatter',
     path: '/tools/json-formatter',
     category: 'developer-tools',
@@ -318,6 +344,7 @@ export const tools = [
   {
     id: 'json-validator',
     name: 'JSON Validator',
+    seoTitle: 'JSON Validator — Validate JSON Syntax Online',
     slug: 'json-validator',
     path: '/tools/json-validator',
     category: 'developer-tools',
@@ -328,6 +355,7 @@ export const tools = [
   {
     id: 'base64-encoder',
     name: 'Base64 Encoder / Decoder',
+    seoTitle: 'Base64 Encoder/Decoder — Encode & Decode Text Online',
     slug: 'base64-encoder',
     path: '/tools/base64-encoder',
     category: 'developer-tools',
@@ -338,6 +366,7 @@ export const tools = [
   {
     id: 'url-encoder',
     name: 'URL Encoder / Decoder',
+    seoTitle: 'URL Encoder/Decoder — Encode & Decode URLs Online',
     slug: 'url-encoder',
     path: '/tools/url-encoder',
     category: 'developer-tools',
@@ -348,6 +377,7 @@ export const tools = [
   {
     id: 'uuid-generator',
     name: 'UUID Generator',
+    seoTitle: 'UUID Generator — Generate Random UUIDs Online Free',
     slug: 'uuid-generator',
     path: '/tools/uuid-generator',
     category: 'developer-tools',
@@ -359,6 +389,7 @@ export const tools = [
   {
     id: 'hash-generator',
     name: 'Hash Generator',
+    seoTitle: 'Hash Generator — MD5, SHA-1 & SHA-256 Hash Online',
     slug: 'hash-generator',
     path: '/tools/hash-generator',
     category: 'developer-tools',
@@ -369,6 +400,7 @@ export const tools = [
   {
     id: 'timestamp-converter',
     name: 'Timestamp Converter',
+    seoTitle: 'Unix Timestamp Converter — Convert Timestamps to Dates',
     slug: 'timestamp-converter',
     path: '/tools/timestamp-converter',
     category: 'developer-tools',
@@ -379,6 +411,7 @@ export const tools = [
   {
     id: 'regex-tester',
     name: 'Regex Tester',
+    seoTitle: 'Regex Tester — Test Regular Expressions Online',
     slug: 'regex-tester',
     path: '/tools/regex-tester',
     category: 'developer-tools',
@@ -390,6 +423,7 @@ export const tools = [
   {
     id: 'code-minifier',
     name: 'Code Minifier',
+    seoTitle: 'Code Minifier — Minify CSS, JS & HTML Online',
     slug: 'code-minifier',
     path: '/tools/code-minifier',
     category: 'developer-tools',
@@ -402,6 +436,7 @@ export const tools = [
   {
     id: 'word-counter',
     name: 'Word Counter',
+    seoTitle: 'Word Counter — Count Words & Characters Online Free',
     slug: 'word-counter',
     path: '/tools/word-counter',
     category: 'text-tools',
@@ -413,6 +448,7 @@ export const tools = [
   {
     id: 'case-converter',
     name: 'Case Converter',
+    seoTitle: 'Case Converter — Convert Text Case Online Free',
     slug: 'case-converter',
     path: '/tools/case-converter',
     category: 'text-tools',
@@ -423,6 +459,7 @@ export const tools = [
   {
     id: 'lorem-ipsum-generator',
     name: 'Lorem Ipsum Generator',
+    seoTitle: 'Lorem Ipsum Generator — Generate Placeholder Text',
     slug: 'lorem-ipsum-generator',
     path: '/tools/lorem-ipsum-generator',
     category: 'text-tools',
@@ -435,6 +472,7 @@ export const tools = [
   {
     id: 'ai-background-remover',
     name: 'AI Background Remover',
+    seoTitle: 'AI Background Remover — Remove Image Backgrounds Online',
     slug: 'ai-background-remover',
     path: '/tools/ai-background-remover',
     category: 'ai-tools',
@@ -446,6 +484,7 @@ export const tools = [
   {
     id: 'ai-image-upscaler',
     name: 'AI Image Upscaler',
+    seoTitle: 'AI Image Upscaler — Upscale Images with AI',
     slug: 'ai-image-upscaler',
     path: '/tools/ai-image-upscaler',
     category: 'ai-tools',
@@ -457,6 +496,7 @@ export const tools = [
   {
     id: 'ai-image-enhancer',
     name: 'AI Image Enhancer',
+    seoTitle: 'AI Image Enhancer — Improve Photo Quality with AI',
     slug: 'ai-image-enhancer',
     path: '/tools/ai-image-enhancer',
     category: 'ai-tools',
@@ -469,6 +509,7 @@ export const tools = [
   {
     id: 'password-generator',
     name: 'Password Generator',
+    seoTitle: 'Password Generator — Create Strong Passwords Online',
     slug: 'password-generator',
     path: '/tools/password-generator',
     category: 'security-tools',
@@ -482,6 +523,7 @@ export const tools = [
   {
     id: 'instagram-post-resizer',
     name: 'Instagram Post Resizer',
+    seoTitle: 'Instagram Post Resizer — Resize Images for Instagram',
     slug: 'instagram-post-resizer',
     path: '/tools/instagram-post-resizer',
     category: 'social-media-tools',
@@ -492,6 +534,7 @@ export const tools = [
   {
     id: 'youtube-thumbnail-downloader',
     name: 'YouTube Thumbnail Downloader',
+    seoTitle: 'YouTube Thumbnail Downloader — Download Video Thumbnails',
     slug: 'youtube-thumbnail-downloader',
     path: '/tools/youtube-thumbnail-downloader',
     category: 'social-media-tools',

@@ -5,8 +5,12 @@
     - /verify-email, /reset-password, /check-email (token-based/transactional,
       marked noindex in-page)
     - /login, /register: included below (see note there)
-    - Individual blog posts: blog currently has no per-post detail route
-      (see src/pages/Blog.jsx) — add <url> entries here once that exists.
+
+  Blog posts (/blog/:slug) come from the backend Blog collection, not a
+  static file — this sitemap is static, so new posts published via the
+  Admin Blog CMS need their <url> entry added here by hand until a
+  dynamic sitemap route exists. The four posts already in the seed data
+  are listed below.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
@@ -272,6 +276,26 @@
     <loc>https://trytoolhub.net/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/blog/jpg-vs-png-vs-webp</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/blog/how-to-reduce-image-file-size-without-losing-quality</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/blog/social-media-image-size-guide-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/blog/json-formatting-and-validation-tips-for-developers</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/about</loc>

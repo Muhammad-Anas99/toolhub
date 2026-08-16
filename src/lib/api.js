@@ -113,6 +113,7 @@ export const api = {
   getCategoryBySlug: (slug) => request(`/categories/${slug}`),
 
   getBlogPosts: (params = {}) => request(`/blog${toQuery(params)}`),
+  getBlogPost: (slug) => request(`/blog/${slug}`),
   getBlogPostBySlug: (slug) => request(`/blog/${slug}`),
 
   getSettings: () => request('/settings'),

@@ -86,7 +86,7 @@ export default function ToolLayout({ tool, children, faqItems }) {
   return (
     <>
       <SEO
-        title={tool.name}
+        title={tool.seoTitle || tool.name}
         description={tool.description}
         canonicalPath={tool.path}
         structuredData={structuredData}

@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { HiOutlineMagnifyingGlass } from 'react-icons/hi2'
 import Container from '../components/ui/Container.jsx'
 import ToolCard from '../components/ui/ToolCard.jsx'
-import SEO from '../components/ui/SEO.jsx'
+import SEO, { SITE_URL } from '../components/ui/SEO.jsx'
 import { useTools } from '../hooks/useTools.js'
 import { useCategories } from '../hooks/useCategories.js'
 
@@ -56,16 +56,40 @@ export default function Tools() {
 
   const CategoryIcon = activeCategoryData?.icon
 
+  const pageTitle = activeCategoryData ? activeCategoryData.name : 'All Tools'
+  const pageDescription = activeCategoryData
+    ? `${activeCategoryData.description} Free, fast, and works right in your browser.`
+    : 'Browse every free online tool available on ToolHub, including image converters, PDF tools, developer utilities and more.'
+  const pagePath = activeCategoryData ? `/tools?category=${activeCategoryData.slug}` : '/tools'
+
+  const structuredData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: pageTitle,
+      description: pageDescription,
+      url: `${SITE_URL}${pagePath}`,
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+        { '@type': 'ListItem', position: 2, name: 'Tools', item: `${SITE_URL}/tools` },
+        ...(activeCategoryData
+          ? [{ '@type': 'ListItem', position: 3, name: activeCategoryData.name, item: `${SITE_URL}${pagePath}` }]
+          : []),
+      ],
+    },
+  ]
+
   return (
     <>
       <SEO
-        title={activeCategoryData ? activeCategoryData.name : 'All Tools'}
-        description={
-          activeCategoryData
-            ? `${activeCategoryData.description} Free, fast, and works right in your browser.`
-            : 'Browse every free online tool available on ToolHub, including image converters, PDF tools, developer utilities and more.'
-        }
-        canonicalPath={activeCategoryData ? `/tools?category=${activeCategoryData.slug}` : '/tools'}
+        title={pageTitle}
+        description={pageDescription}
+        canonicalPath={pagePath}
+        structuredData={structuredData}
       />
 
       <Container className="py-16">
