@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
@@ -18,6 +18,7 @@ import {
   HiOutlineArrowDownTray,
   HiOutlineCheckCircle,
   HiOutlineXMark,
+  HiOutlineSquares2X2,
   HiArrowRight,
 } from 'react-icons/hi2'
 import Container from '../components/ui/Container.jsx'
@@ -34,6 +35,8 @@ import { useBlogPosts } from '../hooks/useBlogPosts.js'
 import { testimonials } from '../data/testimonials.js'
 import { faqs } from '../data/faq.js'
 import AbstractIllustration from '../components/ui/AbstractIllustration.jsx'
+import { api } from '../lib/api.js'
+import { getCategoryBySlug } from '../data/categories.js'
 
 const FEATURES = [
   {
@@ -68,9 +71,34 @@ const FEATURES = [
   },
 ]
 
+// Benefit-focused content for the Trust section, shown alongside real
+// numbers rather than as a replacement for them — genuinely true
+// regardless of how much usage data exists yet.
+const TRUST_BENEFITS = [
+  { label: 'Always free', icon: HiOutlineSparkles },
+  { label: 'Fast, in-browser processing', icon: HiOutlineBolt },
+  { label: 'Privacy-focused', icon: HiOutlineShieldCheck },
+  { label: 'Works on any device', icon: HiOutlineDevicePhoneMobile },
+  { label: 'Multiple tool categories', icon: HiOutlineSquares2X2 },
+]
+
+// A real usage count only gets shown as a headline stat once it clears
+// this bar — below it, a count like "3+" would look sparse rather than
+// trustworthy, so the benefit-focused fallback stat is used instead.
+// Never invents a number either way; this only decides which true
+// numbers are substantial enough to lead with.
+const STAT_MIN_THRESHOLD = 10
+
+function roundStatDown(count) {
+  if (count >= 1000) return Math.floor(count / 1000) * 1000
+  if (count >= 100) return Math.floor(count / 100) * 100
+  return Math.floor(count / 10) * 10
+}
+
 export default function Home() {
   const navigate = useNavigate()
   const [heroQuery, setHeroQuery] = useState('')
+  const [publicStats, setPublicStats] = useState(null)
 
   // Data comes from the API (src/hooks/), with an automatic fallback to
   // the local data files in src/data/ if the backend isn't reachable —
@@ -81,6 +109,30 @@ export default function Home() {
 
   const featuredTools = tools.filter((tool) => tool.badge === 'popular').slice(0, 6)
   const recentPosts = blogPosts.slice(0, 3)
+
+  useEffect(() => {
+    api
+      .getPublicStats()
+      .then(({ data }) => setPublicStats(data))
+      .catch(() => setPublicStats({ topTools: [], totalConversions: 0, totalUsers: 0 }))
+  }, [])
+
+  // Real usage data first; if there isn't enough of it yet (a fresh
+  // deployment, or just not many conversions logged so far), fall back to
+  // a sensible static selection instead — deliberately not overlapping
+  // with Featured Tools above, and never showing a usage count either
+  // way, so there's nothing here that could look like an invented number.
+  const featuredSlugs = new Set(featuredTools.map((t) => t.slug))
+  const MIN_REAL_POPULAR_TOOLS = 4
+  const realPopularTools =
+    publicStats?.topTools
+      ?.map((row) => tools.find((t) => t.slug === row.toolSlug))
+      .filter((tool) => tool && !tool.comingSoon && !featuredSlugs.has(tool.slug)) || []
+
+  const popularTools =
+    realPopularTools.length >= MIN_REAL_POPULAR_TOOLS
+      ? realPopularTools.slice(0, 5)
+      : tools.filter((tool) => !tool.comingSoon && !featuredSlugs.has(tool.slug)).slice(0, 5)
 
   function handleHeroSearch(event) {
     event.preventDefault()
@@ -283,6 +335,70 @@ export default function Home() {
         </Container>
       </section>
 
+      {/* Popular Tools — ranked list style, deliberately different from
+          Featured Tools' grid above so the page doesn't repeat itself.
+          Backed by real usage data (see the Popular Tools data-fetch at
+          the top of this component) with a sensible non-overlapping
+          fallback when there isn't enough usage data yet — no usage
+          counts are ever shown on the cards themselves, so there's
+          nothing here that could look like an invented statistic. */}
+      <section className="scroll-mt-20">
+        <Container className="py-16">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+              Popular right now
+            </h2>
+            <p className="mt-2 text-slate-500 dark:text-slate-400">
+              What people are actually reaching for on ToolHub.
+            </p>
+          </div>
+
+          <div className="mx-auto mt-10 max-w-3xl space-y-3">
+            {popularTools.map((tool, index) => {
+              const category = getCategoryBySlug(tool.category)
+              return (
+                <motion.div
+                  key={tool.id}
+                  initial={{ opacity: 0, x: -8 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                >
+                  <Link
+                    to={tool.path}
+                    className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4 transition-colors hover:border-brand-200 hover:shadow-card-hover sm:p-5 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-brand-900"
+                  >
+                    <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-slate-100 text-sm font-bold text-slate-400 dark:bg-slate-800 dark:text-slate-500">
+                      {index + 1}
+                    </span>
+                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition-transform duration-200 group-hover:scale-110 dark:bg-brand-950 dark:text-brand-400">
+                      <tool.icon className="h-5 w-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                        <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{tool.name}</h3>
+                        {category && (
+                          <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+                            {category.name}
+                          </span>
+                        )}
+                      </div>
+                      <p className="mt-0.5 truncate text-sm text-slate-500 dark:text-slate-400">
+                        {tool.description}
+                      </p>
+                    </div>
+                    <span className="hidden flex-shrink-0 items-center gap-1 text-sm font-medium text-brand-600 transition-transform duration-200 group-hover:translate-x-0.5 sm:inline-flex dark:text-brand-400">
+                      Open
+                      <HiArrowRight className="h-4 w-4" />
+                    </span>
+                  </Link>
+                </motion.div>
+              )
+            })}
+          </div>
+        </Container>
+      </section>
+
       {/* Why ToolHub */}
       <section className="overflow-hidden">
         <Container className="py-20">
@@ -400,9 +516,16 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* Stats */}
-      <section className="bg-gradient-to-br from-brand-600 to-brand-800">
-        <Container className="py-16">
+      {/* Trust / Usage — real numbers where they're substantial enough to
+          be meaningful (tools and categories always are; conversions and
+          users only render when the real count clears a reasonable bar,
+          per the "don't invent numbers" requirement — see
+          formatStatCount below), combined with benefit-focused content
+          so the section still feels complete even before usage numbers
+          are impressive on their own. */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-600 to-brand-800">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.08)_1px,transparent_0)] bg-[size:24px_24px]" aria-hidden="true" />
+        <Container className="relative py-16">
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
             <div className="[&_p]:text-white [&_p:last-child]:text-brand-100">
               <StatCounter value={tools.length} suffix="+" label="Tools available" />
@@ -410,12 +533,33 @@ export default function Home() {
             <div className="[&_p]:text-white [&_p:last-child]:text-brand-100">
               <StatCounter value={categories.length} label="Tool categories" />
             </div>
-            <div className="[&_p]:text-white [&_p:last-child]:text-brand-100">
-              <StatCounter value={100} suffix="%" label="Free to use" />
-            </div>
-            <div className="[&_p]:text-white [&_p:last-child]:text-brand-100">
-              <StatCounter value={0} label="Sign-up required" />
-            </div>
+            {publicStats?.totalConversions >= STAT_MIN_THRESHOLD ? (
+              <div className="[&_p]:text-white [&_p:last-child]:text-brand-100">
+                <StatCounter value={roundStatDown(publicStats.totalConversions)} suffix="+" label="Conversions run" />
+              </div>
+            ) : (
+              <div className="[&_p]:text-white [&_p:last-child]:text-brand-100">
+                <StatCounter value={100} suffix="%" label="Free to use" />
+              </div>
+            )}
+            {publicStats?.totalUsers >= STAT_MIN_THRESHOLD ? (
+              <div className="[&_p]:text-white [&_p:last-child]:text-brand-100">
+                <StatCounter value={roundStatDown(publicStats.totalUsers)} suffix="+" label="People using ToolHub" />
+              </div>
+            ) : (
+              <div className="[&_p]:text-white [&_p:last-child]:text-brand-100">
+                <StatCounter value={0} label="Sign-up required" />
+              </div>
+            )}
+          </div>
+
+          <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-white/10 pt-10 sm:grid-cols-5">
+            {TRUST_BENEFITS.map((benefit) => (
+              <div key={benefit.label} className="flex items-center gap-3 text-white">
+                <benefit.icon className="h-6 w-6 flex-shrink-0 text-brand-200" />
+                <span className="text-sm font-medium">{benefit.label}</span>
+              </div>
+            ))}
           </div>
         </Container>
       </section>

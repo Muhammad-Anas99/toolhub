@@ -162,6 +162,22 @@ async function getDeviceBreakdown() {
  * aggregation in parallel rather than making the frontend fire off six
  * separate requests.
  */
+/**
+ * Public-safe subset of the admin analytics — just aggregate counts and
+ * which tools are most used, nothing that identifies any individual user.
+ * Powers the homepage's Popular Tools and Trust sections with real data
+ * instead of a hardcoded selection or invented numbers.
+ */
+export async function getPublicStats() {
+  const [topTools, totalConversions, totalUsers] = await Promise.all([
+    getMostUsedTools(8),
+    ConversionHistory.countDocuments({}),
+    User.countDocuments({}),
+  ])
+
+  return { topTools, totalConversions, totalUsers }
+}
+
 export async function getDashboardOverview() {
   const [users, newUsers, conversions, topTools, topCategories, countries, devices, dailyActivity, conversionTrend, newUserTrend] =
     await Promise.all([

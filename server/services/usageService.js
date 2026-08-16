@@ -35,17 +35,19 @@ function startOfMonth() {
  * actually go live; not read by anything active today.
  */
 export async function getUserUsageStats(userId) {
-  const [user, total, today, month] = await Promise.all([
+  const [user, total, today, month, toolUsage] = await Promise.all([
     User.findById(userId).select('plan credits'),
     ConversionHistory.countDocuments({ user: userId }),
     ConversionHistory.countDocuments({ user: userId, createdAt: { $gte: startOfToday() } }),
     ConversionHistory.countDocuments({ user: userId, createdAt: { $gte: startOfMonth() } }),
+    getUserToolUsage(userId),
   ])
 
   return {
     plan: user?.plan || 'free',
     credits: user?.credits || 0,
     usage: { total, today, month },
+    topTool: toolUsage[0] || null,
   }
 }
 

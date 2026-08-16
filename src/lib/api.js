@@ -109,6 +109,7 @@ export const api = {
   getToolBySlug: (slug) => request(`/tools/${slug}`),
 
   getCategories: () => request('/categories'),
+  getPublicStats: () => request('/analytics/public-stats'),
   getCategoryBySlug: (slug) => request(`/categories/${slug}`),
 
   getBlogPosts: (params = {}) => request(`/blog${toQuery(params)}`),
