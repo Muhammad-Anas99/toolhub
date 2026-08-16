@@ -46,6 +46,19 @@ function uploadToCloudinary(buffer, filename) {
 }
 
 /**
+ * Bulk-deletes Cloudinary assets by public_id — used by the Downloads
+ * cleanup job. Cloudinary's delete_resources takes an array and deletes
+ * them in one API call, which matters here specifically because Vercel's
+ * Hobby plan gives cron-triggered functions only a 10-second timeout —
+ * one bulk call comfortably fits many files where a loop of individual
+ * deletes might not.
+ */
+export async function deleteCloudinaryFiles(publicIds) {
+  if (!hasCloudinaryConfigured || publicIds.length === 0) return
+  await cloudinary.api.delete_resources(publicIds)
+}
+
+/**
  * Uploads to Cloudinary when configured (the recommended path — a
  * generous free tier that doesn't compete with MongoDB's own storage
  * quota the way storing images in the database would), falling back to
@@ -75,7 +88,7 @@ export async function storeFile(file, req) {
 
   if (hasCloudinaryConfigured) {
     const result = await uploadToCloudinary(file.buffer, filename)
-    return { url: result.secure_url, filename }
+    return { url: result.secure_url, filename, publicId: result.public_id }
   }
 
   const hasConnectedBlobStore = Boolean(process.env.BLOB_STORE_ID || process.env.BLOB_READ_WRITE_TOKEN)
@@ -84,7 +97,7 @@ export async function storeFile(file, req) {
       access: 'public',
       contentType: file.mimetype,
     })
-    return { url: blob.url, filename }
+    return { url: blob.url, filename, publicId: null }
   }
 
   // Vercel's serverless filesystem is read-only outside of /tmp — the
@@ -106,5 +119,5 @@ export async function storeFile(file, req) {
   await fs.writeFile(path.join(uploadDir, filename), file.buffer)
 
   const baseUrl = `${req.protocol}://${req.get('host')}`
-  return { url: `${baseUrl}/uploads/${filename}`, filename }
+  return { url: `${baseUrl}/uploads/${filename}`, filename, publicId: null }
 }

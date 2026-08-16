@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import {
   HiOutlineHeart,
   HiOutlineClock,
+  HiOutlineArrowDownTray,
   HiOutlineSparkles,
   HiOutlineFire,
   HiOutlineWrenchScrewdriver,
@@ -20,6 +21,7 @@ const PLAN_LABELS = { free: 'Free', premium: 'Premium', pro: 'Pro' }
 const QUICK_ACTIONS = [
   { label: 'Explore Tools', to: '/tools', icon: HiOutlineWrenchScrewdriver },
   { label: 'View History', to: '/dashboard/history', icon: HiOutlineClock },
+  { label: 'Downloads', to: '/dashboard/downloads', icon: HiOutlineArrowDownTray },
   { label: 'Favorites', to: '/dashboard/favorites', icon: HiHeart },
 ]
 

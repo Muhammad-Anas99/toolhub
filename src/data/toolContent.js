@@ -33,7 +33,7 @@ import {
 // statement really is identical. Tools with real exceptions (the YouTube
 // Thumbnail Downloader fetches from YouTube's CDN) get their own entry.
 const BROWSER_ONLY_PRIVACY =
-  'This tool runs entirely in your browser using standard web technology. Your file is never uploaded to ToolHub\u2019s servers, and we never see or store its contents \u2014 only the fact that you used this tool is logged, for your own history if you\u2019re signed in.'
+  'This tool runs entirely in your browser using standard web technology \u2014 your original file is never uploaded to ToolHub\u2019s servers. If you\u2019re signed in, the result is automatically kept in your Downloads for 14 days so you can come back for it later, then permanently deleted; if you\u2019re not signed in, nothing about the result is stored anywhere.'
 
 const NO_FILE_PRIVACY =
   'This tool works entirely on data you type or paste directly in your browser. Nothing you enter is sent to ToolHub\u2019s servers \u2014 only the fact that you used this tool is logged, for your own history if you\u2019re signed in.'

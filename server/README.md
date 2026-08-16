@@ -171,6 +171,15 @@ Full step-by-step instructions live in the root `README.md`'s "Deploying to Verc
 - Deploy this `server/` folder as its own Vercel project (**Root Directory** = `server`) — `vercel.json` and `api/index.js` here handle the serverless adaptation.
 - Set `MONGODB_URI` and `CLIENT_URL` as environment variables.
 - **Set up file storage** — **required**, not optional, if you want any file upload to work at all (profile pictures, admin content uploads). Recommended: **Cloudinary** — create a free account at cloudinary.com, then copy your Cloud Name, API Key, and API Secret from the dashboard into `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET`. All three must be set. Alternative: enable **Vercel Blob** (project → Storage tab → Create → Blob) instead, which sets `BLOB_READ_WRITE_TOKEN`/`BLOB_STORE_ID` automatically — only used if the Cloudinary vars above aren't set. Without either configured, `services/storageService.js` fails fast with a clear "File uploads are not configured on this deployment yet" error rather than silently attempting to write to Vercel's read-only production filesystem.
+
+- **Set up the Downloads feature (optional, separate from the above)** — signed-in users' tool results are saved to Cloudinary directly from their browser (see `src/lib/downloadSaver.js`), not through this backend, specifically to avoid Vercel's 4.5MB Hobby-plan request body limit that a merged PDF or batch ZIP could easily exceed. This needs a Cloudinary **unsigned upload preset**, which is a different setup step from the CLOUDINARY_* backend vars above:
+  1. In your Cloudinary dashboard, go to **Settings → Upload → Upload presets → Add upload preset**.
+  2. Set **Signing Mode** to **Unsigned** — this is what allows the browser to upload directly without exposing your API secret.
+  3. Optionally restrict it (folder, max file size, allowed formats) under the same preset's settings — unsigned presets are the security boundary here, not secrecy of the preset name, so it's worth restricting what it accepts.
+  4. Copy the preset's name and your Cloud Name into the **frontend's** `.env` (or the frontend Vercel project's env vars) as `VITE_CLOUDINARY_CLOUD_NAME` and `VITE_CLOUDINARY_UPLOAD_PRESET`.
+  5. Also set `CRON_SECRET` (any random string, 16+ characters) on the **backend** project — this authorizes the daily cleanup cron job (`server/vercel.json`) that deletes downloads and their Cloudinary files after 14 days.
+
+  Without these, Downloads silently does nothing — it never breaks the actual tool download, it just won't save a copy.
 - Run `npm run seed` locally (pointed at your production `MONGODB_URI`) — it's a one-off script, not something that runs inside a serverless function.
 
 ## Authentication (Phase 5)

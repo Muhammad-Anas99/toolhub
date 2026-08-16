@@ -5,6 +5,7 @@ import {
   HiOutlineUser,
   HiOutlineHeart,
   HiOutlineClock,
+  HiOutlineArrowDownTray,
   HiOutlineCog6Tooth,
   HiOutlineSparkles,
 } from 'react-icons/hi2'
@@ -17,6 +18,7 @@ const NAV_ITEMS = [
   { label: 'Profile', to: '/dashboard/profile', icon: HiOutlineUser },
   { label: 'Favorites', to: '/dashboard/favorites', icon: HiOutlineHeart },
   { label: 'History', to: '/dashboard/history', icon: HiOutlineClock },
+  { label: 'Downloads', to: '/dashboard/downloads', icon: HiOutlineArrowDownTray },
   { label: 'Settings', to: '/dashboard/settings', icon: HiOutlineCog6Tooth },
   { label: 'Subscription', to: '/dashboard/subscription', icon: HiOutlineSparkles },
 ]

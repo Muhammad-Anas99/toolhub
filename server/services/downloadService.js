@@ -1,39 +1,58 @@
 import Download from '../models/Download.js'
 import { ApiError } from '../utils/ApiError.js'
+import { deleteCloudinaryFiles } from './storageService.js'
 
-const MAX_PAGE_SIZE = 100
-
-export async function createDownload({ userId, toolSlug, toolName, filename, mimeType, fileUrl, fileSize }) {
+export async function saveDownload({ userId, toolSlug, toolName, category, action, fileUrl, fileName, fileSize, mimeType, cloudinaryPublicId }) {
   return Download.create({
     user: userId,
     toolSlug: toolSlug.toLowerCase(),
     toolName,
-    filename,
-    mimeType,
+    category,
+    action: action || '',
     fileUrl,
+    fileName,
     fileSize,
+    mimeType,
+    cloudinaryPublicId: cloudinaryPublicId || null,
+    expiresAt: Download.computeExpiresAt(),
   })
 }
 
-export async function listMyDownloads(userId, { page = 1, limit = 20 } = {}) {
-  const safeLimit = Math.min(Number(limit) || 20, MAX_PAGE_SIZE)
-  const safePage = Math.max(Number(page) || 1, 1)
-
-  const query = { user: userId }
-
-  const [items, total] = await Promise.all([
-    Download.find(query)
-      .sort({ downloadedAt: -1 })
-      .skip((safePage - 1) * safeLimit)
-      .limit(safeLimit),
-    Download.countDocuments(query),
-  ])
-
-  return { items, total, page: safePage, pages: Math.ceil(total / safeLimit) }
+export async function listUserDownloads(userId) {
+  // expiresAt is checked here too, not just relied on from the daily
+  // cleanup cron — the cron only runs once a day, so a download that
+  // technically expired a few hours ago but hasn't been swept yet should
+  // still never show up as available to download.
+  return Download.find({ user: userId, expiresAt: { $gt: new Date() } }).sort({ createdAt: -1 })
 }
 
-export async function deleteDownload(userId, downloadId) {
-  const download = await Download.findOneAndDelete({ _id: downloadId, user: userId })
+export async function deleteDownload(id, userId) {
+  const download = await Download.findOne({ _id: id, user: userId })
   if (!download) throw ApiError.notFound('Download not found')
-  return download
+
+  if (download.cloudinaryPublicId) {
+    await deleteCloudinaryFiles([download.cloudinaryPublicId])
+  }
+  await download.deleteOne()
+}
+
+/**
+ * Deletes every expired download's actual file (Cloudinary) and its
+ * database record together, in that order — the Cloudinary file only
+ * where a real publicId exists, since Blob/local-disk-stored downloads
+ * don't have one to clean up the same way (see the Download model's
+ * comment on why this isn't just a MongoDB TTL index).
+ */
+export async function cleanupExpiredDownloads() {
+  const expired = await Download.find({ expiresAt: { $lte: new Date() } }).select('_id cloudinaryPublicId')
+  if (expired.length === 0) return { deletedCount: 0 }
+
+  const publicIds = expired.filter((d) => d.cloudinaryPublicId).map((d) => d.cloudinaryPublicId)
+  if (publicIds.length > 0) {
+    await deleteCloudinaryFiles(publicIds)
+  }
+
+  const ids = expired.map((d) => d._id)
+  const result = await Download.deleteMany({ _id: { $in: ids } })
+  return { deletedCount: result.deletedCount }
 }

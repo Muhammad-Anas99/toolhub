@@ -8,6 +8,7 @@ import authRoutes from './authRoutes.js'
 import userRoutes from './userRoutes.js'
 import favoriteRoutes from './favoriteRoutes.js'
 import historyRoutes from './historyRoutes.js'
+import downloadRoutes from './downloadRoutes.js'
 import analyticsRoutes from './analyticsRoutes.js'
 import contactRoutes from './contactRoutes.js'
 
@@ -21,6 +22,7 @@ router.use('/auth', authRoutes)
 router.use('/users', userRoutes)
 router.use('/favorites', favoriteRoutes)
 router.use('/history', historyRoutes)
+router.use('/downloads', downloadRoutes)
 router.use('/analytics', analyticsRoutes)
 router.use('/contact', contactRoutes)
 

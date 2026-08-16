@@ -152,6 +152,9 @@ export const api = {
 
   // --- Conversion history -----------------------------------------------------------
   logConversion: (data) => authorizedRequest('/history', { method: 'POST', body: JSON.stringify(data) }), // works signed-out too — authorizedRequest only attaches a token when one exists
+  saveDownload: (data) => authorizedRequest('/downloads', { method: 'POST', body: JSON.stringify(data) }),
+  getMyDownloads: () => authorizedRequest('/downloads'),
+  deleteDownload: (id) => authorizedRequest(`/downloads/${id}`, { method: 'DELETE' }),
   getMyHistory: (params = {}) => authorizedRequest(`/history${toQuery(params)}`),
   clearMyHistory: () => authorizedRequest('/history', { method: 'DELETE' }),
   deleteHistoryEntry: (id) => authorizedRequest(`/history/${id}`, { method: 'DELETE' }),

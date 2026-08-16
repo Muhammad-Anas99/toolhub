@@ -13,6 +13,7 @@ import ProgressBar from '../ProgressBar.jsx'
 import { useMultiImageUpload, MAX_BATCH_FILES } from '../../../hooks/useMultiImageUpload.js'
 import { processImageBatch } from '../../../lib/imageProcessing.js'
 import { buildOutputFilename, downloadBlob } from '../../../lib/downloadBlob.js'
+import { trySaveDownload } from '../../../lib/downloadSaver.js'
 import { createZip } from '../../../lib/zipUtils.js'
 import { formatBytes } from '../../../lib/formatBytes.js'
 import { api } from '../../../lib/api.js'
@@ -149,6 +150,16 @@ export default function UnifiedImageTool({
           : `Image${nextResults.length > 1 ? 's' : ''} processed`
 
       api.logConversion({ toolSlug, toolName, category, action }).catch(() => {})
+      nextResults.forEach((result) => {
+        trySaveDownload({
+          blob: result.blob,
+          filename: result.filename,
+          toolSlug,
+          toolName,
+          category,
+          action,
+        })
+      })
     }
   }
 

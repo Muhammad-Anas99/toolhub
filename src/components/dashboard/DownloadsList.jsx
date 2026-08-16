@@ -1,135 +1,113 @@
 import React, { useEffect, useState } from 'react'
-import { HiOutlineArrowDownTray, HiOutlineFolderOpen, HiOutlineTrash } from 'react-icons/hi2'
+import { HiOutlineTrash, HiOutlineArrowDownTray, HiOutlineClock } from 'react-icons/hi2'
 import ErrorMessage from '../tools/ErrorMessage.jsx'
 import { api } from '../../lib/api.js'
-import { downloadBlob } from '../../lib/downloadBlob.js'
+import { getToolBySlug } from '../../data/tools.js'
+import { getCategoryBySlug, categoryColorClasses } from '../../data/categories.js'
+import { formatBytes } from '../../lib/formatBytes.js'
 
-function formatDateTime(dateString) {
-  return new Date(dateString).toLocaleString('en-US', {
-    dateStyle: 'long',
-    timeStyle: 'short',
-  })
+function formatDate(dateString) {
+  return new Date(dateString).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })
 }
 
-/**
- * Reads from the dedicated Download model (server/models/Download.js) via
- * GET /api/downloads — a genuinely different data source from History
- * (ConversionHistory), not the same records relabeled. Each item here
- * exists because the user clicked Download on a result, and references a
- * real, retained output file — so the thumbnail below is the actual
- * converted image, not a generic tool icon.
- */
+function daysRemaining(expiresAt) {
+  const days = Math.ceil((new Date(expiresAt).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
+  return Math.max(0, days)
+}
+
 export default function DownloadsList() {
   const [downloads, setDownloads] = useState(null)
   const [error, setError] = useState(null)
-  const [busyId, setBusyId] = useState(null)
 
   useEffect(() => {
     api
-      .getMyDownloads({ limit: 50 })
+      .getMyDownloads()
       .then(({ data }) => setDownloads(data))
       .catch((err) => setError(err.message || 'Could not load your downloads.'))
   }, [])
 
-  async function handleDownloadAgain(item) {
-    setBusyId(item._id)
-    setError(null)
+  async function handleDelete(id) {
     try {
-      const response = await fetch(item.fileUrl)
-      if (!response.ok) throw new Error('The stored file could not be retrieved.')
-      const blob = await response.blob()
-      downloadBlob(blob, item.filename)
+      await api.deleteDownload(id)
+      setDownloads((prev) => prev.filter((d) => d._id !== id))
     } catch (err) {
-      setError(err.message || 'Could not download this file again.')
-    } finally {
-      setBusyId(null)
+      setError(err.message || 'Could not delete this download.')
     }
-  }
-
-  async function handleRemove(item) {
-    setBusyId(item._id)
-    setError(null)
-    try {
-      await api.deleteDownload(item._id)
-      setDownloads((prev) => prev.filter((entry) => entry._id !== item._id))
-    } catch (err) {
-      setError(err.message || 'Could not remove this download.')
-    } finally {
-      setBusyId(null)
-    }
-  }
-
-  if (downloads === null && !error) {
-    return <p className="text-sm text-slate-400 dark:text-slate-500">Loading...</p>
-  }
-
-  if (error && downloads === null) {
-    return <ErrorMessage message={error} onDismiss={() => setError(null)} />
-  }
-
-  if (downloads.length === 0) {
-    return (
-      <div className="card flex flex-col items-center gap-3 p-10 text-center">
-        <HiOutlineFolderOpen className="h-10 w-10 text-slate-300 dark:text-slate-700" />
-        <p className="text-sm font-medium text-slate-700 dark:text-slate-300">No downloads yet</p>
-        <p className="text-sm text-slate-500 dark:text-slate-400">
-          Click Download on any tool&apos;s result and it&apos;ll show up here.
-        </p>
-      </div>
-    )
   }
 
   return (
     <div>
-      {error && (
-        <div className="mb-4">
-          <ErrorMessage message={error} onDismiss={() => setError(null)} />
-        </div>
-      )}
+      {error && <ErrorMessage message={error} onDismiss={() => setError(null)} />}
 
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {downloads.map((item) => (
-          <div key={item._id} className="card overflow-hidden">
-            <div className="flex h-40 items-center justify-center bg-slate-50 dark:bg-slate-900">
-              {/* The real converted output, not a placeholder icon. */}
-              <img src={item.fileUrl} alt={item.filename} className="h-full w-full object-contain" />
-            </div>
+      {downloads === null && !error ? (
+        <p className="text-sm text-slate-400 dark:text-slate-500">Loading...</p>
+      ) : downloads && downloads.length > 0 ? (
+        <div className="card divide-y divide-slate-100 dark:divide-slate-800">
+          {downloads.map((entry) => {
+            const category = getCategoryBySlug(entry.category)
+            const Icon = getToolBySlug(entry.toolSlug)?.icon || category?.icon || HiOutlineArrowDownTray
+            const colors = categoryColorClasses[category?.color] || categoryColorClasses.brand
 
-            <div className="p-4">
-              <p className="truncate text-sm font-semibold text-slate-900 dark:text-white">
-                {item.filename}
-              </p>
-              <p className="mt-1 text-xs font-medium text-brand-600 dark:text-brand-400">
-                {item.toolName}
-              </p>
-              <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
-                {formatDateTime(item.downloadedAt)}
-              </p>
-
-              <div className="mt-4 flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleDownloadAgain(item)}
-                  disabled={busyId === item._id}
-                  className="btn-secondary flex-1 text-sm"
-                >
-                  <HiOutlineArrowDownTray className="h-4 w-4" />
-                  {busyId === item._id ? 'Working...' : 'Download Again'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleRemove(item)}
-                  disabled={busyId === item._id}
-                  aria-label={`Remove ${item.filename} from downloads`}
-                  className="flex-shrink-0 rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-rose-600 dark:hover:bg-slate-800 dark:hover:text-rose-400"
-                >
-                  <HiOutlineTrash className="h-4 w-4" />
-                </button>
+            return (
+              <div key={entry._id} className="flex items-center gap-4 px-5 py-4">
+                <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl ${colors.bg} ${colors.text}`}>
+                  <Icon className="h-5 w-5" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{entry.toolName}</p>
+                    {category && (
+                      <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${colors.bg} ${colors.text}`}>
+                        {category.name}
+                      </span>
+                    )}
+                  </div>
+                  {entry.action && (
+                    <p className="mt-0.5 truncate text-xs text-slate-500 dark:text-slate-400">{entry.action}</p>
+                  )}
+                  <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">
+                    {formatBytes(entry.fileSize)} &middot; {formatDate(entry.createdAt)}
+                  </p>
+                  <p className="mt-0.5 flex items-center gap-1 text-xs text-amber-600 dark:text-amber-400">
+                    <HiOutlineClock className="h-3 w-3" />
+                    {daysRemaining(entry.expiresAt)} day{daysRemaining(entry.expiresAt) === 1 ? '' : 's'} left
+                  </p>
+                </div>
+                <div className="flex flex-shrink-0 gap-1">
+                  <a
+                    href={entry.fileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download={entry.fileName}
+                    aria-label={`Download ${entry.toolName} result`}
+                    className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-brand-600 dark:hover:bg-slate-800 dark:hover:text-brand-400"
+                  >
+                    <HiOutlineArrowDownTray className="h-4 w-4" />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(entry._id)}
+                    aria-label={`Delete ${entry.toolName} download`}
+                    className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-rose-600 dark:hover:bg-slate-800 dark:hover:text-rose-400"
+                  >
+                    <HiOutlineTrash className="h-4 w-4" />
+                  </button>
+                </div>
               </div>
-            </div>
+            )
+          })}
+        </div>
+      ) : (
+        !error && (
+          <div className="card flex flex-col items-center gap-3 p-10 text-center">
+            <HiOutlineArrowDownTray className="h-10 w-10 text-slate-300 dark:text-slate-700" />
+            <p className="text-sm font-medium text-slate-700 dark:text-slate-300">No downloads yet</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              Results from tools you use while signed in will show up here for 14 days.
+            </p>
           </div>
-        ))}
-      </div>
+        )
+      )}
     </div>
   )
 }
