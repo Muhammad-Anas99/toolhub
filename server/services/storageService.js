@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { put } from '@vercel/blob'
+import { v2 as cloudinary } from 'cloudinary'
 import { slugify } from '../utils/slugify.js'
 import { config } from '../config/env.js'
 import { ApiError } from '../utils/ApiError.js'
@@ -12,29 +13,57 @@ function buildFilename(originalName) {
   return `${baseName}-${uniqueSuffix}${extension}`
 }
 
+const hasCloudinaryConfigured = Boolean(
+  process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET
+)
+
+if (hasCloudinaryConfigured) {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  })
+}
+
 /**
- * Uploads to Vercel Blob when a store is connected to this project, then
- * falls back to writing the file to the local `uploads/` directory
- * otherwise, so `npm run dev` works out of the box without needing a
- * Vercel Blob store set up just to test uploads locally.
+ * multer gives us the uploaded file as an in-memory Buffer (req.file.buffer),
+ * not a file path — Cloudinary's basic uploader.upload() expects a path or
+ * a base64 string, so a Buffer needs the stream-based uploader instead.
+ * This is the standard, documented way to upload an in-memory buffer with
+ * the Cloudinary Node SDK.
+ */
+function uploadToCloudinary(buffer, filename) {
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      { public_id: `toolhub/${filename}`, resource_type: 'image', overwrite: false },
+      (error, result) => {
+        if (error) reject(error)
+        else resolve(result)
+      }
+    )
+    uploadStream.end(buffer)
+  })
+}
+
+/**
+ * Uploads to Cloudinary when configured (the recommended path — a
+ * generous free tier that doesn't compete with MongoDB's own storage
+ * quota the way storing images in the database would), falling back to
+ * Vercel Blob if that's connected instead (kept for anyone who already
+ * has it set up), then to the local `uploads/` directory in development
+ * so `npm run dev` works without any storage configured at all.
  *
- * "Connected" is detected via BLOB_STORE_ID or BLOB_READ_WRITE_TOKEN —
- * deliberately not just the latter. Vercel now defaults connected stores
- * to OIDC-based authentication (a short-lived token Vercel manages and
- * rotates automatically, identified by BLOB_STORE_ID), only adding the
- * older long-lived BLOB_READ_WRITE_TOKEN as an optional fallback — so a
- * correctly-connected store may have BLOB_STORE_ID without ever having
- * BLOB_READ_WRITE_TOKEN at all. put() below is called with no explicit
- * token, which already correctly defers to the @vercel/blob SDK's own
- * auth resolution (OIDC first, then the static token) — the only thing
- * that needed fixing was this outer check deciding whether to attempt
- * Blob storage in the first place.
+ * "Cloudinary configured" means all three of CLOUDINARY_CLOUD_NAME,
+ * CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET are set — see
+ * server/README.md for where to get these from your Cloudinary
+ * dashboard.
  *
- * The returned URL is always absolute in both cases. That matters here
+ * The returned URL is always absolute in every case. That matters here
  * specifically because the frontend and this API live on different
  * origins — a relative `/uploads/xyz.png` would resolve against the
  * frontend's own origin when used as an `<img src>` or download link,
- * which is wrong; it needs to point back at this API.
+ * which is wrong; it needs to point back at this API (or, for
+ * Cloudinary/Blob, at their own CDN).
  *
  * Used by both the admin content-upload endpoint (POST /api/uploads) and
  * the profile-picture upload endpoint (POST /api/users/me/avatar) — the
@@ -43,8 +72,13 @@ function buildFilename(originalName) {
  */
 export async function storeFile(file, req) {
   const filename = buildFilename(file.originalname)
-  const hasConnectedBlobStore = Boolean(process.env.BLOB_STORE_ID || process.env.BLOB_READ_WRITE_TOKEN)
 
+  if (hasCloudinaryConfigured) {
+    const result = await uploadToCloudinary(file.buffer, filename)
+    return { url: result.secure_url, filename }
+  }
+
+  const hasConnectedBlobStore = Boolean(process.env.BLOB_STORE_ID || process.env.BLOB_READ_WRITE_TOKEN)
   if (hasConnectedBlobStore) {
     const blob = await put(filename, file.buffer, {
       access: 'public',
@@ -59,11 +93,11 @@ export async function storeFile(file, req) {
   // filesystem exception), not a helpful one, if it were ever attempted
   // on Vercel. `process.env.VERCEL` is set automatically on every Vercel
   // deployment (production and preview alike), so this fails explicitly
-  // and clearly instead — this is a one-time configuration gap to fix
-  // (enable Blob storage), not a bug to chase.
+  // and clearly instead — this is a one-time configuration gap to fix,
+  // not a bug to chase.
   if (process.env.VERCEL) {
     throw ApiError.internal(
-      'File uploads are not configured on this deployment yet. Enable Vercel Blob storage on the backend project (Storage tab -> Create -> Blob) and redeploy — see server/README.md.'
+      'File uploads are not configured on this deployment yet. Add CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET to the backend project\u2019s environment variables and redeploy — see server/README.md.'
     )
   }
 

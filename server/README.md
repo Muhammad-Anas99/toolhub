@@ -110,7 +110,7 @@ Every response is shaped `{ success, message, data, meta? }` on success, or `{ s
 ### Uploads
 | Method | Route | Notes |
 |---|---|---|
-| POST | `/api/uploads` | Admin only. `multipart/form-data`, field name `file`. Images only (jpg/png/webp/gif/svg), size limit from `UPLOAD_MAX_FILE_SIZE_MB`. Stores to **Vercel Blob** if `BLOB_READ_WRITE_TOKEN` is set (automatic on Vercel once you enable Blob storage), otherwise falls back to writing into the local `uploads/` folder for local development. |
+| POST | `/api/uploads` | Admin only. `multipart/form-data`, field name `file`. Images only (jpg/png/webp/gif/svg), size limit from `UPLOAD_MAX_FILE_SIZE_MB`. Stores to **Cloudinary** if `CLOUDINARY_CLOUD_NAME`/`CLOUDINARY_API_KEY`/`CLOUDINARY_API_SECRET` are all set, else to **Vercel Blob** if `BLOB_READ_WRITE_TOKEN` is set, otherwise falls back to writing into the local `uploads/` folder for local development. |
 
 ### Auth
 | Method | Route | Notes |
@@ -170,7 +170,7 @@ Full step-by-step instructions live in the root `README.md`'s "Deploying to Verc
 
 - Deploy this `server/` folder as its own Vercel project (**Root Directory** = `server`) — `vercel.json` and `api/index.js` here handle the serverless adaptation.
 - Set `MONGODB_URI` and `CLIENT_URL` as environment variables.
-- **Enable Vercel Blob** (project → Storage tab → Create → Blob) — **required**, not optional, if you want any file upload to work at all (profile pictures, admin content uploads). Vercel sets `BLOB_READ_WRITE_TOKEN` automatically once enabled. Without it, `services/storageService.js` fails fast with a clear "File uploads are not configured on this deployment yet" error rather than silently attempting to write to Vercel's read-only production filesystem — but the fix either way is the same: enable Blob storage here.
+- **Set up file storage** — **required**, not optional, if you want any file upload to work at all (profile pictures, admin content uploads). Recommended: **Cloudinary** — create a free account at cloudinary.com, then copy your Cloud Name, API Key, and API Secret from the dashboard into `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET`. All three must be set. Alternative: enable **Vercel Blob** (project → Storage tab → Create → Blob) instead, which sets `BLOB_READ_WRITE_TOKEN`/`BLOB_STORE_ID` automatically — only used if the Cloudinary vars above aren't set. Without either configured, `services/storageService.js` fails fast with a clear "File uploads are not configured on this deployment yet" error rather than silently attempting to write to Vercel's read-only production filesystem.
 - Run `npm run seed` locally (pointed at your production `MONGODB_URI`) — it's a one-off script, not something that runs inside a serverless function.
 
 ## Authentication (Phase 5)
