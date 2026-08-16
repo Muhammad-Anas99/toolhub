@@ -11,7 +11,8 @@ function nowUnix() {
 export default function TimestampConverterTool({ toolSlug, toolName, category }) {
   const [unixInput, setUnixInput] = useState(String(nowUnix()))
   const [dateInput, setDateInput] = useState('')
-  const { logDebounced } = useHistoryLogger({ toolSlug, toolName, category })
+  const { logDebounced: logUnixToDate } = useHistoryLogger({ toolSlug, toolName, category })
+  const { logDebounced: logDateToUnix } = useHistoryLogger({ toolSlug, toolName, category })
 
   const date = unixInput.trim() !== '' ? unixToDate(unixInput) : null
   const display = date ? formatDateForDisplay(date) : null
@@ -19,12 +20,12 @@ export default function TimestampConverterTool({ toolSlug, toolName, category })
   const unixFromDate = dateInput.trim() !== '' ? dateToUnix(dateInput) : null
 
   useEffect(() => {
-    if (display) logDebounced('Timestamp converted to date', unixInput)
+    if (display) logUnixToDate('Timestamp converted to date', unixInput)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [display])
 
   useEffect(() => {
-    if (unixFromDate !== null) logDebounced('Date converted to timestamp', dateInput)
+    if (unixFromDate !== null) logDateToUnix('Date converted to timestamp', dateInput)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unixFromDate])
 
