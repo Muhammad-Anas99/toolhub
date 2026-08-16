@@ -35,6 +35,7 @@ import { useBlogPosts } from '../hooks/useBlogPosts.js'
 import { testimonials } from '../data/testimonials.js'
 import { faqs } from '../data/faq.js'
 import AbstractIllustration from '../components/ui/AbstractIllustration.jsx'
+import homepageHeroImage from '../assets/homepage-hero.png'
 import { api } from '../lib/api.js'
 import { getCategoryBySlug } from '../data/categories.js'
 
@@ -445,7 +446,14 @@ export default function Home() {
               className="relative hidden lg:block"
             >
               <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-brand-100/60 to-fuchsia-100/40 blur-3xl dark:from-brand-950/40 dark:to-fuchsia-950/20" />
-              <AbstractIllustration variant="stack" className="mx-auto w-full max-w-md text-slate-900 dark:text-white" />
+              <img
+                src={homepageHeroImage}
+                alt="ToolHub's image, PDF, color and developer tools shown as a stack of cards"
+                className="mx-auto w-full max-w-lg"
+                width="1500"
+                height="1000"
+                loading="lazy"
+              />
             </motion.div>
           </div>
         </Container>
