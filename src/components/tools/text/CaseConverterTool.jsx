@@ -1,9 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { CASE_OPTIONS } from '../../../lib/textToolsUtils.js'
 import CopyButton from '../CopyButton.jsx'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
-export default function CaseConverterTool() {
+export default function CaseConverterTool({ toolSlug, toolName, category }) {
   const [text, setText] = useState('')
+  const { logDebounced } = useHistoryLogger({ toolSlug, toolName, category })
+
+  useEffect(() => {
+    if (text.trim() !== '') logDebounced('Text case converted', text)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text])
 
   return (
     <div className="space-y-5">
@@ -41,4 +49,10 @@ export default function CaseConverterTool() {
       )}
     </div>
   )
+}
+
+CaseConverterTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

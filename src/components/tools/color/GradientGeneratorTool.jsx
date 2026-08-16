@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { HiOutlinePlus, HiOutlineTrash } from 'react-icons/hi2'
 import CopyButton from '../CopyButton.jsx'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
 const DIRECTIONS = [
   { value: 'to right', label: '\u2192 Right' },
@@ -13,13 +15,14 @@ const DIRECTIONS = [
 
 let nextStopId = 3
 
-export default function GradientGeneratorTool() {
+export default function GradientGeneratorTool({ toolSlug, toolName, category }) {
   const [type, setType] = useState('linear') // linear | radial
   const [direction, setDirection] = useState('to right')
   const [stops, setStops] = useState([
     { id: 1, color: '#3b6cf6', position: 0 },
     { id: 2, color: '#8b5cf6', position: 100 },
   ])
+  const { logDebounced } = useHistoryLogger({ toolSlug, toolName, category })
 
   const stopsCss = [...stops]
     .sort((a, b) => a.position - b.position)
@@ -28,6 +31,16 @@ export default function GradientGeneratorTool() {
 
   const gradientCss =
     type === 'linear' ? `linear-gradient(${direction}, ${stopsCss})` : `radial-gradient(circle, ${stopsCss})`
+
+  // Watches the final computed CSS rather than each individual control
+  // (type, direction, per-stop color/position, add/remove stop) — any
+  // change to any of those ends up changing this one string, so this
+  // covers every mutation path with a single debounced log call instead
+  // of wiring logging into half a dozen separate handlers.
+  useEffect(() => {
+    logDebounced('Gradient generated', gradientCss)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gradientCss])
 
   function updateStop(id, changes) {
     setStops((prev) => prev.map((stop) => (stop.id === id ? { ...stop, ...changes } : stop)))
@@ -141,4 +154,10 @@ export default function GradientGeneratorTool() {
       </div>
     </div>
   )
+}
+
+GradientGeneratorTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { encodeUrl, decodeUrl } from '../../../lib/devToolsUtils.js'
 import CopyButton from '../CopyButton.jsx'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
-export default function UrlEncoderTool() {
+export default function UrlEncoderTool({ toolSlug, toolName, category }) {
   const [mode, setMode] = useState('encode')
   const [input, setInput] = useState('')
+  const { logDebounced } = useHistoryLogger({ toolSlug, toolName, category })
 
   let output = ''
   let error = null
@@ -15,6 +18,13 @@ export default function UrlEncoderTool() {
       error = 'That doesn\u2019t look like validly encoded text.'
     }
   }
+
+  useEffect(() => {
+    if (output && !error) {
+      logDebounced(mode === 'encode' ? 'URL encoded' : 'URL decoded', output)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [output, error])
 
   function handleModeChange(nextMode) {
     setMode(nextMode)
@@ -74,4 +84,10 @@ export default function UrlEncoderTool() {
       )}
     </div>
   )
+}
+
+UrlEncoderTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

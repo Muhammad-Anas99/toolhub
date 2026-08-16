@@ -9,7 +9,7 @@ const tool = getToolBySlug('color-picker')
 export default function ColorPicker() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <ColorPickerTool />
+      <ColorPickerTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

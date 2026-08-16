@@ -1,19 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { unixToDate, dateToUnix, formatDateForDisplay } from '../../../lib/devToolsUtils.js'
 import CopyButton from '../CopyButton.jsx'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
+import PropTypes from 'prop-types'
 
 function nowUnix() {
   return Math.floor(Date.now() / 1000)
 }
 
-export default function TimestampConverterTool() {
+export default function TimestampConverterTool({ toolSlug, toolName, category }) {
   const [unixInput, setUnixInput] = useState(String(nowUnix()))
   const [dateInput, setDateInput] = useState('')
+  const { logDebounced } = useHistoryLogger({ toolSlug, toolName, category })
 
   const date = unixInput.trim() !== '' ? unixToDate(unixInput) : null
   const display = date ? formatDateForDisplay(date) : null
 
   const unixFromDate = dateInput.trim() !== '' ? dateToUnix(dateInput) : null
+
+  useEffect(() => {
+    if (display) logDebounced('Timestamp converted to date', unixInput)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [display])
+
+  useEffect(() => {
+    if (unixFromDate !== null) logDebounced('Date converted to timestamp', dateInput)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [unixFromDate])
 
   return (
     <div className="space-y-6">
@@ -83,4 +96,10 @@ export default function TimestampConverterTool() {
       </div>
     </div>
   )
+}
+
+TimestampConverterTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

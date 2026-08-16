@@ -9,7 +9,7 @@ const tool = getToolBySlug('youtube-thumbnail-downloader')
 export default function YoutubeThumbnailDownloader() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <YoutubeThumbnailTool />
+      <YoutubeThumbnailTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

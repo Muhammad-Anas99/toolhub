@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { HiOutlineArrowPath } from 'react-icons/hi2'
 import { generatePassword, calculatePasswordStrength, getCharsetSize } from '../../../lib/passwordUtils.js'
 import CopyButton from '../CopyButton.jsx'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
 const OPTIONS = [
   { id: 'uppercase', label: 'Uppercase (A-Z)' },
@@ -10,10 +12,11 @@ const OPTIONS = [
   { id: 'symbols', label: 'Symbols (!@#$...)' },
 ]
 
-export default function PasswordGeneratorTool() {
+export default function PasswordGeneratorTool({ toolSlug, toolName, category }) {
   const [length, setLength] = useState(16)
   const [charsets, setCharsets] = useState({ uppercase: true, lowercase: true, numbers: true, symbols: true })
   const [password, setPassword] = useState(() => generatePassword({ length: 16, ...charsets }))
+  const { logNow } = useHistoryLogger({ toolSlug, toolName, category })
 
   const atLeastOneCharset = Object.values(charsets).some(Boolean)
   const strength = calculatePasswordStrength(length, getCharsetSize(charsets))
@@ -21,6 +24,7 @@ export default function PasswordGeneratorTool() {
   function handleGenerate() {
     if (!atLeastOneCharset) return
     setPassword(generatePassword({ length, ...charsets }))
+    logNow('Password generated')
   }
 
   function toggleCharset(id) {
@@ -109,4 +113,10 @@ export default function PasswordGeneratorTool() {
       </div>
     </div>
   )
+}
+
+PasswordGeneratorTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

@@ -9,7 +9,7 @@ const tool = getToolBySlug('regex-tester')
 export default function RegexTester() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <RegexTesterTool />
+      <RegexTesterTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

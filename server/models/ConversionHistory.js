@@ -29,6 +29,17 @@ const conversionHistorySchema = new mongoose.Schema(
       lowercase: true,
       index: true,
     },
+    // Short, human-readable label for what actually happened — "Password
+    // generated", "Color selected", "JSON formatted", "Image converted".
+    // Optional and defaults to '' so existing entries (and any future
+    // caller that doesn't set one) remain perfectly valid; the History UI
+    // just falls back to the tool name alone when it's blank.
+    action: {
+      type: String,
+      trim: true,
+      maxlength: 120,
+      default: '',
+    },
     // Metadata only — the actual file never touches the server (every
     // tool processes images entirely in the browser via the Canvas API),
     // so there is nothing here that identifies file content, just that a

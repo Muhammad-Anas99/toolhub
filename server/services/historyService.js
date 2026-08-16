@@ -3,12 +3,13 @@ import { ApiError } from '../utils/ApiError.js'
 
 const MAX_PAGE_SIZE = 100
 
-export async function logConversion({ userId, toolSlug, toolName, category, originalFileName, country, device }) {
+export async function logConversion({ userId, toolSlug, toolName, category, action, originalFileName, country, device }) {
   return ConversionHistory.create({
     user: userId || null,
     toolSlug: toolSlug.toLowerCase(),
     toolName,
     category,
+    action: action || '',
     originalFileName: originalFileName || '',
     country,
     device,

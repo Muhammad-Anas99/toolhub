@@ -11,7 +11,7 @@ import { getCountry, getDeviceType } from '../utils/requestMeta.js'
  * user-visible history entry.
  */
 export const logConversion = asyncHandler(async (req, res) => {
-  const { toolSlug, toolName, category, originalFileName } = req.body
+  const { toolSlug, toolName, category, action, originalFileName } = req.body
   if (!toolSlug || !toolName) {
     throw ApiError.badRequest('toolSlug and toolName are required')
   }
@@ -21,6 +21,7 @@ export const logConversion = asyncHandler(async (req, res) => {
     toolSlug,
     toolName,
     category,
+    action,
     originalFileName,
     country: getCountry(req),
     device: getDeviceType(req),

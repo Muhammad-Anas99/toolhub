@@ -9,7 +9,7 @@ const tool = getToolBySlug('uuid-generator')
 export default function UuidGenerator() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <UuidGeneratorTool />
+      <UuidGeneratorTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

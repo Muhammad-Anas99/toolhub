@@ -9,7 +9,7 @@ const tool = getToolBySlug('json-validator')
 export default function JsonValidator() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <JsonValidatorTool />
+      <JsonValidatorTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

@@ -9,7 +9,7 @@ const tool = getToolBySlug('password-generator')
 export default function PasswordGenerator() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <PasswordGeneratorTool />
+      <PasswordGeneratorTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

@@ -4,6 +4,7 @@ import {
   HiOutlineSquares2X2,
   HiOutlineUsers,
   HiOutlineWrenchScrewdriver,
+  HiOutlineNewspaper,
   HiOutlineArrowTopRightOnSquare,
 } from 'react-icons/hi2'
 import Container from '../ui/Container.jsx'
@@ -13,6 +14,7 @@ const NAV_ITEMS = [
   { label: 'Overview', to: '/admin', icon: HiOutlineSquares2X2, end: true },
   { label: 'Users', to: '/admin/users', icon: HiOutlineUsers },
   { label: 'Tools', to: '/admin/tools', icon: HiOutlineWrenchScrewdriver },
+  { label: 'Blog', to: '/admin/blog', icon: HiOutlineNewspaper },
 ]
 
 /**

@@ -9,7 +9,7 @@ const tool = getToolBySlug('lorem-ipsum-generator')
 export default function LoremIpsumGenerator() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <LoremIpsumTool />
+      <LoremIpsumTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

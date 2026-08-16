@@ -13,7 +13,12 @@ const ACCEPTED_TYPES = ['application/pdf']
 
 export default function PdfToWordTool({ toolSlug, toolName, category }) {
   const upload = usePdfUpload({ maxSizeMB: 25, multiple: false })
-  const { status, result, run, clearResult, download } = useToolResult({ toolSlug, toolName, category })
+  const { status, result, run, clearResult, download } = useToolResult({
+    toolSlug,
+    toolName,
+    category,
+    action: 'Text extracted from PDF to Word',
+  })
 
   function handleConvert() {
     run(

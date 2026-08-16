@@ -9,7 +9,7 @@ const tool = getToolBySlug('url-encoder')
 export default function UrlEncoder() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <UrlEncoderTool />
+      <UrlEncoderTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

@@ -1,11 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { HiOutlineCheckCircle, HiOutlineXCircle } from 'react-icons/hi2'
 import { validateJson } from '../../../lib/devToolsUtils.js'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
-export default function JsonValidatorTool() {
+export default function JsonValidatorTool({ toolSlug, toolName, category }) {
   const [input, setInput] = useState('')
+  const { logDebounced } = useHistoryLogger({ toolSlug, toolName, category })
 
   const result = input.trim() === '' ? null : validateJson(input)
+
+  useEffect(() => {
+    if (result) {
+      logDebounced(result.valid ? 'JSON validated (valid)' : 'JSON validated (invalid)', input)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result?.valid, input])
 
   return (
     <div className="space-y-4">
@@ -50,4 +60,10 @@ export default function JsonValidatorTool() {
       )}
     </div>
   )
+}
+
+JsonValidatorTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

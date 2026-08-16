@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { generateHash, HASH_ALGORITHMS } from '../../../lib/devToolsUtils.js'
 import CopyButton from '../CopyButton.jsx'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
-export default function HashGeneratorTool() {
+export default function HashGeneratorTool({ toolSlug, toolName, category }) {
   const [input, setInput] = useState('')
   const [hashes, setHashes] = useState({})
+  const { logDebounced } = useHistoryLogger({ toolSlug, toolName, category })
 
   useEffect(() => {
     if (input === '') {
@@ -22,6 +25,13 @@ export default function HashGeneratorTool() {
       cancelled = true
     }
   }, [input])
+
+  useEffect(() => {
+    if (Object.keys(hashes).length > 0) {
+      logDebounced('Hashes generated', input)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hashes])
 
   return (
     <div className="space-y-4">
@@ -59,4 +69,10 @@ export default function HashGeneratorTool() {
       )}
     </div>
   )
+}
+
+HashGeneratorTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

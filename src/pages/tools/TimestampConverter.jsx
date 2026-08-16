@@ -9,7 +9,7 @@ const tool = getToolBySlug('timestamp-converter')
 export default function TimestampConverter() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <TimestampConverterTool />
+      <TimestampConverterTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

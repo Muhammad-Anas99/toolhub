@@ -21,7 +21,12 @@ const STAGE_MAX_HEIGHT = 420
 
 export default function ImageCrop() {
   const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 25 })
-  const { status, result, run, clearResult, setStatus, download } = useToolResult({ toolSlug: tool.slug, toolName: tool.name, category: tool.category })
+  const { status, result, run, clearResult, setStatus, download } = useToolResult({
+    toolSlug: tool.slug,
+    toolName: tool.name,
+    category: tool.category,
+    action: 'Image cropped',
+  })
 
   // The "working" image is the current source for cropping — starts as the
   // uploaded file and is replaced whenever the user rotates before cropping.

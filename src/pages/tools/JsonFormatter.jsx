@@ -9,7 +9,7 @@ const tool = getToolBySlug('json-formatter')
 export default function JsonFormatter() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <JsonFormatterTool />
+      <JsonFormatterTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

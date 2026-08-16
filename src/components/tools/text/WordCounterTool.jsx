@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { analyzeText, formatReadingTime } from '../../../lib/textToolsUtils.js'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
-export default function WordCounterTool() {
+export default function WordCounterTool({ toolSlug, toolName, category }) {
   const [text, setText] = useState('')
   const stats = analyzeText(text)
+  const { logDebounced } = useHistoryLogger({ toolSlug, toolName, category })
 
   const statItems = [
     { label: 'Words', value: stats.words },
@@ -12,6 +15,11 @@ export default function WordCounterTool() {
     { label: 'Sentences', value: stats.sentences },
     { label: 'Paragraphs', value: stats.paragraphs },
   ]
+
+  useEffect(() => {
+    if (stats.words > 0) logDebounced('Text analyzed', text)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text])
 
   return (
     <div className="space-y-5">
@@ -45,4 +53,10 @@ export default function WordCounterTool() {
       )}
     </div>
   )
+}
+
+WordCounterTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

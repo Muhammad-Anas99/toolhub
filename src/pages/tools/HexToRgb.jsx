@@ -9,7 +9,7 @@ const tool = getToolBySlug('hex-to-rgb')
 export default function HexToRgb() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <ColorConverterTool />
+      <ColorConverterTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

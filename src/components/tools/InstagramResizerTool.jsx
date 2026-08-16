@@ -20,7 +20,12 @@ const PRESETS = [
 
 export default function InstagramResizerTool({ toolSlug, toolName, category }) {
   const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 25 })
-  const { status, result, run, clearResult, download } = useToolResult({ toolSlug, toolName, category })
+  const { status, result, run, clearResult, download } = useToolResult({
+    toolSlug,
+    toolName,
+    category,
+    action: 'Image resized for Instagram',
+  })
   const [presetId, setPresetId] = useState('square')
   const [mode, setMode] = useState('cover') // cover | contain
 

@@ -13,7 +13,12 @@ const ACCEPTED_TYPES = ['application/pdf']
 
 export default function SplitPdfTool({ toolSlug, toolName, category }) {
   const upload = usePdfUpload({ maxSizeMB: 25, multiple: false })
-  const { status, result, run, clearResult, download } = useToolResult({ toolSlug, toolName, category })
+  const { status, result, run, clearResult, download } = useToolResult({
+    toolSlug,
+    toolName,
+    category,
+    action: 'PDF split',
+  })
   const [pageCount, setPageCount] = useState(null)
   const [rangeInput, setRangeInput] = useState('')
   const [rangeError, setRangeError] = useState(null)

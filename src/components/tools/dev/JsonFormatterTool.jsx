@@ -1,16 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { HiOutlineArrowDownTray } from 'react-icons/hi2'
 import { formatJson, minifyJson } from '../../../lib/devToolsUtils.js'
 import { downloadBlob } from '../../../lib/downloadBlob.js'
 import CopyButton from '../CopyButton.jsx'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
 const SAMPLE = '{\n  "name": "ToolHub",\n  "free": true,\n  "tools": ["image", "pdf", "color", "dev"]\n}'
 
-export default function JsonFormatterTool() {
+export default function JsonFormatterTool({ toolSlug, toolName, category }) {
   const [input, setInput] = useState('')
   const [mode, setMode] = useState('format') // format | minify
+  const { logDebounced } = useHistoryLogger({ toolSlug, toolName, category })
 
   const result = input.trim() === '' ? null : mode === 'format' ? formatJson(input) : minifyJson(input)
+
+  useEffect(() => {
+    if (result?.valid) {
+      logDebounced(mode === 'format' ? 'JSON formatted' : 'JSON minified', result.formatted)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result?.formatted])
 
   function handleDownload() {
     if (!result?.valid) return
@@ -91,4 +101,10 @@ export default function JsonFormatterTool() {
       )}
     </div>
   )
+}
+
+JsonFormatterTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

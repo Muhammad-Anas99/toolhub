@@ -1,4 +1,6 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
+import PropTypes from 'prop-types'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
 const FLAG_OPTIONS = [
   { id: 'g', label: 'Global (g)' },
@@ -7,10 +9,11 @@ const FLAG_OPTIONS = [
   { id: 's', label: 'Dot matches newline (s)' },
 ]
 
-export default function RegexTesterTool() {
+export default function RegexTesterTool({ toolSlug, toolName, category }) {
   const [pattern, setPattern] = useState('')
   const [flags, setFlags] = useState(['g'])
   const [testString, setTestString] = useState('')
+  const { logDebounced } = useHistoryLogger({ toolSlug, toolName, category })
 
   function toggleFlag(flag) {
     setFlags((prev) => (prev.includes(flag) ? prev.filter((f) => f !== flag) : [...prev, flag]))
@@ -50,6 +53,13 @@ export default function RegexTesterTool() {
     if (lastIndex < testString.length) parts.push({ text: testString.slice(lastIndex), isMatch: false })
     return parts
   }, [regex, testString, matches])
+
+  useEffect(() => {
+    if (pattern !== '' && !error) {
+      logDebounced('Regex pattern tested', `${pattern}::${flags.join('')}::${testString}`)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pattern, error, flags, testString])
 
   return (
     <div className="space-y-5">
@@ -130,4 +140,10 @@ export default function RegexTesterTool() {
       )}
     </div>
   )
+}
+
+RegexTesterTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

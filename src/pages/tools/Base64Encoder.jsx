@@ -9,7 +9,7 @@ const tool = getToolBySlug('base64-encoder')
 export default function Base64Encoder() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <Base64Tool />
+      <Base64Tool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

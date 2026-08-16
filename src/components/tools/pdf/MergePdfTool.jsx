@@ -13,7 +13,12 @@ const ACCEPTED_TYPES = ['application/pdf']
 
 export default function MergePdfTool({ toolSlug, toolName, category }) {
   const upload = usePdfUpload({ maxSizeMB: 25, multiple: true })
-  const { status, result, run, clearResult, download } = useToolResult({ toolSlug, toolName, category })
+  const { status, result, run, clearResult, download } = useToolResult({
+    toolSlug,
+    toolName,
+    category,
+    action: 'PDFs merged',
+  })
 
   function handleMerge() {
     if (upload.files.length < 2) {

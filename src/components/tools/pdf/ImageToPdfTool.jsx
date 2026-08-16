@@ -16,7 +16,12 @@ import { buildOutputFilename } from '../../../lib/downloadBlob.js'
  */
 export default function ImageToPdfTool({ acceptedTypes, toolSlug, toolName, category }) {
   const upload = useImageUpload({ acceptedTypes, maxSizeMB: 25 })
-  const { status, result, run, clearResult, download } = useToolResult({ toolSlug, toolName, category })
+  const { status, result, run, clearResult, download } = useToolResult({
+    toolSlug,
+    toolName,
+    category,
+    action: 'Image converted to PDF',
+  })
 
   function handleConvert() {
     run(

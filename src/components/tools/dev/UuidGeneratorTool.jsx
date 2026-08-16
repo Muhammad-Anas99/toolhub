@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { HiOutlineArrowPath } from 'react-icons/hi2'
 import { generateUuid } from '../../../lib/devToolsUtils.js'
 import CopyButton from '../CopyButton.jsx'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
 const QUANTITIES = [1, 5, 10, 25, 50]
 
-export default function UuidGeneratorTool() {
+export default function UuidGeneratorTool({ toolSlug, toolName, category }) {
   const [quantity, setQuantity] = useState(5)
   const [uuids, setUuids] = useState(() => Array.from({ length: 5 }, generateUuid))
+  const { logNow } = useHistoryLogger({ toolSlug, toolName, category })
 
   function handleGenerate() {
     setUuids(Array.from({ length: quantity }, generateUuid))
+    logNow(quantity > 1 ? `${quantity} UUIDs generated` : 'UUID generated')
   }
 
   return (
@@ -52,4 +56,10 @@ export default function UuidGeneratorTool() {
       </div>
     </div>
   )
+}
+
+UuidGeneratorTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

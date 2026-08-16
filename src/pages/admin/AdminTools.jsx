@@ -31,7 +31,7 @@ export default function AdminTools() {
       <div className="mb-5">
         <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Tools</h2>
         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-          Read-only for now \u2014 tool routes are defined at build time (src/data/tools.js), so a
+          Read-only for now — tool routes are defined at build time (src/data/tools.js), so a
           live enable/disable toggle here couldn&apos;t actually affect the site without being
           misleading. Usage counts below only reflect each tool&apos;s top-5 ranking from the
           Overview page; smaller counts aren&apos;t tracked per-tool here yet.

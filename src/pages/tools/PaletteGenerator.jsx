@@ -9,7 +9,7 @@ const tool = getToolBySlug('palette-generator')
 export default function PaletteGenerator() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <PaletteGeneratorTool />
+      <PaletteGeneratorTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

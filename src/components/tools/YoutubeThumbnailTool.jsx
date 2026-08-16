@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { HiOutlineArrowDownTray, HiOutlineArrowTopRightOnSquare } from 'react-icons/hi2'
 import ErrorMessage from './ErrorMessage.jsx'
 import { extractYoutubeVideoId, getThumbnailUrl, THUMBNAIL_QUALITIES } from '../../lib/youtubeUtils.js'
 import { downloadBlob } from '../../lib/downloadBlob.js'
+import { useHistoryLogger } from '../../hooks/useHistoryLogger.js'
 
 // YouTube returns a small gray placeholder image (120x90) at maxresdefault
 // when a video has no thumbnail at that resolution, rather than a 404 —
@@ -10,13 +12,14 @@ import { downloadBlob } from '../../lib/downloadBlob.js'
 // this small is almost certainly that placeholder, not real content.
 const PLACEHOLDER_MAX_DIMENSION = 121
 
-export default function YoutubeThumbnailTool() {
+export default function YoutubeThumbnailTool({ toolSlug, toolName, category }) {
   const [input, setInput] = useState('')
   const [videoId, setVideoId] = useState(null)
   const [error, setError] = useState(null)
   const [availability, setAvailability] = useState({}) // { [qualityId]: 'checking' | 'available' | 'unavailable' }
   const [downloadingId, setDownloadingId] = useState(null)
   const [downloadError, setDownloadError] = useState(null)
+  const { logNow } = useHistoryLogger({ toolSlug, toolName, category })
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -51,6 +54,7 @@ export default function YoutubeThumbnailTool() {
       if (!response.ok) throw new Error('Could not retrieve this thumbnail.')
       const blob = await response.blob()
       downloadBlob(blob, `${videoId}-${qualityId}.jpg`)
+      logNow('Thumbnail downloaded')
     } catch {
       // Cross-origin fetch can fail even when the image itself loads fine
       // in an <img> tag (different browser rules) — fall back to opening
@@ -132,4 +136,10 @@ export default function YoutubeThumbnailTool() {
       )}
     </div>
   )
+}
+
+YoutubeThumbnailTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

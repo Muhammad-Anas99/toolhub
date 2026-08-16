@@ -20,7 +20,12 @@ const ACCEPTED_TYPES = ['application/pdf']
  */
 export default function PdfToImageTool({ outputMimeType, outputExtension, toolSlug, toolName, category }) {
   const upload = usePdfUpload({ maxSizeMB: 25, multiple: false })
-  const { status, result, run, clearResult, download } = useToolResult({ toolSlug, toolName, category })
+  const { status, result, run, clearResult, download } = useToolResult({
+    toolSlug,
+    toolName,
+    category,
+    action: `PDF page converted to ${outputExtension.toUpperCase()}`,
+  })
   const [pageCount, setPageCount] = useState(null)
   const [pageNumber, setPageNumber] = useState(1)
 

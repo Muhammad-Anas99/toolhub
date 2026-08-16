@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react'
+import PropTypes from 'prop-types'
 import { HiOutlineTrash } from 'react-icons/hi2'
 import DropZone from '../DropZone.jsx'
 import CopyButton from '../CopyButton.jsx'
 import { useImageUpload } from '../../../hooks/useImageUpload.js'
 import { rgbToHex, rgbToHsl, formatRgb, formatHsl } from '../../../lib/colorUtils.js'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
 const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
 
@@ -13,12 +15,13 @@ const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
  * an approximation), or use the standalone picker below when there's no
  * image involved at all.
  */
-export default function ColorPickerTool() {
+export default function ColorPickerTool({ toolSlug, toolName, category }) {
   const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 25 })
   const canvasRef = useRef(null)
   const imgRef = useRef(null)
   const [pickedColor, setPickedColor] = useState(null)
   const [standaloneColor, setStandaloneColor] = useState('#3b6cf6')
+  const { logNow } = useHistoryLogger({ toolSlug, toolName, category })
 
   function handleImageClick(event) {
     const canvas = canvasRef.current
@@ -34,6 +37,7 @@ export default function ColorPickerTool() {
     const ctx = canvas.getContext('2d')
     const [r, g, b] = ctx.getImageData(x, y, 1, 1).data
     setPickedColor({ r, g, b })
+    logNow('Color selected from image')
   }
 
   function handleImageLoad() {
@@ -120,6 +124,7 @@ export default function ColorPickerTool() {
             onChange={(event) => {
               setStandaloneColor(event.target.value)
               setPickedColor(null)
+              logNow('Color selected')
             }}
             className="h-11 w-14 flex-shrink-0 cursor-pointer rounded-lg border border-slate-200 dark:border-slate-700"
             aria-label="Pick a color without an image"
@@ -148,4 +153,10 @@ export default function ColorPickerTool() {
       </div>
     </div>
   )
+}
+
+ColorPickerTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

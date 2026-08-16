@@ -1,15 +1,28 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { generatePalette, isValidHex, normalizeHex, PALETTE_SCHEMES } from '../../../lib/colorUtils.js'
 import CopyButton from '../CopyButton.jsx'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
 const DEFAULT_COLOR = '#3b6cf6'
 
-export default function PaletteGeneratorTool() {
+export default function PaletteGeneratorTool({ toolSlug, toolName, category }) {
   const [baseColor, setBaseColor] = useState(DEFAULT_COLOR)
   const [scheme, setScheme] = useState('analogous')
+  const { logDebounced } = useHistoryLogger({ toolSlug, toolName, category })
 
   const effectiveColor = isValidHex(baseColor) ? normalizeHex(baseColor) : DEFAULT_COLOR
   const palette = generatePalette(effectiveColor, scheme)
+
+  function handleColorChange(value) {
+    setBaseColor(value)
+    logDebounced('Palette generated', `${value}-${scheme}`)
+  }
+
+  function handleSchemeChange(value) {
+    setScheme(value)
+    logDebounced('Palette generated', `${baseColor}-${value}`)
+  }
 
   return (
     <div className="space-y-6">
@@ -18,14 +31,14 @@ export default function PaletteGeneratorTool() {
           <input
             type="color"
             value={effectiveColor}
-            onChange={(event) => setBaseColor(event.target.value)}
+            onChange={(event) => handleColorChange(event.target.value)}
             className="h-11 w-14 flex-shrink-0 cursor-pointer rounded-lg border border-slate-200 dark:border-slate-700"
             aria-label="Base color"
           />
           <input
             type="text"
             value={baseColor}
-            onChange={(event) => setBaseColor(event.target.value)}
+            onChange={(event) => handleColorChange(event.target.value)}
             placeholder="#3b6cf6"
             className="w-32 rounded-lg border border-slate-200 bg-white px-3 py-2.5 font-mono text-sm text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
           />
@@ -36,7 +49,7 @@ export default function PaletteGeneratorTool() {
             <button
               key={option.id}
               type="button"
-              onClick={() => setScheme(option.id)}
+              onClick={() => handleSchemeChange(option.id)}
               className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
                 scheme === option.id
                   ? 'bg-brand-600 text-white'
@@ -62,4 +75,10 @@ export default function PaletteGeneratorTool() {
       </div>
     </div>
   )
+}
+
+PaletteGeneratorTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

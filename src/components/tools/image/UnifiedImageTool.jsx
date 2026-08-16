@@ -138,7 +138,17 @@ export default function UnifiedImageTool({
     setStatus('done')
 
     if (nextResults.length > 0) {
-      api.logConversion({ toolSlug, toolName, category }).catch(() => {})
+      const appliedOperations = []
+      if (formatId !== 'original') appliedOperations.push(`converted to ${format.label}`)
+      if (resizeEnabled && (scalePercent !== 100 || (pixelWidth && pixelHeight))) appliedOperations.push('resized')
+      if (rotateDegrees !== 0) appliedOperations.push(`rotated ${rotateDegrees}\u00b0`)
+      if (flipHorizontal || flipVertical) appliedOperations.push('flipped')
+      const action =
+        appliedOperations.length > 0
+          ? `Image${nextResults.length > 1 ? 's' : ''} ${appliedOperations.join(', ')}`
+          : `Image${nextResults.length > 1 ? 's' : ''} processed`
+
+      api.logConversion({ toolSlug, toolName, category, action }).catch(() => {})
     }
   }
 

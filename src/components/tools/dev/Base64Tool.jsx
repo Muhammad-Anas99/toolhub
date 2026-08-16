@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { encodeBase64, decodeBase64 } from '../../../lib/devToolsUtils.js'
 import CopyButton from '../CopyButton.jsx'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
-export default function Base64Tool() {
+export default function Base64Tool({ toolSlug, toolName, category }) {
   const [mode, setMode] = useState('encode')
   const [input, setInput] = useState('')
+  const { logDebounced } = useHistoryLogger({ toolSlug, toolName, category })
 
   let output = ''
   let error = null
@@ -15,6 +18,13 @@ export default function Base64Tool() {
       error = mode === 'encode' ? 'Could not encode this text.' : 'That doesn\u2019t look like valid Base64.'
     }
   }
+
+  useEffect(() => {
+    if (output && !error) {
+      logDebounced(mode === 'encode' ? 'Text encoded to Base64' : 'Base64 decoded', output)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [output, error])
 
   function handleModeChange(nextMode) {
     setMode(nextMode)
@@ -74,4 +84,10 @@ export default function Base64Tool() {
       )}
     </div>
   )
+}
+
+Base64Tool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

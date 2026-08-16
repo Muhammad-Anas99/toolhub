@@ -9,7 +9,7 @@ const tool = getToolBySlug('hash-generator')
 export default function HashGenerator() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <HashGeneratorTool />
+      <HashGeneratorTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

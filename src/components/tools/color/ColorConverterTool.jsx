@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { hexToRgb, rgbToHex, rgbToHsl, hslToRgb, formatRgb, formatHsl, parseColorInput } from '../../../lib/colorUtils.js'
 import CopyButton from '../CopyButton.jsx'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
 const DEFAULT_COLOR = '#3b6cf6'
 
@@ -12,9 +14,10 @@ const DEFAULT_COLOR = '#3b6cf6'
  * reused across four routes with different names/descriptions, the same
  * pattern already used for image format conversion.
  */
-export default function ColorConverterTool() {
+export default function ColorConverterTool({ toolSlug, toolName, category }) {
   const [inputValue, setInputValue] = useState(DEFAULT_COLOR)
   const [error, setError] = useState(null)
+  const { logDebounced } = useHistoryLogger({ toolSlug, toolName, category })
 
   const rgb = parseColorInput(inputValue) || hexToRgb(DEFAULT_COLOR)
   const hex = rgbToHex(rgb.r, rgb.g, rgb.b)
@@ -26,12 +29,15 @@ export default function ColorConverterTool() {
       setError(null)
       return
     }
-    setError(parseColorInput(value) ? null : 'Enter a color as hex (#3b6cf6), rgb(59, 108, 246), or hsl(225, 90%, 60%).')
+    const isValid = Boolean(parseColorInput(value))
+    setError(isValid ? null : 'Enter a color as hex (#3b6cf6), rgb(59, 108, 246), or hsl(225, 90%, 60%).')
+    if (isValid) logDebounced('Color converted', value)
   }
 
   function handlePickerChange(value) {
     setInputValue(value)
     setError(null)
+    logDebounced('Color converted', value)
   }
 
   const formats = [
@@ -84,4 +90,10 @@ export default function ColorConverterTool() {
       </div>
     </div>
   )
+}
+
+ColorConverterTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

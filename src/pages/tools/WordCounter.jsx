@@ -9,7 +9,7 @@ const tool = getToolBySlug('word-counter')
 export default function WordCounter() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <WordCounterTool />
+      <WordCounterTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

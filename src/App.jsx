@@ -73,6 +73,8 @@ const Dashboard = lazy(() => import('./pages/dashboard/Dashboard.jsx'))
 const AdminOverview = lazy(() => import('./pages/admin/AdminOverview.jsx'))
 const AdminUsers = lazy(() => import('./pages/admin/AdminUsers.jsx'))
 const AdminTools = lazy(() => import('./pages/admin/AdminTools.jsx'))
+const AdminBlogList = lazy(() => import('./pages/admin/AdminBlogList.jsx'))
+const AdminBlogEditor = lazy(() => import('./pages/admin/AdminBlogEditor.jsx'))
 const Profile = lazy(() => import('./pages/dashboard/Profile.jsx'))
 const Favorites = lazy(() => import('./pages/dashboard/Favorites.jsx'))
 const History = lazy(() => import('./pages/dashboard/History.jsx'))
@@ -166,6 +168,9 @@ export default function App() {
               <Route index element={<AdminOverview />} />
               <Route path="users" element={<AdminUsers />} />
               <Route path="tools" element={<AdminTools />} />
+              <Route path="blog" element={<AdminBlogList />} />
+              <Route path="blog/new" element={<AdminBlogEditor />} />
+              <Route path="blog/:slug/edit" element={<AdminBlogEditor />} />
             </Route>
           </Route>
 

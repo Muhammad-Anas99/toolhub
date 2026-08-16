@@ -9,7 +9,7 @@ const tool = getToolBySlug('case-converter')
 export default function CaseConverter() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <CaseConverterTool />
+      <CaseConverterTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

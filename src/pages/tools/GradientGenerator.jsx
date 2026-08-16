@@ -9,7 +9,7 @@ const tool = getToolBySlug('gradient-generator')
 export default function GradientGenerator() {
   return (
     <ToolLayout tool={tool} faqItems={toolFaqs[tool.slug]}>
-      <GradientGeneratorTool />
+      <GradientGeneratorTool toolSlug={tool.slug} toolName={tool.name} category={tool.category} />
     </ToolLayout>
   )
 }

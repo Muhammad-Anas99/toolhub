@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { HiOutlineArrowPath } from 'react-icons/hi2'
 import { generateLoremIpsum, LOREM_UNITS } from '../../../lib/textToolsUtils.js'
 import CopyButton from '../CopyButton.jsx'
+import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
-export default function LoremIpsumTool() {
+export default function LoremIpsumTool({ toolSlug, toolName, category }) {
   const [unit, setUnit] = useState('paragraphs')
   const [count, setCount] = useState(3)
   const [output, setOutput] = useState(() => generateLoremIpsum({ unit: 'paragraphs', count: 3 }))
+  const { logNow } = useHistoryLogger({ toolSlug, toolName, category })
 
   function handleGenerate() {
     setOutput(generateLoremIpsum({ unit, count }))
+    logNow(`Lorem ipsum generated (${count} ${unit})`)
   }
 
   return (
@@ -64,4 +68,10 @@ export default function LoremIpsumTool() {
       </div>
     </div>
   )
+}
+
+LoremIpsumTool.propTypes = {
+  toolSlug: PropTypes.string,
+  toolName: PropTypes.string,
+  category: PropTypes.string,
 }

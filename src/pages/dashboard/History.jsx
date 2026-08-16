@@ -9,8 +9,9 @@ export default function History() {
 
       <h2 className="text-base font-semibold text-slate-900 dark:text-white">Conversion history</h2>
       <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-        A record of the tools you&apos;ve used. Files themselves are never sent to our servers — every
-        tool processes images entirely in your browser — so this is a log of activity, not stored files.
+        A record of every tool you&apos;ve used, across images, PDFs, colors, code, and text. Files
+        and sensitive content (like generated passwords) are never sent to or stored on our
+        servers — this is a log of activity, not stored files or secrets.
       </p>
 
       <div className="mt-6">
