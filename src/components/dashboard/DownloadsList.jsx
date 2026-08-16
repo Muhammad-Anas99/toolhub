@@ -6,8 +6,10 @@ import { getToolBySlug } from '../../data/tools.js'
 import { getCategoryBySlug, categoryColorClasses } from '../../data/categories.js'
 import { formatBytes } from '../../lib/formatBytes.js'
 
+const IMAGE_MIME_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif'])
+
 function formatDate(dateString) {
-  return new Date(dateString).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })
+  return new Date(dateString).toLocaleDateString('en-US', { dateStyle: 'medium' })
 }
 
 function daysRemaining(expiresAt) {
@@ -42,56 +44,60 @@ export default function DownloadsList() {
       {downloads === null && !error ? (
         <p className="text-sm text-slate-400 dark:text-slate-500">Loading...</p>
       ) : downloads && downloads.length > 0 ? (
-        <div className="card divide-y divide-slate-100 dark:divide-slate-800">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {downloads.map((entry) => {
             const category = getCategoryBySlug(entry.category)
             const Icon = getToolBySlug(entry.toolSlug)?.icon || category?.icon || HiOutlineArrowDownTray
             const colors = categoryColorClasses[category?.color] || categoryColorClasses.brand
+            const isImage = IMAGE_MIME_TYPES.has(entry.mimeType)
+            const remaining = daysRemaining(entry.expiresAt)
 
             return (
-              <div key={entry._id} className="flex items-center gap-4 px-5 py-4">
-                <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl ${colors.bg} ${colors.text}`}>
-                  <Icon className="h-5 w-5" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                    <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{entry.toolName}</p>
-                    {category && (
-                      <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${colors.bg} ${colors.text}`}>
-                        {category.name}
-                      </span>
-                    )}
-                  </div>
-                  {entry.action && (
-                    <p className="mt-0.5 truncate text-xs text-slate-500 dark:text-slate-400">{entry.action}</p>
+              <div key={entry._id} className="card group overflow-hidden">
+                <div className="relative aspect-square bg-slate-50 dark:bg-slate-900">
+                  {isImage ? (
+                    <img src={entry.fileUrl} alt={entry.toolName} className="h-full w-full object-contain" />
+                  ) : (
+                    <div className={`flex h-full w-full items-center justify-center ${colors.bg} ${colors.text}`}>
+                      <Icon className="h-8 w-8" />
+                    </div>
                   )}
-                  <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">
-                    {formatBytes(entry.fileSize)} &middot; {formatDate(entry.createdAt)}
-                  </p>
-                  <p className="mt-0.5 flex items-center gap-1 text-xs text-amber-600 dark:text-amber-400">
-                    <HiOutlineClock className="h-3 w-3" />
-                    {daysRemaining(entry.expiresAt)} day{daysRemaining(entry.expiresAt) === 1 ? '' : 's'} left
-                  </p>
-                </div>
-                <div className="flex flex-shrink-0 gap-1">
-                  <a
-                    href={entry.fileUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    download={entry.fileName}
-                    aria-label={`Download ${entry.toolName} result`}
-                    className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-brand-600 dark:hover:bg-slate-800 dark:hover:text-brand-400"
-                  >
-                    <HiOutlineArrowDownTray className="h-4 w-4" />
-                  </a>
                   <button
                     type="button"
                     onClick={() => handleDelete(entry._id)}
                     aria-label={`Delete ${entry.toolName} download`}
-                    className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-rose-600 dark:hover:bg-slate-800 dark:hover:text-rose-400"
+                    className="absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-black/50 text-white opacity-0 transition-opacity hover:bg-black/70 group-hover:opacity-100"
                   >
-                    <HiOutlineTrash className="h-4 w-4" />
+                    <HiOutlineTrash className="h-3.5 w-3.5" />
                   </button>
+                </div>
+
+                <div className="p-2.5">
+                  <div className="flex items-center gap-1.5">
+                    <div className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md ${colors.bg} ${colors.text}`}>
+                      <Icon className="h-3 w-3" />
+                    </div>
+                    <p className="truncate text-xs font-semibold text-slate-900 dark:text-white">{entry.toolName}</p>
+                  </div>
+                  <p className="mt-1 truncate text-[11px] text-slate-400 dark:text-slate-500">
+                    {formatBytes(entry.fileSize)} &middot; {formatDate(entry.createdAt)}
+                  </p>
+                  <div className="mt-2 flex items-center justify-between gap-1">
+                    <span className="inline-flex items-center gap-1 text-[10px] text-amber-600 dark:text-amber-400">
+                      <HiOutlineClock className="h-2.5 w-2.5" />
+                      {remaining}d left
+                    </span>
+                    <a
+                      href={entry.fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      download={entry.fileName}
+                      aria-label={`Download ${entry.toolName} result`}
+                      className="flex h-6 w-6 items-center justify-center rounded-md text-slate-400 hover:bg-slate-100 hover:text-brand-600 dark:hover:bg-slate-800 dark:hover:text-brand-400"
+                    >
+                      <HiOutlineArrowDownTray className="h-3.5 w-3.5" />
+                    </a>
+                  </div>
                 </div>
               </div>
             )
