@@ -64,6 +64,18 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
+    // Only set when the avatar was uploaded through ToolHub (Cloudinary) —
+    // stays null for a Google OAuth profile picture, since that file
+    // isn't ours to delete. Used by userService.setAvatar/removeAvatar to
+    // actually delete the old file from Cloudinary before overwriting or
+    // clearing the reference to it, instead of leaving it orphaned in
+    // storage forever. select: false — this is an internal cleanup
+    // detail, never something the frontend needs to see.
+    avatarCloudinaryPublicId: {
+      type: String,
+      default: null,
+      select: false,
+    },
 
     // Authorization role — separate from `plan` below. A user can be a
     // 'free' or 'premium' plan admin just as easily as a regular user;

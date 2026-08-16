@@ -1,6 +1,7 @@
 import User from '../models/User.js'
 import { ApiError } from '../utils/ApiError.js'
 import { sendSecurityAlertEmail } from '../utils/email.js'
+import { deleteCloudinaryFiles } from './storageService.js'
 
 export async function updateProfile(userId, { name, email, avatar }) {
   const user = await User.findById(userId)
@@ -41,18 +42,35 @@ export async function updateProfile(userId, { name, email, avatar }) {
  * (POST /users/me/avatar) rather than a JSON profile edit, and doesn't
  * need any of updateProfile's email-change handling.
  */
-export async function setAvatar(userId, avatarUrl) {
-  const user = await User.findById(userId)
+export async function setAvatar(userId, avatarUrl, cloudinaryPublicId = null) {
+  const user = await User.findById(userId).select('+avatarCloudinaryPublicId')
   if (!user) throw ApiError.notFound('User not found')
+
+  // Delete the previous avatar's actual file before overwriting the
+  // reference to it — without this, every re-upload just orphaned the
+  // old file in Cloudinary forever. Best-effort: a transient Cloudinary
+  // issue here should never block the user from successfully updating
+  // their avatar.
+  if (user.avatarCloudinaryPublicId) {
+    await deleteCloudinaryFiles([user.avatarCloudinaryPublicId]).catch(() => {})
+  }
+
   user.avatar = avatarUrl
+  user.avatarCloudinaryPublicId = cloudinaryPublicId
   await user.save()
   return user
 }
 
 export async function removeAvatar(userId) {
-  const user = await User.findById(userId)
+  const user = await User.findById(userId).select('+avatarCloudinaryPublicId')
   if (!user) throw ApiError.notFound('User not found')
+
+  if (user.avatarCloudinaryPublicId) {
+    await deleteCloudinaryFiles([user.avatarCloudinaryPublicId]).catch(() => {})
+  }
+
   user.avatar = ''
+  user.avatarCloudinaryPublicId = null
   await user.save()
   return user
 }

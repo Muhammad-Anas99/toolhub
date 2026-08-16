@@ -25,8 +25,8 @@ export const uploadMyAvatar = asyncHandler(async (req, res) => {
     throw ApiError.badRequest('No image was uploaded')
   }
 
-  const { url } = await storeFile(req.file, req)
-  const user = await userService.setAvatar(req.user._id, url)
+  const { url, publicId } = await storeFile(req.file, req)
+  const user = await userService.setAvatar(req.user._id, url, publicId)
   sendSuccess(res, { message: 'Profile picture updated', data: user })
 })
 
