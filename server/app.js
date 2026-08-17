@@ -34,10 +34,18 @@ export function createApp() {
   app.use(helmet())
   app.use(
     cors({
-      // Allows the exact configured origin, plus Vercel's own preview
-      // deployment domains (*.vercel.app) — each PR/branch gets a unique
-      // preview URL, and without this, every preview would be silently
-      // blocked by CORS even though production works fine.
+      // Allows the exact configured origin (both with and without a `www.`
+      // prefix, whichever way CLIENT_URL happens to be set — real visitors
+      // routinely land on either variant: typing habit, an old bookmark, a
+      // shared link. Previously only the exact configured variant was
+      // allowed, which silently CORS-blocked every request — including
+      // login — from whichever variant wasn't configured, with no error
+      // ever reaching the frontend to explain why.
+      //
+      // Also allows Vercel's own preview deployment domains (*.vercel.app)
+      // — each PR/branch gets a unique preview URL, and without this,
+      // every preview would be silently blocked by CORS even though
+      // production works fine.
       //
       // Tradeoff, stated plainly: `credentials: true` below means the
       // refresh-token cookie (Phase 5 auth) is sent cross-origin to any
@@ -50,9 +58,15 @@ export function createApp() {
       // wildcard, to stop other Vercel-hosted sites from being able to
       // make credentialed requests against this API.
       origin(origin, callback) {
+        const clientUrlWithoutWww = config.clientUrl.replace('://www.', '://')
+        const clientUrlWithWww = config.clientUrl.startsWith('https://www.')
+          ? config.clientUrl
+          : config.clientUrl.replace('://', '://www.')
+
         const isAllowed =
           !origin || // same-origin / non-browser requests (e.g. curl, health checks)
-          origin === config.clientUrl ||
+          origin === clientUrlWithoutWww ||
+          origin === clientUrlWithWww ||
           /\.vercel\.app$/.test(new URL(origin).hostname)
 
         callback(isAllowed ? null : new Error('Not allowed by CORS'), isAllowed)
