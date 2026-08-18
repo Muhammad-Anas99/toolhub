@@ -97,6 +97,9 @@ export const toolSeed = [
   { name: 'PDF to PNG', slug: 'pdf-to-png', path: '/tools/pdf-to-png', category: 'pdf-tools', description: 'Convert PDF pages into PNG images, one page at a time.', icon: 'FaFileArrowDown', comingSoon: false },
   { name: 'Compress PDF', slug: 'compress-pdf', path: '/tools/compress-pdf', category: 'pdf-tools', description: 'Shrink PDF file size while keeping it readable.', icon: 'FaFilePdf', comingSoon: true },
   { name: 'PDF to Word', slug: 'pdf-to-word', path: '/tools/pdf-to-word', category: 'pdf-tools', description: 'Extract text from a PDF into an editable Word document.', icon: 'FaFileWord', comingSoon: false },
+  { name: 'PDF to PowerPoint', slug: 'pdf-to-powerpoint', path: '/tools/pdf-to-powerpoint', category: 'pdf-tools', description: 'Turn every page of a PDF into a slide in a PowerPoint presentation.', icon: 'FaFilePowerpoint', comingSoon: false },
+  { name: 'Excel to PDF', slug: 'excel-to-pdf', path: '/tools/excel-to-pdf', category: 'pdf-tools', description: 'Convert an Excel spreadsheet into a clean, printable PDF.', icon: 'FaFileExcel', comingSoon: false },
+  { name: 'Word to PDF', slug: 'word-to-pdf', path: '/tools/word-to-pdf', category: 'pdf-tools', description: 'Convert a Word document into a PDF, keeping headings and basic formatting.', icon: 'FaFileWord', comingSoon: false },
 
   // ---------- Color Tools (fully working) ----------
   { name: 'Color Picker', slug: 'color-picker', path: '/tools/color-picker', category: 'color-tools', description: 'Pick colors from an image and get their exact hex, RGB and HSL codes.', icon: 'FaEyeDropper', comingSoon: false },

@@ -25,6 +25,8 @@ import {
   HiOutlineSparkles,
   HiOutlineEyeDropper,
   HiOutlineViewfinderCircle,
+  HiOutlinePresentationChartBar,
+  HiOutlineTableCells,
 } from 'react-icons/hi2'
 
 // Reused across most browser-only tools — this is genuinely the same
@@ -441,6 +443,91 @@ export const toolContent = {
       output: 'DOCX',
       notes: 'Scanned/image-only PDFs have no text to extract and won\u2019t work with this tool',
       maxSize: '25 MB',
+    },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'pdf-to-powerpoint': {
+    about:
+      'PDF to PowerPoint turns every page of your PDF into a slide, rendering each page as a real image so it looks exactly like the original \u2014 an honest approach, since reliably rebuilding editable slide layouts from a PDF isn\u2019t something that can be done accurately.',
+    features: [
+      { title: 'Every page becomes a slide', description: 'One slide per PDF page, in the original order.', icon: HiOutlinePresentationChartBar },
+      { title: 'Looks exactly like your PDF', description: 'Each slide is a full-resolution image of that page, not a re-creation.', icon: HiOutlinePhoto },
+      { title: 'Genuine .pptx output', description: 'A real, valid PowerPoint file that opens correctly in PowerPoint or Google Slides.', icon: HiOutlineSparkles },
+      { title: 'Multi-page support', description: 'Works through PDFs of any length, one slide at a time.', icon: HiOutlineSquares2X2 },
+    ],
+    howToUse: [
+      'Upload a PDF file.',
+      'Click Convert to PowerPoint.',
+      'Download the resulting .pptx file.',
+      'Open it in PowerPoint or Google Slides.',
+    ],
+    useCases: [
+      'Turning a PDF report into a slide deck for a meeting',
+      'Presenting a PDF document without switching apps to show it',
+      'Getting a PDF\u2019s pages into a format you can annotate slide-by-slide',
+    ],
+    supportedFormats: {
+      input: 'PDF',
+      output: 'PPTX',
+      notes: 'Slides contain each page as an image, not editable text or shapes',
+      maxSize: '25 MB',
+    },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'excel-to-pdf': {
+    about:
+      'Excel to PDF reads your spreadsheet\u2019s actual cell data and lays it out as a clean table in a PDF \u2014 genuinely useful for sharing or printing simple data, though it doesn\u2019t attempt to reproduce charts, images, or complex formatting.',
+    features: [
+      { title: 'Real cell data', description: 'Reads the actual values in your spreadsheet, not a placeholder table.', icon: HiOutlineTableCells },
+      { title: 'Automatic pagination', description: 'Long sheets automatically continue onto additional PDF pages.', icon: HiOutlineDocumentText },
+      { title: 'Clean table layout', description: 'A bolded header row and alternating row shading for readability.', icon: HiOutlineSquares2X2 },
+      { title: 'Genuine PDF output', description: 'A real, valid PDF that opens correctly everywhere.', icon: HiOutlineSparkles },
+    ],
+    howToUse: [
+      'Upload an Excel file (.xlsx or .xls).',
+      'Click Convert to PDF.',
+      'Download the resulting PDF.',
+    ],
+    useCases: [
+      'Sharing a spreadsheet with someone who just needs to view it',
+      'Printing a data table without opening Excel',
+      'Archiving a simple spreadsheet in a format that won\u2019t change',
+    ],
+    supportedFormats: {
+      input: 'XLSX, XLS',
+      output: 'PDF',
+      notes: 'Only the first sheet is converted; charts, images and merged cells aren\u2019t reproduced',
+      maxSize: '15 MB',
+    },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'word-to-pdf': {
+    about:
+      'Word to PDF extracts your document\u2019s real text, headings, and bold formatting and lays it out as a proper, paginated PDF \u2014 a genuine conversion for text-focused documents, not a fake preview.',
+    features: [
+      { title: 'Real text extraction', description: 'Pulls the actual text from your document, not a placeholder.', icon: HiOutlineDocumentText },
+      { title: 'Headings preserved', description: 'Heading styles are kept larger and bold, so document structure stays clear.', icon: HiOutlineRectangleGroup },
+      { title: 'Bold text preserved', description: 'Bold formatting within paragraphs carries over correctly.', icon: HiOutlineSparkles },
+      { title: 'Proper pagination', description: 'Text wraps and flows across pages naturally, like a real document.', icon: HiOutlineSquares2X2 },
+    ],
+    howToUse: [
+      'Upload a Word document (.docx).',
+      'Click Convert to PDF.',
+      'Download the resulting PDF.',
+    ],
+    useCases: [
+      'Sending a document to someone without a Word-compatible app',
+      'Locking a document\u2019s content before sharing it',
+      'Converting a report or letter into a PDF for printing',
+    ],
+    supportedFormats: {
+      input: 'DOCX only (not older .doc files)',
+      output: 'PDF',
+      notes: 'Tables, images, columns and styles beyond headings/bold aren\u2019t preserved',
+      maxSize: '15 MB',
     },
     privacy: BROWSER_ONLY_PRIVACY,
   },

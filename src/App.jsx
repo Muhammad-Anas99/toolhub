@@ -51,6 +51,9 @@ const PdfToJpg = lazy(() => import('./pages/tools/PdfToJpg.jsx'))
 const PdfToPng = lazy(() => import('./pages/tools/PdfToPng.jsx'))
 const GradientGenerator = lazy(() => import('./pages/tools/GradientGenerator.jsx'))
 const PdfToWord = lazy(() => import('./pages/tools/PdfToWord.jsx'))
+const PdfToPowerpoint = lazy(() => import('./pages/tools/PdfToPowerpoint.jsx'))
+const ExcelToPdf = lazy(() => import('./pages/tools/ExcelToPdf.jsx'))
+const WordToPdf = lazy(() => import('./pages/tools/WordToPdf.jsx'))
 const YoutubeThumbnailDownloader = lazy(() => import('./pages/tools/YoutubeThumbnailDownloader.jsx'))
 const WordCounter = lazy(() => import('./pages/tools/WordCounter.jsx'))
 const CaseConverter = lazy(() => import('./pages/tools/CaseConverter.jsx'))
@@ -124,6 +127,9 @@ export default function App() {
           <Route path="/tools/pdf-to-png" element={<PdfToPng />} />
           <Route path="/tools/gradient-generator" element={<GradientGenerator />} />
           <Route path="/tools/pdf-to-word" element={<PdfToWord />} />
+          <Route path="/tools/pdf-to-powerpoint" element={<PdfToPowerpoint />} />
+          <Route path="/tools/excel-to-pdf" element={<ExcelToPdf />} />
+          <Route path="/tools/word-to-pdf" element={<WordToPdf />} />
           <Route path="/tools/youtube-thumbnail-downloader" element={<YoutubeThumbnailDownloader />} />
           <Route path="/tools/word-counter" element={<WordCounter />} />
           <Route path="/tools/case-converter" element={<CaseConverter />} />

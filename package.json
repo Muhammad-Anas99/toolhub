@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "docx": "^9.6.1",
+    "xlsx": "^0.18.5",
     "framer-motion": "^11.2.10",
     "jszip": "^3.10.1",
     "pdf-lib": "^1.17.1",

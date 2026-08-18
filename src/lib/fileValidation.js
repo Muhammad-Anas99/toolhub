@@ -65,3 +65,32 @@ export function validatePdfFile(file, maxSizeMB = DEFAULT_MAX_FILE_SIZE_MB) {
   }
   return { valid: true }
 }
+
+/**
+ * Validates an uploaded Office document (Excel/Word) against accepted
+ * mime types AND file extension — browsers are notoriously inconsistent
+ * about what mime type they report for these formats (some report
+ * application/octet-stream, some omit the type entirely, depending on
+ * the OS's own file-type registration), so mime type alone isn't
+ * reliable enough here the way it is for images/PDFs.
+ */
+export function validateDocumentFile(file, acceptedTypes, acceptedExtensions, maxSizeMB = DEFAULT_MAX_FILE_SIZE_MB) {
+  if (!file) {
+    return { valid: false, error: 'No file was selected.' }
+  }
+
+  const hasValidType = acceptedTypes.includes(file.type)
+  const hasValidExtension = acceptedExtensions.some((ext) => file.name.toLowerCase().endsWith(ext))
+
+  if (!hasValidType && !hasValidExtension) {
+    const readableExtensions = acceptedExtensions.map((ext) => ext.replace('.', '').toUpperCase()).join(', ')
+    return { valid: false, error: `Unsupported file type. This tool accepts: ${readableExtensions}.` }
+  }
+
+  const maxBytes = maxSizeMB * 1024 * 1024
+  if (file.size > maxBytes) {
+    return { valid: false, error: `File is too large. Please choose a file under ${maxSizeMB} MB.` }
+  }
+
+  return { valid: true }
+}

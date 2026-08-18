@@ -332,6 +332,55 @@ export const toolFaqs = {
     },
   ],
 
+  'pdf-to-powerpoint': [
+    {
+      id: 'what-it-does',
+      question: 'Are the slides editable text, or images?',
+      answer: 'Each slide is a full-size image of that PDF page \u2014 this preserves exactly how the page looks, but you can\u2019t click into the slide and edit individual words or shapes the way you could with a slide built from scratch in PowerPoint.',
+    },
+    {
+      id: 'why-images',
+      question: 'Why not extract editable text and shapes instead?',
+      answer: 'Reliably reconstructing a PDF page\u2019s exact layout as editable PowerPoint shapes is a very hard problem \u2014 text position, wrapping and formatting rarely survive that translation accurately. Using an image of the actual page guarantees it looks right.',
+    },
+    {
+      id: 'page-count',
+      question: 'Is there a limit on how many pages it can convert?',
+      answer: 'No hard page limit, but very large PDFs will take longer to process since every page is rendered as a high-resolution image before being placed into the presentation.',
+    },
+  ],
+
+  'excel-to-pdf': [
+    {
+      id: 'what-it-does',
+      question: 'Does this preserve charts, images, or cell formatting?',
+      answer: 'No \u2014 this converts your data into a clean table of text and numbers. Charts, images, merged cells, colors and custom number formatting aren\u2019t reproduced. It works best for straightforward data you want to share or print as a simple table.',
+    },
+    {
+      id: 'which-sheet',
+      question: 'Which sheet does it convert if my file has multiple sheets?',
+      answer: 'Only the first sheet in your workbook is converted. If you need another sheet, reorder your sheets in Excel so the one you want is first, or save just that sheet as its own file.',
+    },
+    {
+      id: 'large-sheets',
+      question: 'What happens with a very large spreadsheet?',
+      answer: 'Rows are automatically split across multiple PDF pages as needed. Extremely wide sheets with many columns will have narrower columns to fit the page, and very long cell values are shortened with an ellipsis to keep the table readable.',
+    },
+  ],
+
+  'word-to-pdf': [
+    {
+      id: 'what-it-does',
+      question: 'Does this preserve tables, images, and my document\u2019s exact formatting?',
+      answer: 'No \u2014 this extracts your document\u2019s text, headings, and bold formatting into a clean PDF. Tables, images, columns, custom fonts, and styles beyond headings/bold aren\u2019t reproduced. It works best for text-focused documents like reports, letters, and articles.',
+    },
+    {
+      id: 'doc-vs-docx',
+      question: 'Does it work with older .doc files?',
+      answer: 'No, only the modern .docx format is supported. If you have an older .doc file, open and re-save it as .docx in Word first (or a free alternative like Google Docs or LibreOffice), then upload the .docx version here.',
+    },
+  ],
+
 
   'youtube-thumbnail-downloader': [
     {
