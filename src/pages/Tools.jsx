@@ -152,6 +152,39 @@ export default function Tools() {
           </div>
         </div>
 
+        {/* Category selector for mobile/tablet, where the sidebar below is
+            hidden — without this, there'd be no way to change categories
+            on a phone at all. Deliberately not shown at lg+, where the
+            sidebar already covers this and a second control would just
+            duplicate it. */}
+        <div className="mt-6 flex flex-wrap items-center gap-2 lg:hidden">
+          <button
+            type="button"
+            onClick={() => handleCategoryChange('all')}
+            className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
+              activeCategory === 'all'
+                ? 'bg-brand-600 text-white shadow-sm'
+                : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800'
+            }`}
+          >
+            All
+          </button>
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              type="button"
+              onClick={() => handleCategoryChange(category.slug)}
+              className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
+                activeCategory === category.slug
+                  ? 'bg-brand-600 text-white shadow-sm'
+                  : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800'
+              }`}
+            >
+              {category.name}
+            </button>
+          ))}
+        </div>
+
         {/* Sidebar + main content */}
         <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-[240px_1fr]">
           <aside className="hidden lg:block">

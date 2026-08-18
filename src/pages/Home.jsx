@@ -10,8 +10,6 @@ import {
   HiOutlineUserGroup,
   HiOutlineMagnifyingGlass,
   HiOutlinePhoto,
-  HiOutlineDocumentText,
-  HiOutlineSwatch,
   HiOutlineCommandLine,
   HiOutlineArrowUpTray,
   HiOutlineCog6Tooth,
@@ -19,6 +17,8 @@ import {
   HiOutlineCheckCircle,
   HiOutlineXMark,
   HiOutlineSquares2X2,
+  HiOutlineUser,
+  HiArrowTrendingUp,
   HiArrowRight,
 } from 'react-icons/hi2'
 import Container from '../components/ui/Container.jsx'
@@ -37,7 +37,7 @@ import { faqs } from '../data/faq.js'
 import AbstractIllustration from '../components/ui/AbstractIllustration.jsx'
 import homepageHeroImage from '../assets/homepage-hero.png'
 import { api } from '../lib/api.js'
-import { getCategoryBySlug } from '../data/categories.js'
+import { getCategoryBySlug, categoryColorClasses } from '../data/categories.js'
 
 const FEATURES = [
   {
@@ -172,10 +172,8 @@ export default function Home() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-          <div className="absolute left-1/2 top-[-10rem] h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-gradient-to-br from-brand-300/40 via-fuchsia-200/30 to-transparent blur-3xl dark:from-brand-900/40 dark:via-fuchsia-900/20" />
-          <div className="absolute right-[-8rem] top-32 h-72 w-72 rounded-full bg-gradient-to-br from-fuchsia-300/30 to-transparent blur-3xl dark:from-fuchsia-900/20" />
-          <div className="absolute left-[-6rem] bottom-0 h-64 w-64 rounded-full bg-gradient-to-tr from-brand-200/30 to-transparent blur-3xl dark:from-brand-900/20" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,theme(colors.slate.300)_1px,transparent_0)] bg-[size:32px_32px] opacity-[0.15] dark:bg-[radial-gradient(circle_at_1px_1px,theme(colors.slate.700)_1px,transparent_0)]" />
+          <div className="absolute right-[-10rem] top-1/2 h-[34rem] w-[34rem] -translate-y-1/2 rounded-full bg-gradient-to-br from-brand-200/50 via-fuchsia-100/40 to-transparent blur-3xl dark:from-brand-900/30 dark:via-fuchsia-900/20" />
 
           {/* Floating tool-category glyphs — purely decorative, hidden on
               small screens so they never compete with the hero content or
@@ -183,97 +181,155 @@ export default function Home() {
           <motion.div
             animate={{ y: [0, -14, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute left-[8%] top-24 hidden h-14 w-14 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 text-brand-500 shadow-lg backdrop-blur-sm lg:flex dark:border-slate-800/80 dark:bg-slate-900/80"
+            className="absolute right-[6%] top-16 hidden h-14 w-14 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 text-brand-500 shadow-lg backdrop-blur-sm lg:flex dark:border-slate-800/80 dark:bg-slate-900/80"
           >
             <HiOutlinePhoto className="h-6 w-6" />
           </motion.div>
           <motion.div
-            animate={{ y: [0, 14, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-            className="absolute right-[10%] top-16 hidden h-12 w-12 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 text-fuchsia-500 shadow-lg backdrop-blur-sm lg:flex dark:border-slate-800/80 dark:bg-slate-900/80"
-          >
-            <HiOutlineDocumentText className="h-5 w-5" />
-          </motion.div>
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-            className="absolute right-[6%] bottom-10 hidden h-14 w-14 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 text-emerald-500 shadow-lg backdrop-blur-sm lg:flex dark:border-slate-800/80 dark:bg-slate-900/80"
-          >
-            <HiOutlineSwatch className="h-6 w-6" />
-          </motion.div>
-          <motion.div
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-            className="absolute left-[12%] bottom-16 hidden h-11 w-11 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 text-amber-500 shadow-lg backdrop-blur-sm lg:flex dark:border-slate-800/80 dark:bg-slate-900/80"
+            className="absolute right-[10%] bottom-16 hidden h-11 w-11 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 text-amber-500 shadow-lg backdrop-blur-sm lg:flex dark:border-slate-800/80 dark:bg-slate-900/80"
           >
             <HiOutlineCommandLine className="h-5 w-5" />
           </motion.div>
         </div>
 
-        <Container className="py-20 sm:py-28">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mx-auto max-w-2xl text-center"
-          >
-            <span className="inline-flex items-center rounded-full border border-slate-200 bg-white/60 px-3 py-1 text-xs font-medium text-slate-600 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300">
-              <span className="mr-1.5 flex h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
-              8 categories &middot; {tools.length}+ tools and growing
-            </span>
-            <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-6xl dark:text-white">
-              Every tool you need,{' '}
-              <span className="bg-gradient-to-r from-brand-600 to-fuchsia-500 bg-clip-text text-transparent">
-                in one place
+        <Container className="py-16 sm:py-20">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <span className="inline-flex items-center rounded-full border border-slate-200 bg-white/60 px-3 py-1 text-xs font-medium text-slate-600 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300">
+                <HiOutlineSparkles className="mr-1.5 h-3.5 w-3.5 text-brand-500" aria-hidden="true" />
+                100% Free Online Tools
               </span>
-            </h1>
-            <p className="mt-5 text-lg leading-relaxed text-slate-500 dark:text-slate-400">
-              Convert, compress, resize, and edit images — with PDF, developer, text, AI, color,
-              security and social media tools on the way. No installs, no sign-up.
-            </p>
+              <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-6xl dark:text-white">
+                All the Tools You Need,{' '}
+                <span className="bg-gradient-to-r from-brand-600 to-fuchsia-500 bg-clip-text text-transparent">
+                  All in One Place.
+                </span>
+              </h1>
+              <p className="mt-5 text-lg leading-relaxed text-slate-500 dark:text-slate-400">
+                ToolHub provides fast, easy-to-use, and powerful online tools for your daily tasks.
+                No sign up, no installation — just open and use.
+              </p>
 
-            <form onSubmit={handleHeroSearch} className="mx-auto mt-8 max-w-xl">
-              <div className="relative">
-                <HiOutlineMagnifyingGlass className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
-                <input
-                  type="text"
-                  value={heroQuery}
-                  onChange={(event) => setHeroQuery(event.target.value)}
-                  placeholder="Search for a tool, e.g. 'compress image'"
-                  aria-label="Search for a tool"
-                  className="w-full rounded-2xl border border-slate-200 bg-white py-4 pl-12 pr-28 text-sm text-slate-900 shadow-card placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-800 dark:bg-slate-900 dark:text-white"
-                />
-                <button
-                  type="submit"
-                  className="btn-primary absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 text-sm"
-                >
-                  Search
-                </button>
+              <form onSubmit={handleHeroSearch} className="mt-8">
+                <div className="relative">
+                  <HiOutlineMagnifyingGlass className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                  <input
+                    type="text"
+                    value={heroQuery}
+                    onChange={(event) => setHeroQuery(event.target.value)}
+                    placeholder="Search tools..."
+                    aria-label="Search for a tool"
+                    className="w-full rounded-2xl border border-slate-200 bg-white py-4 pl-12 pr-28 text-sm text-slate-900 shadow-card placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-800 dark:bg-slate-900 dark:text-white"
+                  />
+                  <button
+                    type="submit"
+                    className="btn-primary absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 text-sm"
+                  >
+                    Search
+                  </button>
+                </div>
+              </form>
+
+              <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
+                {[
+                  { icon: HiOutlineBolt, title: 'Fast & Easy', desc: 'Get things done in seconds' },
+                  { icon: HiOutlineShieldCheck, title: 'Private & Secure', desc: 'Your files are never stored' },
+                  { icon: HiOutlineDevicePhoneMobile, title: 'Works Anywhere', desc: 'On any device, anytime' },
+                ].map((item) => (
+                  <div key={item.title} className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600 dark:bg-brand-950 dark:text-brand-400">
+                      <item.icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">{item.title}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </form>
+            </motion.div>
 
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Link to="/tools" className="btn-primary px-5 py-2.5 shadow-lg shadow-brand-500/20">
-                Browse all tools
-                <HiArrowRight className="h-4 w-4" />
-              </Link>
-              <a href="#how-it-works" className="btn-secondary px-5 py-2.5">
-                See how it works
-              </a>
-            </div>
+            {/* Product-mockup card — real categories and real popular tools
+                (the same popularTools computed above, backed by actual
+                usage data with a sensible fallback), not decoration. */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="hidden lg:block"
+            >
+              <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-brand-900/10 dark:border-slate-800 dark:bg-slate-900">
+                <div className="flex items-center gap-3 border-b border-slate-100 px-5 py-4 dark:border-slate-800">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-brand-600 text-xs font-bold text-white">
+                    T
+                  </div>
+                  <span className="text-sm font-bold text-slate-900 dark:text-white">ToolHub</span>
+                  <div className="ml-auto flex items-center gap-2">
+                    <div className="hidden items-center gap-1.5 rounded-lg bg-slate-100 px-3 py-1.5 text-xs text-slate-400 dark:bg-slate-800 sm:flex">
+                      <HiOutlineMagnifyingGlass className="h-3.5 w-3.5" />
+                      Search tools...
+                    </div>
+                    <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-100 text-slate-500 dark:bg-slate-800">
+                      <HiOutlineSquares2X2 className="h-3.5 w-3.5" />
+                    </div>
+                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 text-slate-500 dark:bg-slate-800">
+                      <HiOutlineUser className="h-3.5 w-3.5" />
+                    </div>
+                  </div>
+                </div>
 
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-              {categories.slice(0, 5).map((category) => (
-                <Link
-                  key={category.id}
-                  to={`/tools?category=${category.slug}`}
-                  className="rounded-full border border-slate-200 px-3.5 py-1.5 text-xs font-medium text-slate-500 transition-colors hover:border-brand-300 hover:text-brand-600 dark:border-slate-800 dark:text-slate-400 dark:hover:border-brand-800 dark:hover:text-brand-400"
-                >
-                  {category.name}
-                </Link>
-              ))}
-            </div>
-          </motion.div>
+                <div className="p-5">
+                  <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Browse by Category</h2>
+                  <div className="mt-3 grid grid-cols-3 gap-3">
+                    {categories.slice(0, 6).map((category) => {
+                      const colors = categoryColorClasses[category.color] || categoryColorClasses.brand
+                      return (
+                        <Link
+                          key={category.id}
+                          to={`/tools?category=${category.slug}`}
+                          className="rounded-xl border border-slate-100 p-3 transition-colors hover:border-brand-200 dark:border-slate-800 dark:hover:border-brand-900"
+                        >
+                          <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${colors.bg} ${colors.text}`}>
+                            <category.icon className="h-4 w-4" />
+                          </div>
+                          <p className="mt-2 text-xs font-semibold text-slate-900 dark:text-white">
+                            {category.name}
+                          </p>
+                        </Link>
+                      )
+                    })}
+                  </div>
+
+                  <h2 className="mt-5 text-sm font-semibold text-slate-900 dark:text-white">Popular Tools</h2>
+                  <div className="mt-3 flex flex-wrap items-center gap-2">
+                    {popularTools.slice(0, 4).map((tool) => (
+                      <Link
+                        key={tool.id}
+                        to={tool.path}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-600 transition-colors hover:border-brand-300 hover:text-brand-600 dark:border-slate-800 dark:text-slate-300 dark:hover:border-brand-800 dark:hover:text-brand-400"
+                      >
+                        {tool.name}
+                        <HiArrowTrendingUp className="h-3 w-3 text-emerald-500" />
+                      </Link>
+                    ))}
+                    <Link
+                      to="/tools"
+                      className="ml-auto inline-flex items-center gap-1 text-xs font-semibold text-brand-600 dark:text-brand-400"
+                    >
+                      View all tools
+                      <HiArrowRight className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </Container>
       </section>
 
