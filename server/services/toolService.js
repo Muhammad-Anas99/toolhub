@@ -2,10 +2,18 @@ import Tool from '../models/Tool.js'
 import { ApiError } from '../utils/ApiError.js'
 import { slugify } from '../utils/slugify.js'
 
+// Escapes regex special characters in user-supplied search text before it's
+// used to build a RegExp — without this, characters like `.`, `*`, `(`
+// would either throw, match unintended things, or (in pathological cases)
+// create a ReDoS risk. Standard escape pattern for this exact purpose.
+function escapeRegex(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
 /**
  * List tools with optional filters:
  *  - category: filter by category slug
- *  - search: full-text search across name/description/tags
+ *  - search: case-insensitive substring match across name/description
  *  - featured: 'true' to only return featured tools
  */
 export async function listTools({ category, search, featured } = {}) {
@@ -20,10 +28,15 @@ export async function listTools({ category, search, featured } = {}) {
   }
 
   if (search) {
-    query.$text = { $search: search }
+    // A genuine substring match, not MongoDB's $text operator — $text does
+    // word-stem matching (each indexed word is its own token), so
+    // searching "you" would never match "youtube" as a substring the way
+    // a tool search box is expected to behave.
+    const pattern = new RegExp(escapeRegex(search.trim()), 'i')
+    query.$or = [{ name: pattern }, { description: pattern }]
   }
 
-  return Tool.find(query).sort(search ? { score: { $meta: 'textScore' } } : { createdAt: -1 })
+  return Tool.find(query).sort({ createdAt: -1 })
 }
 
 export async function getToolBySlug(slug) {

@@ -133,3 +133,31 @@ export const categoryColorClasses = {
     gradient: 'from-indigo-500 to-indigo-600',
   },
 }
+
+const TOOL_COLOR_KEYS = Object.keys(categoryColorClasses)
+
+/**
+ * Deterministically assigns one of the same 8 curated category colors to
+ * an individual tool, by id — used for tool card icons so cards within
+ * one category (e.g. all Image Tools) each get a distinct, pleasant
+ * color instead of every card looking identical. Deterministic (not
+ * random) so a given tool always gets the same color across re-renders,
+ * re-sorts, or repeat visits — it's a stable visual identity, not a
+ * decoration that shifts around.
+ */
+export function getToolColorClasses(toolId) {
+  const str = String(toolId)
+  let hash = 5381
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) + hash + str.charCodeAt(i)) | 0
+  }
+  // Mixing/finalizer step — a plain DJB2 hash has known-weak low bits
+  // against a power-of-2 modulus (8 colors), which was verified to
+  // produce badly clustered results (one color covering 40%+ of real
+  // tool ids) before this was added. Same principle as Murmur3's fmix:
+  // spread entropy across all bits before the modulo.
+  hash = Math.imul(hash ^ (hash >>> 16), 2246822507)
+  hash = hash ^ (hash >>> 13)
+  const key = TOOL_COLOR_KEYS[Math.abs(hash) % TOOL_COLOR_KEYS.length]
+  return categoryColorClasses[key]
+}

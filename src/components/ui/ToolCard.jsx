@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { HiArrowRight } from 'react-icons/hi2'
+import { getToolColorClasses } from '../../data/categories.js'
 
 const BADGE_STYLES = {
   popular: 'bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-400',
@@ -19,11 +20,12 @@ const BADGE_LABELS = {
 export default function ToolCard({ tool }) {
   const Icon = tool.icon
   const badgeKey = tool.comingSoon ? 'comingSoon' : tool.badge
+  const colors = getToolColorClasses(tool.id)
 
   const cardContent = (
     <>
       <div className="flex items-start justify-between">
-        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition-all duration-200 group-hover:scale-110 group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-950 dark:text-brand-400">
+        <div className={`flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-200 group-hover:scale-110 ${colors.bg} ${colors.text}`}>
           <Icon className="h-5 w-5" />
         </div>
         {badgeKey && (
