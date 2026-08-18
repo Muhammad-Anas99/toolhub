@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { HiOutlineEnvelope, HiOutlineCheckCircle } from 'react-icons/hi2'
 import Container from '../components/ui/Container.jsx'
 import SEO from '../components/ui/SEO.jsx'
 import { api } from '../lib/api.js'
 
-const INITIAL_FORM = { name: '', email: '', subject: '', message: '', website: '' }
+function getInitialForm(searchParams) {
+  return { name: '', email: '', subject: searchParams.get('subject') || '', message: '', website: '' }
+}
 
 function validate(form) {
   const errors = {}
@@ -25,7 +28,8 @@ function validate(form) {
 }
 
 export default function Contact() {
-  const [form, setForm] = useState(INITIAL_FORM)
+  const [searchParams] = useSearchParams()
+  const [form, setForm] = useState(() => getInitialForm(searchParams))
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle') // idle | submitting | submitted | error
   const [serverError, setServerError] = useState(null)
@@ -47,7 +51,7 @@ export default function Contact() {
     try {
       await api.submitContactForm(form)
       setStatus('submitted')
-      setForm(INITIAL_FORM)
+      setForm({ name: '', email: '', subject: '', message: '', website: '' })
     } catch (err) {
       setServerError(err.message || 'Something went wrong sending your message. Please try again.')
       setStatus('error')

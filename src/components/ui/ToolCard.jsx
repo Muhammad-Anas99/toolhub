@@ -23,7 +23,7 @@ export default function ToolCard({ tool }) {
   const cardContent = (
     <>
       <div className="flex items-start justify-between">
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition-all duration-200 group-hover:scale-110 group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-950 dark:text-brand-400">
+        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition-all duration-200 group-hover:scale-110 group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-950 dark:text-brand-400">
           <Icon className="h-5 w-5" />
         </div>
         {badgeKey && (
@@ -36,7 +36,7 @@ export default function ToolCard({ tool }) {
       <h3 className="mt-4 text-base font-semibold text-slate-900 dark:text-white">
         {tool.name}
       </h3>
-      <p className="mt-1.5 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+      <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
         {tool.description}
       </p>
 

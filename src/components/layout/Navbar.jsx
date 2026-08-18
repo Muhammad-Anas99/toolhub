@@ -81,9 +81,17 @@ export default function Navbar() {
             {isAuthenticated ? (
               <UserMenu />
             ) : (
-              <Link to="/register" className="btn-primary px-4 py-2 text-sm shadow-sm">
-                Get Started
-              </Link>
+              <>
+                <Link
+                  to="/login"
+                  className="text-sm font-medium text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                >
+                  Log In
+                </Link>
+                <Link to="/register" className="btn-primary px-4 py-2 text-sm shadow-sm">
+                  Get Started
+                </Link>
+              </>
             )}
           </div>
 
