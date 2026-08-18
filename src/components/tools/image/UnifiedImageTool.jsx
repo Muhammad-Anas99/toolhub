@@ -10,6 +10,7 @@ import {
 import DropZone from '../DropZone.jsx'
 import ErrorMessage from '../ErrorMessage.jsx'
 import ProgressBar from '../ProgressBar.jsx'
+import CompressionRing from './CompressionRing.jsx'
 import { useMultiImageUpload, MAX_BATCH_FILES } from '../../../hooks/useMultiImageUpload.js'
 import { processImageBatch } from '../../../lib/imageProcessing.js'
 import { buildOutputFilename, downloadBlob } from '../../../lib/downloadBlob.js'
@@ -113,7 +114,7 @@ export default function UnifiedImageTool({
           }
         }
 
-        const { blob } = await processImageBatch(item.file, {
+        const { blob, width, height } = await processImageBatch(item.file, {
           rotateDegrees,
           flipHorizontal,
           flipVertical,
@@ -129,6 +130,9 @@ export default function UnifiedImageTool({
           blob,
           url: URL.createObjectURL(blob),
           originalSize: item.file.size,
+          width,
+          height,
+          format: extensionFor(item.file, format).toUpperCase(),
         })
       } catch (error) {
         upload.setError(`${item.file.name}: ${error.message || 'Could not process this image.'}`)
@@ -479,25 +483,34 @@ export default function UnifiedImageTool({
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {results.map((result) => (
-              <div key={result.id} className="card overflow-hidden">
-                <div className="aspect-square bg-slate-50 dark:bg-slate-900">
-                  <img src={result.url} alt={result.filename} className="h-full w-full object-contain" />
+          {results.length === 1 ? (
+            <SingleResultView
+              result={results[0]}
+              originalItem={upload.items.find((item) => item.id === results[0].id)}
+              isCompressor={toolSlug === 'image-compressor'}
+              onDownload={handleDownloadOne}
+            />
+          ) : (
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+              {results.map((result) => (
+                <div key={result.id} className="card overflow-hidden">
+                  <div className="aspect-square bg-slate-50 dark:bg-slate-900">
+                    <img src={result.url} alt={result.filename} className="h-full w-full object-contain" />
+                  </div>
+                  <div className="p-3">
+                    <p className="truncate text-xs font-medium text-slate-900 dark:text-white">{result.filename}</p>
+                    <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">
+                      {formatBytes(result.originalSize)} &rarr; {formatBytes(result.blob.size)}
+                    </p>
+                    <button type="button" onClick={() => handleDownloadOne(result)} className="btn-secondary mt-2 w-full text-xs">
+                      <HiOutlineArrowDownTray className="h-3.5 w-3.5" />
+                      Download
+                    </button>
+                  </div>
                 </div>
-                <div className="p-3">
-                  <p className="truncate text-xs font-medium text-slate-900 dark:text-white">{result.filename}</p>
-                  <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">
-                    {formatBytes(result.originalSize)} &rarr; {formatBytes(result.blob.size)}
-                  </p>
-                  <button type="button" onClick={() => handleDownloadOne(result)} className="btn-secondary mt-2 w-full text-xs">
-                    <HiOutlineArrowDownTray className="h-3.5 w-3.5" />
-                    Download
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -518,4 +531,133 @@ UnifiedImageTool.propTypes = {
   defaultResizeEnabled: PropTypes.bool,
   defaultResizeMode: PropTypes.oneOf(['percentage', 'pixels']),
   outputSuffix: PropTypes.string,
+}
+
+function SingleResultView({ result, originalItem, isCompressor, onDownload }) {
+  const originalSize = result.originalSize
+  const newSize = result.blob.size
+  const percentSmaller = originalSize > 0 ? Math.round(((originalSize - newSize) / originalSize) * 100) : 0
+  const savedBytes = Math.max(0, originalSize - newSize)
+  const originalFormat = originalItem?.file?.name?.split('.').pop()?.toUpperCase() || ''
+  const originalDimensions = originalItem?.dimensions
+
+  if (isCompressor && originalItem) {
+    return (
+      <>
+        {/* Desktop: full before / ring+stats / after layout */}
+        <div className="hidden sm:grid sm:grid-cols-[1fr_auto_1fr] sm:items-center sm:gap-6">
+          <div className="card overflow-hidden">
+            <div className="flex items-center justify-between border-b border-slate-100 px-4 py-2.5 dark:border-slate-800">
+              <p className="text-sm font-semibold text-slate-900 dark:text-white">Before Compression</p>
+              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                {formatBytes(originalSize)}
+              </span>
+            </div>
+            <div className="aspect-video bg-slate-50 dark:bg-slate-900">
+              <img src={originalItem.previewUrl} alt="Original" className="h-full w-full object-contain" />
+            </div>
+            <div className="flex items-center justify-between px-4 py-2.5 text-xs text-slate-500 dark:text-slate-400">
+              <span>Format: {originalFormat}</span>
+              {originalDimensions && (
+                <span>
+                  Dimensions: {originalDimensions.width} &times; {originalDimensions.height}
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-4 px-2">
+            <CompressionRing percent={percentSmaller} />
+            <div className="text-center">
+              <p className="text-sm font-semibold text-slate-900 dark:text-white">{formatBytes(savedBytes)} Saved</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500">Total Savings</p>
+            </div>
+            <button type="button" onClick={() => onDownload(result)} className="btn-primary whitespace-nowrap text-sm">
+              <HiOutlineArrowDownTray className="h-4 w-4" />
+              Download Compressed
+            </button>
+          </div>
+
+          <div className="card overflow-hidden">
+            <div className="flex items-center justify-between border-b border-slate-100 px-4 py-2.5 dark:border-slate-800">
+              <p className="text-sm font-semibold text-slate-900 dark:text-white">After Compression</p>
+              <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">
+                {formatBytes(newSize)}
+              </span>
+            </div>
+            <div className="aspect-video bg-slate-50 dark:bg-slate-900">
+              <img src={result.url} alt={result.filename} className="h-full w-full object-contain" />
+            </div>
+            <div className="flex items-center justify-between px-4 py-2.5 text-xs text-slate-500 dark:text-slate-400">
+              <span>Format: {result.format}</span>
+              {result.width && (
+                <span>
+                  Dimensions: {result.width} &times; {result.height}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile: leads with the converted image and a highlighted size —
+            a genuinely different layout, not the desktop one squeezed
+            down, since a side-by-side before/after doesn't fit narrow
+            screens well. */}
+        <div className="sm:hidden">
+          <div className="card overflow-hidden">
+            <div className="aspect-video bg-slate-50 dark:bg-slate-900">
+              <img src={result.url} alt={result.filename} className="h-full w-full object-contain" />
+            </div>
+            <div className="p-4">
+              <div className="flex items-center justify-between gap-3 rounded-xl bg-emerald-50 px-4 py-3 dark:bg-emerald-950">
+                <div>
+                  <p className="text-lg font-bold text-emerald-700 dark:text-emerald-400">{formatBytes(newSize)}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    <span className="line-through">{formatBytes(originalSize)}</span> &middot; {percentSmaller}% smaller
+                  </p>
+                </div>
+                <span className="flex-shrink-0 rounded-full bg-emerald-600 px-2.5 py-1 text-xs font-bold text-white">
+                  -{percentSmaller}%
+                </span>
+              </div>
+              <button type="button" onClick={() => onDownload(result)} className="btn-primary mt-3 w-full text-sm">
+                <HiOutlineArrowDownTray className="h-4 w-4" />
+                Download Compressed
+              </button>
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  // Non-compressor tools with a single result: a larger, more prominent
+  // preview than the tiny batch-grid thumbnail, without the
+  // compression-specific ring/before-after framing that wouldn't make
+  // sense for e.g. a straight format conversion.
+  return (
+    <div className="card mx-auto max-w-md overflow-hidden">
+      <div className="aspect-video bg-slate-50 dark:bg-slate-900">
+        <img src={result.url} alt={result.filename} className="h-full w-full object-contain" />
+      </div>
+      <div className="p-4">
+        <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{result.filename}</p>
+        <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+          {formatBytes(originalSize)} &rarr; {formatBytes(newSize)}
+          {result.width ? ` \u00b7 ${result.width} \u00d7 ${result.height}` : ''}
+        </p>
+        <button type="button" onClick={() => onDownload(result)} className="btn-primary mt-3 w-full text-sm">
+          <HiOutlineArrowDownTray className="h-4 w-4" />
+          Download
+        </button>
+      </div>
+    </div>
+  )
+}
+
+SingleResultView.propTypes = {
+  result: PropTypes.object.isRequired,
+  originalItem: PropTypes.object,
+  isCompressor: PropTypes.bool,
+  onDownload: PropTypes.func.isRequired,
 }
