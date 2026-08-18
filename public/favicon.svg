@@ -1,5 +1,4 @@
 <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-  <rect width="64" height="64" rx="14" fill="#3b6cf6"/>
-  <path d="M20 32c0-6.627 5.373-12 12-12s12 5.373 12 12-5.373 12-12 12" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
-  <circle cx="32" cy="32" r="4.5" fill="white"/>
+  <rect width="64" height="64" rx="14" fill="#254deb"/>
+  <text x="32" y="43" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="34" fill="white" text-anchor="middle">T</text>
 </svg>
