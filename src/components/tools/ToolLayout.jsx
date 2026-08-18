@@ -1,28 +1,39 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import { HiOutlineShieldCheck } from 'react-icons/hi2'
 import Container from '../ui/Container.jsx'
 import SEO, { SITE_URL } from '../ui/SEO.jsx'
 import Breadcrumb from './Breadcrumb.jsx'
 import ToolHeader from './ToolHeader.jsx'
+import CategorySidebar from './CategorySidebar.jsx'
 import RelatedTools from './RelatedTools.jsx'
 import ToolFAQSection from './ToolFAQSection.jsx'
 import ToolInformation from './info/ToolInformation.jsx'
 import { getCategoryBySlug } from '../../data/categories.js'
 import { toolContent } from '../../data/toolContent.js'
+import { useCategories } from '../../hooks/useCategories.js'
 
 /**
  * Shared shell for every tool page. Handles the parts that are identical
- * across tools (breadcrumb, header, SEO, related tools, FAQ) so each tool
- * page only needs to provide its own working UI as `children`. Every
- * tool's title/description/canonical URL/structured data comes straight
- * from its own entry in src/data/tools.js — never a shared generic value,
- * so every one of the 10 tool pages gets genuinely unique SEO metadata
- * without needing to repeat this wiring in each page file.
+ * across tools (breadcrumb, header, category sidebar, SEO, related tools,
+ * FAQ) so each tool page only needs to provide its own working UI as
+ * `children`. Every tool's title/description/canonical URL/structured
+ * data comes straight from its own entry in src/data/tools.js — never a
+ * shared generic value, so every tool page gets genuinely unique SEO
+ * metadata without needing to repeat this wiring in each page file.
+ *
+ * Layout matches the same pattern as the Tools/category listing page
+ * (top row: title+description left, "100% Free to Use" right; category
+ * sidebar alongside the main content) — previously this page used a
+ * completely different centered single-column layout, which is what made
+ * individual tool pages feel visually inconsistent with the rest of the
+ * site.
  */
 export default function ToolLayout({ tool, children, faqItems }) {
   const category = getCategoryBySlug(tool.category)
   const hasContent = Boolean(toolContent[tool.slug])
+  const { categories } = useCategories()
 
   const breadcrumbItems = [
     { label: 'Tools', to: '/tools' },
@@ -95,44 +106,92 @@ export default function ToolLayout({ tool, children, faqItems }) {
       <Container className="py-10">
         <Breadcrumb items={breadcrumbItems} />
 
-        <div className="mt-8">
+        {/* Top row: icon + title + description on the left, "100% Free
+            to Use" card on the right — same pattern as the Tools page. */}
+        <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <ToolHeader icon={tool.icon} title={tool.name} description={tool.description} toolSlug={tool.slug} />
-        </div>
 
-        {/* The tool itself stays the visual focus near the top of the
-            page — everything below (info sections, related tools, FAQ,
-            CTA) is reference material a visitor scrolls to only if they
-            want it. */}
-        <div className="mx-auto mt-10 max-w-3xl">{children}</div>
-
-        {hasContent && (
-          <div className="mx-auto mt-20 max-w-3xl">
-            <ToolInformation toolName={tool.name} toolSlug={tool.slug} />
+          <div className="flex flex-shrink-0 items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900 lg:w-80">
+            <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400">
+              <HiOutlineShieldCheck className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-slate-900 dark:text-white">100% Free to Use</p>
+              <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
+                No sign up required. All tools are free and easy to use.
+              </p>
+            </div>
           </div>
-        )}
-
-        <div className="mx-auto mt-20 max-w-3xl space-y-16">
-          <RelatedTools currentToolId={tool.id} category={tool.category} />
-          <ToolFAQSection items={faqItems} />
         </div>
 
-        <div className="mx-auto mt-16 max-w-3xl text-center">
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-10 dark:border-slate-800 dark:bg-slate-900/50">
-            <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
-              Looking for something else?
-            </h2>
-            <p className="mt-1.5 text-sm text-slate-500 dark:text-slate-400">
-              Browse the full collection of free tools, or explore what&apos;s in this category.
-            </p>
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
-              <Link to="/tools" className="btn-primary text-sm">
-                Browse all tools
-              </Link>
-              {category && (
-                <Link to={`/tools?category=${category.slug}`} className="btn-secondary text-sm">
-                  More {category.name}
-                </Link>
-              )}
+        {/* Category selector for mobile/tablet, where the sidebar below
+            is hidden — same pattern as the Tools page, genuine navigation
+            here (there's nothing to filter on a single tool page). */}
+        <div className="mt-6 flex flex-wrap items-center gap-2 lg:hidden">
+          <Link
+            to="/tools"
+            className="rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-medium text-slate-600 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
+          >
+            All
+          </Link>
+          {categories.map((cat) => (
+            <Link
+              key={cat.id}
+              to={`/tools?category=${cat.slug}`}
+              className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
+                cat.slug === tool.category
+                  ? 'bg-brand-600 text-white shadow-sm'
+                  : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800'
+              }`}
+            >
+              {cat.name}
+            </Link>
+          ))}
+        </div>
+
+        {/* Sidebar + main content */}
+        <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-[240px_1fr]">
+          <aside className="hidden lg:block">
+            <CategorySidebar categories={categories} activeCategory={tool.category} />
+          </aside>
+
+          <div>
+            {/* The tool itself stays the visual focus near the top of
+                this column — everything below (info sections, related
+                tools, FAQ, CTA) is reference material a visitor scrolls
+                to only if they want it. */}
+            <div className="mx-auto max-w-3xl">{children}</div>
+
+            {hasContent && (
+              <div className="mx-auto mt-20 max-w-3xl">
+                <ToolInformation toolName={tool.name} toolSlug={tool.slug} />
+              </div>
+            )}
+
+            <div className="mx-auto mt-20 max-w-3xl space-y-16">
+              <RelatedTools currentToolId={tool.id} category={tool.category} />
+              <ToolFAQSection items={faqItems} />
+            </div>
+
+            <div className="mx-auto mt-16 max-w-3xl text-center">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-10 dark:border-slate-800 dark:bg-slate-900/50">
+                <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+                  Looking for something else?
+                </h2>
+                <p className="mt-1.5 text-sm text-slate-500 dark:text-slate-400">
+                  Browse the full collection of free tools, or explore what&apos;s in this category.
+                </p>
+                <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+                  <Link to="/tools" className="btn-primary text-sm">
+                    Browse all tools
+                  </Link>
+                  {category && (
+                    <Link to={`/tools?category=${category.slug}`} className="btn-secondary text-sm">
+                      More {category.name}
+                    </Link>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
