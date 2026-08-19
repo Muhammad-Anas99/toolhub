@@ -109,7 +109,9 @@ export default function ToolLayout({ tool, children, faqItems }) {
         {/* Top row: icon + title + description on the left, "100% Free
             to Use" card on the right — same pattern as the Tools page. */}
         <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-          <ToolHeader icon={tool.icon} title={tool.name} description={tool.description} toolSlug={tool.slug} />
+          <div className="min-w-0 flex-1">
+            <ToolHeader icon={tool.icon} title={tool.name} description={tool.description} toolSlug={tool.slug} />
+          </div>
 
           <div className="flex flex-shrink-0 items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900 lg:w-80">
             <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400">
@@ -159,8 +161,10 @@ export default function ToolLayout({ tool, children, faqItems }) {
             {/* The tool itself stays the visual focus near the top of
                 this column — everything below (info sections, related
                 tools, FAQ, CTA) is reference material a visitor scrolls
-                to only if they want it. */}
-            <div className="mx-auto max-w-3xl">{children}</div>
+                to only if they want it. A subtle background panel gives
+                the actual tool area visual separation from the page,
+                same treatment already used on the Tools listing page. */}
+            <div className="mx-auto max-w-3xl rounded-2xl bg-slate-50 p-5 dark:bg-slate-900/40 sm:p-6">{children}</div>
 
             {hasContent && (
               <div className="mx-auto mt-20 max-w-3xl">

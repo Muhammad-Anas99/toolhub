@@ -6,26 +6,26 @@ import FavoriteButton from './FavoriteButton.jsx'
 export default function ToolHeader({ icon: Icon, title, description, toolSlug }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
+      initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="flex items-start gap-5"
+      transition={{ duration: 0.3 }}
+      className="flex items-center gap-3"
     >
       {Icon && (
-        <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-600 dark:bg-brand-950 dark:text-brand-400">
-          <Icon className="h-8 w-8" />
+        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950 dark:text-brand-400">
+          <Icon className="h-5 w-5" />
         </div>
       )}
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">{title}</h1>
-        <p className="mt-2 max-w-xl text-slate-500 dark:text-slate-400">{description}</p>
-
-        {toolSlug && (
-          <div className="mt-4">
-            <FavoriteButton toolSlug={toolSlug} />
-          </div>
-        )}
+      <div className="min-w-0">
+        <h1 className="truncate text-lg font-semibold text-slate-900 dark:text-white">{title}</h1>
+        <p className="truncate text-xs text-slate-500 dark:text-slate-400">{description}</p>
       </div>
+
+      {toolSlug && (
+        <div className="flex-shrink-0">
+          <FavoriteButton toolSlug={toolSlug} />
+        </div>
+      )}
     </motion.div>
   )
 }
