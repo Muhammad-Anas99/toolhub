@@ -7,6 +7,7 @@ import SEO, { SITE_URL } from '../ui/SEO.jsx'
 import Breadcrumb from './Breadcrumb.jsx'
 import ToolHeader from './ToolHeader.jsx'
 import CategorySidebar from './CategorySidebar.jsx'
+import SuggestToolBanner from './SuggestToolBanner.jsx'
 import RelatedTools from './RelatedTools.jsx'
 import ToolFAQSection from './ToolFAQSection.jsx'
 import ToolInformation from './info/ToolInformation.jsx'
@@ -200,6 +201,10 @@ export default function ToolLayout({ tool, children, faqItems }) {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="mt-10">
+          <SuggestToolBanner />
         </div>
       </Container>
     </>

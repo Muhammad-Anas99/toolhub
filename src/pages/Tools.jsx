@@ -6,6 +6,7 @@ import Container from '../components/ui/Container.jsx'
 import ToolCard from '../components/ui/ToolCard.jsx'
 import Breadcrumb from '../components/tools/Breadcrumb.jsx'
 import CategorySidebar from '../components/tools/CategorySidebar.jsx'
+import SuggestToolBanner from '../components/tools/SuggestToolBanner.jsx'
 import SEO, { SITE_URL } from '../components/ui/SEO.jsx'
 import { useTools } from '../hooks/useTools.js'
 import { useCategories } from '../hooks/useCategories.js'
@@ -258,6 +259,10 @@ export default function Tools() {
               </div>
             )}
           </div>
+        </div>
+
+        <div className="mt-10">
+          <SuggestToolBanner />
         </div>
       </Container>
     </>
