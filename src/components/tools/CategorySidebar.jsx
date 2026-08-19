@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { HiOutlineSquares2X2 } from 'react-icons/hi2'
 import { categoryColorClasses } from '../../data/categories.js'
 
