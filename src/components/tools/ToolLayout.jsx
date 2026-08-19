@@ -131,51 +131,34 @@ export default function ToolLayout({ tool, children, faqItems }) {
           ))}
         </div>
 
-        {/* "100% Free to Use" only appears here on mobile/tablet — on
-            desktop it lives inside the sidebar's own sticky container
-            (passed as CategorySidebar's topContent below), since the
-            sidebar itself is hidden at this breakpoint. */}
-        <div className="mt-4 flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900 lg:hidden">
-          <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400">
-            <HiOutlineShieldCheck className="h-5 w-5" />
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-slate-900 dark:text-white">100% Free to Use</p>
-            <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-              No sign up required. All tools are free and easy to use.
-            </p>
-          </div>
-        </div>
-
         {/* Sidebar + main content — starts right after the breadcrumb/
-            mobile bits above, with no separate full-width header row
-            taking up space before it. */}
+            mobile category selector above, with no separate full-width
+            header row spanning above both columns. */}
         <div className="mt-6 grid grid-cols-1 gap-8 lg:mt-10 lg:grid-cols-[240px_1fr]">
           <aside className="hidden lg:block">
-            <CategorySidebar
-              categories={categories}
-              activeCategory={tool.category}
-              topContent={
-                <div className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400">
-                    <HiOutlineShieldCheck className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-900 dark:text-white">100% Free to Use</p>
-                    <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                      No sign up required. All tools are free and easy to use.
-                    </p>
-                  </div>
-                </div>
-              }
-            />
+            <CategorySidebar categories={categories} activeCategory={tool.category} />
           </aside>
 
           <div>
-            {/* Tool name/description now lives here, centered at the top
-                of the main content column — beside the sidebar, not in a
-                separate full-width row above it. */}
-            <ToolHeader icon={tool.icon} title={tool.name} description={tool.description} toolSlug={tool.slug} />
+            {/* Name + "100% Free to Use" as a row scoped to this column
+                only — starting beside the sidebar, not spanning above it.
+                Stacks to a single column on narrow screens via flex-col,
+                so there's no separate mobile-only duplicate needed. */}
+            <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <ToolHeader icon={tool.icon} title={tool.name} description={tool.description} toolSlug={tool.slug} />
+
+              <div className="flex flex-shrink-0 items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900 sm:w-72">
+                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400">
+                  <HiOutlineShieldCheck className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-slate-900 dark:text-white">100% Free to Use</p>
+                  <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
+                    No sign up required. All tools are free and easy to use.
+                  </p>
+                </div>
+              </div>
+            </div>
 
             {/* The tool itself stays the visual focus near the top of
                 this column — everything below (info sections, related
