@@ -20,9 +20,10 @@ import { categoryColorClasses } from '../../data/categories.js'
  * the sticky offset — previously the card's bottom could end up rendered
  * below the fold with no way to scroll to it while the sidebar was stuck.
  */
-export default function CategorySidebar({ categories, activeCategory, onSelect }) {
+export default function CategorySidebar({ categories, activeCategory, onSelect, topContent }) {
   return (
     <div className="sticky top-24 max-h-[calc(100vh-7rem)] space-y-5 overflow-y-auto pb-2">
+      {topContent}
       <nav className="card p-4">
         <h2 className="px-2 text-sm font-semibold text-slate-900 dark:text-white">Categories</h2>
         <div className="mt-2 space-y-0.5">
@@ -106,4 +107,5 @@ CategorySidebar.propTypes = {
   categories: PropTypes.array.isRequired,
   activeCategory: PropTypes.string.isRequired,
   onSelect: PropTypes.func,
+  topContent: PropTypes.node,
 }
