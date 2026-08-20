@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { HiBars3, HiXMark, HiChevronDown } from 'react-icons/hi2'
 import Container from '../ui/Container.jsx'
@@ -27,8 +27,18 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const { isAuthenticated } = useAuth()
+  const location = useLocation()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMobileCategoriesOpen, setIsMobileCategoriesOpen] = useState(false)
+
+  // Closes the mobile menu on any route change — the individual links
+  // inside it already close it via their own onClick, but this is a
+  // defensive safety net for any navigation path that isn't one of those
+  // specific links (browser back/forward, etc.), same reasoning as the
+  // equivalent fix in UserMenu.jsx.
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [location.pathname])
 
   // Close the mobile menu whenever the viewport is resized back to desktop.
   useEffect(() => {

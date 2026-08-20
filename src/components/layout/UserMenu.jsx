@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { HiOutlineSquares2X2, HiOutlineArrowRightOnRectangle, HiOutlineShieldCheck } from 'react-icons/hi2'
 import { useAuth } from '../../context/AuthContext.jsx'
@@ -7,8 +7,19 @@ import { useAuth } from '../../context/AuthContext.jsx'
 export default function UserMenu() {
   const { user, isAdmin, logout } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef(null)
+
+  // Closes the menu on ANY route change — not just the specific links
+  // inside it (which already close it individually via their own
+  // onClick). The navbar never unmounts during client-side navigation,
+  // so without this, the menu's open state could persist onto whatever
+  // page you land on next, regardless of what actually triggered the
+  // navigation (another navbar link, browser back/forward, etc.).
+  useEffect(() => {
+    setIsOpen(false)
+  }, [location.pathname])
 
   useEffect(() => {
     if (!isOpen) return
