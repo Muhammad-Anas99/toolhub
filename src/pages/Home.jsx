@@ -333,6 +333,20 @@ export default function Home() {
         </Container>
       </section>
 
+      {/* Overview promo image — helps this land correctly in Google
+          Image Search for general "free online tools" style searches,
+          same reasoning as the per-tool and per-category images above. */}
+      <section>
+        <Container className="pb-4">
+          <img
+            src="/images/promo/everything.png"
+            alt="ToolHub — 41 free online tools for images, PDFs, developers, text, and color, all in one place."
+            loading="lazy"
+            className="w-full rounded-2xl border border-slate-200 dark:border-slate-800"
+          />
+        </Container>
+      </section>
+
       {/* Featured tools */}
       <section id="featured-tools" className="scroll-mt-20">
         <Container className="py-16">

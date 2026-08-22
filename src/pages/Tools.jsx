@@ -148,6 +148,17 @@ export default function Tools() {
           </div>
         </div>
 
+        {activeCategoryData?.promoImage && (
+          <div className="mt-6">
+            <img
+              src={activeCategoryData.promoImage}
+              alt={`${activeCategoryData.name} — ${activeCategoryData.description} Free online tools at ToolHub.`}
+              loading="lazy"
+              className="w-full rounded-2xl border border-slate-200 dark:border-slate-800"
+            />
+          </div>
+        )}
+
         {/* Category selector for mobile/tablet, where the sidebar below is
             hidden — without this, there'd be no way to change categories
             on a phone at all. Deliberately not shown at lg+, where the

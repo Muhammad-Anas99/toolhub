@@ -49,6 +49,7 @@ export const tools = [
     description: 'Convert JPG images to PNG format while preserving quality.',
     icon: FaFileImage,
     badge: 'popular',
+    promoImage: '/images/promo/jpg-to-png.png',
     comingSoon: false,
   },
   {
@@ -107,6 +108,7 @@ export const tools = [
     description: 'Reduce image file size with an adjustable quality slider and live preview.',
     icon: FaCompress,
     badge: 'popular',
+    promoImage: '/images/promo/image-compressor.jpg',
     comingSoon: false,
   },
   {
@@ -551,6 +553,7 @@ export const tools = [
     description: 'Generate strong, random and secure passwords with adjustable length and character types.',
     icon: FaKey,
     badge: 'popular',
+    promoImage: '/images/promo/password-generator.png',
     comingSoon: false,
   },
 
@@ -564,6 +567,7 @@ export const tools = [
     category: 'social-media-tools',
     description: 'Resize images to fit Instagram posts, stories and profile pictures.',
     icon: FaInstagram,
+    promoImage: '/images/promo/instagram-post-resizer.png',
     comingSoon: false,
   },
   {
@@ -576,6 +580,7 @@ export const tools = [
     description: 'Download thumbnail images from any YouTube video.',
     icon: FaYoutube,
     badge: 'new',
+    promoImage: '/images/promo/youtube-thumbnail-downloader.png',
     comingSoon: false,
   },
 ]

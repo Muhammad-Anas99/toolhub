@@ -17,6 +17,7 @@ export const categories = [
     description: 'Convert, compress, resize, crop and rotate images.',
     icon: HiOutlinePhoto,
     color: 'brand',
+    promoImage: '/images/promo/image-tools.png',
   },
   {
     id: 'pdf-tools',
@@ -25,6 +26,7 @@ export const categories = [
     description: 'Merge, split, compress and convert PDF files.',
     icon: HiOutlineDocumentText,
     color: 'rose',
+    promoImage: '/images/promo/pdf-tools.png',
   },
   {
     id: 'developer-tools',
@@ -33,6 +35,7 @@ export const categories = [
     description: 'Formatters, encoders and testers for everyday dev work.',
     icon: HiOutlineCommandLine,
     color: 'violet',
+    promoImage: '/images/promo/developer-tools.png',
   },
   {
     id: 'text-tools',
@@ -41,6 +44,7 @@ export const categories = [
     description: 'Count, convert, format and generate text content.',
     icon: HiOutlineLanguage,
     color: 'emerald',
+    promoImage: '/images/promo/text-tools.png',
   },
   {
     id: 'ai-tools',
@@ -57,6 +61,7 @@ export const categories = [
     description: 'Pick colors, build palettes and generate gradients.',
     icon: HiOutlineSwatch,
     color: 'amber',
+    promoImage: '/images/promo/color-tools.png',
   },
   {
     id: 'security-tools',

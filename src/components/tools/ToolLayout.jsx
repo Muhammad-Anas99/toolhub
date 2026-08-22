@@ -169,6 +169,17 @@ export default function ToolLayout({ tool, children, faqItems }) {
                 same treatment already used on the Tools listing page. */}
             <div className="mx-auto max-w-3xl rounded-2xl bg-slate-50 p-5 dark:bg-slate-900/40 sm:p-6">{children}</div>
 
+            {tool.promoImage && (
+              <div className="mx-auto mt-8 max-w-3xl">
+                <img
+                  src={tool.promoImage}
+                  alt={`${tool.name} — ${tool.description} Free online tool at ToolHub.`}
+                  loading="lazy"
+                  className="w-full rounded-2xl border border-slate-200 dark:border-slate-800"
+                />
+              </div>
+            )}
+
             {hasContent && (
               <div className="mx-auto mt-20 max-w-3xl">
                 <ToolInformation toolName={tool.name} toolSlug={tool.slug} />
@@ -220,6 +231,7 @@ ToolLayout.propTypes = {
     category: PropTypes.string.isRequired,
     icon: PropTypes.elementType,
     slug: PropTypes.string,
+    promoImage: PropTypes.string,
   }).isRequired,
   children: PropTypes.node.isRequired,
   faqItems: PropTypes.array,
