@@ -43,6 +43,23 @@
     <link rel="manifest" href="/site.webmanifest" />
 
     <title>ToolHub — Free Online Tools</title>
+
+    <!-- Google Analytics (GA4) — configured via the VITE_GA_MEASUREMENT_ID
+         environment variable (Vercel dashboard: Settings > Environment
+         Variables), same pattern as VITE_API_URL and the other
+         deployment-specific values already used in this project. Get
+         your real Measurement ID from analytics.google.com under
+         Admin > Data Streams > your web stream — it looks like
+         G-XXXXXXXXXX. UTM parameters on any link pointing here
+         (?utm_source=...&utm_medium=...&utm_campaign=...) are picked up
+         automatically once this is live, no extra code needed. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=%VITE_GA_MEASUREMENT_ID%"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() { dataLayer.push(arguments) }
+      gtag('js', new Date())
+      gtag('config', '%VITE_GA_MEASUREMENT_ID%')
+    </script>
   </head>
   <body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased">
     <div id="root"></div>
