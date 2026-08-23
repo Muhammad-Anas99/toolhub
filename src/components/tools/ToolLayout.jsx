@@ -167,6 +167,16 @@ export default function ToolLayout({ tool, children, faqItems }) {
                 to only if they want it. A subtle background panel gives
                 the actual tool area visual separation from the page,
                 same treatment already used on the Tools listing page. */}
+            {tool.category === 'pdf-tools' && (
+              <div className="mx-auto mb-4 flex max-w-3xl items-start gap-3 rounded-xl bg-emerald-50 px-4 py-3 dark:bg-emerald-950">
+                <HiOutlineShieldCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-600 dark:text-emerald-400" />
+                <p className="text-sm text-emerald-800 dark:text-emerald-300">
+                  Handling a client contract or financial statement? This runs entirely in your
+                  browser — your file is never uploaded, not even briefly.
+                </p>
+              </div>
+            )}
+
             <div className="mx-auto max-w-3xl rounded-2xl bg-slate-50 p-5 dark:bg-slate-900/40 sm:p-6">{children}</div>
 
             {tool.promoImage && (

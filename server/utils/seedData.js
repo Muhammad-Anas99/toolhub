@@ -181,4 +181,39 @@ export const blogSeed = [
     readTime: '4 min read',
     published: true,
   },
+  {
+    title: 'Is It Safe to Upload Contracts and Financial Documents to Online PDF Tools?',
+    slug: 'is-it-safe-to-upload-contracts-financial-documents-online-pdf-tools',
+    excerpt: 'Most free PDF tools work by uploading your file to a server first. For a client contract or a financial statement, that step is worth understanding before you use one.',
+    content: `Most free online PDF tools follow the same basic pattern: you upload your file, their server processes it, and you download the result. For a random screenshot or a public flyer, that's a non-issue. For a signed client contract, a tax document, or a financial statement, it's worth actually thinking about.
+
+**What "upload first, process second" actually means**
+
+When a tool works this way, your file leaves your device and sits on a server you don't control, even if only for a few seconds. Most services delete files after processing and say so in their privacy policy — and most of the time that's true. But it's still a step where your document exists somewhere outside your own machine, governed by someone else's infrastructure and someone else's mistakes, not yours.
+
+For a birthday invite, that risk is meaningless. For a contract with a client's signature, banking details, or negotiated terms, it's a real question worth two extra minutes of thought.
+
+**The alternative: processing that never leaves your browser**
+
+Not every tool works the upload-first way. Some — including most of the tools on ToolHub — process files entirely client-side, meaning the actual compression, conversion, or merging happens inside your own browser tab using your device's own resources. The file is never transmitted anywhere for the operation to complete.
+
+This isn't a marketing claim to take on faith — it's a consequence of how the tool is built. A tool that never sends your file to a server architecturally *can't* leak it in transit or leave a copy sitting on someone else's disk, because there's nothing to intercept and nowhere for a copy to exist.
+
+**A simple way to check any tool you're using**
+
+You don't have to take any site's word for it. Open your browser's developer tools (Network tab), use the tool, and watch what happens. If you see your file being uploaded as a network request, it's server-side. If you don't, it's processing locally. It's a two-minute check that tells you definitively, rather than relying on a privacy policy you'd have to trust.
+
+**Where this actually matters most**
+
+- Contracts with signatures, terms, or negotiated pricing
+- Financial statements, invoices, tax documents
+- Anything under an NDA or containing a client's business details
+- HR documents with personal or salary information
+
+For everyday, non-sensitive files, the distinction genuinely doesn't matter much. For anything above, it's worth choosing a tool that processes locally — not because every upload-based tool is doing something wrong, but because there's no reason to accept even a small, well-intentioned risk when a browser-based alternative exists and costs nothing extra to use.`,
+    category: 'PDF Tools',
+    author: 'ToolHub Team',
+    readTime: '5 min read',
+    published: true,
+  },
 ]

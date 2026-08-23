@@ -333,6 +333,36 @@ export default function Home() {
         </Container>
       </section>
 
+      {/* "Handling something sensitive?" section — the sharper,
+          audience-specific version of the privacy story, per the
+          positioning feedback from real Indie Hackers/Dev.to comments. */}
+      <section>
+        <Container className="py-8">
+          <div className="flex flex-col items-center gap-6 rounded-2xl bg-emerald-50 p-8 dark:bg-emerald-950/40 sm:flex-row sm:items-start">
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-900 dark:text-emerald-400">
+              <HiOutlineShieldCheck className="h-6 w-6" />
+            </div>
+            <div className="text-center sm:text-left">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+                Handling something sensitive?
+              </h2>
+              <p className="mt-1.5 max-w-2xl text-slate-600 dark:text-slate-300">
+                Client contracts, financial statements, anything you wouldn&apos;t want sitting on
+                a random server &mdash; most ToolHub tools process your file entirely in your
+                browser. It never gets uploaded, not even briefly.
+              </p>
+              <Link
+                to="/blog/is-it-safe-to-upload-contracts-financial-documents-online-pdf-tools"
+                className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-700 dark:text-emerald-400"
+              >
+                Read more about how this works
+                <HiArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       {/* Overview promo image — helps this land correctly in Google
           Image Search for general "free online tools" style searches,
           same reasoning as the per-tool and per-category images above. */}
