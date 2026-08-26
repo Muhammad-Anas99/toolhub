@@ -60,6 +60,19 @@
       gtag('js', new Date())
       gtag('config', '%VITE_GA_MEASUREMENT_ID%')
     </script>
+
+    <!-- Google AdSense — configured via VITE_ADSENSE_CLIENT_ID (Vercel
+         dashboard: Settings > Environment Variables), same pattern as
+         VITE_GA_MEASUREMENT_ID above. Your real client ID is
+         ca-pub-4320076605256702 — set VITE_ADSENSE_CLIENT_ID to that
+         exact value. This script alone both verifies site ownership
+         with AdSense and is what's needed for ads to actually serve
+         once your site is approved. -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=%VITE_ADSENSE_CLIENT_ID%"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased">
     <div id="root"></div>
