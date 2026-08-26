@@ -194,7 +194,7 @@ export default function Home() {
           </motion.div>
         </div>
 
-        <Container className="py-16 sm:py-20">
+        <Container className="pb-16 pt-6 sm:pb-20 sm:pt-10">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -235,6 +235,14 @@ export default function Home() {
                   </button>
                 </div>
               </form>
+
+              <Link
+                to="/tools"
+                className="btn-primary mt-4 px-6 py-3 text-base shadow-lg shadow-brand-500/20"
+              >
+                Browse All Tools
+                <HiArrowRight className="h-4 w-4" />
+              </Link>
 
               <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
                 {[
@@ -360,20 +368,6 @@ export default function Home() {
               </Link>
             </div>
           </div>
-        </Container>
-      </section>
-
-      {/* Overview promo image — helps this land correctly in Google
-          Image Search for general "free online tools" style searches,
-          same reasoning as the per-tool and per-category images above. */}
-      <section>
-        <Container className="pb-4">
-          <img
-            src="/images/promo/everything.png"
-            alt="ToolHub — 41 free online tools for images, PDFs, developers, text, and color, all in one place."
-            loading="lazy"
-            className="w-full rounded-2xl border border-slate-200 dark:border-slate-800"
-          />
         </Container>
       </section>
 
