@@ -236,7 +236,7 @@ export const tools = [
     category: 'pdf-tools',
     description: 'Shrink PDF file size while keeping it readable.',
     icon: FaFilePdf,
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     id: 'pdf-to-word',

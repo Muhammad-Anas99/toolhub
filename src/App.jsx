@@ -51,6 +51,7 @@ const PdfToJpg = lazy(() => import('./pages/tools/PdfToJpg.jsx'))
 const PdfToPng = lazy(() => import('./pages/tools/PdfToPng.jsx'))
 const GradientGenerator = lazy(() => import('./pages/tools/GradientGenerator.jsx'))
 const PdfToWord = lazy(() => import('./pages/tools/PdfToWord.jsx'))
+const CompressPdf = lazy(() => import('./pages/tools/CompressPdf.jsx'))
 const PdfToPowerpoint = lazy(() => import('./pages/tools/PdfToPowerpoint.jsx'))
 const ExcelToPdf = lazy(() => import('./pages/tools/ExcelToPdf.jsx'))
 const WordToPdf = lazy(() => import('./pages/tools/WordToPdf.jsx'))
@@ -127,6 +128,7 @@ export default function App() {
           <Route path="/tools/pdf-to-png" element={<PdfToPng />} />
           <Route path="/tools/gradient-generator" element={<GradientGenerator />} />
           <Route path="/tools/pdf-to-word" element={<PdfToWord />} />
+          <Route path="/tools/compress-pdf" element={<CompressPdf />} />
           <Route path="/tools/pdf-to-powerpoint" element={<PdfToPowerpoint />} />
           <Route path="/tools/excel-to-pdf" element={<ExcelToPdf />} />
           <Route path="/tools/word-to-pdf" element={<WordToPdf />} />

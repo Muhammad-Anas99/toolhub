@@ -25,7 +25,7 @@ export async function getPdfDocumentPageCount(file) {
  * 2 (the default) roughly matches a good screen-reading quality without
  * producing an excessively large file.
  */
-export async function pdfPageToImage(file, { pageNumber = 1, mimeType = 'image/png', scale = 2 } = {}) {
+export async function pdfPageToImage(file, { pageNumber = 1, mimeType = 'image/png', scale = 2, quality = 0.92 } = {}) {
   const doc = await loadDocument(file)
   try {
     const page = await doc.getPage(pageNumber)
@@ -42,7 +42,7 @@ export async function pdfPageToImage(file, { pageNumber = 1, mimeType = 'image/p
       canvas.toBlob(
         (blob) => (blob ? resolve(blob) : reject(new Error('Could not create an image from this page.'))),
         mimeType,
-        mimeType === 'image/jpeg' ? 0.92 : undefined
+        mimeType === 'image/jpeg' ? quality : undefined
       )
     })
   } finally {

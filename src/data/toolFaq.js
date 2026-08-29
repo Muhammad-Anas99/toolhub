@@ -314,6 +314,24 @@ export const toolFaqs = {
     },
   ],
 
+  'compress-pdf': [
+    {
+      id: 'how-it-works',
+      question: 'How does this actually shrink the file size?',
+      answer: 'Each page is rendered as an image and recompressed at your chosen quality \u2014 the same technique the Image Compressor uses. This works best on scanned or image-heavy PDFs, since that\u2019s usually what makes a PDF large in the first place.',
+    },
+    {
+      id: 'text-selectable',
+      question: 'Will the text still be selectable and searchable after compressing?',
+      answer: 'No \u2014 since each page becomes a single image, any text in the original PDF is no longer selectable, searchable, or copyable in the compressed version. If you need to keep text selectable, this tool isn\u2019t the right fit for that PDF.',
+    },
+    {
+      id: 'quality-setting',
+      question: 'What compression level should I use?',
+      answer: 'Around 65% is a solid starting point for most PDFs \u2014 noticeably smaller with minimal visible quality loss. Go lower for maximum size reduction if the PDF is mostly for reference, or higher if visual quality matters more than file size.',
+    },
+  ],
+
   'pdf-to-word': [
     {
       id: 'what-it-does',
