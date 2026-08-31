@@ -664,23 +664,25 @@ export const toolContent = {
 
   'gradient-generator': {
     about:
-      'Gradient Generator creates smooth linear or radial CSS gradients with a visual editor \u2014 add color stops, adjust their position, and get ready-to-use CSS instantly.',
+      'Gradient Generator is a free CSS gradient generator that creates smooth linear and radial gradients using a visual editor \u2014 add color stops, adjust their position and direction, and get ready-to-use CSS code instantly, with no need to hand-write gradient syntax or guess at color-stop percentages.\n\nA CSS gradient is a smooth color transition rendered directly by the browser, defined with the linear-gradient() or radial-gradient() function \u2014 no image file required. Because gradients are pure CSS rather than a downloaded image, they scale perfectly at any resolution, add zero extra HTTP requests to your page, and stay crisp on high-density displays where a raster image would look blurry or need multiple exported sizes.\n\nLinear gradients transition along a straight line, controlled by a direction \u2014 either a keyword like "to right" or an exact angle in degrees, where 0deg runs bottom-to-top and 90deg runs left-to-right. Radial gradients instead radiate outward from a center point in a circle or ellipse, which is useful for spotlight effects, glows, or soft vignettes. (CSS also defines a third type, conic gradients, which sweep colors around a center point rather than along a line or outward from one \u2014 this tool currently generates linear and radial gradients.)\n\nEach color stop you add sits at a specific position along the gradient, expressed as a percentage from 0% to 100%. Two stops create a simple two-color blend; adding more stops lets you build a multi-color gradient or even a hard, sharp color split by placing two stops at the same position. Keep in mind that more color stops mean more rendering work for the browser \u2014 two or three stops render with negligible cost, while ten or more can introduce a small amount of visible lag on lower-end devices, so it is worth using only as many stops as the design actually needs.',
     features: [
-      { title: 'Linear & radial', description: 'Build straight-line or circular gradients.', icon: HiOutlinePaintBrush },
-      { title: 'Multiple color stops', description: 'Add up to 5 colors and position each one precisely.', icon: HiOutlineAdjustmentsHorizontal },
-      { title: 'Live preview', description: 'See the actual gradient rendered as you build it.', icon: HiOutlineEyeDropper },
-      { title: 'Ready-to-use CSS', description: 'Copy the exact CSS background value with one click.', icon: HiOutlineCodeBracket },
+      { title: 'Linear & radial gradients', description: 'Build straight-line linear gradients with precise angle control, or circular/elliptical radial gradients.', icon: HiOutlinePaintBrush },
+      { title: 'Multiple color stops', description: 'Add up to 5 colors and position each one precisely along the gradient.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Live preview', description: 'See the actual gradient rendered as you build it, not just a code preview.', icon: HiOutlineEyeDropper },
+      { title: 'Ready-to-use CSS', description: 'Copy the exact background CSS value with one click \u2014 paste directly into your stylesheet.', icon: HiOutlineCodeBracket },
     ],
     howToUse: [
-      'Choose linear or radial, and a direction if linear.',
-      'Add and adjust color stops \u2014 their colors and positions.',
-      'Watch the live preview update.',
-      'Copy the generated CSS.',
+      'Choose linear or radial, and set a direction or angle if linear.',
+      'Add and adjust color stops \u2014 their colors and positions along the gradient.',
+      'Watch the live preview update as you edit.',
+      'Copy the generated CSS gradient code and paste it into your stylesheet.',
     ],
     useCases: [
-      'Building a background gradient for a website or app',
-      'Designing a smooth color transition for a graphic',
-      'Getting exact CSS gradient code without hand-writing it',
+      'Building a background gradient for a website, landing page, or app screen',
+      'Designing a smooth color transition for a button, card, or hero section',
+      'Creating a subtle radial glow or spotlight effect behind an element',
+      'Getting exact, browser-ready CSS gradient code without hand-writing linear-gradient() or radial-gradient() syntax',
+      'Prototyping a gradient direction and color combination quickly before committing to it in code',
     ],
     privacy: NO_FILE_PRIVACY,
   },

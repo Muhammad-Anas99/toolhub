@@ -304,13 +304,36 @@ export const toolFaqs = {
   'gradient-generator': [
     {
       id: 'linear-vs-radial',
-      question: 'What\u2019s the difference between linear and radial?',
-      answer: 'Linear gradients transition in a straight line across a chosen direction; radial gradients spread outward from a center point in a circle.',
+      question: 'What\u2019s the difference between a linear and radial gradient?',
+      answer: 'A linear gradient transitions in a straight line across a chosen direction or angle \u2014 useful for backgrounds, buttons, and hero sections. A radial gradient spreads outward from a center point in a circle or ellipse instead, which works well for spotlight effects, glows, and soft vignettes.',
     },
     {
       id: 'color-stops',
-      question: 'What are color stops?',
-      answer: 'Each stop is a color placed at a specific position (0\u2013100%) along the gradient. Add more stops for a multi-color blend, and drag their position sliders to adjust where each color starts.',
+      question: 'What are color stops in a CSS gradient?',
+      answer: 'Each stop is a color placed at a specific position, from 0% to 100%, along the gradient. Two stops create a simple two-color blend; add more stops for a multi-color gradient, and adjust each stop\u2019s position slider to control exactly where each color starts and ends.',
+    },
+    {
+      id: 'gradient-direction',
+      question: 'How do I set the direction or angle of a linear gradient?',
+      answer: 'Linear gradient direction is set either with a keyword (like \u201cto right\u201d or \u201cto bottom\u201d) or an exact angle in degrees, where 0deg points bottom-to-top and 90deg points left-to-right. This tool lets you set the direction visually and generates the correct CSS automatically, so you don\u2019t need to memorize the angle system.',
+    },
+    {
+      id: 'gradient-css-code',
+      question: 'How do I add the generated gradient to my website?',
+      answer: 'Copy the generated code and paste it directly as the background or background-image value in your CSS \u2014 for example, background: linear-gradient(90deg, #667eea, #764ba2). No image file, build step, or extra HTTP request is needed since the gradient renders natively in the browser.',
+    },
+  ],
+
+  'code-minifier': [
+    {
+      id: 'what-it-does',
+      question: 'Does this rename variables or do aggressive optimization?',
+      answer: 'No \u2014 this strips comments and unnecessary whitespace, but deliberately doesn\u2019t rename variables or remove dead code. Those transformations need a full parser to do safely, and getting them wrong can break working code. This tool prioritizes never breaking your code over squeezing out every possible byte.',
+    },
+    {
+      id: 'is-it-safe',
+      question: 'Will this break my code?',
+      answer: 'It\u2019s built to correctly recognize strings, template literals, and regex literals so it never strips something that only looks like a comment inside one of those \u2014 a common bug in simpler minifiers. Still, always keep your original, unminified source as the version you edit.',
     },
   ],
 

@@ -40,6 +40,7 @@ const HexToHsl = lazy(() => import('./pages/tools/HexToHsl.jsx'))
 const ColorConverter = lazy(() => import('./pages/tools/ColorConverter.jsx'))
 const PaletteGenerator = lazy(() => import('./pages/tools/PaletteGenerator.jsx'))
 const JsonFormatter = lazy(() => import('./pages/tools/JsonFormatter.jsx'))
+const CodeMinifier = lazy(() => import('./pages/tools/CodeMinifier.jsx'))
 const JsonValidator = lazy(() => import('./pages/tools/JsonValidator.jsx'))
 const Base64Encoder = lazy(() => import('./pages/tools/Base64Encoder.jsx'))
 const UrlEncoder = lazy(() => import('./pages/tools/UrlEncoder.jsx'))
@@ -117,6 +118,7 @@ export default function App() {
           <Route path="/tools/color-converter" element={<ColorConverter />} />
           <Route path="/tools/palette-generator" element={<PaletteGenerator />} />
           <Route path="/tools/json-formatter" element={<JsonFormatter />} />
+          <Route path="/tools/code-minifier" element={<CodeMinifier />} />
           <Route path="/tools/json-validator" element={<JsonValidator />} />
           <Route path="/tools/base64-encoder" element={<Base64Encoder />} />
           <Route path="/tools/url-encoder" element={<UrlEncoder />} />

@@ -30,7 +30,7 @@ export default function AdminUsers() {
 
   return (
     <>
-      <SEO title="Admin \u2014 Users" description="Manage ToolHub users." canonicalPath="/admin/users" noIndex />
+      <SEO title="Admin — Users" description="Manage ToolHub users." canonicalPath="/admin/users" noIndex />
 
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Users</h2>

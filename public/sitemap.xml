@@ -95,6 +95,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://trytoolhub.net/tools/compress-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://trytoolhub.net/tools/split-pdf</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -171,6 +176,11 @@
   <!-- Developer tools -->
   <url>
     <loc>https://trytoolhub.net/tools/json-formatter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/code-minifier</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

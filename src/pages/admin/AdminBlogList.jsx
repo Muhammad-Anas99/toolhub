@@ -45,7 +45,7 @@ export default function AdminBlogList() {
 
   return (
     <>
-      <SEO title="Admin \u2014 Blog" description="Manage ToolHub blog posts." canonicalPath="/admin/blog" noIndex />
+      <SEO title="Admin — Blog" description="Manage ToolHub blog posts." canonicalPath="/admin/blog" noIndex />
 
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Blog</h2>

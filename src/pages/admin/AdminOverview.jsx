@@ -97,13 +97,18 @@ export default function AdminOverview() {
   }))
 
   const dailyPoints = data?.dailyActivity?.map((d) => d.count)
-  const weekdayLabels = data?.dailyActivity?.map((d) =>
-    new Date(d.date).toLocaleDateString('en-US', { weekday: 'short' })
+  // Only every 5th day gets a visible label - showing all 30 in the same
+  // narrow space designed for 7 would be illegibly cramped. The sparkline
+  // itself still plots every single real data point regardless.
+  const dayLabels = data?.dailyActivity?.map((d, i) =>
+    i % 5 === 0 || i === data.dailyActivity.length - 1
+      ? new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+      : ''
   )
 
   return (
     <>
-      <SEO title="Admin \u2014 Overview" description="ToolHub admin analytics." canonicalPath="/admin" noIndex />
+      <SEO title="Admin — Overview" description="ToolHub admin analytics." canonicalPath="/admin" noIndex />
 
       {error && <ErrorMessage message={error} onDismiss={() => setError(null)} />}
 
@@ -111,7 +116,7 @@ export default function AdminOverview() {
 
       {data && (
         <div className="space-y-6">
-          {/* Weekly activity — the one "hero" element on the page, real
+          {/* Monthly activity — the one "hero" element on the page, real
               daily data (see analyticsService.getDailyActivity), not a
               decorative placeholder. */}
           <div className="card overflow-hidden p-5">
@@ -119,7 +124,7 @@ export default function AdminOverview() {
               <div>
                 <div className="flex items-center gap-2">
                   <HiOutlineCalendarDays className="h-4 w-4 text-slate-400" />
-                  <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Last 7 days</h2>
+                  <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Last 30 days</h2>
                 </div>
                 <p className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">
                   {dailyPoints?.reduce((sum, v) => sum + v, 0) ?? 0}
@@ -130,9 +135,9 @@ export default function AdminOverview() {
             </div>
             <div className="mt-4">
               <Sparkline points={dailyPoints} colorClassName="stroke-brand-500 text-brand-500" />
-              {weekdayLabels && (
+              {dayLabels && (
                 <div className="mt-1 flex justify-between text-[11px] text-slate-400 dark:text-slate-500">
-                  {weekdayLabels.map((label, i) => (
+                  {dayLabels.map((label, i) => (
                     <span key={i}>{label}</span>
                   ))}
                 </div>

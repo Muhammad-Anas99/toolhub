@@ -26,7 +26,7 @@ export default function AdminTools() {
 
   return (
     <>
-      <SEO title="Admin \u2014 Tools" description="ToolHub tools overview." canonicalPath="/admin/tools" noIndex />
+      <SEO title="Admin — Tools" description="ToolHub tools overview." canonicalPath="/admin/tools" noIndex />
 
       <div className="mb-5">
         <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Tools</h2>

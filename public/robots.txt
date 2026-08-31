@@ -4,5 +4,6 @@ Disallow: /dashboard/
 Disallow: /verify-email
 Disallow: /reset-password
 Disallow: /check-email
+Disallow: /forgot-password
 
 Sitemap: https://trytoolhub.net/sitemap.xml

@@ -466,7 +466,7 @@ export const tools = [
     category: 'developer-tools',
     description: 'Minify CSS, JavaScript and HTML to reduce file size.',
     icon: FaBroom,
-    comingSoon: true,
+    comingSoon: false,
   },
 
   // ---------- Text Tools ----------

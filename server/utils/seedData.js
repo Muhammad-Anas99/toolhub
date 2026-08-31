@@ -119,7 +119,7 @@ export const toolSeed = [
   { name: 'Hash Generator', slug: 'hash-generator', path: '/tools/hash-generator', category: 'developer-tools', description: 'Generate MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes from text.', icon: 'FaHashtag', comingSoon: false },
   { name: 'Timestamp Converter', slug: 'timestamp-converter', path: '/tools/timestamp-converter', category: 'developer-tools', description: 'Convert between Unix timestamps and human-readable dates.', icon: 'FaClock', comingSoon: false },
   { name: 'Regex Tester', slug: 'regex-tester', path: '/tools/regex-tester', category: 'developer-tools', description: 'Test and debug regular expressions with live, highlighted matches.', icon: 'FaMagnifyingGlass', badge: 'popular', comingSoon: false },
-  { name: 'Code Minifier', slug: 'code-minifier', path: '/tools/code-minifier', category: 'developer-tools', description: 'Minify CSS, JavaScript and HTML to reduce file size.', icon: 'FaBroom', comingSoon: true },
+  { name: 'Code Minifier', slug: 'code-minifier', path: '/tools/code-minifier', category: 'developer-tools', description: 'Minify CSS, JavaScript and HTML to reduce file size.', icon: 'FaBroom', comingSoon: false },
 
   // ---------- Text Tools ----------
   { name: 'Word Counter', slug: 'word-counter', path: '/tools/word-counter', category: 'text-tools', description: 'Count words, characters, sentences and paragraphs, with a reading time estimate.', icon: 'FaFont', badge: 'popular', comingSoon: false },

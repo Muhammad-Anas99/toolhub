@@ -188,7 +188,7 @@ export async function getDashboardOverview() {
       getMostUsedCategories(),
       getCountryBreakdown(),
       getDeviceBreakdown(),
-      getDailyActivity(7),
+      getDailyActivity(30),
       getConversionTrend(),
       getNewUserTrend(),
     ])
