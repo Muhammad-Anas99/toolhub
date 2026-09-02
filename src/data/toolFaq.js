@@ -68,13 +68,23 @@ export const toolFaqs = {
       id: 'quality-loss',
       question: 'Will compressing my image reduce its quality?',
       answer:
-        'Some quality is traded for a smaller file size, but you control how much through the quality slider, with a live before/after preview.',
+        'Some quality is traded for a smaller file size when using JPG or WEBP output, but you control how much through the quality slider, with a live before/after preview. PNG output is lossless, so it preserves exact quality but shrinks the file by a much smaller amount.',
     },
     {
       id: 'png-compression',
       question: 'Can I compress PNG files?',
       answer:
-        'Yes. For maximum size reduction, PNGs are re-encoded as JPG during compression, which works best for photos rather than images needing transparency.',
+        'Yes \u2014 by default, this tool outputs JPG regardless of your original format, since lossy compression achieves a far bigger size reduction than PNG\u2019s lossless approach can. If you need to keep transparency or exact pixel accuracy, choose PNG explicitly from the output format option instead.',
+    },
+    {
+      id: 'jpg-vs-webp',
+      question: 'Should I compress to JPG or WEBP?',
+      answer: 'WEBP generally produces a smaller file than JPG at a similar visual quality, and is well supported by modern browsers. JPG remains the safer choice for maximum compatibility with older software or systems that don\u2019t support WEBP.',
+    },
+    {
+      id: 'how-much-smaller',
+      question: 'How much smaller will my image get?',
+      answer: 'It depends heavily on the image and the quality setting you choose \u2014 a detailed photo compressed to JPG at a moderate quality setting can often shrink by 70\u201390%, while a PNG re-encoded losslessly might only shrink by a small percentage. The live before/after size shown as you adjust the slider is the most reliable way to know for your specific image.',
     },
   ],
   'image-resizer': [
@@ -216,7 +226,17 @@ export const toolFaqs = {
     {
       id: 'schemes',
       question: 'What do the different palette types mean?',
-      answer: 'Complementary uses the opposite hue for contrast, analogous uses neighboring hues for harmony, triadic uses three evenly-spaced hues, and shades varies only the lightness of your one color.',
+      answer: 'Complementary uses the opposite hue for high contrast, analogous uses neighboring hues for harmony, triadic uses three evenly-spaced hues for vibrant balance, and shades varies only the lightness of your one color.',
+    },
+    {
+      id: 'which-scheme',
+      question: 'Which palette type should I use for my project?',
+      answer: 'Analogous or shades work well for a cohesive brand palette; complementary suits a call-to-action or accent color that needs to visually stand out; triadic fits designs that genuinely need several distinct colors while still feeling intentionally coordinated.',
+    },
+    {
+      id: 'how-schemes-work',
+      question: 'How are these color schemes actually calculated?',
+      answer: 'Each scheme rotates the hue angle around the color wheel by a fixed amount \u2014 180\u00b0 for complementary, smaller steps for analogous, 120\u00b0 increments for triadic \u2014 while shades instead varies only the lightness value of a single fixed hue.',
     },
   ],
 
@@ -259,14 +279,44 @@ export const toolFaqs = {
     {
       id: 'which-algorithm',
       question: 'Which hash algorithm should I use?',
-      answer: 'SHA-256 or higher for anything security-related. MD5 and SHA-1 are still common for file checksums and compatibility, but are not considered secure for security purposes.',
+      answer: 'SHA-256 or higher for anything security-relevant \u2014 it\u2019s the current practical standard for checksums, digital signatures, and integrity verification. MD5 and SHA-1 are still common for file checksums and compatibility with older systems, but both are cryptographically broken and shouldn\u2019t be relied on for anything security-sensitive.',
+    },
+    {
+      id: 'is-md5-broken',
+      question: 'Is MD5 actually broken, or is that outdated advice?',
+      answer: 'It\u2019s genuinely broken, not outdated caution \u2014 collisions (two different inputs producing the same MD5 hash) can be computed quickly on modern hardware. It\u2019s still fine for non-security uses like deduplication or cache keys, where no one is deliberately trying to forge a match, but not for anything where a malicious collision would matter.',
+    },
+    {
+      id: 'hash-for-passwords',
+      question: 'Can I use SHA-256 to hash and store passwords?',
+      answer: 'No \u2014 this is a common and understandable mistake. SHA-256 and every algorithm here are deliberately fast, which is exactly what makes them weak for password storage: an attacker with leaked hashes can try billions of guesses per second against a fast hash. Password storage needs a deliberately slow algorithm built for that purpose, like bcrypt, scrypt, or Argon2.',
+    },
+    {
+      id: 'same-input-same-hash',
+      question: 'Will the same text always produce the same hash?',
+      answer: 'Yes \u2014 a given input always produces the same hash with the same algorithm, which is what makes hashes useful for verifying content hasn\u2019t changed. Even a single-character difference in the input produces a completely different, unrelated-looking hash.',
     },
   ],
   'timestamp-converter': [
     {
       id: 'what-is-unix-time',
       question: 'What is a Unix timestamp?',
-      answer: 'The number of seconds elapsed since midnight UTC on January 1, 1970 \u2014 a compact, timezone-independent way to represent a point in time.',
+      answer: 'The number of seconds elapsed since midnight UTC on January 1, 1970 \u2014 a fixed reference point called the Unix epoch. It\u2019s a compact, timezone-independent way to represent a single point in time as one number.',
+    },
+    {
+      id: 'seconds-vs-milliseconds',
+      question: 'My timestamp has 13 digits \u2014 why doesn\u2019t it work?',
+      answer: 'This tool works with timestamps in seconds (10 digits for current dates). A 13-digit number is in milliseconds \u2014 common in JavaScript and some APIs. Divide it by 1000 to get the equivalent seconds-based timestamp, then paste that in.',
+    },
+    {
+      id: 'why-timezone-independent',
+      question: 'Why is a Unix timestamp the same number everywhere in the world?',
+      answer: 'Because it counts seconds since a fixed UTC reference point rather than describing a local calendar date and time. The number 1700000000 refers to the exact same instant everywhere \u2014 only the human-readable date and time shown for it changes depending on which timezone you\u2019re viewing it in.',
+    },
+    {
+      id: 'year-2038-problem',
+      question: 'What is the Year 2038 problem?',
+      answer: 'Many older systems store Unix time as a signed 32-bit integer, which runs out of room on January 19, 2038. It doesn\u2019t affect this converter, but it\u2019s a real, still-relevant limitation in some legacy systems and embedded devices that haven\u2019t moved to 64-bit timestamps.',
     },
   ],
   'regex-tester': [
@@ -478,6 +528,16 @@ export const toolFaqs = {
       id: 'strength-meaning',
       question: 'What does the strength indicator mean?',
       answer: 'It\u2019s a real entropy calculation (bits of randomness) based on your password\u2019s length and which character types you\u2019ve included \u2014 not a cosmetic bar. More length and more character types both increase it.',
+    },
+    {
+      id: 'how-long-should-be',
+      question: 'How long should a strong password be?',
+      answer: 'Modern guidance generally recommends at least 14\u201316 characters for a standard account, and 20 or more for anything critical like your email or a password manager\u2019s master password. Length matters more than clever character substitutions \u2014 attackers\u2019 tools already check common swaps like "a" to "@".',
+    },
+    {
+      id: 'password-vs-passphrase',
+      question: 'Should I use a password or a passphrase?',
+      answer: 'Both are legitimate. A passphrase (several random, unrelated words strung together) is easier to type and remember; a fully random character-based password maximizes entropy for a given length. This tool generates the character-based kind \u2014 use whichever you\u2019ll actually type correctly and won\u2019t be tempted to reuse.',
     },
   ],
   'instagram-post-resizer': [

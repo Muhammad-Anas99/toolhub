@@ -165,15 +165,17 @@ export const toolContent = {
 
   'image-compressor': {
     about:
-      'Image Compressor reduces your image\u2019s file size using an adjustable quality slider, so you can shrink large photos down for faster uploads and page loads without a visible drop in quality.',
+      'Image Compressor reduces your image\u2019s file size using an adjustable quality slider, so you can shrink large photos down for faster uploads and page loads without a visible drop in quality.\n\nImage compression comes in two fundamentally different kinds. Lossy compression achieves large size reductions by selectively discarding image data that\u2019s least noticeable to the eye \u2014 the process is irreversible, and pushing the quality slider lower trades more file size for slightly more visible quality loss. Lossless compression shrinks a file by re-encoding the data more efficiently without discarding anything, which typically saves far less space \u2014 often just a small percentage, rather than the large reductions lossy compression can achieve.\n\nBecause lossy compression is so much more effective at reducing file size, this tool outputs JPG by default regardless of your original format, since that gets the biggest genuine size reduction for the common case of compressing a photo. If you specifically need to preserve transparency or exact pixel accuracy \u2014 a logo, an icon, or a screenshot with text \u2014 you can explicitly choose PNG as the output format instead, though keep in mind PNG\u2019s lossless approach won\u2019t shrink the file nearly as dramatically as JPG or WEBP will. WEBP is also available as an output option and generally achieves smaller files than JPG at a similar visual quality, though it\u2019s a newer format with slightly less universal compatibility in older software.\n\nAs a rule of thumb: use JPG or WEBP for photographs and complex images with lots of color variation, where a moderate quality reduction is genuinely invisible to the eye. Choose PNG only when exact pixel accuracy or transparency actually matters for the image\u2019s purpose.',
     features: [
       { title: 'Adjustable quality', description: 'Drag the slider and see the size trade-off before committing.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Choice of output format', description: 'JPG by default for maximum compression, or explicitly choose PNG or WEBP.', icon: HiOutlineArrowsRightLeft },
       { title: 'Live before/after size', description: 'See exactly how much smaller your file gets at each setting.', icon: HiOutlineScale },
       { title: 'Batch friendly', description: 'Compress up to 10 images at once, download individually or as a ZIP.', icon: HiOutlineSquares2X2 },
       { title: 'Instant results', description: 'Compression happens locally in your browser \u2014 no wait, no upload.', icon: HiOutlineBolt },
     ],
     howToUse: [
       'Upload one or more images.',
+      'Choose an output format if you need something other than the default (PNG for transparency, WEBP for smaller lossy files).',
       'Adjust the quality slider until you\u2019re happy with the size/quality balance.',
       'Click Compress.',
       'Download your results individually or as a ZIP.',
@@ -183,6 +185,7 @@ export const toolContent = {
       'Speeding up page load times by shrinking image assets',
       'Reducing storage or bandwidth use for large photo collections',
       'Making an email attachment small enough to send',
+      'Compressing product photos for an online store without visible quality loss',
     ],
     supportedFormats: { input: 'JPG / PNG / WEBP', output: 'Same or JPG/PNG/WEBP', maxSize: '25 MB per image, up to 10 images at once' },
     privacy: BROWSER_ONLY_PRIVACY,
@@ -793,7 +796,7 @@ export const toolContent = {
 
   'hash-generator': {
     about:
-      'Hash Generator produces MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes from text \u2014 SHA hashes use your browser\u2019s native Web Crypto API, and MD5 (not included in Web Crypto since it\u2019s cryptographically broken for security purposes) uses a standard, verified implementation for file-checksum and compatibility use cases.',
+      'Hash Generator produces MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes from text \u2014 SHA hashes use your browser\u2019s native Web Crypto API, and MD5 (not included in Web Crypto since it\u2019s cryptographically broken for security purposes) uses a standard, verified implementation for file-checksum and compatibility use cases.\n\nA hash function takes input of any length and produces a fixed-length output, called a hash or digest. The same input always produces the same hash, and even a tiny, single-character change in the input produces a completely different result \u2014 a property that makes hashes useful for verifying that a piece of text or a file hasn\u2019t been altered, without needing to compare the full content directly.\n\nMD5 and SHA-1 are both considered cryptographically broken \u2014 collisions (two different inputs producing the same hash) can be computed quickly with modern hardware, which makes them unsuitable for anything security-sensitive. They\u2019re still commonly used for non-security purposes like file checksums, cache keys, and deduplication, where the risk of a deliberate, malicious collision doesn\u2019t apply. SHA-256 is the current practical standard for real security-relevant work \u2014 it\u2019s what software projects typically publish alongside a download so users can verify the file wasn\u2019t corrupted or tampered with, and it\u2019s a building block in TLS, Git\u2019s newer object format, and Bitcoin\u2019s proof-of-work.\n\nOne important distinction worth being explicit about: none of these algorithms should be used to store passwords, even SHA-512. They\u2019re deliberately fast to compute, which is exactly what makes them weak for password storage \u2014 an attacker with a list of leaked hashes can try billions of guesses per second against a fast hash. Password storage needs a deliberately slow algorithm designed for that purpose, like bcrypt, scrypt, or Argon2, not a general-purpose hash function.',
     features: [
       { title: 'Five algorithms at once', description: 'See MD5, SHA-1, SHA-256, SHA-384 and SHA-512 all generated together.', icon: HiOutlineHashtag },
       { title: 'Real cryptographic hashing', description: 'SHA variants use the browser\u2019s native Web Crypto API.', icon: HiOutlineShieldCheck },
@@ -805,31 +808,34 @@ export const toolContent = {
       'Copy whichever one you need.',
     ],
     useCases: [
-      'Verifying a file or string\u2019s checksum for integrity',
-      'Generating a hash for a password reset token or cache key during development',
-      'Comparing two pieces of text for exact equality via their hash',
+      'Verifying a downloaded file\u2019s checksum matches what the publisher posted',
+      'Generating a hash for a cache key or content-addressed identifier during development',
+      'Comparing two pieces of text for exact equality without displaying either in full',
+      'Checking that a piece of text or data hasn\u2019t been altered since a hash was first recorded',
     ],
-    supportedFormats: { notes: 'SHA-256 or higher is recommended for anything security-sensitive; MD5 and SHA-1 are best treated as checksums only.' },
+    supportedFormats: { notes: 'SHA-256 or higher is recommended for anything security-relevant; MD5 and SHA-1 are best treated as checksums only, not for security purposes. None of these algorithms are appropriate for storing passwords \u2014 use bcrypt, scrypt, or Argon2 for that instead.' },
     privacy: NO_FILE_PRIVACY,
   },
 
   'timestamp-converter': {
     about:
-      'Timestamp Converter converts between Unix timestamps and human-readable dates in both directions, showing the result in local time, UTC, ISO 8601 and relative form.',
+      'Timestamp Converter converts between Unix timestamps and human-readable dates in both directions, showing the result in local time, UTC, ISO 8601, and relative form.\n\nA Unix timestamp (also called epoch time or POSIX time) is the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC \u2014 a fixed reference point known as the Unix epoch. It represents an absolute point in time as a single number, independent of timezone: the timestamp 1700000000 refers to the exact same instant whether you\u2019re in Karachi, New York, or Tokyo, even though the human-readable date and time shown for it will differ by timezone. That single-number simplicity is why timestamps are used everywhere in software \u2014 databases store them, APIs return them, and server logs are full of them, because comparing two integers or subtracting one from another is far simpler than comparing calendar dates across timezones.\n\nThis tool works with timestamps in seconds, which is the standard Unix format. Some systems and APIs (including JavaScript\u2019s own Date.now()) use milliseconds instead \u2014 a 13-digit number rather than 10 digits. If you have a millisecond value, divide it by 1000 before pasting it in here to get the equivalent seconds-based timestamp.\n\nWorth knowing if you work with timestamps regularly: many older systems store Unix time as a signed 32-bit integer, which can only count up to a certain point before it overflows \u2014 known as the Year 2038 problem, since that\u2019s when 32-bit timestamps run out of room. It doesn\u2019t affect this converter, but it\u2019s a real, still-relevant limitation in some legacy systems and embedded devices.',
     features: [
       { title: 'Bidirectional conversion', description: 'Convert a timestamp to a date, or a date to a timestamp.', icon: HiOutlineArrowsRightLeft },
       { title: 'Multiple date formats', description: 'See local time, UTC, ISO 8601, and a human-friendly relative time all at once.', icon: HiOutlineCalendarDays },
       { title: 'Current time shortcut', description: 'Fill in the current Unix timestamp with one click.', icon: HiOutlineClock },
     ],
     howToUse: [
-      'Enter a Unix timestamp to see its date, or pick a date to get its timestamp.',
-      'View the result in local time, UTC, ISO 8601 and relative form.',
+      'Enter a Unix timestamp (in seconds) to see its date, or pick a date to get its timestamp.',
+      'View the result in local time, UTC, ISO 8601, and relative form.',
       'Copy whichever format you need.',
     ],
     useCases: [
-      'Debugging a Unix timestamp found in logs or a database',
+      'Debugging a Unix timestamp found in server logs or a database',
       'Converting a date into a timestamp for an API request',
-      'Checking what time a timestamp actually represents in your timezone',
+      'Checking what time a timestamp actually represents in your own timezone',
+      'Comparing two events stored as timestamps to see which happened first',
+      'Understanding a raw timestamp value returned by a third-party API',
     ],
     privacy: NO_FILE_PRIVACY,
   },
@@ -913,25 +919,27 @@ export const toolContent = {
 
   'password-generator': {
     about:
-      'Password Generator creates strong, random passwords using your browser\u2019s cryptographically secure random number generator \u2014 with adjustable length and character types, plus a real entropy-based strength indicator.',
+      'Password Generator creates strong, random passwords using your browser\u2019s cryptographically secure random number generator \u2014 with adjustable length and character types, plus a real entropy-based strength indicator, not a cosmetic strength bar.\n\nModern security guidance generally recommends at least 14\u201316 characters for a standard account password, and 20 or more characters for anything critical, like your email account, banking, or a password manager\u2019s own master password. Length matters more than clever substitutions \u2014 a longer random password is harder to crack than a shorter one with symbols swapped in for letters, since attackers already check common substitution patterns like replacing "a" with "@" or "e" with "3" as a standard part of password-cracking tools.\n\nThe strength indicator here is based on entropy, measured in bits \u2014 a real, calculable measure of how unpredictable a password actually is, based on its length and the size of the character set it draws from. This is a meaningfully different (and more honest) approach than the cosmetic red/yellow/green bars many sites show, which often reward things like mixed case or a single symbol without actually reflecting how hard the password would be to guess or brute-force.\n\nA password generated this way is different from a passphrase (a string of random, unrelated words, like the well-known "correct horse battery staple" example) \u2014 both are legitimate approaches to a strong credential, but a passphrase trades some randomness for being easier to type and remember, while a fully random character-based password maximizes entropy for a given length. This tool generates the traditional character-based kind.\n\nThe most common password mistakes are worth knowing even with a generator in hand: reusing the same password across multiple accounts (so a single breach exposes everything), using dictionary words or common keyboard patterns like "qwerty", and relying on security questions with real, guessable answers. A generated, unique password for every account avoids the first and second of these directly.',
     features: [
-      { title: 'Cryptographically secure', description: 'Uses the browser\u2019s native secure random generator, never a weak pseudo-random function.', icon: HiOutlineKey },
-      { title: 'Adjustable length & charset', description: 'Choose length from 6\u201364 characters and which character types to include.', icon: HiOutlineAdjustmentsHorizontal },
-      { title: 'Real strength calculation', description: 'A genuine bits-of-entropy calculation, not a cosmetic bar.', icon: HiOutlineShieldCheck },
+      { title: 'Cryptographically secure', description: 'Uses the browser\u2019s native secure random generator (crypto.getRandomValues), never Math.random() or another weak pseudo-random function.', icon: HiOutlineKey },
+      { title: 'Adjustable length & charset', description: 'Choose length from 6\u201364 characters and which character types to include \u2014 uppercase, lowercase, numbers, and symbols.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Real entropy calculation', description: 'A genuine bits-of-entropy strength calculation based on length and character set size, not a cosmetic bar.', icon: HiOutlineShieldCheck },
     ],
     howToUse: [
       'Set your desired length and character types (uppercase, lowercase, numbers, symbols).',
       'Click Generate Password.',
-      'Check the strength indicator.',
-      'Copy your password.',
+      'Check the entropy-based strength indicator.',
+      'Copy your password and store it in a password manager.',
     ],
     useCases: [
-      'Creating a strong password for a new account',
+      'Creating a strong, unique password for a new account',
       'Generating a secure password to store in a password manager',
-      'Getting a random string for a token or temporary credential',
+      'Replacing a weak or reused password on an existing account',
+      'Getting a random string for an API key, token, or temporary credential',
+      'Setting a strong Wi-Fi network password',
     ],
     privacy:
-      'Passwords are generated entirely on your device using your browser\u2019s cryptographically secure random number generator. Nothing about the password you generate is ever sent to ToolHub\u2019s servers.',
+      'Passwords are generated entirely on your device using your browser\u2019s cryptographically secure random number generator. Nothing about the password you generate is ever sent to ToolHub\u2019s servers, and nothing is stored \u2014 if you close the tab without copying it, it\u2019s gone.',
   },
 
   'instagram-post-resizer': {
