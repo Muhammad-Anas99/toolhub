@@ -51,3 +51,22 @@ export const contactRateLimiter = rateLimit({
     message: 'Too many messages sent. Please try again in a little while.',
   },
 })
+
+/**
+ * Applied to the URL shortener creation endpoint — public and
+ * unauthenticated, and each successful request creates a persistent
+ * database record and a real redirect, so it's worth limiting more
+ * tightly than a typical read-only tool endpoint. More generous than the
+ * contact form's 5/15min since legitimate use might mean shortening
+ * several links in one session.
+ */
+export const urlShortenerRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many links created. Please try again in a little while.',
+  },
+})

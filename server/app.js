@@ -11,6 +11,7 @@ import { sanitizeInput } from './middleware/sanitizeInput.js'
 import { notFound } from './middleware/notFound.js'
 import { errorHandler } from './middleware/errorHandler.js'
 import apiRoutes from './routes/index.js'
+import shortUrlRedirectRoutes from './routes/shortUrlRedirectRoutes.js'
 
 /**
  * Builds and returns the fully configured Express app, with no side
@@ -95,6 +96,10 @@ export function createApp() {
 
   // --- API routes ---------------------------------------------------------------
   app.use('/api', apiRoutes)
+
+  // Deliberately outside /api - a shortened link needs to be genuinely
+  // short (trytoolhub.net/s/abc1234), not trytoolhub.net/api/s/abc1234.
+  app.use('/s', shortUrlRedirectRoutes)
 
   app.get('/', (req, res) => {
     res.json({ success: true, message: 'ToolHub API — see /api/health for status' })

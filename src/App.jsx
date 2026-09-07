@@ -62,6 +62,7 @@ const WordCounter = lazy(() => import('./pages/tools/WordCounter.jsx'))
 const CaseConverter = lazy(() => import('./pages/tools/CaseConverter.jsx'))
 const LoremIpsumGenerator = lazy(() => import('./pages/tools/LoremIpsumGenerator.jsx'))
 const PasswordGenerator = lazy(() => import('./pages/tools/PasswordGenerator.jsx'))
+const PasswordStrengthChecker = lazy(() => import('./pages/tools/PasswordStrengthChecker.jsx'))
 const InstagramPostResizer = lazy(() => import('./pages/tools/InstagramPostResizer.jsx'))
 const AiBackgroundRemover = lazy(() => import('./pages/tools/AiBackgroundRemover.jsx'))
 const AiImageUpscaler = lazy(() => import('./pages/tools/AiImageUpscaler.jsx'))
@@ -141,6 +142,7 @@ export default function App() {
           <Route path="/tools/case-converter" element={<CaseConverter />} />
           <Route path="/tools/lorem-ipsum-generator" element={<LoremIpsumGenerator />} />
           <Route path="/tools/password-generator" element={<PasswordGenerator />} />
+          <Route path="/tools/password-strength-checker" element={<PasswordStrengthChecker />} />
           <Route path="/tools/instagram-post-resizer" element={<InstagramPostResizer />} />
           <Route path="/tools/ai-background-remover" element={<AiBackgroundRemover />} />
           <Route path="/tools/ai-image-upscaler" element={<AiImageUpscaler />} />

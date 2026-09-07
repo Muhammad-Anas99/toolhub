@@ -134,6 +134,7 @@ export const toolSeed = [
 
   // ---------- Security Tools ----------
   { name: 'Password Generator', slug: 'password-generator', path: '/tools/password-generator', category: 'security-tools', description: 'Generate strong, random and secure passwords with adjustable length and character types.', icon: 'FaKey', badge: 'popular', comingSoon: false },
+  { name: 'Password Strength Checker', slug: 'password-strength-checker', path: '/tools/password-strength-checker', category: 'security-tools', description: 'Check how strong a password really is, entirely on your device — nothing is ever sent anywhere.', icon: 'FaShieldHalved', badge: 'new', comingSoon: false },
 
   // ---------- Social Media Tools ----------
   { name: 'Instagram Post Resizer', slug: 'instagram-post-resizer', path: '/tools/instagram-post-resizer', category: 'social-media-tools', description: 'Resize images to fit Instagram posts, stories and profile pictures.', icon: 'FaInstagram', comingSoon: false },

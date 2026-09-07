@@ -21,6 +21,8 @@ import {
   HiOutlinePaintBrush,
   HiOutlineRectangleGroup,
   HiOutlineDocumentText,
+  HiOutlineExclamationTriangle,
+  HiOutlineArrowDownTray,
   HiOutlinePhoto,
   HiOutlineSparkles,
   HiOutlineEyeDropper,
@@ -1045,6 +1047,30 @@ export const toolContent = {
     ],
     privacy:
       'Passwords are generated entirely on your device using your browser\u2019s cryptographically secure random number generator. Nothing about the password you generate is ever sent to ToolHub\u2019s servers, and nothing is stored \u2014 if you close the tab without copying it, it\u2019s gone.',
+  },
+
+  'password-strength-checker': {
+    about:
+      'Password Strength Checker analyzes a password you already have and tells you how it would actually hold up \u2014 entirely on your device, with the password itself never sent anywhere, not even briefly.\n\nThis is a genuinely different job from the Password Generator: that tool creates a new random password for you, while this one evaluates a password you already use or are considering, and explains specifically what\u2019s wrong with it if anything is. Raw entropy math alone is well known to be misleading here \u2014 a password like "Password123!" has decent character variety and would score reasonably well on character-count math alone, but it\u2019s also a notoriously common real-world pattern that automated cracking tools check for immediately. This tool combines entropy calculation with a real check against commonly used passwords and well-known weak patterns \u2014 sequential runs like "123" or "abc", repeated characters, and keyboard patterns like "qwerty" \u2014 so the rating reflects how a password would actually perform against real cracking attempts, not just an abstract character-count formula.\n\nA useful way to think about why length and unpredictability matter so much: password cracking happens at two very different speeds depending on the attack. An online attack (someone trying to log into your actual account) is generally rate-limited to a small number of attempts, since the target service can block repeated failures. An offline attack (an attacker who has obtained a stolen password database and is cracking the hashes on their own hardware) can attempt billions of guesses per second with no rate limit at all \u2014 which is exactly why relying on a password being merely "not obvious to a human" isn\u2019t enough; it needs to hold up against automated, high-speed guessing too.\n\nOne legitimate technique worth knowing about, even though this tool doesn\u2019t implement it: some password checkers verify whether a password has appeared in a known data breach using a privacy-preserving method (k-anonymity) \u2014 only the first few characters of the password\u2019s hash are ever sent to a breach-checking service, never the password or the full hash itself. It\u2019s a real, well-designed approach, just outside the scope of what this specific tool checks.',
+    features: [
+      { title: 'Real pattern detection', description: 'Catches common passwords, sequential runs, repeated characters and keyboard patterns \u2014 not just raw character count.', icon: HiOutlineExclamationTriangle },
+      { title: 'Entirely on your device', description: 'The password you type is never transmitted anywhere, ever.', icon: HiOutlineShieldCheck },
+      { title: 'Specific, actionable feedback', description: 'See exactly why a password is weak, not just a vague color bar.', icon: HiOutlineDocumentText },
+      { title: 'Instant results', description: 'Updates live as you type, no button to click.', icon: HiOutlineBolt },
+    ],
+    howToUse: [
+      'Type or paste a password into the field.',
+      'Use the eye icon to reveal it if you want to double-check what you typed.',
+      'Review the strength rating and any specific warnings.',
+    ],
+    useCases: [
+      'Checking whether a password you\u2019re about to use is actually strong before committing to it',
+      'Understanding specifically why a password is considered weak, not just that it is',
+      'Auditing an old password you\u2019ve reused for a while',
+      'Learning what patterns make a password easy to crack, to build better habits going forward',
+    ],
+    privacy:
+      'Everything happens locally in your browser using JavaScript \u2014 the password you type is never transmitted to ToolHub\u2019s servers or anywhere else, not even briefly, and nothing about it is stored.',
   },
 
   'instagram-post-resizer': {

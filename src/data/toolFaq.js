@@ -1152,6 +1152,29 @@ export const toolFaqs = {
       answer: 'Both are legitimate. A passphrase (several random, unrelated words strung together) is easier to type and remember; a fully random character-based password maximizes entropy for a given length. This tool generates the character-based kind \u2014 use whichever you\u2019ll actually type correctly and won\u2019t be tempted to reuse.',
     },
   ],
+
+  'password-strength-checker': [
+    {
+      id: 'is-it-safe-to-type',
+      question: 'Is it safe to type my real password into this?',
+      answer: 'Yes \u2014 the check happens entirely in your browser using JavaScript. The password is never sent to ToolHub\u2019s servers or anywhere else, not even briefly, and nothing about it is stored.',
+    },
+    {
+      id: 'why-not-just-entropy',
+      question: 'Why isn\u2019t this just a simple entropy calculation?',
+      answer: 'Entropy math alone is genuinely misleading \u2014 a password like "Password123!" has decent character variety and scores well on character-count math, but it\u2019s also a well-known, commonly used real-world pattern that automated cracking tools check for immediately. This tool combines entropy with a real check against common passwords and predictable patterns, so the result reflects how a password would actually perform, not just an abstract formula.',
+    },
+    {
+      id: 'online-vs-offline-attack',
+      question: 'What\u2019s the difference between an online and offline password attack?',
+      answer: 'An online attack tries logging into your actual account and is usually rate-limited, since the service can block repeated failed attempts. An offline attack works against a stolen password database on the attacker\u2019s own hardware, with no rate limit \u2014 billions of guesses per second are realistic. A genuinely strong password needs to hold up against the offline case, not just seem unguessable to a person.',
+    },
+    {
+      id: 'checker-vs-generator',
+      question: 'How is this different from the Password Generator tool?',
+      answer: 'Password Generator creates a brand-new random password for you. This tool instead evaluates a password you already have or are considering, and explains specifically what\u2019s wrong with it if anything is \u2014 two different jobs.',
+    },
+  ],
   'instagram-post-resizer': [
     {
       id: 'fill-vs-fit',
