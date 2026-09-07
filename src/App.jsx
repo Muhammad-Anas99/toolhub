@@ -45,6 +45,7 @@ const JsonValidator = lazy(() => import('./pages/tools/JsonValidator.jsx'))
 const Base64Encoder = lazy(() => import('./pages/tools/Base64Encoder.jsx'))
 const UrlEncoder = lazy(() => import('./pages/tools/UrlEncoder.jsx'))
 const UuidGenerator = lazy(() => import('./pages/tools/UuidGenerator.jsx'))
+const QrCodeGenerator = lazy(() => import('./pages/tools/QrCodeGenerator.jsx'))
 const HashGenerator = lazy(() => import('./pages/tools/HashGenerator.jsx'))
 const TimestampConverter = lazy(() => import('./pages/tools/TimestampConverter.jsx'))
 const RegexTester = lazy(() => import('./pages/tools/RegexTester.jsx'))
@@ -123,6 +124,7 @@ export default function App() {
           <Route path="/tools/base64-encoder" element={<Base64Encoder />} />
           <Route path="/tools/url-encoder" element={<UrlEncoder />} />
           <Route path="/tools/uuid-generator" element={<UuidGenerator />} />
+          <Route path="/tools/qr-code-generator" element={<QrCodeGenerator />} />
           <Route path="/tools/hash-generator" element={<HashGenerator />} />
           <Route path="/tools/timestamp-converter" element={<TimestampConverter />} />
           <Route path="/tools/regex-tester" element={<RegexTester />} />

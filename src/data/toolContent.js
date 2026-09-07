@@ -847,6 +847,31 @@ export const toolContent = {
     privacy: NO_FILE_PRIVACY,
   },
 
+  'qr-code-generator': {
+    about:
+      'QR Code Generator creates a scannable QR code from any text or URL, entirely in your browser \u2014 no sign-up, no watermark, and no expiration, since the code never depends on any server staying online.\n\nThere are two fundamentally different kinds of QR code, and the difference matters a lot for anything you plan to print or rely on long-term. A static QR code (what this tool creates) has the actual destination \u2014 the URL or text itself \u2014 encoded directly into the pattern of the code. Once generated, it works forever, with nothing to maintain, because there\u2019s no external service involved in scanning it. A dynamic QR code instead encodes a short redirect link controlled by a company\u2019s server, which lets you change the destination later and see scan analytics \u2014 but only for as long as that company keeps the redirect service running, which is typically tied to an ongoing paid plan.\n\nA genuinely common frustration with "free" QR generators is worth naming directly: many quietly add a watermark, cap you at a few hundred scans before demanding payment, or expire the code after a set period \u2014 none of which is obvious until after you\u2019ve already printed it on packaging or a sign. Since this tool generates a real static code with the data baked in directly, none of that applies: no watermark because there\u2019s no branding added to the output, no scan limit because scanning doesn\u2019t touch any server at all, and no expiration because there\u2019s nothing external to expire.\n\nThe error correction level you choose controls how much of the code can be damaged, dirty, or obscured (like by a logo placed on top) while still scanning correctly \u2014 Low allows about 7% damage, High allows about 30%, at the cost of a visually denser code for the same data.',
+    features: [
+      { title: 'Genuinely static, permanent codes', description: 'The destination is baked directly into the code \u2014 nothing to expire, no server dependency.', icon: HiOutlineShieldCheck },
+      { title: 'No watermark, no sign-up', description: 'A clean, unbranded code, usable immediately.', icon: HiOutlineSparkles },
+      { title: 'PNG or SVG export', description: 'PNG for quick use, or SVG for scaling to any size \u2014 like large print signage \u2014 with zero quality loss.', icon: HiOutlineArrowDownTray },
+      { title: 'Adjustable error correction', description: 'Choose how much damage or obstruction the code can tolerate and still scan.', icon: HiOutlineAdjustmentsHorizontal },
+    ],
+    howToUse: [
+      'Type or paste any text or URL.',
+      'Choose an error correction level, and customize the colors if you like.',
+      'Preview the code live as you type.',
+      'Download as PNG or SVG.',
+    ],
+    useCases: [
+      'Linking a printed flyer, poster, or business card to a website',
+      'Sharing a Wi-Fi password or contact detail without typing it out',
+      'Putting a permanent, non-expiring code on product packaging',
+      'Generating a QR code for a presentation slide or event signage',
+    ],
+    supportedFormats: { output: 'PNG or SVG', notes: 'A static code — the data is permanent and doesn\u2019t depend on any external service to keep working.' },
+    privacy: NO_FILE_PRIVACY,
+  },
+
   'hash-generator': {
     about:
       'Hash Generator produces MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes from text \u2014 SHA hashes use your browser\u2019s native Web Crypto API, and MD5 (not included in Web Crypto since it\u2019s cryptographically broken for security purposes) uses a standard, verified implementation for file-checksum and compatibility use cases.\n\nA hash function takes input of any length and produces a fixed-length output, called a hash or digest. The same input always produces the same hash, and even a tiny, single-character change in the input produces a completely different result \u2014 a property that makes hashes useful for verifying that a piece of text or a file hasn\u2019t been altered, without needing to compare the full content directly.\n\nMD5 and SHA-1 are both considered cryptographically broken \u2014 collisions (two different inputs producing the same hash) can be computed quickly with modern hardware, which makes them unsuitable for anything security-sensitive. They\u2019re still commonly used for non-security purposes like file checksums, cache keys, and deduplication, where the risk of a deliberate, malicious collision doesn\u2019t apply. SHA-256 is the current practical standard for real security-relevant work \u2014 it\u2019s what software projects typically publish alongside a download so users can verify the file wasn\u2019t corrupted or tampered with, and it\u2019s a building block in TLS, Git\u2019s newer object format, and Bitcoin\u2019s proof-of-work.\n\nOne important distinction worth being explicit about: none of these algorithms should be used to store passwords, even SHA-512. They\u2019re deliberately fast to compute, which is exactly what makes them weak for password storage \u2014 an attacker with a list of leaked hashes can try billions of guesses per second against a fast hash. Password storage needs a deliberately slow algorithm designed for that purpose, like bcrypt, scrypt, or Argon2, not a general-purpose hash function.',

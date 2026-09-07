@@ -689,6 +689,34 @@ export const toolFaqs = {
       answer: 'It\u2019s a practical limit to keep the results easy to scan and copy \u2014 if you need more than 50, you can simply generate multiple batches.',
     },
   ],
+
+  'qr-code-generator': [
+    {
+      id: 'static-vs-dynamic',
+      question: 'Is this a static or dynamic QR code?',
+      answer: 'Static \u2014 the actual text or URL is encoded directly into the code itself, so it works permanently with no dependency on any external server. A dynamic QR code instead redirects through a company\u2019s server (allowing the destination to be changed later), which only keeps working as long as that service stays online, typically under a paid plan.',
+    },
+    {
+      id: 'does-it-expire',
+      question: 'Will this QR code ever expire or stop working?',
+      answer: 'No \u2014 since the data is baked directly into the code with nothing external to maintain, a static QR code like this one works for as long as the destination URL or text itself remains valid. There\u2019s no subscription or service to keep active.',
+    },
+    {
+      id: 'watermark-scan-limit',
+      question: 'Are there any watermarks or scan limits?',
+      answer: 'No \u2014 the output is a clean, unbranded code, and since scanning it never touches any server, there\u2019s no scan count to hit or limit to worry about.',
+    },
+    {
+      id: 'error-correction-meaning',
+      question: 'What does the error correction level actually do?',
+      answer: 'It controls how much of the code can be damaged, dirty, or covered (for example, by a logo placed in the center) while still scanning correctly \u2014 from about 7% tolerance at Low up to about 30% at High. Higher levels make the code visually denser for the same amount of data.',
+    },
+    {
+      id: 'svg-vs-png',
+      question: 'Should I download PNG or SVG?',
+      answer: 'PNG is simplest for everyday digital use. SVG is the better choice if the code will be printed large \u2014 like on a poster or product packaging \u2014 since it scales to any size with no pixelation, unlike a PNG stretched beyond its original resolution.',
+    },
+  ],
   'hash-generator': [
     {
       id: 'which-algorithm',

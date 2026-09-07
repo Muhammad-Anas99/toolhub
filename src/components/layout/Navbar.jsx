@@ -20,6 +20,7 @@ const CATEGORY_SHORTCUTS = [
 ]
 
 const NAV_LINKS = [
+  { label: 'QR Code', to: '/tools/qr-code-generator' },
   { label: 'Blog', to: '/blog' },
   { label: 'About', to: '/about' },
   { label: 'Contact', to: '/contact' },
