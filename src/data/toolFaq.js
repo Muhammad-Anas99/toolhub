@@ -717,6 +717,34 @@ export const toolFaqs = {
       answer: 'PNG is simplest for everyday digital use. SVG is the better choice if the code will be printed large \u2014 like on a poster or product packaging \u2014 since it scales to any size with no pixelation, unlike a PNG stretched beyond its original resolution.',
     },
   ],
+
+  'url-shortener': [
+    {
+      id: 'why-server-needed',
+      question: 'Why does this need a server when other ToolHub tools don\u2019t?',
+      answer: 'A short link has to keep working for anyone who clicks it later, on any device, at any time \u2014 which requires the destination URL to be stored somewhere accessible to everyone, not just your own browser. It\u2019s the one genuine exception to how every other tool here works, and it\u2019s disclosed upfront rather than hidden.',
+    },
+    {
+      id: 'does-shortening-hurt-seo',
+      question: 'Does shortening a URL hurt its SEO?',
+      answer: 'No, when done correctly \u2014 this tool uses a genuine 301 (permanent redirect), which is what reputable URL shorteners use and what properly passes ranking value through to the actual destination page. Your destination page\u2019s search ranking isn\u2019t diluted or split by the short link.',
+    },
+    {
+      id: 'does-it-expire',
+      question: 'Will my short link ever expire?',
+      answer: 'No \u2014 there\u2019s no default expiration. Many competing shorteners reserve permanent links for paid plans; this one doesn\u2019t require an account at all.',
+    },
+    {
+      id: 'do-i-need-account',
+      question: 'Do I need to create an account to use this?',
+      answer: 'No \u2014 paste a URL and get a short link back immediately, with no sign-up step.',
+    },
+    {
+      id: 'no-analytics',
+      question: 'Can I see click analytics for my link?',
+      answer: 'Not currently \u2014 this tool is intentionally a simple, direct utility rather than a full link-management platform. If you need click tracking, branded domains, or the ability to edit a link\u2019s destination later, a dedicated service built for that is a better fit.',
+    },
+  ],
   'hash-generator': [
     {
       id: 'which-algorithm',

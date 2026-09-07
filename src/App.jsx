@@ -46,6 +46,8 @@ const Base64Encoder = lazy(() => import('./pages/tools/Base64Encoder.jsx'))
 const UrlEncoder = lazy(() => import('./pages/tools/UrlEncoder.jsx'))
 const UuidGenerator = lazy(() => import('./pages/tools/UuidGenerator.jsx'))
 const QrCodeGenerator = lazy(() => import('./pages/tools/QrCodeGenerator.jsx'))
+const UrlShortener = lazy(() => import('./pages/tools/UrlShortener.jsx'))
+const ShortUrlRedirect = lazy(() => import('./pages/ShortUrlRedirect.jsx'))
 const HashGenerator = lazy(() => import('./pages/tools/HashGenerator.jsx'))
 const TimestampConverter = lazy(() => import('./pages/tools/TimestampConverter.jsx'))
 const RegexTester = lazy(() => import('./pages/tools/RegexTester.jsx'))
@@ -126,6 +128,8 @@ export default function App() {
           <Route path="/tools/url-encoder" element={<UrlEncoder />} />
           <Route path="/tools/uuid-generator" element={<UuidGenerator />} />
           <Route path="/tools/qr-code-generator" element={<QrCodeGenerator />} />
+          <Route path="/tools/url-shortener" element={<UrlShortener />} />
+          <Route path="/s/:code" element={<ShortUrlRedirect />} />
           <Route path="/tools/hash-generator" element={<HashGenerator />} />
           <Route path="/tools/timestamp-converter" element={<TimestampConverter />} />
           <Route path="/tools/regex-tester" element={<RegexTester />} />

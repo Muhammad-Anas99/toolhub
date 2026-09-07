@@ -874,6 +874,31 @@ export const toolContent = {
     privacy: NO_FILE_PRIVACY,
   },
 
+  'url-shortener': {
+    about:
+      'URL Shortener turns a long, unwieldy link into a short, clean one that redirects to the original destination \u2014 free, with no account required.\n\nWorth being upfront about: this is the one ToolHub tool that genuinely can\u2019t work entirely in your browser. A short link has to keep working for anyone who clicks it later, on any device, at any time \u2014 which means the destination URL is necessarily stored on ToolHub\u2019s server, unlike every other tool here. It\u2019s a deliberate, disclosed exception, not an oversight.\n\nThe redirect itself uses a genuine 301 (permanent redirect) response, which is what reputable URL shorteners use and what correctly passes a page\u2019s SEO ranking value through to the actual destination \u2014 a short link built this way doesn\u2019t compete with or dilute the destination page\u2019s own search ranking, since search engines treat a 301 as "this content has permanently moved here."\n\nMost major URL shorteners gate real usage behind an account, and often a paid plan, for anything beyond a handful of links \u2014 branded domains, click analytics, and custom expiration dates are typically premium features. This tool skips all of that: no sign-up, no dashboard to manage, just a link that works and keeps working. If you need click analytics, custom branded domains, or the ability to edit a link\u2019s destination after creating it, a dedicated service built for that is a better fit \u2014 this tool is intentionally a simpler, more direct utility.',
+    features: [
+      { title: 'No account required', description: 'Paste a URL, get a short link \u2014 nothing to sign up for.', icon: HiOutlineLink },
+      { title: 'Permanent, standards-correct redirects', description: 'Uses a genuine 301 redirect, which properly passes SEO value to your destination page.', icon: HiOutlineShieldCheck },
+      { title: 'One-click copy', description: 'Copy your new short link straight to your clipboard.', icon: HiOutlineDocumentDuplicate },
+      { title: 'Instant results', description: 'Get your short link back immediately after submitting.', icon: HiOutlineBolt },
+    ],
+    howToUse: [
+      'Paste your long URL into the field.',
+      'Click Shorten URL.',
+      'Copy your new short link.',
+    ],
+    useCases: [
+      'Making a long link easier to share verbally or in print',
+      'Cleaning up a long URL with tracking parameters before sharing it',
+      'Fitting a link into a space with a character limit',
+      'Sharing a cleaner-looking link on social media or in a message',
+    ],
+    supportedFormats: { notes: 'Accepts any valid http:// or https:// URL. The destination URL is stored on ToolHub\u2019s server so the short link keeps working for anyone who clicks it \u2014 this is the one tool on the site that isn\u2019t purely browser-based.' },
+    privacy:
+      'Unlike other ToolHub tools, the URL you shorten is stored on ToolHub\u2019s server \u2014 this is necessary for the short link to keep working for anyone who clicks it later. No account or personal information is required to create one.',
+  },
+
   'hash-generator': {
     about:
       'Hash Generator produces MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes from text \u2014 SHA hashes use your browser\u2019s native Web Crypto API, and MD5 (not included in Web Crypto since it\u2019s cryptographically broken for security purposes) uses a standard, verified implementation for file-checksum and compatibility use cases.\n\nA hash function takes input of any length and produces a fixed-length output, called a hash or digest. The same input always produces the same hash, and even a tiny, single-character change in the input produces a completely different result \u2014 a property that makes hashes useful for verifying that a piece of text or a file hasn\u2019t been altered, without needing to compare the full content directly.\n\nMD5 and SHA-1 are both considered cryptographically broken \u2014 collisions (two different inputs producing the same hash) can be computed quickly with modern hardware, which makes them unsuitable for anything security-sensitive. They\u2019re still commonly used for non-security purposes like file checksums, cache keys, and deduplication, where the risk of a deliberate, malicious collision doesn\u2019t apply. SHA-256 is the current practical standard for real security-relevant work \u2014 it\u2019s what software projects typically publish alongside a download so users can verify the file wasn\u2019t corrupted or tampered with, and it\u2019s a building block in TLS, Git\u2019s newer object format, and Bitcoin\u2019s proof-of-work.\n\nOne important distinction worth being explicit about: none of these algorithms should be used to store passwords, even SHA-512. They\u2019re deliberately fast to compute, which is exactly what makes them weak for password storage \u2014 an attacker with a list of leaked hashes can try billions of guesses per second against a fast hash. Password storage needs a deliberately slow algorithm designed for that purpose, like bcrypt, scrypt, or Argon2, not a general-purpose hash function.',

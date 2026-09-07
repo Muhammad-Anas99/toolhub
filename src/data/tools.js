@@ -438,6 +438,18 @@ export const tools = [
     comingSoon: false,
   },
   {
+    id: 'url-shortener',
+    name: 'URL Shortener',
+    seoTitle: 'URL Shortener — Free, No Sign-Up, Permanent Short Links',
+    slug: 'url-shortener',
+    path: '/tools/url-shortener',
+    category: 'developer-tools',
+    description: 'Shorten any long URL into a clean, permanent link — no account required.',
+    icon: FaLink,
+    badge: 'new',
+    comingSoon: false,
+  },
+  {
     id: 'hash-generator',
     name: 'Hash Generator',
     seoTitle: 'Hash Generator — MD5, SHA-1 & SHA-256 Hash Online',

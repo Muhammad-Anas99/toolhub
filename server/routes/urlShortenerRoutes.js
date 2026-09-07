@@ -7,5 +7,6 @@ import { handleValidationErrors } from '../middleware/validate.js'
 const router = Router()
 
 router.post('/', urlShortenerRateLimiter, shortenUrlValidator, handleValidationErrors, urlShortenerController.createShortUrl)
+router.get('/:code', urlShortenerController.resolveShortCode)
 
 export default router
