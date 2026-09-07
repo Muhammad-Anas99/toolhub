@@ -122,8 +122,15 @@ export const api = {
   submitContactForm: (data) => request('/contact', { method: 'POST', body: JSON.stringify(data) }),
 
   // --- URL Shortener -------------------------------------------------------------
-  createShortUrl: (url) => request('/shorten', { method: 'POST', body: JSON.stringify({ url }) }),
+  // authorizedRequest (not plain request) is deliberate here even though
+  // anonymous use is allowed - it attaches the auth token when one exists,
+  // which is what lets a logged-in user's link get associated with their
+  // account server-side (attachUserIfPresent). Plain request would never
+  // send a token at all, silently breaking ownership for logged-in users.
+  createShortUrl: (url) => authorizedRequest('/shorten', { method: 'POST', body: JSON.stringify({ url }) }),
   resolveShortUrl: (code) => request(`/shorten/${code}`),
+  getMyShortUrls: () => authorizedRequest('/shorten'),
+  deleteShortUrl: (id) => authorizedRequest(`/shorten/${id}`, { method: 'DELETE' }),
 
   // --- Auth ---------------------------------------------------------------------
   register: (data) => request('/auth/register', { method: 'POST', body: JSON.stringify(data) }),

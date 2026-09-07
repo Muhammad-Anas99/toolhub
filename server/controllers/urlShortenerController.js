@@ -5,7 +5,7 @@ import * as urlShortenerService from '../services/urlShortenerService.js'
 
 export const createShortUrl = asyncHandler(async (req, res) => {
   const { url } = req.body
-  const record = await urlShortenerService.createShortUrl(url)
+  const record = await urlShortenerService.createShortUrl(url, req.user?._id)
 
   sendSuccess(res, {
     statusCode: 201,
@@ -16,6 +16,24 @@ export const createShortUrl = asyncHandler(async (req, res) => {
       originalUrl: record.originalUrl,
     },
   })
+})
+
+export const getMyShortUrls = asyncHandler(async (req, res) => {
+  const records = await urlShortenerService.listMyShortUrls(req.user._id)
+  const data = records.map((record) => ({
+    id: record._id,
+    shortCode: record.shortCode,
+    shortUrl: `${config.clientUrl}/s/${record.shortCode}`,
+    originalUrl: record.originalUrl,
+    clicks: record.clicks,
+    createdAt: record.createdAt,
+  }))
+  sendSuccess(res, { data, meta: { count: data.length } })
+})
+
+export const deleteShortUrl = asyncHandler(async (req, res) => {
+  await urlShortenerService.deleteMyShortUrl(req.params.id, req.user._id)
+  sendSuccess(res, { message: 'Short link deleted' })
 })
 
 /**

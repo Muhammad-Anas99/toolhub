@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { HiOutlineLink } from 'react-icons/hi2'
+import { HiOutlineLink, HiOutlineArrowTopRightOnSquare } from 'react-icons/hi2'
 import { api } from '../../../lib/api.js'
 import CopyButton from '../CopyButton.jsx'
 import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
@@ -82,6 +82,15 @@ export default function UrlShortenerTool({ toolSlug, toolName, category }) {
                 className="w-full rounded-lg border border-emerald-200 bg-white px-3.5 py-2.5 text-sm font-medium text-emerald-800 dark:border-emerald-800 dark:bg-slate-900 dark:text-emerald-300"
               />
               <CopyButton value={result.shortUrl} />
+              <a
+                href={result.shortUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open short URL"
+                className="btn-secondary flex-shrink-0 px-3 py-2.5"
+              >
+                <HiOutlineArrowTopRightOnSquare className="h-4 w-4" />
+              </a>
             </div>
           </div>
           <p className="truncate text-xs text-emerald-700 dark:text-emerald-500">Redirects to: {result.originalUrl}</p>

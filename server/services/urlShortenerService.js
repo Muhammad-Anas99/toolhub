@@ -27,7 +27,7 @@ async function generateUniqueCode() {
   throw new Error('Could not generate a unique short code — please try again.')
 }
 
-export async function createShortUrl(originalUrl) {
+export async function createShortUrl(originalUrl, userId) {
   // Defense in depth: re-validate the protocol here too, independent of
   // the express-validator middleware upstream - this service function
   // could in principle be called from elsewhere later, and a redirect
@@ -44,7 +44,7 @@ export async function createShortUrl(originalUrl) {
   }
 
   const shortCode = await generateUniqueCode()
-  const record = await ShortUrl.create({ originalUrl, shortCode })
+  const record = await ShortUrl.create({ originalUrl, shortCode, user: userId || undefined })
   return record
 }
 
@@ -56,5 +56,21 @@ export async function createShortUrl(originalUrl) {
  */
 export async function resolveShortCode(shortCode) {
   const record = await ShortUrl.findOneAndUpdate({ shortCode }, { $inc: { clicks: 1 } }, { new: true })
+  return record
+}
+
+export async function listMyShortUrls(userId) {
+  return ShortUrl.find({ user: userId }).sort({ createdAt: -1 })
+}
+
+/**
+ * Filters by both the link's own id AND the requesting user's id in the
+ * same query — same pattern as favoriteService.removeFavorite — so a
+ * user can never delete a link that isn't theirs, without a separate
+ * ownership-check step that could race against the delete itself.
+ */
+export async function deleteMyShortUrl(id, userId) {
+  const record = await ShortUrl.findOneAndDelete({ _id: id, user: userId })
+  if (!record) throw ApiError.notFound('This short link doesn\u2019t exist, or isn\u2019t yours to delete.')
   return record
 }

@@ -28,6 +28,15 @@ const shortUrlSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    // Optional - anonymous users can create short links with no account at
+    // all. Only set when the creator was logged in at the time, which is
+    // what lets logged-in users see and manage their own links later.
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: false,
+      index: true,
+    },
   },
   { timestamps: true }
 )
