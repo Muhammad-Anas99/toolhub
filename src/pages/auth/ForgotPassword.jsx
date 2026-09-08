@@ -29,7 +29,7 @@ export default function ForgotPassword() {
 
   return (
     <>
-      <SEO title="Forgot Password" description="Reset your ToolHub password." canonicalPath="/forgot-password" />
+      <SEO title="Forgot Password" description="Reset your ToolHub password." canonicalPath="/forgot-password" noIndex />
 
       <Container className="py-16">
         <motion.div

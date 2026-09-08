@@ -84,12 +84,13 @@ export default function SchemaMarkupGeneratorTool({ toolSlug, toolName, category
       <div className="space-y-3">
         {type.fields.map((field) => (
           <div key={field.name}>
-            <label className="text-xs text-slate-500 dark:text-slate-400">
+            <label htmlFor={`schema-field-${field.name}`} className="text-xs text-slate-500 dark:text-slate-400">
               {field.label}
               {field.required && <span className="text-red-500"> *</span>}
             </label>
             {field.isFaqList || field.isBreadcrumbList || field.isStepList ? (
               <textarea
+                id={`schema-field-${field.name}`}
                 rows={field.isFaqList ? 5 : 3}
                 value={values[field.name] || ''}
                 onChange={(event) => handleFieldChange(field.name, event.target.value)}
@@ -104,6 +105,7 @@ export default function SchemaMarkupGeneratorTool({ toolSlug, toolName, category
               />
             ) : (
               <input
+                id={`schema-field-${field.name}`}
                 type="text"
                 value={values[field.name] || ''}
                 onChange={(event) => handleFieldChange(field.name, event.target.value)}

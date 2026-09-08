@@ -15,6 +15,8 @@ export const categories = [
     name: 'Image Tools',
     slug: 'image-tools',
     description: 'Convert, compress, resize, crop and rotate images.',
+    intro:
+      'Everyday image editing without installing anything — compress a photo before uploading it somewhere, convert between JPG, PNG and WebP, resize an image to exact dimensions, or crop and rotate it. Every tool here runs in your browser, so your images are never uploaded to a server.',
     icon: HiOutlinePhoto,
     color: 'brand',
     promoImage: '/images/promo/image-tools.png',
@@ -24,6 +26,8 @@ export const categories = [
     name: 'PDF Tools',
     slug: 'pdf-tools',
     description: 'Merge, split, compress and convert PDF files.',
+    intro:
+      'Work with PDF files without needing a paid app — merge multiple PDFs into one, split one apart, compress a large file down, or convert between PDF and image, Word, or PowerPoint formats. Processing happens locally in your browser wherever technically possible.',
     icon: HiOutlineDocumentText,
     color: 'rose',
     promoImage: '/images/promo/pdf-tools.png',
@@ -33,6 +37,8 @@ export const categories = [
     name: 'Developer Tools',
     slug: 'developer-tools',
     description: 'Formatters, encoders and testers for everyday dev work.',
+    intro:
+      'Small, focused utilities for everyday development work — format and validate JSON, test a regular expression, encode or decode Base64 and URLs, generate a UUID or hash, or parse a User-Agent string. Built for quick, in-browser use without needing a full IDE or command line.',
     icon: HiOutlineCommandLine,
     color: 'violet',
     promoImage: '/images/promo/developer-tools.png',
@@ -42,6 +48,8 @@ export const categories = [
     name: 'Text Tools',
     slug: 'text-tools',
     description: 'Count, convert, format and generate text content.',
+    intro:
+      'Quick, browser-based tools for working with plain text — count words and characters, convert between letter cases, or generate placeholder text for a design mockup. Nothing you type here is ever sent anywhere.',
     icon: HiOutlineLanguage,
     color: 'emerald',
     promoImage: '/images/promo/text-tools.png',
@@ -51,6 +59,7 @@ export const categories = [
     name: 'AI Tools',
     slug: 'ai-tools',
     description: 'AI-powered background removal, upscaling and more.',
+    intro: 'AI-powered image editing tools, including background removal and image upscaling.',
     icon: HiOutlineSparkles,
     color: 'fuchsia',
   },
@@ -59,6 +68,8 @@ export const categories = [
     name: 'Color Tools',
     slug: 'color-tools',
     description: 'Pick colors, build palettes and generate gradients.',
+    intro:
+      'Tools for working with color in design and development — pick a color from an image, convert between HEX, RGB and HSL, build a coordinated palette, or generate a CSS gradient. Useful for both quick lookups and building out a full design system.',
     icon: HiOutlineSwatch,
     color: 'amber',
     promoImage: '/images/promo/color-tools.png',
@@ -68,6 +79,8 @@ export const categories = [
     name: 'Security Tools',
     slug: 'security-tools',
     description: 'Generate passwords, hashes and check data safety.',
+    intro:
+      'Tools for everyday security tasks — generate a strong random password, check how strong an existing password actually is, or generate a cryptographic hash. Everything runs locally in your browser, so nothing you type is ever transmitted.',
     icon: HiOutlineShieldCheck,
     color: 'sky',
   },
@@ -76,6 +89,8 @@ export const categories = [
     name: 'Social Media Tools',
     slug: 'social-media-tools',
     description: 'Resize and prepare images for every social platform.',
+    intro:
+      'Prepare images for social platforms with the exact dimensions each one expects — resize a photo for an Instagram post or Story, or download a YouTube video\u2019s thumbnail. Saves the guesswork of matching a platform\u2019s specific size requirements by hand.',
     icon: HiOutlineShare,
     color: 'indigo',
   },

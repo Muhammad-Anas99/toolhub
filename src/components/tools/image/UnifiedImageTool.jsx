@@ -326,6 +326,7 @@ export default function UnifiedImageTool({
                       step="5"
                       value={scalePercent}
                       onChange={(event) => setScalePercent(Number(event.target.value))}
+                      aria-label="Scale percentage"
                       className="mt-1 h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-brand-600 dark:bg-slate-700"
                     />
                     {upload.items.length > 1 && (
@@ -448,6 +449,7 @@ export default function UnifiedImageTool({
                 step="0.05"
                 value={quality}
                 onChange={(event) => setQuality(Number(event.target.value))}
+                aria-label="Image quality"
                 className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-brand-600 dark:bg-slate-700"
               />
             </div>

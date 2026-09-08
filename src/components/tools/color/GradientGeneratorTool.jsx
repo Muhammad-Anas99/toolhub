@@ -115,6 +115,7 @@ export default function GradientGeneratorTool({ toolSlug, toolName, category }) 
                 value={stop.position}
                 onChange={(event) => updateStop(stop.id, { position: Number(event.target.value) })}
                 className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-brand-600 dark:bg-slate-700"
+                aria-label="Stop position"
               />
               <span className="w-10 flex-shrink-0 text-right text-xs text-slate-400 dark:text-slate-500">
                 {stop.position}%

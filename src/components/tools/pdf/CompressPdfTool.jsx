@@ -84,6 +84,7 @@ export default function CompressPdfTool({ toolSlug, toolName, category }) {
                 step="5"
                 value={quality}
                 onChange={(event) => setQuality(Number(event.target.value))}
+                aria-label="Compression level"
                 className="mt-1 h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-brand-600 dark:bg-slate-700"
               />
               <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">

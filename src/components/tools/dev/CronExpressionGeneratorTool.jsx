@@ -95,6 +95,7 @@ export default function CronExpressionGeneratorTool({ toolSlug, toolName, catego
                 type="text"
                 value={value}
                 onChange={(event) => handleFieldChange(i, event.target.value)}
+                aria-label={FIELD_LABELS[i]}
                 className="w-full rounded-lg border border-slate-200 bg-white px-2 py-2 text-center font-mono text-sm text-slate-900 focus:border-brand-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
               />
               <p className="mt-1 text-center text-[11px] text-slate-400 dark:text-slate-500">{FIELD_LABELS[i]}</p>

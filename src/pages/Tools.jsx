@@ -45,11 +45,6 @@ export default function Tools() {
     updateFilters(value, activeCategory)
   }
 
-  function handleCategoryChange(slug) {
-    setActiveCategory(slug)
-    updateFilters(query, slug)
-  }
-
   // Data now comes from the API (src/hooks/useTools.js, useCategories.js),
   // with an automatic fallback to the local data files in src/data/ if the
   // backend isn't reachable — see each hook for details. Filtering by
@@ -79,8 +74,8 @@ export default function Tools() {
   const HeaderIcon = activeCategoryData?.icon || HiOutlineSquares2X2
   const headerTitle = activeCategoryData ? activeCategoryData.name : 'All Tools'
   const headerDescription = activeCategoryData
-    ? activeCategoryData.description
-    : 'Search or filter by category to find the tool you need.'
+    ? activeCategoryData.intro || activeCategoryData.description
+    : 'Browse every free ToolHub tool, or search and filter by category to find exactly what you need.'
 
   const pageTitle = activeCategoryData ? activeCategoryData.name : 'All Tools'
   const pageDescription = activeCategoryData
@@ -165,9 +160,8 @@ export default function Tools() {
             sidebar already covers this and a second control would just
             duplicate it. */}
         <div className="mt-6 flex flex-wrap items-center gap-2 lg:hidden">
-          <button
-            type="button"
-            onClick={() => handleCategoryChange('all')}
+          <Link
+            to="/tools"
             className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
               activeCategory === 'all'
                 ? 'bg-brand-600 text-white shadow-sm'
@@ -175,12 +169,11 @@ export default function Tools() {
             }`}
           >
             All
-          </button>
+          </Link>
           {categories.map((category) => (
-            <button
+            <Link
               key={category.id}
-              type="button"
-              onClick={() => handleCategoryChange(category.slug)}
+              to={`/tools?category=${category.slug}`}
               className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
                 activeCategory === category.slug
                   ? 'bg-brand-600 text-white shadow-sm'
@@ -188,14 +181,14 @@ export default function Tools() {
               }`}
             >
               {category.name}
-            </button>
+            </Link>
           ))}
         </div>
 
         {/* Sidebar + main content */}
         <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-[240px_1fr]">
           <aside className="hidden lg:block">
-            <CategorySidebar categories={categories} activeCategory={activeCategory} onSelect={handleCategoryChange} />
+            <CategorySidebar categories={categories} activeCategory={activeCategory} />
           </aside>
 
           <div className="rounded-2xl bg-slate-50 p-5 dark:bg-slate-900/40 sm:p-6">
