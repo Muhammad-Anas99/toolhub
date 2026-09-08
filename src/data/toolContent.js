@@ -298,6 +298,31 @@ export const toolContent = {
     privacy: BROWSER_ONLY_PRIVACY,
   },
 
+  'favicon-generator': {
+    about:
+      'Favicon Generator creates every favicon size a modern website actually needs from one uploaded image \u2014 including a genuine favicon.ico file, not just a renamed PNG \u2014 entirely in your browser.\n\nA complete, modern favicon setup needs more than the single icon the word "favicon" implies. Browsers use small square icons (16\u00d716 and 32\u00d732) for the tab itself, Apple devices need a 180\u00d7180 icon for the home screen, and Android/PWA installs need 192\u00d7192 and 512\u00d7512 versions. This tool generates all six sizes from one source image in one pass, rather than requiring six separate manual resizes.\n\nfavicon.ico deserves a specific technical note: it\u2019s a genuine container format that can bundle multiple resolutions into one file, and it remains the compatibility fallback modern browsers still check for, even though they generally prefer the PNG versions when a page explicitly links to them. Since a canvas can only export PNG or JPEG directly \u2014 not ICO \u2014 a real .ico file has to be constructed by hand: a small binary header and directory describing each embedded image, wrapping the PNG data for the 16, 32, and 48 pixel sizes. That\u2019s a genuine binary format being built here, not a PNG with its extension changed.\n\nTransparency is preserved throughout \u2014 a transparent PNG or SVG source stays transparent in every generated size, which matters since many real favicons rely on showing through to the browser\u2019s own tab background rather than sitting on a solid box.',
+    features: [
+      { title: 'All six standard sizes', description: '16, 32, 48, 180 (Apple), 192 and 512 (Android/PWA) generated in one pass.', icon: HiOutlinePhoto },
+      { title: 'A genuine favicon.ico', description: 'A real, valid multi-resolution ICO file \u2014 not a renamed PNG.', icon: HiOutlineSquares2X2 },
+      { title: 'Ready-to-use HTML tags', description: 'Copy the exact <link> tags for your page\u2019s <head>.', icon: HiOutlineDocumentDuplicate },
+      { title: 'Everything in one ZIP', description: 'Download every size, the ICO file, and site.webmanifest together.', icon: HiOutlineArrowDownTray },
+    ],
+    howToUse: [
+      'Upload a square image (PNG, JPG, or SVG).',
+      'Click Generate Favicons.',
+      'Download individual sizes, or everything as a ZIP.',
+      'Copy the HTML tags into your page\u2019s <head>.',
+    ],
+    useCases: [
+      'Setting up a complete, correct favicon for a new website',
+      'Replacing an outdated single favicon.ico with a full modern set',
+      'Getting the exact Apple Touch Icon and Android/PWA sizes for a web app',
+      'Generating a site.webmanifest alongside the icon files it references',
+    ],
+    supportedFormats: { input: 'PNG / JPG / SVG', output: 'PNG (6 sizes) + ICO + webmanifest', maxSize: '10 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
   'jpg-to-pdf': {
     about:
       'JPG to PDF turns a JPG image into a single-page PDF document, sized to match your image exactly \u2014 useful whenever you need a photo delivered as a proper PDF file.\n\nUnlike some converters that place your image onto a standard paper size like A4 or Letter (potentially leaving margins or requiring the image to be scaled to fit), this tool sizes the PDF page to your image\u2019s exact pixel dimensions. The result is a PDF that shows your image at its true size and aspect ratio with nothing cropped, stretched, or padded \u2014 what you uploaded is exactly what appears on the page.\n\nOne practical implication worth knowing: since the page isn\u2019t a standard paper size, printing the resulting PDF may not align with a printer\u2019s default page settings the way a standard Letter or A4 document would \u2014 you may need to adjust the print scale or paper size setting depending on your printer and the image\u2019s own dimensions. For on-screen use, sharing, or uploading to a system that expects a PDF, this isn\u2019t a concern at all.',
@@ -897,6 +922,105 @@ export const toolContent = {
     supportedFormats: { notes: 'Accepts any valid http:// or https:// URL. The destination URL is stored on ToolHub\u2019s server so the short link keeps working for anyone who clicks it \u2014 this is the one tool on the site that isn\u2019t purely browser-based.' },
     privacy:
       'Unlike other ToolHub tools, the URL you shorten is stored on ToolHub\u2019s server \u2014 this is necessary for the short link to keep working for anyone who clicks it later. No account or personal information is required to create one.',
+  },
+
+  'user-agent-parser': {
+    about:
+      'User-Agent Parser breaks down any browser User-Agent string into browser, operating system, device type, and rendering engine \u2014 including honest flags for the parts that genuinely can\u2019t be determined anymore, rather than guessing.\n\nUser-Agent strings have changed significantly in recent years. Chrome and Edge completed what\u2019s called "User-Agent reduction" \u2014 deliberately freezing the detailed OS version and device model reported in the string to generic placeholder values, specifically to reduce passive fingerprinting. A modern Chrome-on-Android User-Agent, for example, reports the Android version as a frozen "10" and the device model as a frozen "K" regardless of what the real device actually is \u2014 the genuine details have moved to a separate, opt-in mechanism (Client Hints) that a server has to explicitly request. This tool recognizes that specific frozen pattern and tells you plainly when it\u2019s looking at a reduced string, instead of reporting the placeholder as if it were real, current device information.\n\nA similar honest limitation: Windows 10 and Windows 11 both report identically as "Windows NT 10.0" in the User-Agent string \u2014 there\u2019s no way to tell them apart from this string alone, and this tool says so directly rather than guessing one or the other.\n\nBot and crawler detection works by matching known patterns (Googlebot, Bingbot, and other common crawlers), which covers legitimate, well-behaved bots that identify themselves \u2014 it can\u2019t detect a bot that\u2019s deliberately disguising itself with a normal browser User-Agent string, since at that point there\u2019s nothing in the string itself to distinguish it.',
+    features: [
+      { title: 'Full breakdown', description: 'Browser, version, OS, device type and rendering engine in one view.', icon: HiOutlineCpuChip },
+      { title: 'Honest about UA reduction', description: 'Flags modern Chrome\u2019s frozen, generic OS/device values instead of reporting them as real detected data.', icon: HiOutlineExclamationTriangle },
+      { title: 'Detect your own', description: 'One click to parse the User-Agent your own browser is currently sending.', icon: HiOutlineDocumentText },
+      { title: 'Bot detection', description: 'Recognizes common, self-identifying crawlers like Googlebot and Bingbot.', icon: HiOutlineGlobeAlt },
+    ],
+    howToUse: [
+      'Paste a User-Agent string, or click "Detect My User-Agent" to use your own.',
+      'Click Parse.',
+      'Review the breakdown, including any honesty warnings about reduced or ambiguous data.',
+      'Copy the results if needed.',
+    ],
+    useCases: [
+      'Debugging a browser-specific issue reported by a user',
+      'Checking what a specific device or browser reports itself as',
+      'Understanding why a User-Agent string looks unexpectedly generic',
+      'Verifying whether traffic is coming from a known, self-identifying crawler',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'htaccess-generator': {
+    about:
+      'HTAccess Generator builds .htaccess configuration rules from a checklist of common options \u2014 HTTPS redirects, caching, security headers, access control, and more \u2014 using current, correct Apache syntax.\n\n.htaccess rules depend on your Apache configuration and hosting environment. Test changes before using them on a production website. Every generated block that depends on a specific Apache module says so directly in its comment, since a rule that needs mod_rewrite or mod_headers simply won\u2019t do anything on a server where that module isn\u2019t enabled \u2014 it won\u2019t necessarily error, it\u2019ll just silently not apply.\n\nOne technical detail worth being specific about: IP-based access control here uses the modern Apache 2.4+ syntax (Require ip, Require not ip), not the older Order/Allow/Deny directives many older tutorials still show. Apache\u2019s own official documentation states plainly that those older directives "are deprecated and will go away in a future version" and explicitly advises against outdated tutorials recommending their use \u2014 so this tool generates the syntax Apache itself currently recommends, not the version that\u2019s technically still working today but on its way out.\n\nPassword protection is included as setup instructions rather than a fully self-contained rule, and honestly so: .htaccess password protection genuinely requires a second file (.htpasswd, stored outside your web root) containing the username and a hashed password, which has to be created separately using a tool like htpasswd on your server \u2014 no .htaccess generator can create that second file for you from a web form alone.',
+    features: [
+      { title: 'Sixteen common configurations', description: 'HTTPS, redirects, caching, compression, security headers, access control and more.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Current, correct syntax', description: 'Uses Apache 2.4+\u2019s modern Require syntax for access control, not deprecated directives.', icon: HiOutlineShieldCheck },
+      { title: 'Module dependencies labeled', description: 'Every rule that needs a specific Apache module says so directly in its comment.', icon: HiOutlineExclamationTriangle },
+      { title: 'Copy or download', description: 'Copy the generated rules, or download a ready .htaccess file.', icon: HiOutlineArrowDownTray },
+    ],
+    howToUse: [
+      'Check the options you need.',
+      'Fill in any required details (a redirect target, an IP address, and so on).',
+      'Review the generated .htaccess code.',
+      'Copy it or download the file, then test it on your actual server.',
+    ],
+    useCases: [
+      'Setting up HTTPS and www redirects for a new website',
+      'Adding browser caching and compression to speed up page loads',
+      'Blocking a specific IP address or restricting access to your own IP',
+      'Adding baseline security headers without hand-writing Apache syntax from scratch',
+    ],
+    supportedFormats: { output: '.htaccess (plain text)', notes: 'Generated rules depend on your specific Apache configuration and available modules \u2014 always test before deploying to production.' },
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'cron-expression-generator': {
+    about:
+      'Cron Expression Generator builds standard 5-field cron schedules visually, with a genuine plain-English explanation and the next several times the schedule will actually run \u2014 not just a static description.\n\nA cron expression has five fields \u2014 minute, hour, day-of-month, month, and day-of-week \u2014 each of which can be a specific value, a range, a step (like every 5th value), or a wildcard meaning "any." This tool supports standard 5-field syntax specifically, which is what cron itself and the vast majority of scheduler tools (including most CI/CD platforms and cloud schedulers) actually use. Some tools use a 6-field dialect with an added seconds field at the front; that\u2019s a genuinely different format, not something this tool interprets, and pasting one in will show a clear error rather than silently misreading it as something else.\n\nOne genuinely easy-to-get-wrong detail worth explaining directly: when both the day-of-month and day-of-week fields are restricted to something other than "*", standard cron combines them with OR, not AND. A schedule like "0 0 1 * 0" doesn\u2019t mean "midnight on the 1st, but only if that\u2019s also a Sunday" \u2014 it means "midnight on the 1st of the month, OR every Sunday," whichever comes first. This tool\u2019s next-run calculation implements that OR behavior correctly, which is exactly the kind of subtle rule that\u2019s easy to get backwards.\n\nThe "next run" times are calculated by genuinely checking forward through real calendar time \u2014 not an approximation \u2014 so they correctly account for actual month lengths and weekday patterns, shown in your browser\u2019s own local time zone.',
+    features: [
+      { title: 'Visual builder or paste-to-parse', description: 'Build a schedule field by field, or paste an existing expression to see what it means.', icon: HiOutlineCalendarDays },
+      { title: 'Genuine plain-English explanation', description: 'A real description of what the schedule does, not just the raw syntax.', icon: HiOutlineDocumentText },
+      { title: 'Real next-run times', description: 'See the actual next 5 times the schedule will run, calculated against real calendar time.', icon: HiOutlineClock },
+      { title: 'Correct OR logic', description: 'Implements the standard cron rule for combined day-of-month and day-of-week fields correctly.', icon: HiOutlineExclamationTriangle },
+    ],
+    howToUse: [
+      'Choose a preset, or set each field individually.',
+      'Paste an existing cron expression to see its explanation instead.',
+      'Review the plain-English explanation and the next scheduled run times.',
+      'Copy the expression when you\u2019re ready to use it.',
+    ],
+    useCases: [
+      'Building a cron schedule for a server task or CI/CD pipeline without memorizing cron syntax',
+      'Understanding what an existing, unfamiliar cron expression actually does',
+      'Verifying a schedule will run when you expect, before deploying it',
+      'Checking a schedule that combines day-of-month and day-of-week behaves the way you actually intend',
+    ],
+    supportedFormats: { notes: 'Supports standard 5-field cron syntax only (minute, hour, day-of-month, month, day-of-week) \u2014 not 6-field dialects with a seconds field.' },
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'schema-markup-generator': {
+    about:
+      'Schema Markup Generator builds valid JSON-LD structured data for common schema.org types \u2014 Article, Product, Organization, and more \u2014 with only the fields that genuinely apply to each type, ready to paste directly into your page.\n\nStructured data is a standardized way of describing a page\u2019s content so search engines can understand it more precisely than by parsing visible text alone. JSON-LD, generated here as a self-contained <script type="application/ld+json"> block, is the format Google explicitly recommends, since it keeps the structured data separate from your visible HTML rather than requiring attributes scattered through the markup itself.\n\nWorth being genuinely current about: structured data does not automatically guarantee a rich result or a higher ranking. Eligibility for any specific search feature depends on Google\u2019s own requirements and the actual content of the page, and those requirements change over time \u2014 Google deprecated the FAQ rich result in Search starting May 2026, and no longer supports the HowTo rich result at all. Both types are still included here as valid, genuine schema.org markup, since they remain useful if something else reads them (another system, a different search engine, or simply as accurate machine-readable metadata) \u2014 but adding them today specifically expecting a Google FAQ or HowTo rich result would be based on an outdated assumption.\n\nOne rule worth following regardless of type: only mark up content that\u2019s actually visible on the page. Structured data describing content a visitor can\u2019t actually see is treated as spam and can result in a manual action against the site \u2014 the markup should always be an accurate reflection of what\u2019s genuinely there.',
+    features: [
+      { title: 'Thirteen schema types', description: 'Article, Product, Organization, LocalBusiness, FAQPage, Event and more.', icon: HiOutlineCodeBracket },
+      { title: 'Only genuinely relevant fields', description: 'Each type shows its own real fields \u2014 never a generic form forcing irrelevant inputs.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Current, honest guidance', description: 'Flags schema types where Google\u2019s own rich-result support has changed, rather than assuming markup always helps.', icon: HiOutlineExclamationTriangle },
+      { title: 'Copy, download, or grab the script tag', description: 'Get the raw JSON-LD, a ready-to-paste script tag, or a downloadable file.', icon: HiOutlineArrowDownTray },
+    ],
+    howToUse: [
+      'Choose a schema type.',
+      'Fill in the fields that genuinely apply \u2014 required fields are marked.',
+      'Copy the JSON-LD or the full script tag, or download the file.',
+      'Paste it into your page, typically inside the <head>.',
+    ],
+    useCases: [
+      'Adding Article or Product structured data to a page for accurate machine-readable metadata',
+      'Building an Organization or LocalBusiness schema for your site\u2019s homepage',
+      'Generating BreadcrumbList markup that matches your site\u2019s actual navigation',
+      'Creating structured data for internal systems or other platforms that read schema.org markup, independent of Google\u2019s current rich-result support',
+    ],
+    supportedFormats: { output: 'JSON-LD (script tag or standalone .json)', notes: 'Structured data helps search engines understand content but doesn\u2019t guarantee a rich result or ranking boost \u2014 eligibility depends on Google\u2019s current requirements, which change over time.' },
+    privacy: NO_FILE_PRIVACY,
   },
 
   'hash-generator': {

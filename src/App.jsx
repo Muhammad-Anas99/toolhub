@@ -29,6 +29,7 @@ const ImageResizer = lazy(() => import('./pages/tools/ImageResizer.jsx'))
 const ImageCrop = lazy(() => import('./pages/tools/ImageCrop.jsx'))
 const ImageRotate = lazy(() => import('./pages/tools/ImageRotate.jsx'))
 const FlipImage = lazy(() => import('./pages/tools/FlipImage.jsx'))
+const FaviconGenerator = lazy(() => import('./pages/tools/FaviconGenerator.jsx'))
 const JpgToPdf = lazy(() => import('./pages/tools/JpgToPdf.jsx'))
 const PngToPdf = lazy(() => import('./pages/tools/PngToPdf.jsx'))
 const MergePdf = lazy(() => import('./pages/tools/MergePdf.jsx'))
@@ -47,6 +48,10 @@ const UrlEncoder = lazy(() => import('./pages/tools/UrlEncoder.jsx'))
 const UuidGenerator = lazy(() => import('./pages/tools/UuidGenerator.jsx'))
 const QrCodeGenerator = lazy(() => import('./pages/tools/QrCodeGenerator.jsx'))
 const UrlShortener = lazy(() => import('./pages/tools/UrlShortener.jsx'))
+const UserAgentParser = lazy(() => import('./pages/tools/UserAgentParser.jsx'))
+const HtaccessGenerator = lazy(() => import('./pages/tools/HtaccessGenerator.jsx'))
+const CronExpressionGenerator = lazy(() => import('./pages/tools/CronExpressionGenerator.jsx'))
+const SchemaMarkupGenerator = lazy(() => import('./pages/tools/SchemaMarkupGenerator.jsx'))
 const ShortUrlRedirect = lazy(() => import('./pages/ShortUrlRedirect.jsx'))
 const HashGenerator = lazy(() => import('./pages/tools/HashGenerator.jsx'))
 const TimestampConverter = lazy(() => import('./pages/tools/TimestampConverter.jsx'))
@@ -112,6 +117,7 @@ export default function App() {
           <Route path="/tools/image-crop" element={<ImageCrop />} />
           <Route path="/tools/image-rotate" element={<ImageRotate />} />
           <Route path="/tools/flip-image" element={<FlipImage />} />
+          <Route path="/tools/favicon-generator" element={<FaviconGenerator />} />
           <Route path="/tools/jpg-to-pdf" element={<JpgToPdf />} />
           <Route path="/tools/png-to-pdf" element={<PngToPdf />} />
           <Route path="/tools/merge-pdf" element={<MergePdf />} />
@@ -130,6 +136,10 @@ export default function App() {
           <Route path="/tools/uuid-generator" element={<UuidGenerator />} />
           <Route path="/tools/qr-code-generator" element={<QrCodeGenerator />} />
           <Route path="/tools/url-shortener" element={<UrlShortener />} />
+          <Route path="/tools/user-agent-parser" element={<UserAgentParser />} />
+          <Route path="/tools/htaccess-generator" element={<HtaccessGenerator />} />
+          <Route path="/tools/cron-expression-generator" element={<CronExpressionGenerator />} />
+          <Route path="/tools/schema-markup-generator" element={<SchemaMarkupGenerator />} />
           <Route path="/s/:code" element={<ShortUrlRedirect />} />
           <Route path="/tools/hash-generator" element={<HashGenerator />} />
           <Route path="/tools/timestamp-converter" element={<TimestampConverter />} />

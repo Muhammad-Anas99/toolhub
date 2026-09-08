@@ -267,6 +267,35 @@ export const toolFaqs = {
   ],
 
 
+  'favicon-generator': [
+    {
+      id: 'why-many-sizes',
+      question: 'Why do I need so many different favicon sizes?',
+      answer: 'Different platforms request different sizes \u2014 browser tabs use 16\u00d716 and 32\u00d732, Apple\u2019s home screen uses 180\u00d7180, and Android/PWA installs use 192\u00d7192 and 512\u00d7512. Generating all of them at once means every platform gets a correctly-sized icon instead of one image stretched or shrunk awkwardly.',
+    },
+    {
+      id: 'is-ico-still-needed',
+      question: 'Do I still need favicon.ico, or is PNG enough?',
+      answer: 'Modern browsers (Chrome, Firefox, Edge, Safari) support PNG favicons directly and generally prefer them when a page links to one. favicon.ico remains the compatibility fallback some older browsers and certain non-browser software still look for at the site root, so it\u2019s worth including alongside the PNG versions rather than instead of them.',
+    },
+    {
+      id: 'is-this-a-real-ico',
+      question: 'Is the generated favicon.ico a real ICO file?',
+      answer: 'Yes \u2014 it\u2019s a genuine, valid multi-resolution ICO container with the correct binary header and directory structure, bundling the 16, 32, and 48 pixel sizes together. It was verified independently against a separate image library before shipping, not just assumed to work.',
+    },
+    {
+      id: 'transparent-source',
+      question: 'What happens if I upload a transparent PNG?',
+      answer: 'Transparency is preserved in every generated size \u2014 the output won\u2019t have a solid background added behind it, so it displays correctly against whatever background color the browser tab or home screen uses.',
+    },
+    {
+      id: 'svg-input',
+      question: 'Can I upload an SVG as the source image?',
+      answer: 'Yes \u2014 the SVG is rendered at each target size, which works well for simple, clean vector logos. Very complex SVGs with fine detail may look better starting from a high-resolution PNG instead, since favicon sizes are small enough that intricate detail gets lost either way.',
+    },
+  ],
+
+
   'jpg-to-pdf': [
     {
       id: 'page-size',
@@ -743,6 +772,118 @@ export const toolFaqs = {
       id: 'no-analytics',
       question: 'Can I see click analytics for my link?',
       answer: 'Not currently \u2014 this tool is intentionally a simple, direct utility rather than a full link-management platform. If you need click tracking, branded domains, or the ability to edit a link\u2019s destination later, a dedicated service built for that is a better fit.',
+    },
+  ],
+
+  'user-agent-parser': [
+    {
+      id: 'why-generic-android',
+      question: 'Why does a Chrome Android User-Agent show "Android 10" and device "K" for every device?',
+      answer: 'This is Chrome\u2019s deliberate "User-Agent reduction" \u2014 since 2023, Chrome and Edge freeze the reported Android version and device model to generic placeholder values for privacy, regardless of the real device. The actual details have moved to a separate, opt-in mechanism (Client Hints) that a server has to explicitly request. This tool recognizes that pattern and tells you when it\u2019s looking at a reduced string.',
+    },
+    {
+      id: 'windows-10-vs-11',
+      question: 'Can this tell me if someone is using Windows 10 or Windows 11?',
+      answer: 'No \u2014 and no User-Agent parser genuinely can. Both versions report identically as "Windows NT 10.0" in the User-Agent string; there\u2019s no information in the string itself that distinguishes them.',
+    },
+    {
+      id: 'why-unknown-shown',
+      question: 'Why does it say "Unknown" for some fields instead of guessing?',
+      answer: 'Because guessing would be actively misleading. If a value genuinely can\u2019t be reliably determined from the string \u2014 whether because it was never included, or because the browser has deliberately generalized it \u2014 showing "Unknown" is more honest than presenting a guess as fact.',
+    },
+    {
+      id: 'can-ua-be-faked',
+      question: 'Can a User-Agent string be faked?',
+      answer: 'Yes, easily \u2014 browser extensions, developer tools, and any HTTP client can send whatever User-Agent string they want. This tool tells you what a given string claims, not whether that claim is genuinely trustworthy.',
+    },
+    {
+      id: 'bot-detection-limits',
+      question: 'Will this catch every bot or crawler?',
+      answer: 'It recognizes common, self-identifying bots like Googlebot and Bingbot that announce themselves in their User-Agent string. A bot deliberately disguising itself with a normal browser User-Agent won\u2019t be caught this way, since there\u2019s nothing in the string to distinguish it.',
+    },
+  ],
+
+  'htaccess-generator': [
+    {
+      id: 'will-this-work-on-my-server',
+      question: 'Will these rules work on any hosting provider?',
+      answer: '.htaccess rules depend on your Apache configuration and hosting environment. Test changes before using them on a production website \u2014 a rule that needs a specific Apache module simply won\u2019t take effect if that module isn\u2019t enabled on your server, and some hosts also restrict what .htaccess is allowed to override at all.',
+    },
+    {
+      id: 'why-not-order-deny-allow',
+      question: 'Why does the IP blocking rule use "Require" instead of "Order Deny,Allow"?',
+      answer: 'Because "Require" is the current, correct Apache 2.4+ syntax. Apache\u2019s own official documentation states that the older Order/Allow/Deny directives are deprecated and will eventually be removed, and explicitly advises against outdated tutorials that still recommend them.',
+    },
+    {
+      id: 'does-this-work-on-nginx',
+      question: 'Does this work for Nginx or other web servers?',
+      answer: 'No \u2014 .htaccess is specifically an Apache feature. Nginx uses an entirely different configuration syntax and doesn\u2019t read .htaccess files at all.',
+    },
+    {
+      id: 'password-protection-extra-step',
+      question: 'Why is password protection just instructions instead of a ready-to-use rule?',
+      answer: 'Because it genuinely can\u2019t be self-contained \u2014 .htaccess password protection requires a separate .htpasswd file with a hashed password, created using a tool like htpasswd on your own server. A web-based generator can\u2019t create that second file for you.',
+    },
+    {
+      id: 'can-htaccess-break-site',
+      question: 'Can a bad .htaccess rule break my whole website?',
+      answer: 'Yes \u2014 a malformed or conflicting rule can cause a server error across your entire site, not just the specific page you were trying to change. Always keep a backup of your original .htaccess file and test changes before relying on them in production.',
+    },
+  ],
+
+  'cron-expression-generator': [
+    {
+      id: 'or-vs-and',
+      question: 'Does "0 0 1 * 0" mean midnight on the 1st, only if it\u2019s a Sunday?',
+      answer: 'No \u2014 when both day-of-month and day-of-week are restricted (not "*"), standard cron combines them with OR, not AND. That expression means midnight on the 1st of the month, OR every Sunday, whichever comes first \u2014 not only when both conditions happen to align.',
+    },
+    {
+      id: 'seconds-field',
+      question: 'Can I use a 6-field expression with seconds?',
+      answer: 'No \u2014 this tool supports standard 5-field cron syntax (minute, hour, day-of-month, month, day-of-week), which is what cron itself and most scheduling tools use. A 6-field expression with an added seconds field is a different dialect and will show a clear error here rather than being silently misinterpreted.',
+    },
+    {
+      id: 'next-run-accuracy',
+      question: 'How accurate are the "next run" times shown?',
+      answer: 'They\u2019re calculated by genuinely checking forward through real calendar time in your browser, correctly accounting for actual month lengths and weekday patterns \u2014 not an approximation. They\u2019re shown in your browser\u2019s own local time zone.',
+    },
+    {
+      id: 'paste-existing-expression',
+      question: 'Can I check what an existing cron expression I found somewhere actually does?',
+      answer: 'Yes \u2014 paste the full expression into any of the five fields and it will automatically fill in all five and show you the explanation and next run times, without needing to build it from scratch.',
+    },
+    {
+      id: 'why-not-just-trust-comment',
+      question: 'The cron job I inherited has a comment explaining it, why not just trust that?',
+      answer: 'Comments can be wrong or outdated in ways the actual expression isn\u2019t \u2014 someone may have changed the schedule without updating the comment next to it. Checking the real expression directly is the more reliable way to know what a cron job genuinely does.',
+    },
+  ],
+
+  'schema-markup-generator': [
+    {
+      id: 'does-schema-boost-rankings',
+      question: 'Will adding this structured data improve my search rankings?',
+      answer: 'Not automatically \u2014 structured data helps search engines understand your content more precisely, but it doesn\u2019t guarantee a higher ranking or a rich result on its own. Eligibility for any specific search feature depends on Google\u2019s own current requirements and the actual content of the page.',
+    },
+    {
+      id: 'faq-schema-still-useful',
+      question: 'Is FAQPage schema still worth adding if Google dropped the rich result?',
+      answer: 'Google deprecated the FAQ rich result in Search starting May 2026, so this markup no longer produces the expanded FAQ snippet it used to. It\u2019s still valid, accurate structured data if something else on your site or another system reads it, but don\u2019t add it today expecting a Google search-result benefit \u2014 that specific reason no longer applies.',
+    },
+    {
+      id: 'howto-schema-still-useful',
+      question: 'Does HowTo schema still work in Google Search?',
+      answer: 'No \u2014 Google no longer supports the HowTo rich result in Search. The schema type itself is still valid, genuine structured data, just without the step-by-step search-result display it used to enable.',
+    },
+    {
+      id: 'invisible-content-warning',
+      question: 'Can I mark up content that isn\u2019t actually visible on my page?',
+      answer: 'No \u2014 structured data should accurately reflect content that\u2019s genuinely visible to visitors. Marking up content that isn\u2019t actually on the page is treated as spam by Google and can result in a manual action against the site.',
+    },
+    {
+      id: 'json-ld-vs-microdata',
+      question: 'Why does this generate JSON-LD instead of microdata?',
+      answer: 'JSON-LD is the format Google explicitly recommends, and it keeps the structured data in one self-contained script block rather than scattered across HTML attributes \u2014 easier to generate correctly, and easier to update later without touching your page\u2019s actual markup.',
     },
   ],
   'hash-generator': [
