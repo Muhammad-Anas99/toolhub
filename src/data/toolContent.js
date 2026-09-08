@@ -878,16 +878,17 @@ export const toolContent = {
     about:
       'QR Code Generator creates a scannable QR code from any text or URL, entirely in your browser \u2014 no sign-up, no watermark, and no expiration, since the code never depends on any server staying online.\n\nThere are two fundamentally different kinds of QR code, and the difference matters a lot for anything you plan to print or rely on long-term. A static QR code (what this tool creates) has the actual destination \u2014 the URL or text itself \u2014 encoded directly into the pattern of the code. Once generated, it works forever, with nothing to maintain, because there\u2019s no external service involved in scanning it. A dynamic QR code instead encodes a short redirect link controlled by a company\u2019s server, which lets you change the destination later and see scan analytics \u2014 but only for as long as that company keeps the redirect service running, which is typically tied to an ongoing paid plan.\n\nA genuinely common frustration with "free" QR generators is worth naming directly: many quietly add a watermark, cap you at a few hundred scans before demanding payment, or expire the code after a set period \u2014 none of which is obvious until after you\u2019ve already printed it on packaging or a sign. Since this tool generates a real static code with the data baked in directly, none of that applies: no watermark because there\u2019s no branding added to the output, no scan limit because scanning doesn\u2019t touch any server at all, and no expiration because there\u2019s nothing external to expire.\n\nThe error correction level you choose controls how much of the code can be damaged, dirty, or obscured (like by a logo placed on top) while still scanning correctly \u2014 Low allows about 7% damage, High allows about 30%, at the cost of a visually denser code for the same data.',
     features: [
+      { title: 'Five real content types', description: 'Link, Text, Email, Phone, or SMS \u2014 each using the correct standard format so it opens the right app when scanned.', icon: HiOutlinePresentationChartBar },
       { title: 'Genuinely static, permanent codes', description: 'The destination is baked directly into the code \u2014 nothing to expire, no server dependency.', icon: HiOutlineShieldCheck },
       { title: 'No watermark, no sign-up', description: 'A clean, unbranded code, usable immediately.', icon: HiOutlineSparkles },
       { title: 'PNG or SVG export', description: 'PNG for quick use, or SVG for scaling to any size \u2014 like large print signage \u2014 with zero quality loss.', icon: HiOutlineArrowDownTray },
       { title: 'Adjustable error correction', description: 'Choose how much damage or obstruction the code can tolerate and still scan.', icon: HiOutlineAdjustmentsHorizontal },
     ],
     howToUse: [
-      'Type or paste any text or URL.',
+      'Choose what you want to encode: Link, Text, Email, Phone, or SMS.',
+      'Fill in the details for that type.',
       'Choose an error correction level, and customize the colors if you like.',
-      'Preview the code live as you type.',
-      'Download as PNG or SVG.',
+      'Preview the code live as you type, then download as PNG or SVG.',
     ],
     useCases: [
       'Linking a printed flyer, poster, or business card to a website',

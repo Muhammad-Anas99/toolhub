@@ -745,6 +745,11 @@ export const toolFaqs = {
       question: 'Should I download PNG or SVG?',
       answer: 'PNG is simplest for everyday digital use. SVG is the better choice if the code will be printed large \u2014 like on a poster or product packaging \u2014 since it scales to any size with no pixelation, unlike a PNG stretched beyond its original resolution.',
     },
+    {
+      id: 'why-phone-email-sms-types',
+      question: 'Why does it matter which type (Link, Email, Phone, SMS) I pick?',
+      answer: 'Each type encodes its content in the specific format phones actually recognize \u2014 a phone number becomes a "tel:" link, an email becomes a "mailto:" link, and so on \u2014 so scanning the code opens the right app (the dialer, a text message, an email draft) instead of just showing plain text you\u2019d have to copy and act on manually.',
+    },
   ],
 
   'url-shortener': [

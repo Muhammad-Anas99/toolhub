@@ -77,3 +77,58 @@ function renderToSvg(qr, { moduleSize = 8, foreground = '#000000', background = 
 }
 
 export { encode, renderToCanvas, renderToSvg, ERROR_CORRECTION_LEVELS }
+
+/**
+ * Builds the correct payload string to encode for each QR type. Phone,
+ * SMS and email use their real, standard URI schemes (RFC 3966 for
+ * tel:, the widely-recognized sms: scheme, RFC 6068 for mailto:) rather
+ * than raw text, since these are what actually trigger a phone's call,
+ * message, or email app when the code is scanned - a real number or
+ * address alone isn't recognized as a specific action to take.
+ */
+export function buildQrPayload(type, fields) {
+  switch (type) {
+    case 'link': {
+      const url = (fields.url || '').trim()
+      if (!url) return ''
+      // Auto-prepend https:// if the user typed a bare domain, since a
+      // QR code encoding "example.com" (no scheme) won't reliably open
+      // as a link when scanned - most scanners need a real URI scheme.
+      if (/^https?:\/\//i.test(url)) return url
+      return `https://${url}`
+    }
+
+    case 'text':
+      return (fields.text || '').trim()
+
+    case 'email': {
+      const address = (fields.address || '').trim()
+      if (!address) return ''
+      // RFC 6068 (the mailto: URI scheme) expects percent-encoding for
+      // query values (%20 for a space) - not URLSearchParams' HTML
+      // form-encoding convention (+ for a space), which a strict mail
+      // client could read back as a literal plus sign instead of a space.
+      const parts = []
+      if (fields.subject?.trim()) parts.push(`subject=${encodeURIComponent(fields.subject.trim())}`)
+      if (fields.body?.trim()) parts.push(`body=${encodeURIComponent(fields.body.trim())}`)
+      const query = parts.join('&')
+      return `mailto:${address}${query ? '?' + query : ''}`
+    }
+
+    case 'phone': {
+      const number = (fields.number || '').trim()
+      if (!number) return ''
+      return `tel:${number}`
+    }
+
+    case 'sms': {
+      const number = (fields.number || '').trim()
+      if (!number) return ''
+      const message = fields.message?.trim()
+      return message ? `sms:${number}?body=${encodeURIComponent(message)}` : `sms:${number}`
+    }
+
+    default:
+      return ''
+  }
+}
