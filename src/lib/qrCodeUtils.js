@@ -132,3 +132,47 @@ export function buildQrPayload(type, fields) {
       return ''
   }
 }
+
+/**
+ * Checks whether input genuinely looks like a URL, using the built-in
+ * URL constructor for real syntactic validation rather than a fragile
+ * custom regex. Also requires an actual dot in the hostname, since the
+ * URL constructor alone accepts a bare single word (e.g.
+ * "https://helloworld") as a syntactically legal hostname - not what
+ * anyone means by "a link".
+ */
+export function looksLikeUrl(input) {
+  const trimmed = (input || '').trim()
+  if (!trimmed) return false
+
+  const candidate = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`
+
+  let parsed
+  try {
+    parsed = new URL(candidate)
+  } catch {
+    return false
+  }
+
+  return parsed.hostname.includes('.')
+}
+
+/**
+ * A practical, not fully RFC 5322-compliant, email check - the full
+ * spec is notoriously complex to validate against client-side. This
+ * catches the real, common mistake (no @, no domain) without rejecting
+ * valid-but-unusual real addresses.
+ */
+export function looksLikeEmail(input) {
+  const trimmed = (input || '').trim()
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)
+}
+
+/**
+ * Strips anything that isn't a digit or a common phone-formatting
+ * character (+, spaces, hyphens, parentheses) from input as the user
+ * types, so letters can't be entered into a phone number field at all.
+ */
+export function filterPhoneInput(input) {
+  return (input || '').replace(/[^\d+\-() ]/g, '')
+}

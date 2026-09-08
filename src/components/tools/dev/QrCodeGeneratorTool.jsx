@@ -8,7 +8,7 @@ import {
   HiOutlinePhone,
   HiOutlineChatBubbleLeftRight,
 } from 'react-icons/hi2'
-import { encode, renderToCanvas, renderToSvg, buildQrPayload, ERROR_CORRECTION_LEVELS } from '../../../lib/qrCodeUtils.js'
+import { encode, renderToCanvas, renderToSvg, buildQrPayload, looksLikeUrl, looksLikeEmail, filterPhoneInput, ERROR_CORRECTION_LEVELS } from '../../../lib/qrCodeUtils.js'
 import { downloadBlob } from '../../../lib/downloadBlob.js'
 import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
@@ -23,6 +23,9 @@ const QR_TYPES = [
 const fieldInputClasses =
   'mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white'
 
+const fieldInputErrorClasses =
+  'mt-1.5 w-full rounded-lg border border-red-400 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/30 dark:border-red-500 dark:bg-slate-800 dark:text-white'
+
 export default function QrCodeGeneratorTool({ toolSlug, toolName, category }) {
   const [qrType, setQrType] = useState('link')
   const [fields, setFields] = useState({})
@@ -35,12 +38,21 @@ export default function QrCodeGeneratorTool({ toolSlug, toolName, category }) {
 
   const payload = buildQrPayload(qrType, fields)
 
+  // Only flags an error once the relevant field actually has content -
+  // an empty field just means "not filled in yet", which is different
+  // from "filled in with something that doesn't match the selected type".
+  const urlError = qrType === 'link' && fields.url?.trim() && !looksLikeUrl(fields.url) ? 'This doesn\u2019t look like a link. Choose Text instead if you want to encode plain text.' : null
+  const emailError = qrType === 'email' && fields.address?.trim() && !looksLikeEmail(fields.address) ? 'This doesn\u2019t look like a valid email address.' : null
+  const fieldError = urlError || emailError
+
+  const readyToGenerate = payload.trim() && !fieldError
+
   function handleFieldChange(name, value) {
     setFields((prev) => ({ ...prev, [name]: value }))
   }
 
   useEffect(() => {
-    if (!payload.trim()) {
+    if (!readyToGenerate) {
       setError(null)
       const canvas = canvasRef.current
       if (canvas) {
@@ -59,17 +71,17 @@ export default function QrCodeGeneratorTool({ toolSlug, toolName, category }) {
       setError('Could not generate a QR code for this input — it may be too long for the selected error correction level.')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [payload, errorLevel, foreground, background])
+  }, [payload, readyToGenerate, errorLevel, foreground, background])
 
   function handleDownloadPng() {
-    if (!payload.trim() || !canvasRef.current) return
+    if (!readyToGenerate || !canvasRef.current) return
     canvasRef.current.toBlob((blob) => {
       downloadBlob(blob, 'qrcode.png')
     }, 'image/png')
   }
 
   function handleDownloadSvg() {
-    if (!payload.trim()) return
+    if (!readyToGenerate) return
     try {
       const qr = encode(payload, errorLevel)
       const svg = renderToSvg(qr, { moduleSize: 8, foreground, background })
@@ -121,8 +133,9 @@ export default function QrCodeGeneratorTool({ toolSlug, toolName, category }) {
             value={fields.url || ''}
             onChange={(event) => handleFieldChange('url', event.target.value)}
             placeholder="example.com"
-            className={fieldInputClasses}
+            className={urlError ? fieldInputErrorClasses : fieldInputClasses}
           />
+          {urlError && <p className="mt-1.5 text-xs text-red-600 dark:text-red-400">{urlError}</p>}
         </div>
       )}
 
@@ -154,8 +167,9 @@ export default function QrCodeGeneratorTool({ toolSlug, toolName, category }) {
               value={fields.address || ''}
               onChange={(event) => handleFieldChange('address', event.target.value)}
               placeholder="someone@example.com"
-              className={fieldInputClasses}
+              className={emailError ? fieldInputErrorClasses : fieldInputClasses}
             />
+            {emailError && <p className="mt-1.5 text-xs text-red-600 dark:text-red-400">{emailError}</p>}
           </div>
           <div>
             <label htmlFor="qr-email-subject" className="text-xs text-slate-500 dark:text-slate-400">
@@ -192,8 +206,9 @@ export default function QrCodeGeneratorTool({ toolSlug, toolName, category }) {
           <input
             id="qr-phone-number"
             type="tel"
+            inputMode="tel"
             value={fields.number || ''}
-            onChange={(event) => handleFieldChange('number', event.target.value)}
+            onChange={(event) => handleFieldChange('number', filterPhoneInput(event.target.value))}
             placeholder="+1 415 555 2671"
             className={fieldInputClasses}
           />
@@ -209,8 +224,9 @@ export default function QrCodeGeneratorTool({ toolSlug, toolName, category }) {
             <input
               id="qr-sms-number"
               type="tel"
+              inputMode="tel"
               value={fields.number || ''}
-              onChange={(event) => handleFieldChange('number', event.target.value)}
+              onChange={(event) => handleFieldChange('number', filterPhoneInput(event.target.value))}
               placeholder="+1 415 555 2671"
               className={fieldInputClasses}
             />
@@ -279,14 +295,16 @@ export default function QrCodeGeneratorTool({ toolSlug, toolName, category }) {
       <div className="flex flex-col items-center gap-4 rounded-xl bg-slate-50 p-6 dark:bg-slate-900/40">
         <canvas
           ref={canvasRef}
-          className={`rounded-lg ${payload.trim() ? 'block' : 'hidden'}`}
+          className={`rounded-lg ${readyToGenerate ? 'block' : 'hidden'}`}
           style={{ imageRendering: 'pixelated', maxWidth: '280px', width: '100%', height: 'auto' }}
         />
-        {!payload.trim() && (
-          <p className="py-12 text-sm text-slate-400 dark:text-slate-500">Fill in the details above to generate a QR code</p>
+        {!readyToGenerate && (
+          <p className="py-12 text-sm text-slate-400 dark:text-slate-500">
+            {fieldError ? 'Fix the error above to generate a QR code' : 'Fill in the details above to generate a QR code'}
+          </p>
         )}
 
-        {payload.trim() && !error && (
+        {readyToGenerate && !error && (
           <div className="flex gap-2">
             <button type="button" onClick={handleDownloadPng} className="btn-primary text-sm">
               <HiOutlineArrowDownTray className="h-4 w-4" />
