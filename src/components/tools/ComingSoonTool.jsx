@@ -11,7 +11,7 @@ import { HiOutlineSparkles, HiOutlineClock } from 'react-icons/hi2'
  * with no upload area or button that would imply the tool actually does
  * something.
  */
-export default function ComingSoonTool({ toolName, whatItWillDo, whyNotYet }) {
+export default function ComingSoonTool({ toolName, whatItWillDo, whyNotYet, exploreCategorySlug = 'image-tools' }) {
   return (
     <div className="card overflow-hidden">
       <div className="border-b border-dashed border-amber-200 bg-amber-50 px-6 py-4 dark:border-amber-900 dark:bg-amber-950">
@@ -35,8 +35,8 @@ export default function ComingSoonTool({ toolName, whatItWillDo, whyNotYet }) {
         <p className="mt-2 leading-relaxed text-slate-600 dark:text-slate-300">{whyNotYet}</p>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <Link to="/tools?category=image-tools" className="btn-primary text-sm">
-            Explore working image tools
+          <Link to={`/tools?category=${exploreCategorySlug}`} className="btn-primary text-sm">
+            {exploreCategorySlug === 'image-tools' ? 'Explore working image tools' : 'Explore other tools in this category'}
           </Link>
           <Link to="/tools" className="btn-secondary text-sm">
             Browse all tools
@@ -51,4 +51,5 @@ ComingSoonTool.propTypes = {
   toolName: PropTypes.string.isRequired,
   whatItWillDo: PropTypes.string.isRequired,
   whyNotYet: PropTypes.string.isRequired,
+  exploreCategorySlug: PropTypes.string,
 }

@@ -17,3 +17,13 @@ export const getPublicStats = asyncHandler(async (req, res) => {
   const stats = await analyticsService.getPublicStats()
   sendSuccess(res, { data: stats })
 })
+
+/**
+ * Full usage ranking for every tool, admin-only - powers the admin Tools
+ * table's sortable "Recent usage" column. Accepts ?direction=asc|desc.
+ */
+export const getAllToolsUsage = asyncHandler(async (req, res) => {
+  const direction = req.query.direction === 'asc' ? 'asc' : 'desc'
+  const usage = await analyticsService.getAllToolsUsage(direction)
+  sendSuccess(res, { data: usage })
+})

@@ -200,6 +200,7 @@ export const api = {
 
   // --- Admin: analytics --------------------------------------------------------------
   adminGetAnalyticsOverview: () => authorizedRequest('/analytics/overview'),
+  adminGetToolsUsage: (direction = 'desc') => authorizedRequest(`/analytics/tools-usage${toQuery({ direction })}`),
 
   // --- Uploads (admin) -----------------------------------------------------------------
   uploadFile: (file) => {

@@ -130,6 +130,22 @@ async function getMostUsedTools(limit = 5) {
   ])
 }
 
+/**
+ * Usage counts for every tool that has at least one recorded use, with a
+ * toggleable sort direction - powers the admin Tools table's sortable
+ * "Recent usage" column, which needs the full ranking (not just a top-N
+ * slice like getMostUsedTools above) so the list can be reordered without
+ * hiding anything.
+ */
+export async function getAllToolsUsage(direction = 'desc') {
+  const sortOrder = direction === 'asc' ? 1 : -1
+  return ConversionHistory.aggregate([
+    { $group: { _id: { slug: '$toolSlug', name: '$toolName' }, count: { $sum: 1 } } },
+    { $sort: { count: sortOrder } },
+    { $project: { _id: 0, toolSlug: '$_id.slug', toolName: '$_id.name', count: 1 } },
+  ])
+}
+
 async function getMostUsedCategories(limit = 5) {
   return ConversionHistory.aggregate([
     { $match: { category: { $ne: null, $ne: '' } } },

@@ -17,6 +17,7 @@ const BlogPost = lazy(() => import('./pages/BlogPost.jsx'))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy.jsx'))
 const Terms = lazy(() => import('./pages/Terms.jsx'))
 const NotFound = lazy(() => import('./pages/NotFound.jsx'))
+const GenericToolPage = lazy(() => import('./pages/GenericToolPage.jsx'))
 
 // Image tools (Phase 3 - fully working, browser-based)
 const JpgToPng = lazy(() => import('./pages/tools/JpgToPng.jsx'))
@@ -88,6 +89,7 @@ const Dashboard = lazy(() => import('./pages/dashboard/Dashboard.jsx'))
 const AdminOverview = lazy(() => import('./pages/admin/AdminOverview.jsx'))
 const AdminUsers = lazy(() => import('./pages/admin/AdminUsers.jsx'))
 const AdminTools = lazy(() => import('./pages/admin/AdminTools.jsx'))
+const AdminToolEditor = lazy(() => import('./pages/admin/AdminToolEditor.jsx'))
 const AdminBlogList = lazy(() => import('./pages/admin/AdminBlogList.jsx'))
 const AdminBlogEditor = lazy(() => import('./pages/admin/AdminBlogEditor.jsx'))
 const Profile = lazy(() => import('./pages/dashboard/Profile.jsx'))
@@ -202,12 +204,15 @@ export default function App() {
               <Route index element={<AdminOverview />} />
               <Route path="users" element={<AdminUsers />} />
               <Route path="tools" element={<AdminTools />} />
+              <Route path="tools/new" element={<AdminToolEditor />} />
+              <Route path="tools/:slug/edit" element={<AdminToolEditor />} />
               <Route path="blog" element={<AdminBlogList />} />
               <Route path="blog/new" element={<AdminBlogEditor />} />
               <Route path="blog/:slug/edit" element={<AdminBlogEditor />} />
             </Route>
           </Route>
 
+          <Route path="/tools/:slug" element={<GenericToolPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
