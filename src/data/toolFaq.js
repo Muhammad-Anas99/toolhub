@@ -39,12 +39,17 @@ export const toolFaqs = {
     {
       id: 'size-comparison',
       question: 'How much smaller will the JPG be compared to the PNG?',
-      answer: 'It varies by image, but for photographic content the difference can be dramatic \u2014 a lossless PNG is often several times larger than a JPG of the same photo at a quality setting where the difference is barely visible.',
+      answer: 'It varies by image, but for photographic content the difference can be dramatic. A lossless PNG is often several times larger than a JPG of the same photo at a quality setting where the difference is barely visible.',
     },
     {
       id: 'best-quality-setting',
       question: 'What quality setting should I use?',
-      answer: 'Around 80-85% is a common sweet spot \u2014 a real, meaningful size reduction with minimal visible quality loss for most photos. Go higher if the image will be printed or closely inspected, lower if file size matters more than visual fidelity.',
+      answer: 'Around 80-85% is a common sweet spot: a real, meaningful size reduction with minimal visible quality loss for most photos. Go higher if the image will be printed or closely inspected, lower if file size matters more than visual fidelity.',
+    },
+    {
+      id: 'non-photo-content',
+      question: 'Should I still use JPG if my PNG isn\u2019t a photo, like a screenshot with text?',
+      answer: 'JPG can still shrink it, but the savings are usually smaller and sharp edges (like text) can pick up faint compression artifacts that photos hide much better. For a screenshot or graphic full of sharp lines, a higher quality setting or staying with PNG often gives a cleaner result.',
     },
   ],
   'webp-to-png': [
@@ -156,18 +161,18 @@ export const toolFaqs = {
       id: 'aspect-ratio',
       question: 'Will resizing distort my image?',
       answer:
-        'Not if you keep "Lock aspect ratio" enabled — it scales width and height together to avoid stretching.',
+        'Not if you keep "Lock aspect ratio" enabled. It scales width and height together to avoid stretching.',
     },
     {
       id: 'upscaling',
       question: 'Can I make an image larger?',
       answer:
-        'Yes, though enlarging an image beyond its original size can make it look softer since no new detail is being added \u2014 the tool has to interpolate what the extra pixels probably look like, not recover detail that was never captured.',
+        'Yes, though enlarging an image beyond its original size can make it look softer since no new detail is being added. The tool has to interpolate what the extra pixels probably look like, not recover detail that was never captured.',
     },
     {
       id: 'quality-during-resize',
       question: 'Does resizing reduce image quality?',
-      answer: 'Resizing down uses high-quality smoothing and stays visually sharp. Resizing up (enlarging) is where quality softness becomes noticeable, since interpolation can only estimate new pixels, not add genuine detail.',
+      answer: 'Resizing down uses high-quality smoothing and stays visually sharp. Resizing up (enlarging) is where quality softness becomes noticeable, since interpolation can only estimate new pixels, not add real detail.',
     },
     {
       id: 'percentage-vs-exact',
@@ -177,7 +182,12 @@ export const toolFaqs = {
     {
       id: 'batch-resize',
       question: 'Can I resize several images to the same size at once?',
-      answer: 'Yes \u2014 upload up to 10 images and apply the same width, height, or percentage scale to all of them in one pass, then download the results individually or as a ZIP.',
+      answer: 'Yes. Upload up to 10 images and apply the same width, height, or percentage scale to all of them in one pass, then download the results individually or as a ZIP.',
+    },
+    {
+      id: 'file-size-after-resize',
+      question: 'Does resizing an image also reduce its file size?',
+      answer: 'Usually, yes, since a smaller image has fewer pixels to store, but resizing and compressing are different tools for different jobs. If file size matters more than exact dimensions, running the result through the Image Compressor afterward will typically shrink it further.',
     },
   ],
   'image-crop': [
@@ -229,17 +239,22 @@ export const toolFaqs = {
     {
       id: 'why-manual-better',
       question: 'Why not just rely on the EXIF orientation tag instead of rotating manually?',
-      answer: 'Because support for reading that metadata is inconsistent across apps and platforms. A genuine pixel rotation, like this tool performs, displays correctly everywhere regardless of whether the software viewing it bothers to read orientation metadata at all.',
+      answer: 'Because support for reading that metadata is inconsistent across apps and platforms. A real pixel rotation, like this tool performs, displays correctly everywhere regardless of whether the software viewing it bothers to read orientation metadata at all.',
     },
     {
       id: 'rotation-angles',
       question: 'Can I rotate by an angle other than 90\u00b0 increments?',
-      answer: 'This tool supports 90\u00b0, 180\u00b0, and 270\u00b0 rotations specifically \u2014 the common cases for fixing orientation. For a small, precise angle correction (like straightening a slightly tilted scan), a dedicated image editor is a better fit.',
+      answer: 'This tool supports 90\u00b0, 180\u00b0, and 270\u00b0 rotations specifically, the common cases for fixing orientation. For a small, precise angle correction (like straightening a slightly tilted scan), a dedicated image editor is a better fit.',
     },
     {
       id: 'batch-rotate',
       question: 'Can I rotate several images the same way at once?',
-      answer: 'Yes \u2014 upload up to 10 images and apply the same rotation to all of them in one pass, then download the results individually or as a ZIP.',
+      answer: 'Yes. Upload up to 10 images and apply the same rotation to all of them in one pass, then download the results individually or as a ZIP.',
+    },
+    {
+      id: 'rotate-vs-flip-mixup',
+      question: 'I rotated my image but the text still looks backwards. What happened?',
+      answer: 'Rotating turns an image around a point; it never mirrors it, so text stays readable, just at a different angle. Backwards text specifically means the image needs flipping instead, which reverses left and right the way a mirror does.',
     },
   ],
   'flip-image': [
@@ -320,19 +335,19 @@ export const toolFaqs = {
     {
       id: 'why-pdf',
       question: 'Why convert a JPG to PDF instead of just sharing the image directly?',
-      answer: 'Some forms, portals, and email systems specifically require a PDF upload rather than a raw image file, even when the content is just a single photo. This tool gets you a genuine, standards-compliant PDF without needing separate document software.',
+      answer: 'Some forms, portals, and email systems specifically require a PDF upload rather than a raw image file, even when the content is just a single photo. This tool produces a real, standards-compliant PDF without needing separate document software.',
     },
     {
       id: 'file-size-pdf',
       question: 'Will the PDF be larger than the original JPG?',
-      answer: 'Slightly \u2014 a PDF wrapper adds a small amount of overhead beyond the raw image data, but the difference is minor since the image itself isn\u2019t re-compressed.',
+      answer: 'Slightly. A PDF wrapper adds a small amount of overhead beyond the raw image data, but the difference is minor since the image itself isn\u2019t re-compressed.',
     },
   ],
   'png-to-pdf': [
     {
       id: 'transparency',
       question: 'What happens to transparent areas of my PNG?',
-      answer: 'The PNG\u2019s transparency data is embedded into the PDF as-is, not discarded \u2014 but since a PDF page is a solid surface, transparent areas typically render against the page\u2019s own background, usually white in most viewers.',
+      answer: 'The PNG\u2019s transparency data is embedded into the PDF as-is, not discarded, but since a PDF page is a solid surface, transparent areas typically render against the page\u2019s own background, usually white in most viewers.',
     },
     {
       id: 'page-size',
@@ -347,44 +362,54 @@ export const toolFaqs = {
     {
       id: 'why-not-standard-page',
       question: 'Why isn\u2019t the PDF a standard page size like A4?',
-      answer: 'Sizing the page to your image\u2019s exact dimensions avoids any cropping, padding, or scaling \u2014 what you uploaded is exactly what appears. The tradeoff is that printing may need a manual scale adjustment, since it\u2019s not a standard paper size.',
+      answer: 'Sizing the page to your image\u2019s exact dimensions avoids any cropping, padding, or scaling. What gets uploaded is exactly what appears. The tradeoff is that printing may need a manual scale adjustment, since it\u2019s not a standard paper size.',
     },
     {
       id: 'quality-preserved-png',
       question: 'Does converting to PDF reduce my PNG\u2019s quality?',
-      answer: 'No \u2014 the original PNG data is embedded into the PDF as-is, not re-compressed or re-encoded, so the image quality is preserved exactly.',
+      answer: 'No. The original PNG data is embedded into the PDF as-is, not re-compressed or re-encoded, so the image quality is preserved exactly.',
     },
     {
       id: 'file-size-pdf-png',
       question: 'Will the PDF be larger than the original PNG?',
-      answer: 'Slightly \u2014 a PDF wrapper adds a small amount of overhead beyond the raw image data, but the difference is minor since the image itself isn\u2019t re-compressed.',
+      answer: 'Slightly. A PDF wrapper adds a small amount of overhead beyond the raw image data, but the difference is minor since the image itself isn\u2019t re-compressed.',
+    },
+    {
+      id: 'edit-after-conversion',
+      question: 'Can I edit the PNG image after it\u2019s embedded in the PDF?',
+      answer: 'Not through this tool. The PDF holds the image as a single embedded picture, not editable layers or objects. To make changes, edit the original PNG first and then convert the updated version.',
     },
   ],
   'merge-pdf': [
     {
       id: 'order',
       question: 'Can I control the order of the merged pages?',
-      answer: 'Yes \u2014 use the up/down arrows next to each file to reorder them before merging. Pages are combined in the order shown.',
+      answer: 'Yes. Use the up/down arrows next to each file to reorder them before merging. Pages are combined in the order shown.',
     },
     {
       id: 'limit',
       question: 'Is there a limit to how many PDFs I can merge?',
-      answer: 'No fixed limit \u2014 add as many as you need, though very large combined files will naturally take longer to process.',
+      answer: 'No fixed limit. Add as many as you need, though very large combined files will naturally take longer to process.',
     },
     {
       id: 'text-preserved',
       question: 'Will the merged PDF still have selectable text?',
-      answer: 'Yes \u2014 pages are copied faithfully, not rendered as images, so any selectable or searchable text in the source files stays exactly that way in the merged result.',
+      answer: 'Yes. Pages are copied faithfully, not rendered as images, so any selectable or searchable text in the source files stays exactly that way in the merged result.',
     },
     {
       id: 'quality-loss-merge',
       question: 'Does merging reduce the quality of my PDFs?',
-      answer: 'No \u2014 since pages are copied directly rather than re-rendered, there\u2019s no quality loss or re-compression involved in the merge process.',
+      answer: 'No. Since pages are copied directly rather than re-rendered, there\u2019s no quality loss or re-compression involved in the merge process.',
     },
     {
       id: 'different-page-sizes',
       question: 'Can I merge PDFs that have different page sizes?',
-      answer: 'Yes \u2014 each page keeps its own original dimensions in the merged document. The result may have pages of varying sizes if the source files did, which is normal and doesn\u2019t cause any issue when viewing or printing.',
+      answer: 'Yes. Each page keeps its own original dimensions in the merged document. The result may have pages of varying sizes if the source files did, which is normal and doesn\u2019t cause any issue when viewing or printing.',
+    },
+    {
+      id: 'bookmarks-and-metadata',
+      question: 'Do bookmarks or document properties carry over from the original files?',
+      answer: 'Page content, including text and formatting, carries over faithfully, but bookmarks and other document-level metadata from the original files aren\u2019t reconstructed in the merged result.',
     },
     {
       id: 'password-protected',
@@ -396,27 +421,32 @@ export const toolFaqs = {
     {
       id: 'range-format',
       question: 'How do I specify which pages to extract?',
-      answer: 'Use page numbers and ranges separated by commas, like "1-3, 5, 8-10". Pages are 1-indexed \u2014 page 1 is the first page.',
+      answer: 'Use page numbers and ranges separated by commas, like "1-3, 5, 8-10". Pages are 1-indexed: page 1 is the first page.',
     },
     {
       id: 'original-order',
       question: 'Do the extracted pages keep their original content?',
-      answer: 'Yes \u2014 pages are copied exactly as they appear in the source PDF, not re-rendered or flattened.',
+      answer: 'Yes. Pages are copied exactly as they appear in the source PDF, not re-rendered or flattened.',
     },
     {
       id: 'duplicate-pages',
       question: 'What happens if I list the same page number twice?',
-      answer: 'It\u2019s only included once in the result \u2014 duplicate page numbers across your entered ranges are automatically deduplicated, so you don\u2019t end up with the same page twice in the output.',
+      answer: 'It\u2019s only included once in the result. Duplicate page numbers across the entered ranges are automatically deduplicated, so the same page won\u2019t appear twice in the output.',
     },
     {
       id: 'out-of-order-input',
       question: 'What if I type the ranges out of order, like "5, 1-3"?',
-      answer: 'The extracted pages always come out in ascending numeric order in the final document, regardless of what order you typed the ranges in \u2014 "5, 1-3" and "1-3, 5" produce the identical result.',
+      answer: 'The extracted pages always come out in ascending numeric order in the final document, regardless of the order they were typed in. "5, 1-3" and "1-3, 5" produce the identical result.',
     },
     {
       id: 'invalid-page-number',
       question: 'What happens if I enter a page number that doesn\u2019t exist in the PDF?',
-      answer: 'Page numbers outside the document\u2019s actual range are simply ignored rather than causing an error \u2014 the tool extracts whatever valid pages you specified and disregards the rest.',
+      answer: 'Page numbers outside the document\u2019s actual range are simply ignored rather than causing an error. The tool extracts whatever valid pages were specified and disregards the rest.',
+    },
+    {
+      id: 'file-size-after-split',
+      question: 'Will the extracted PDF be smaller than the original?',
+      answer: 'Generally, yes, since it only contains the selected pages. It won\u2019t necessarily shrink in exact proportion to the page count, though, since things like embedded fonts can affect file size in ways that don\u2019t scale linearly with the number of pages.',
     },
     {
       id: 'password-protected-split',
@@ -651,22 +681,27 @@ export const toolFaqs = {
     {
       id: 'unicode',
       question: 'Does this handle special characters and emoji correctly?',
-      answer: 'Yes \u2014 text is encoded as UTF-8 before Base64 encoding, so accented letters, non-Latin scripts and emoji all round-trip correctly.',
+      answer: 'Yes. Text is encoded as UTF-8 before Base64 encoding, so accented letters, non-Latin scripts and emoji all round-trip correctly.',
     },
     {
       id: 'url-safe',
       question: 'Can I use this output directly in a URL?',
-      answer: 'This produces standard Base64, which uses + and / characters that have special meaning in a URL. For a URL-safe result, replace + with -, / with _, and drop any trailing = padding after encoding here \u2014 that\u2019s the URL-safe variant used in JWTs and similar contexts.',
+      answer: 'This produces standard Base64, which uses + and / characters that have special meaning in a URL. For a URL-safe result, replace + with -, / with _, and drop any trailing = padding after encoding here. That\u2019s the URL-safe variant used in JWTs and similar contexts.',
     },
     {
       id: 'encoding-vs-encryption',
       question: 'Is Base64 a form of encryption?',
-      answer: 'No \u2014 Base64 is an encoding, not encryption. Anyone can decode it back to the original text instantly with no key or password needed. It makes binary data safely representable as text; it does not make data private or secure.',
+      answer: 'No. Base64 is an encoding, not encryption. Anyone can decode it back to the original text instantly with no key or password needed. It makes binary data safely representable as text; it does not make data private or secure.',
     },
     {
       id: 'why-length-increases',
       question: 'Why is my Base64 output longer than the original text?',
-      answer: 'Base64 encodes every 3 bytes of input as 4 output characters, so encoded text is roughly 33% larger than the original \u2014 a real, expected tradeoff for representing binary-safe data as plain text.',
+      answer: 'Base64 encodes every 3 bytes of input as 4 output characters, so encoded text is roughly 33% larger than the original. That\u2019s an expected tradeoff for representing binary-safe data as plain text.',
+    },
+    {
+      id: 'why-equals-at-end',
+      question: 'Why does my Base64 output sometimes end with one or two = signs?',
+      answer: 'Base64 processes input in groups of 3 bytes at a time. When the total length isn\u2019t a clean multiple of 3, one or two = characters are added at the end as padding so the output still forms complete 4-character groups. It\u2019s a normal part of the format, not an error.',
     },
   ],
   'url-encoder': [
@@ -1059,6 +1094,34 @@ export const toolFaqs = {
       answer: 'Not necessarily \u2014 they can genuinely differ. The page title is what shows in a browser tab and search results; the Open Graph title is what shows when the link is shared socially, where a slightly more attention-grabbing phrasing often performs better.',
     },
   ],
+
+  'text-diff-checker': [
+    {
+      id: 'how-does-comparison-work',
+      question: 'How does the comparison actually work?',
+      answer: 'It finds the longest sequence of lines both texts have in common, then works out what was added or removed around that shared sequence \u2014 the same underlying approach the Unix diff command uses.',
+    },
+    {
+      id: 'edited-line-shows-as-two',
+      question: 'Why does an edited line show up as one removed and one added, instead of just \u201cchanged\u201d?',
+      answer: 'The comparison works at the line level, not within a line, so an edit to part of a line is represented as the old full line being removed and the new full line being added \u2014 there\u2019s no separate \u201cmodified\u201d category.',
+    },
+    {
+      id: 'ignores-whitespace',
+      question: 'Does it ignore extra spaces or blank lines?',
+      answer: 'No \u2014 the comparison is exact. A line that differs only by trailing whitespace or capitalization will still show as changed, since that is technically a real difference between the two texts.',
+    },
+    {
+      id: 'line-limit-reason',
+      question: 'Why is there a 2,000-line limit?',
+      answer: 'The comparison algorithm does more work as texts get longer, and beyond a few thousand lines a browser tab can genuinely start to lag. For comparing large files, a dedicated diff tool built for that scale will hold up better.',
+    },
+    {
+      id: 'reordered-lines',
+      question: 'What happens if a line just moved to a different position, with no other changes?',
+      answer: 'It typically shows up as removed from its old position and added at its new one, similar to how a genuine edit is shown. The comparison looks for lines that stay in the same relative order across both texts, so moving a line past other content usually breaks that match rather than being recognized as \u201cno real change.\u201d',
+    },
+  ],
   'hash-generator': [
     {
       id: 'which-algorithm',
@@ -1162,7 +1225,7 @@ export const toolFaqs = {
     {
       id: 'multi-page',
       question: 'Can I convert every page at once?',
-      answer: 'This converts one page at a time \u2014 pick the page number and convert, then change it to grab another page.',
+      answer: 'This converts one page at a time. Pick the page number and convert, then change it to grab another page.',
     },
     {
       id: 'why-png',
@@ -1172,7 +1235,7 @@ export const toolFaqs = {
     {
       id: 'file-size-png',
       question: 'Will the PNG be a large file?',
-      answer: 'It depends on the page content \u2014 a text-heavy or simple page tends to produce a reasonably compact PNG, while a page with a lot of continuous-tone imagery can produce a noticeably larger file than the equivalent JPG would.',
+      answer: 'It depends on the page content. A text-heavy or simple page tends to produce a reasonably compact PNG, while a page with a lot of continuous-tone imagery can produce a noticeably larger file than the equivalent JPG would.',
     },
     {
       id: 'resolution-png',
@@ -1182,12 +1245,17 @@ export const toolFaqs = {
     {
       id: 'text-selectable-after-png',
       question: 'Will the text in the resulting PNG still be selectable?',
-      answer: 'No \u2014 the page is rendered as a flat image, so any text that was selectable in the original PDF becomes part of the picture rather than real text. If you need to keep text selectable, this isn\u2019t the right tool for that purpose.',
+      answer: 'No. The page is rendered as a flat image, so any text that was selectable in the original PDF becomes part of the picture rather than real text. If you need to keep text selectable, this isn\u2019t the right tool for that purpose.',
     },
     {
       id: 'password-protected-img-png',
       question: 'Can I convert a page from a password-protected PDF?',
       answer: 'A PDF that requires a password to open can\u2019t be rendered without first removing that protection, since the file\u2019s content is encrypted until unlocked.',
+    },
+    {
+      id: 'png-vs-jpg-choice',
+      question: 'How do I decide between the PNG and JPG converters for the same page?',
+      answer: 'If the page is mostly text, a diagram, or line art, PNG keeps every edge crisp. If the page is a photo or has a lot of gradients and continuous color, JPG usually produces a noticeably smaller file with no visible quality difference for that kind of content.',
     },
   ],
   'gradient-generator': [
@@ -1240,22 +1308,27 @@ export const toolFaqs = {
     {
       id: 'how-it-works',
       question: 'How does this actually shrink the file size?',
-      answer: 'Each page is rendered as an image and recompressed at your chosen quality \u2014 the same technique the Image Compressor uses. This works best on scanned or image-heavy PDFs, since that\u2019s usually what makes a PDF large in the first place.',
+      answer: 'Each page is rendered as an image and recompressed at your chosen quality, the same technique the Image Compressor uses. This works best on scanned or image-heavy PDFs, since that\u2019s usually what makes a PDF large in the first place.',
     },
     {
       id: 'text-selectable',
       question: 'Will the text still be selectable and searchable after compressing?',
-      answer: 'No \u2014 since each page becomes a single image, any text in the original PDF is no longer selectable, searchable, or copyable in the compressed version. If you need to keep text selectable, this tool isn\u2019t the right fit for that PDF.',
+      answer: 'No. Since each page becomes a single image, any text in the original PDF is no longer selectable, searchable, or copyable in the compressed version. If you need to keep text selectable, this tool isn\u2019t the right fit for that PDF.',
     },
     {
       id: 'quality-setting',
       question: 'What compression level should I use?',
-      answer: 'Around 65% is a solid starting point for most PDFs \u2014 noticeably smaller with minimal visible quality loss. Go lower for maximum size reduction if the PDF is mostly for reference, or higher if visual quality matters more than file size.',
+      answer: 'Around 65% is a solid starting point for most PDFs, noticeably smaller with minimal visible quality loss. Go lower for maximum size reduction if the PDF is mostly for reference, or higher if visual quality matters more than file size.',
     },
     {
       id: 'not-getting-smaller',
       question: 'Why isn\u2019t my PDF shrinking much after compressing?',
-      answer: 'If the original PDF is mostly text with few or no images, there\u2019s often very little to compress \u2014 text takes up minimal space to begin with. This tool\u2019s real value is for scanned documents and image-heavy PDFs, where the images are what\u2019s actually making the file large.',
+      answer: 'If the original PDF is mostly text with few or no images, there\u2019s often very little to compress, since text takes up minimal space to begin with. This tool\u2019s real value is for scanned documents and image-heavy PDFs, where the images are what\u2019s actually making the file large.',
+    },
+    {
+      id: 'multiple-passes',
+      question: 'Can I compress an already-compressed PDF again for an even smaller file?',
+      answer: 'Yes, but each additional pass re-compresses images that are already lossy, so quality degrades further each time. One careful pass at a reasonable quality setting usually gives a better result than compressing the same file repeatedly.',
     },
   ],
 
@@ -1263,17 +1336,22 @@ export const toolFaqs = {
     {
       id: 'what-it-does',
       question: 'Does this preserve the original PDF\u2019s formatting and layout?',
-      answer: 'No \u2014 this extracts the actual text content and reconstructs paragraph breaks, giving you an editable starting point. Fonts, images, tables, columns and exact positioning aren\u2019t preserved. True layout-perfect conversion is a much harder problem that even paid tools don\u2019t solve perfectly.',
+      answer: 'No. This extracts the actual text content and reconstructs paragraph breaks, giving you an editable starting point. Fonts, images, tables, columns and exact positioning aren\u2019t preserved. True layout-perfect conversion is a much harder problem that even paid tools don\u2019t solve perfectly.',
     },
     {
       id: 'scanned-pdfs',
       question: 'Why does it say no text was found in my PDF?',
-      answer: 'That means your PDF is a scanned document \u2014 essentially a picture of text rather than real, selectable text. This tool extracts existing text; it doesn\u2019t perform OCR (optical character recognition) to read text out of an image.',
+      answer: 'That means your PDF is a scanned document, essentially a picture of text rather than real, selectable text. This tool extracts existing text; it doesn\u2019t perform OCR (optical character recognition) to read text out of an image.',
     },
     {
       id: 'multi-page',
       question: 'Does it handle multi-page PDFs?',
-      answer: 'Yes \u2014 every page\u2019s text is extracted and included, with a page break inserted between each page\u2019s content in the resulting Word document.',
+      answer: 'Yes. Every page\u2019s text is extracted and included, with a page break inserted between each page\u2019s content in the resulting Word document.',
+    },
+    {
+      id: 'why-not-perfect-conversion',
+      question: 'Why don\u2019t any tools, even paid ones, do a perfect PDF-to-Word conversion?',
+      answer: 'Because a PDF doesn\u2019t actually store a document the way Word does. It stores drawing instructions for where each character should appear on the page. Rebuilding real paragraphs, tables and headings from that means making educated guesses, and those guesses break down on anything visually complex, regardless of how good the tool is.',
     },
   ],
 
@@ -1304,7 +1382,7 @@ export const toolFaqs = {
     {
       id: 'what-it-does',
       question: 'Does this preserve charts, images, or cell formatting?',
-      answer: 'No \u2014 this converts your data into a clean table of text and numbers. Charts, images, merged cells, colors and custom number formatting aren\u2019t reproduced. It works best for straightforward data you want to share or print as a simple table.',
+      answer: 'No. This converts your data into a clean table of text and numbers. Charts, images, merged cells, colors and custom number formatting aren\u2019t reproduced. It works best for straightforward data you want to share or print as a simple table.',
     },
     {
       id: 'which-sheet',
@@ -1319,7 +1397,12 @@ export const toolFaqs = {
     {
       id: 'formulas',
       question: 'Do formulas convert correctly, or just their results?',
-      answer: 'The calculated result of each formula is what gets converted \u2014 the same value you\u2019d see displayed in the cell in Excel. The underlying formula itself isn\u2019t preserved, since a PDF table has no concept of a live formula.',
+      answer: 'The calculated result of each formula is what gets converted, the same value shown displayed in the cell in Excel. The underlying formula itself isn\u2019t preserved, since a PDF table has no concept of a live formula.',
+    },
+    {
+      id: 'empty-cells-and-rows',
+      question: 'What happens with empty rows or columns in my spreadsheet?',
+      answer: 'They\u2019re included as blank space in the table, matching the actual layout of the sheet, rather than being automatically removed. If a sheet has a lot of unused empty space, it\u2019s worth trimming that in Excel first for a cleaner-looking result.',
     },
   ],
 

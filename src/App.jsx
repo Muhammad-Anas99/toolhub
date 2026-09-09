@@ -59,6 +59,7 @@ const VideoToGif = lazy(() => import('./pages/tools/VideoToGif.jsx'))
 const VideoTrimmer = lazy(() => import('./pages/tools/VideoTrimmer.jsx'))
 const UnitConverter = lazy(() => import('./pages/tools/UnitConverter.jsx'))
 const MetaTagGenerator = lazy(() => import('./pages/tools/MetaTagGenerator.jsx'))
+const TextDiffChecker = lazy(() => import('./pages/tools/TextDiffChecker.jsx'))
 const ShortUrlRedirect = lazy(() => import('./pages/ShortUrlRedirect.jsx'))
 const HashGenerator = lazy(() => import('./pages/tools/HashGenerator.jsx'))
 const TimestampConverter = lazy(() => import('./pages/tools/TimestampConverter.jsx'))
@@ -154,6 +155,7 @@ export default function App() {
           <Route path="/tools/video-trimmer" element={<VideoTrimmer />} />
           <Route path="/tools/unit-converter" element={<UnitConverter />} />
           <Route path="/tools/meta-tag-generator" element={<MetaTagGenerator />} />
+          <Route path="/tools/text-diff-checker" element={<TextDiffChecker />} />
           <Route path="/s/:code" element={<ShortUrlRedirect />} />
           <Route path="/tools/hash-generator" element={<HashGenerator />} />
           <Route path="/tools/timestamp-converter" element={<TimestampConverter />} />
