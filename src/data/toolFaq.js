@@ -891,6 +891,174 @@ export const toolFaqs = {
       answer: 'JSON-LD is the format Google explicitly recommends, and it keeps the structured data in one self-contained script block rather than scattered across HTML attributes \u2014 easier to generate correctly, and easier to update later without touching your page\u2019s actual markup.',
     },
   ],
+
+  'audio-to-wav-converter': [
+    {
+      id: 'why-only-wav',
+      question: 'Why can\u2019t this convert to MP3?',
+      answer: 'MP3 encoding is a genuinely complex piece of software this tool doesn\u2019t include. WAV is a much simpler, well-documented format \u2014 raw audio samples with a short header \u2014 which is why it\u2019s the one this tool can build correctly and reliably.',
+    },
+    {
+      id: 'quality-loss',
+      question: 'Will converting to WAV lose any audio quality?',
+      answer: 'No \u2014 WAV is uncompressed, so converting to it doesn\u2019t discard anything. If your source file was already compressed (like an MP3), the quality lost during that original compression can\u2019t be recovered, but nothing further is lost in this conversion.',
+    },
+    {
+      id: 'what-formats-work',
+      question: 'What audio formats can I upload?',
+      answer: 'Whatever your browser can already play \u2014 MP3, OGG, M4A, WebM and more, typically. Since your browser\u2019s own audio engine does the decoding, this tool doesn\u2019t maintain a separate list of supported formats.',
+    },
+    {
+      id: 'file-size-limit',
+      question: 'Is there a file size limit?',
+      answer: 'Files up to 50 MB. Since everything happens in your browser rather than on a server, the practical limit also depends on your own device\u2019s available memory.',
+    },
+    {
+      id: 'why-wav-bigger',
+      question: 'Why is the WAV file so much bigger than my original MP3?',
+      answer: 'That\u2019s expected, not a bug. MP3 is compressed and throws away audio data to save space; WAV stores every sample uncompressed. A 4-minute MP3 at a typical bitrate might be 4 MB, while the same audio as WAV is usually closer to 40 MB.',
+    },
+  ],
+
+  'audio-trimmer': [
+    {
+      id: 'is-trim-exact',
+      question: 'How precise is the trim?',
+      answer: 'The sliders adjust in tenth-of-a-second steps, and the exported file contains exactly the range you selected \u2014 not an approximation, and not rounded to the nearest second.',
+    },
+    {
+      id: 'why-wav-output',
+      question: 'Why does the trimmed file download as WAV, even if I uploaded an MP3?',
+      answer: 'Because WAV is the only format this tool can reliably encode \u2014 building a correct MP3 encoder from scratch is a much bigger undertaking than this tool takes on. The trimmed audio itself is unaffected in quality; only the file format changes.',
+    },
+    {
+      id: 'multiple-clips',
+      question: 'Can I cut multiple clips from the same file?',
+      answer: 'Yes \u2014 trim one range, download it, then adjust the sliders and trim again from the same uploaded file.',
+    },
+    {
+      id: 'trim-vs-cut-middle',
+      question: 'Can I remove a section from the middle instead of trimming the ends?',
+      answer: 'Not directly \u2014 this tool selects one continuous range to keep, from the start point to the end point. Removing a middle section while keeping both ends would need a different kind of editor.',
+    },
+    {
+      id: 'does-trimming-affect-quality',
+      question: 'Does trimming reduce the audio quality?',
+      answer: 'No \u2014 the selected range is copied over sample by sample, not re-compressed. The one thing that does change is the file format: the output is always WAV, so a trimmed clip from a small MP3 will be a noticeably larger file, since WAV stores audio uncompressed.',
+    },
+    {
+      id: 'preview-before-download',
+      question: 'Can I hear the trimmed clip before downloading it?',
+      answer: 'Not currently \u2014 the sliders show you the exact start and end times as you adjust them, but there\u2019s no built-in playback preview yet. Downloading and checking the file is the way to confirm the result right now.',
+    },
+  ],
+
+  'video-to-gif': [
+    {
+      id: 'why-10-second-limit',
+      question: 'Why is there a 10-second limit on clips?',
+      answer: 'Every extra second means dozens more frames to extract, quantize, and compress in JavaScript running in your browser. Beyond about 10 seconds, both processing time and file size grow quickly enough that it stops being a good experience \u2014 a dedicated video editor handles longer clips better.',
+    },
+    {
+      id: 'why-limited-colors',
+      question: 'Why do the colors sometimes look slightly different from the original video?',
+      answer: 'GIF only supports up to 256 colors per frame, while real video has millions. This tool reduces each frame\u2019s colors down using a standard quantization method, which keeps the result close to the original but not pixel-perfect \u2014 that\u2019s an inherent limit of the GIF format itself, not something any GIF-making tool can avoid.',
+    },
+    {
+      id: 'does-audio-carry-over',
+      question: 'Does the GIF include audio?',
+      answer: 'No \u2014 GIF is a purely visual format and has never supported audio, regardless of which tool creates it.',
+    },
+    {
+      id: 'higher-fps-worth-it',
+      question: 'Should I always use the highest frame rate?',
+      answer: 'Not necessarily \u2014 15 fps looks smoother but produces a larger file than 10 or 5 fps for the same clip. For simple motion or a short reaction clip, a lower frame rate often looks fine and downloads faster.',
+    },
+    {
+      id: 'gif-file-size-expectation',
+      question: 'Why is the GIF file bigger than I expected?',
+      answer: 'GIF is genuinely not an efficient format for anything with a lot of visual detail or movement \u2014 every frame is stored close to independently, unlike video formats built specifically to compress motion over time. A short, simple clip stays reasonably small; a longer or busier one can add up quickly.',
+    },
+  ],
+
+  'video-trimmer': [
+    {
+      id: 'why-takes-real-time',
+      question: 'Why does trimming take as long as the clip itself?',
+      answer: 'Because this works by actually playing through the selected range and recording it with your browser\u2019s own encoder \u2014 it\u2019s a real-time capture, not an instant file edit. A 30-second clip genuinely takes about 30 seconds to trim.',
+    },
+    {
+      id: 'why-webm-output',
+      question: 'Why does the trimmed video download as WebM, even if I uploaded an MP4?',
+      answer: 'WebM is the format your browser\u2019s own built-in video encoder produces. Using the browser\u2019s real, already-tested encoder is more reliable than attempting to build a custom video encoder from scratch, which is a genuinely complex undertaking.',
+    },
+    {
+      id: 'does-audio-carry-through',
+      question: 'Does the trimmed video keep its audio?',
+      answer: 'Yes \u2014 the recording captures both the video and audio tracks together, as long as the original file has audio in the first place.',
+    },
+    {
+      id: 'why-not-instant',
+      question: 'Is there a faster way to trim a video without waiting through it?',
+      answer: 'Not with this tool \u2014 the real-time playback approach is what lets this work without a heavy video-codec library. A desktop video editor using dedicated codec software can trim without re-encoding, which is faster, but that\u2019s not something a browser-based tool can currently do.',
+    },
+    {
+      id: 'keep-tab-open',
+      question: 'Do I need to keep the browser tab open while it trims?',
+      answer: 'Yes \u2014 the video is genuinely playing in the background to be captured, so switching away or closing the tab partway through will interrupt the recording. Keep the tab active until the progress bar reaches 100%.',
+    },
+  ],
+
+  'unit-converter': [
+    {
+      id: 'us-vs-uk-gallon',
+      question: 'What\u2019s the actual difference between a US gallon and a UK gallon?',
+      answer: 'A US gallon is about 3.785 liters, while a UK (Imperial) gallon is about 4.546 liters \u2014 the UK gallon is roughly 20% larger. That\u2019s a meaningful difference, not just a rounding quirk, which is why this tool lists them as separate, clearly labeled units.',
+    },
+    {
+      id: 'how-accurate',
+      question: 'How accurate are the conversions?',
+      answer: 'Every conversion uses the actual internationally-defined standard value for that unit \u2014 for example, exactly 0.45359237 kilograms per pound, not a rounded 0.45. Results are accurate to the precision shown.',
+    },
+    {
+      id: 'why-temperature-different',
+      question: 'Why does temperature work differently from the other categories?',
+      answer: 'Length, weight, and volume conversions are simple multiplication \u2014 double the value, double the result. Temperature scales don\u2019t start at the same zero point, so converting between them needs an actual formula (like multiplying by 9/5 and adding 32 for Celsius to Fahrenheit) rather than a single conversion factor.',
+    },
+    {
+      id: 'negative-forty-fact',
+      question: 'Is it true that -40°C and -40°F are the same temperature?',
+      answer: 'Yes \u2014 it\u2019s the one point where the Celsius and Fahrenheit scales genuinely cross. Every other temperature reads differently on the two scales.',
+    },
+    {
+      id: 'why-metric-ton-not-just-ton',
+      question: 'Why does the weight category say "metric tons" instead of just "tons"?',
+      answer: 'Because plain "ton" is ambiguous \u2014 a US (short) ton, a UK (long) ton, and a metric ton are three genuinely different weights. This tool specifically uses the metric ton (1,000 kg) to avoid that ambiguity.',
+    },
+  ],
+
+  'meta-tag-generator': [
+    {
+      id: 'updated-preview-not-showing',
+      question: 'I updated my meta tags, but the old preview still shows when I share the link. Why?',
+      answer: 'Social platforms cache the preview for a link the first time it\u2019s shared, and keep showing that cached version for hours or days until they re-crawl the page \u2014 that\u2019s the platform\u2019s own caching behavior, not a problem with your new tags. Most platforms (Facebook, LinkedIn, X) have a debugging tool that can force an immediate re-scrape.',
+    },
+    {
+      id: 'why-twitter-card-required',
+      question: 'Do I really need the twitter:card tag if I already have Open Graph tags?',
+      answer: 'Yes \u2014 X checks its own twitter:card tag specifically and has no fallback if it\u2019s missing. Skip it, and a shared link on X shows as plain text with no image, even if the Open Graph tags are otherwise complete.',
+    },
+    {
+      id: 'ideal-og-image-size',
+      question: 'What image size should I use for the social share image?',
+      answer: '1200\u00d7630 pixels is the widely-used safe choice, giving a good result across Facebook, LinkedIn, and X\u2019s large-image card format. Keep the file under about 8MB.',
+    },
+    {
+      id: 'title-vs-og-title',
+      question: 'Does the og:title need to match the page\u2019s actual title?',
+      answer: 'Not necessarily \u2014 they can genuinely differ. The page title is what shows in a browser tab and search results; the Open Graph title is what shows when the link is shared socially, where a slightly more attention-grabbing phrasing often performs better.',
+    },
+  ],
   'hash-generator': [
     {
       id: 'which-algorithm',

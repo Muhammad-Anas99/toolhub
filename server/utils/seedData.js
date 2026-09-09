@@ -73,6 +73,14 @@ export const categorySeed = [
     color: 'indigo',
     order: 8,
   },
+  {
+    name: 'Audio & Video Tools',
+    slug: 'audio-video-tools',
+    description: 'Convert, trim and edit audio and video files.',
+    icon: 'HiOutlineMusicalNote',
+    color: 'cyan',
+    order: 9,
+  },
 ]
 
 export const toolSeed = [
@@ -123,6 +131,12 @@ export const toolSeed = [
   { name: 'HTAccess Generator', slug: 'htaccess-generator', path: '/tools/htaccess-generator', category: 'developer-tools', description: 'Generate .htaccess rules for HTTPS, redirects, caching, security headers and more.', icon: 'FaServer', badge: 'new', comingSoon: false },
   { name: 'Cron Expression Generator', slug: 'cron-expression-generator', path: '/tools/cron-expression-generator', category: 'developer-tools', description: 'Build cron expressions visually, with a plain-English explanation and next run times.', icon: 'FaClock', badge: 'new', comingSoon: false },
   { name: 'Schema Markup Generator', slug: 'schema-markup-generator', path: '/tools/schema-markup-generator', category: 'developer-tools', description: 'Generate valid JSON-LD structured data for Article, Product, Organization and more.', icon: 'FaCode', badge: 'new', comingSoon: false },
+  { name: 'Audio to WAV Converter', slug: 'audio-to-wav-converter', path: '/tools/audio-to-wav-converter', category: 'audio-video-tools', description: 'Convert MP3, OGG and other audio files to WAV, right in your browser.', icon: 'FaFileAudio', badge: 'new', comingSoon: false },
+  { name: 'Audio Trimmer', slug: 'audio-trimmer', path: '/tools/audio-trimmer', category: 'audio-video-tools', description: 'Cut an audio file down to just the part you need, with a simple drag-to-select range.', icon: 'FaScissors', badge: 'new', comingSoon: false },
+  { name: 'Video to GIF', slug: 'video-to-gif', path: '/tools/video-to-gif', category: 'audio-video-tools', description: 'Turn a video clip into an animated GIF, right in your browser.', icon: 'FaFileVideo', badge: 'new', comingSoon: false },
+  { name: 'Video Trimmer', slug: 'video-trimmer', path: '/tools/video-trimmer', category: 'audio-video-tools', description: 'Trim a video down to just the part you need, with simple start and end sliders.', icon: 'FaScissors', badge: 'new', comingSoon: false },
+  { name: 'Unit Converter', slug: 'unit-converter', path: '/tools/unit-converter', category: 'developer-tools', description: 'Convert between length, weight, volume and temperature units instantly.', icon: 'FaRuler', badge: 'new', comingSoon: false },
+  { name: 'Meta Tag Generator', slug: 'meta-tag-generator', path: '/tools/meta-tag-generator', category: 'developer-tools', description: 'Generate title, description, Open Graph and Twitter Card meta tags for any page.', icon: 'FaTags', badge: 'new', comingSoon: false },
   { name: 'Hash Generator', slug: 'hash-generator', path: '/tools/hash-generator', category: 'developer-tools', description: 'Generate MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes from text.', icon: 'FaHashtag', comingSoon: false },
   { name: 'Timestamp Converter', slug: 'timestamp-converter', path: '/tools/timestamp-converter', category: 'developer-tools', description: 'Convert between Unix timestamps and human-readable dates.', icon: 'FaClock', comingSoon: false },
   { name: 'Regex Tester', slug: 'regex-tester', path: '/tools/regex-tester', category: 'developer-tools', description: 'Test and debug regular expressions with live, highlighted matches.', icon: 'FaMagnifyingGlass', badge: 'popular', comingSoon: false },

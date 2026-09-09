@@ -7,6 +7,7 @@ import {
   HiOutlineSwatch,
   HiOutlineShieldCheck,
   HiOutlineShare,
+  HiOutlineMusicalNote,
 } from 'react-icons/hi2'
 
 export const categories = [
@@ -94,6 +95,16 @@ export const categories = [
     icon: HiOutlineShare,
     color: 'indigo',
   },
+  {
+    id: 'audio-video-tools',
+    name: 'Audio & Video Tools',
+    slug: 'audio-video-tools',
+    description: 'Convert, trim and edit audio and video files.',
+    intro:
+      'A few things come up over and over with audio and video: converting a file to a format that actually plays where you need it, cutting a clip down to just the part you want, pulling a GIF out of a longer video. These tools handle the common cases directly in your browser.',
+    icon: HiOutlineMusicalNote,
+    color: 'cyan',
+  },
 ]
 
 export function getCategoryBySlug(slug) {
@@ -151,6 +162,12 @@ export const categoryColorClasses = {
     text: 'text-indigo-600 dark:text-indigo-400',
     ring: 'ring-indigo-500/20',
     gradient: 'from-indigo-500 to-indigo-600',
+  },
+  cyan: {
+    bg: 'bg-cyan-50 dark:bg-cyan-950',
+    text: 'text-cyan-600 dark:text-cyan-400',
+    ring: 'ring-cyan-500/20',
+    gradient: 'from-cyan-500 to-cyan-600',
   },
 }
 

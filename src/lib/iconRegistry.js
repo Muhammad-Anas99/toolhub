@@ -7,6 +7,7 @@ import {
   HiOutlineSwatch,
   HiOutlineShieldCheck,
   HiOutlineShare,
+  HiOutlineMusicalNote,
 } from 'react-icons/hi2'
 import {
   FaFileImage,
@@ -43,6 +44,8 @@ import {
   FaLayerGroup,
   FaInstagram,
   FaYoutube,
+  FaFileAudio,
+  FaScissors,
 } from 'react-icons/fa6'
 import { HiOutlineQuestionMarkCircle } from 'react-icons/hi2'
 
@@ -66,6 +69,7 @@ export const iconRegistry = {
   HiOutlineSwatch,
   HiOutlineShieldCheck,
   HiOutlineShare,
+  HiOutlineMusicalNote,
 
   // Tool icons (Font Awesome 6)
   FaFileImage,
@@ -102,6 +106,8 @@ export const iconRegistry = {
   FaFileArrowDown,
   FaInstagram,
   FaYoutube,
+  FaFileAudio,
+  FaScissors,
 }
 
 /**

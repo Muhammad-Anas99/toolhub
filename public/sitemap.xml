@@ -240,6 +240,36 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://trytoolhub.net/tools/audio-to-wav-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/audio-trimmer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/video-to-gif</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/video-trimmer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/unit-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/meta-tag-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://trytoolhub.net/tools/hash-generator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

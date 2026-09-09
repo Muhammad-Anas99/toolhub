@@ -1024,6 +1024,126 @@ export const toolContent = {
     privacy: NO_FILE_PRIVACY,
   },
 
+  'audio-to-wav-converter': {
+    about:
+      'A lot of audio tools only accept WAV files. Editing software, some game engines, older hardware, certain podcast pipelines: they want uncompressed audio and won\u2019t take an MP3 or an OGG file directly. This tool takes whatever format your audio is actually in and hands you back a proper WAV file, without installing anything or sending the file anywhere.\n\nWorth setting expectations correctly here: this converts into WAV specifically, not between every format under the sun. If you\u2019re hoping to go the other direction and shrink a WAV down to MP3, that needs a real MP3 encoder, which is a genuinely complicated piece of software this tool doesn\u2019t include. WAV, on the other hand, is a simple, well-documented format \u2014 raw audio samples with a short header describing the sample rate and channel count \u2014 which is exactly why it can be built correctly and checked thoroughly rather than approximated.\n\nYour browser does the actual decoding, using the same built-in audio engine that plays sound on any webpage. Whatever format your browser can already play back, this tool can read.',
+    features: [
+      { title: 'Reads what your browser already plays', description: 'MP3, OGG, M4A, WebM and more \u2014 if your browser can play it, this can decode it.', icon: HiOutlineDocumentText },
+      { title: 'Real WAV output', description: 'A properly formed WAV file, not a renamed copy of the original.', icon: HiOutlineArrowDownTray },
+      { title: 'Stereo handled correctly', description: 'Left and right channels stay separate and correctly interleaved.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Nothing leaves your device', description: 'Decoding and encoding both happen locally, using your browser\u2019s own audio engine.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload an audio file.', 'Click Convert to WAV.', 'Download the result.'],
+    useCases: [
+      'Getting a file into WAV for audio editing software that requires it',
+      'Preparing a sound effect for a game engine that only accepts WAV',
+      'Converting a voice memo or recording for a workflow that needs uncompressed audio',
+      'Working around older hardware or software that won\u2019t accept compressed formats',
+    ],
+    supportedFormats: { input: 'MP3, WAV, OGG, M4A, WebM, FLAC (whatever your browser supports)', output: 'WAV', maxSize: '50 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'audio-trimmer': {
+    about:
+      'Sometimes you don\u2019t need the whole file. A 40-minute interview recording where you only need one 30-second quote. A voice memo with ten seconds of dead air at the start. This tool cuts an audio file down to just the part you actually want, using two sliders to mark the start and end.\n\nThe trim is a real edit, not a playback trick \u2014 the exported file only contains the selected range. Everything happens after your browser decodes the audio locally, and the result downloads as a standard WAV file.',
+    features: [
+      { title: 'Simple start/end sliders', description: 'Drag to set exactly where the clip begins and ends.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'A genuine cut, not a trick', description: 'The downloaded file only contains the selected range \u2014 nothing extra.', icon: HiOutlineDocumentDuplicate },
+      { title: 'Works with common formats', description: 'MP3, WAV, OGG and more \u2014 whatever your browser can already play.', icon: HiOutlineDocumentText },
+      { title: 'Entirely on your device', description: 'The file never leaves your browser at any point.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload an audio file.', 'Drag the start and end sliders to select the range you want.', 'Click Trim, then download.'],
+    useCases: [
+      'Pulling a short quote or clip out of a longer recording',
+      'Cutting dead air or silence off the start or end of a voice memo',
+      'Making a short ringtone-length clip from a song',
+      'Extracting just the relevant part of a meeting or interview recording',
+      'Preparing a short audio sample for a video project or presentation',
+    ],
+    supportedFormats: { input: 'MP3, WAV, OGG, M4A, WebM, FLAC (whatever your browser supports)', output: 'WAV', maxSize: '50 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'video-to-gif': {
+    about:
+      'GIFs are everywhere \u2014 reactions, short demos, looping clips shared in chats and on social media \u2014 but most video files aren\u2019t GIFs, and most phones don\u2019t export them directly. This tool takes a short clip from a video and turns it into a real, working animated GIF.\n\nWhat actually happens: your browser reads the video frame by frame over the range you select, reduces each frame\u2019s colors down to a limited palette (GIF supports at most 256 colors per frame, nowhere near a real video\u2019s full color range), and compresses the result into the standard GIF format. All of that runs on your device \u2014 no upload, no server involved.\n\nClips are capped at 10 seconds. Beyond that, the file size and processing time both grow quickly, since every extra second means dozens more frames to process in JavaScript. For anything longer, a dedicated video editor will genuinely do better.',
+    features: [
+      { title: 'Real animated GIF output', description: 'A genuine multi-frame GIF file, built and verified frame by frame.', icon: HiOutlinePhoto },
+      { title: 'Pick your frame rate', description: 'Choose 5, 10, or 15 fps depending on how smooth you need the motion.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'No watermark', description: 'The output is a clean file with nothing added to it.', icon: HiOutlineSparkles },
+      { title: 'Nothing uploaded', description: 'Frame extraction and encoding both happen in your browser.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload a video file.', 'Drag the sliders to pick a clip up to 10 seconds long.', 'Choose a frame rate.', 'Click Create GIF, then download.'],
+    useCases: [
+      'Turning a short screen recording into a GIF for documentation or a chat',
+      'Making a reaction or highlight clip from a longer video',
+      'Creating a looping demo of a UI interaction for a presentation',
+      'Sharing a quick moment from a video somewhere GIFs work better than video files',
+    ],
+    supportedFormats: { input: 'MP4, WebM, MOV, OGV', output: 'GIF', maxSize: '100 MB (clips limited to 10 seconds)' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'video-trimmer': {
+    about:
+      'This cuts a video down to a shorter clip \u2014 just the range between a start and end point you set. Worth knowing upfront: it works by actually playing through the selected range and recording it back using your browser\u2019s own built-in video encoder. That means trimming a clip takes roughly as long as the clip itself, not an instant operation.\n\nThat real-time approach is a deliberate tradeoff. Building a proper video encoder from scratch isn\u2019t something to attempt casually \u2014 modern video codecs are genuinely complex, and a hand-rolled one would be a real risk of producing broken files. Using the browser\u2019s own encoder, the same one it already uses for any video on the web, means the actual encoding is handled by code that\u2019s already been tested at a scale no single tool could replicate.',
+    features: [
+      { title: 'Simple start/end sliders', description: 'Set exactly where the clip begins and ends.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Uses your browser\u2019s real encoder', description: 'The actual video encoding is handled by the same engine your browser already uses for video playback.', icon: HiOutlineShieldCheck },
+      { title: 'Live progress', description: 'A progress bar tracks the trim as it happens in real time.', icon: HiOutlineClock },
+      { title: 'Nothing uploaded', description: 'The video never leaves your device.', icon: HiOutlineDocumentDuplicate },
+    ],
+    howToUse: ['Upload a video file.', 'Set the start and end points with the sliders.', 'Click Trim and wait \u2014 it takes about as long as the clip itself.', 'Download the result.'],
+    useCases: [
+      'Cutting a long recording down to just the relevant part',
+      'Removing dead time from the start or end of a screen recording',
+      'Making a short clip from a longer video to share directly',
+      'Extracting a specific moment from a longer video file',
+    ],
+    supportedFormats: { input: 'MP4, WebM, MOV, OGV', output: 'WebM', maxSize: '200 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'unit-converter': {
+    about:
+      'Cooking with a recipe in the wrong measurement system, checking a distance in miles when the sign says kilometers, converting a recipe\u2019s Fahrenheit oven temperature to Celsius \u2014 these small conversions come up constantly. This tool covers length, weight, volume, and temperature, with every conversion factor set to the actual internationally-defined standard, not a rounded approximation.\n\nOne distinction worth knowing about, since it trips people up: a US gallon and a UK (Imperial) gallon are not the same size \u2014 a US gallon is about 3.785 liters, while a UK gallon is about 4.546 liters, roughly 20% larger. Mixing the two up in a real recipe or fuel calculation gives a meaningfully wrong answer, not just a rounding difference, which is why this tool keeps them as separate, clearly labeled units instead of one generic "gallon."',
+    features: [
+      { title: 'Four common categories', description: 'Length, weight, volume and temperature, covering most everyday conversions.', icon: HiOutlineScale },
+      { title: 'Exact standard conversion factors', description: 'Every conversion uses the real, internationally-defined value \u2014 not a rounded shortcut.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'US and UK volume units kept separate', description: 'Gallons, cups, and fluid ounces are explicitly labeled by system, since US and UK sizes genuinely differ.', icon: HiOutlineExclamationTriangle },
+      { title: 'One-click swap', description: 'Flip the from/to units instantly instead of resetting both manually.', icon: HiOutlineArrowsRightLeft },
+    ],
+    howToUse: ['Choose a category.', 'Pick the units to convert from and to.', 'Type a value \u2014 the result updates instantly.'],
+    useCases: [
+      'Converting a recipe between metric and US measurements',
+      'Checking a distance or speed limit in a different unit system while traveling',
+      'Converting an oven temperature between Celsius and Fahrenheit',
+      'Working out fuel or liquid volumes between US and UK gallons',
+      'Converting a body weight or height between metric and imperial units',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'meta-tag-generator': {
+    about:
+      'A page\u2019s title and description are what actually show up in a Google search result. Its Open Graph and Twitter Card tags are what show up when someone shares the link on Facebook, Slack, Discord, or X \u2014 without them, a shared link just shows as bare text with no image or preview. This tool generates all of that at once from a handful of fields, with a live preview of how the search result will actually look.\n\nOne detail worth knowing, since it causes real confusion: social platforms cache the preview they generate for a link. Update your meta tags after a link has already been shared once, and the old preview can keep showing for hours or days until that platform re-crawls the page \u2014 that\u2019s the platform\u2019s caching behavior, not a sign that something\u2019s wrong with the new tags. Most platforms have a debugging tool that can force a fresh re-scrape if you need the update to show sooner.\n\nA smaller but genuinely accurate detail: Twitter/X checks its own twitter:card tag first and has no fallback if it\u2019s missing \u2014 skip it, and a shared link shows as plain text with no image at all, even if the Open Graph tags are otherwise complete.',
+    features: [
+      { title: 'Search result preview', description: 'See how your title and description will actually look in a search result.', icon: HiOutlineDocumentText },
+      { title: 'Length warnings', description: 'A heads-up when a title or description is likely to get cut off in search results.', icon: HiOutlineExclamationTriangle },
+      { title: 'Open Graph and Twitter Card together', description: 'Generates both sets of tags in one pass, correctly cross-referencing shared fields.', icon: HiOutlineCodeBracket },
+      { title: 'Properly escaped output', description: 'Special characters like quotes are correctly escaped, so the generated HTML is always valid.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Enter a title, description, and canonical URL.', 'Add a social share image and site name.', 'Copy the generated tags into your page\u2019s <head>.'],
+    useCases: [
+      'Setting up complete meta tags for a new page from scratch',
+      'Making sure a link looks right when shared on social media',
+      'Checking whether a title or description is too long before it goes live',
+      'Adding Open Graph and Twitter Card tags to a page that only has a basic title so far',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
   'hash-generator': {
     about:
       'Hash Generator produces MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes from text \u2014 SHA hashes use your browser\u2019s native Web Crypto API, and MD5 (not included in Web Crypto since it\u2019s cryptographically broken for security purposes) uses a standard, verified implementation for file-checksum and compatibility use cases.\n\nA hash function takes input of any length and produces a fixed-length output, called a hash or digest. The same input always produces the same hash, and even a tiny, single-character change in the input produces a completely different result \u2014 a property that makes hashes useful for verifying that a piece of text or a file hasn\u2019t been altered, without needing to compare the full content directly.\n\nMD5 and SHA-1 are both considered cryptographically broken \u2014 collisions (two different inputs producing the same hash) can be computed quickly with modern hardware, which makes them unsuitable for anything security-sensitive. They\u2019re still commonly used for non-security purposes like file checksums, cache keys, and deduplication, where the risk of a deliberate, malicious collision doesn\u2019t apply. SHA-256 is the current practical standard for real security-relevant work \u2014 it\u2019s what software projects typically publish alongside a download so users can verify the file wasn\u2019t corrupted or tampered with, and it\u2019s a building block in TLS, Git\u2019s newer object format, and Bitcoin\u2019s proof-of-work.\n\nOne important distinction worth being explicit about: none of these algorithms should be used to store passwords, even SHA-512. They\u2019re deliberately fast to compute, which is exactly what makes them weak for password storage \u2014 an attacker with a list of leaked hashes can try billions of guesses per second against a fast hash. Password storage needs a deliberately slow algorithm designed for that purpose, like bcrypt, scrypt, or Argon2, not a general-purpose hash function.',
