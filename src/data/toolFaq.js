@@ -1127,6 +1127,324 @@ export const toolFaqs = {
       answer: 'It typically shows up as removed from its old position and added at its new one, similar to how a genuine edit is shown. The comparison looks for lines that stay in the same relative order across both texts, so moving a line past other content usually breaks that match rather than being recognized as \u201cno real change.\u201d',
     },
   ],
+
+  'audio-merger': [
+    {
+      id: 'different-formats',
+      question: 'Can I merge files that are in different formats, like an MP3 and a WAV?',
+      answer: 'Any format works. Each file is decoded independently before merging, so the source formats don\u2019t need to match each other. The final result always downloads as WAV.',
+    },
+    {
+      id: 'mono-stereo-mix',
+      question: 'What happens if I merge a mono file with a stereo file?',
+      answer: 'The mono file is automatically upmixed, its single channel is duplicated into both the left and right channels, so it merges cleanly with stereo files instead of causing a channel mismatch.',
+    },
+    {
+      id: 'file-limit',
+      question: 'Is there a limit to how many files I can merge?',
+      answer: 'No fixed limit, though merging many long files at once will naturally take longer to process and use more of your device\u2019s available memory.',
+    },
+    {
+      id: 'gap-between-files',
+      question: 'Is there a gap or silence added between merged files?',
+      answer: 'No. Files are joined directly end to end with no added silence, so the merged file transitions immediately from one clip to the next.',
+    },
+    {
+      id: 'why-wav-output',
+      question: 'Why does the merged file always download as WAV, even if I uploaded MP3s?',
+      answer: 'WAV is the only format this tool can reliably encode without a heavier codec library. The merge itself doesn\u2019t lose any quality; only the final file format changes from your originals.',
+    },
+    {
+      id: 'sample-rate-mismatch',
+      question: 'What if my files have different sample rates?',
+      answer: 'Every file decoded in the same browser session goes through the browser\u2019s own default audio decoder, which naturally resamples to a consistent rate, so files with different original sample rates typically merge correctly without any manual adjustment.',
+    },
+  ],
+
+  'audio-volume-changer': [
+    {
+      id: 'why-clamped',
+      question: 'Why does the audio sound flat at the top instead of getting louder past a point?',
+      answer: 'Audio samples have a hard maximum value, and pushing volume higher than that maximum has to clip (cap) rather than continue increasing, or the result would become distorted, garbled noise. This tool clamps cleanly at that limit instead.',
+    },
+    {
+      id: 'uneven-volume',
+      question: 'Can this fix a recording that\u2019s quiet in one part and loud in another?',
+      answer: 'Not directly. The same volume multiplier is applied uniformly across the whole file, so it changes overall loudness but doesn\u2019t balance different sections independently the way dedicated audio-leveling software does.',
+    },
+    {
+      id: 'best-starting-point',
+      question: 'What\u2019s a reasonable volume percentage to start with?',
+      answer: '120-150% is usually enough to noticeably boost a quiet recording without pushing into clipping. Go higher only if the original audio is genuinely very quiet.',
+    },
+    {
+      id: 'percentage-vs-decibels',
+      question: 'Why does this use a percentage instead of decibels?',
+      answer: 'Percentage maps directly to the actual multiplication being applied to the audio samples (150% really does multiply by 1.5), which is more intuitive for most people than decibels, a logarithmic unit where the relationship to loudness isn\u2019t as immediately obvious.',
+    },
+    {
+      id: 'can-i-mute',
+      question: 'Can I use this to completely mute a file?',
+      answer: 'Setting the volume to 10% (the minimum this tool allows) makes the audio very quiet but not completely silent. For fully removing sound from a video specifically, a dedicated mute tool that drops the audio track entirely is the more direct option.',
+    },
+  ],
+
+  'audio-reverser': [
+    {
+      id: 'does-it-work-everywhere',
+      question: 'Will the reversed file play backwards in any audio player, or only here?',
+      answer: 'Any player. The actual sample order in the file is reversed, so it\u2019s a real, permanent change to the audio data, not something that depends on this tool to work correctly.',
+    },
+    {
+      id: 'reverse-twice',
+      question: 'What happens if I reverse an already-reversed file?',
+      answer: 'It returns to the original order, since reversing a sequence twice restores it exactly.',
+    },
+    {
+      id: 'quality-loss-reverse',
+      question: 'Does reversing reduce audio quality?',
+      answer: 'No. The samples are reordered, not altered or re-compressed, so nothing about the actual sound quality changes.',
+    },
+    {
+      id: 'what-is-backmasking',
+      question: 'What is backmasking?',
+      answer: 'A technique where audio is deliberately recorded so a message or sound only becomes recognizable when the track is played in reverse. It\u2019s been used in music production on and off since the 1960s, most famously fueling urban legends in the 1980s about hidden messages in rock records.',
+    },
+    {
+      id: 'reverse-vs-pitch',
+      question: 'Does reversing audio also change its pitch?',
+      answer: 'No, reversing and pitch-shifting are two entirely different operations. Reversing changes the order samples play in; pitch depends on the frequency of the sound wave itself, which stays the same whether the samples play forward or backward.',
+    },
+    {
+      id: 'stereo-reverse',
+      question: 'Does reversing keep left and right channels in sync on a stereo file?',
+      answer: 'Yes. Each channel is reversed independently but by the exact same amount, so the stereo image and timing between the two channels stay correctly aligned throughout.',
+    },
+  ],
+
+  'audio-fade': [
+    {
+      id: 'linear-vs-other-fades',
+      question: 'What kind of fade curve does this use?',
+      answer: 'A linear fade: volume changes at a constant, steady rate throughout the fade duration. Some audio software offers curved (exponential or logarithmic) fades, which can sound slightly more natural to the ear, but a linear fade is simple, predictable, and works well for most everyday use.',
+    },
+    {
+      id: 'overlapping-fades',
+      question: 'What happens if I set both fades longer than half the file?',
+      answer: 'Each fade is automatically capped at half the file\u2019s total duration, so a fade-in and fade-out can\u2019t overlap and cancel each other out in a confusing way.',
+    },
+    {
+      id: 'zero-fade',
+      question: 'Can I apply a fade to only the start or only the end?',
+      answer: 'Yes. Set the fade duration you don\u2019t want to 0, and only the other end will be affected.',
+    },
+    {
+      id: 'fade-vs-crossfade',
+      question: 'Can this crossfade between two different tracks?',
+      answer: 'No, this fades a single file\u2019s own start and end in and out of silence. Crossfading blends the end of one track into the start of a different one, which is a separate kind of edit this tool doesn\u2019t perform.',
+    },
+    {
+      id: 'fade-output-format',
+      question: 'What format does the faded file download as?',
+      answer: 'WAV, the only format this tool can reliably encode. The fade itself doesn\u2019t affect quality; only the file format changes from your original.',
+    },
+  ],
+
+  'silence-trimmer': [
+    {
+      id: 'middle-pauses',
+      question: 'Will this remove pauses in the middle of my recording, not just at the start and end?',
+      answer: 'No. Only leading and trailing silence is detected and trimmed. A pause partway through the recording is left exactly as it was.',
+    },
+    {
+      id: 'no-sound-detected',
+      question: 'What does it mean if I get a message saying no sound was detected?',
+      answer: 'It means nothing in the file rose above the current sensitivity threshold, treating the entire file as silence. Lowering the sensitivity value makes quieter sounds count as real audio.',
+    },
+    {
+      id: 'background-noise',
+      question: 'Will background hiss or noise prevent the silence from being detected?',
+      answer: 'It can, if the noise floor is louder than the sensitivity threshold. Raising the threshold slightly usually helps the detection see past constant low-level background noise to find where the real audio content begins and ends.',
+    },
+    {
+      id: 'is-this-noise-reduction',
+      question: 'Does this also clean up background noise within the audio, not just at the edges?',
+      answer: 'No. This only trims leading and trailing silence; it doesn\u2019t reduce or remove noise that runs throughout the recording. That\u2019s a genuinely different kind of processing (noise reduction), which this tool doesn\u2019t perform.',
+    },
+    {
+      id: 'output-format-silence',
+      question: 'What format does the trimmed file download as?',
+      answer: 'WAV, the only format this tool can reliably encode. The trim itself is lossless; only the file format changes from your original.',
+    },
+  ],
+
+  'video-to-audio': [
+    {
+      id: 'no-audio-track',
+      question: 'What happens if my video has no audio track?',
+      answer: 'The tool will show an error, since there\u2019s nothing to extract. Not every video file actually contains audio, particularly screen recordings made with sound off.',
+    },
+    {
+      id: 'why-wav-video',
+      question: 'Why does the extracted audio always download as WAV?',
+      answer: 'WAV is the only format this tool can reliably encode without a much heavier MP3 encoder library. The extraction itself doesn\u2019t lose quality; only the file format is fixed.',
+    },
+    {
+      id: 'quality-of-extraction',
+      question: 'Does extracting the audio reduce its quality?',
+      answer: 'No. The audio is decoded and re-encoded losslessly as WAV, so nothing about the original audio quality is lost in the extraction itself.',
+    },
+    {
+      id: 'video-vs-audio-extract-vs-mute',
+      question: 'How is this different from the Video Muter tool?',
+      answer: 'They do opposite jobs. This tool keeps only the audio and discards the video. Video Muter keeps the video and discards the audio. Which one to use depends on which part of the original file is actually needed.',
+    },
+    {
+      id: 'processing-time-extract',
+      question: 'How long does extracting the audio take?',
+      answer: 'This one is genuinely fast, since it decodes the audio directly rather than playing through the whole video in real time the way trimming or resizing does. Most files finish in well under the length of the video itself.',
+    },
+  ],
+
+  'video-muter': [
+    {
+      id: 'why-takes-time-mute',
+      question: 'Why does muting take as long as the video itself?',
+      answer: 'Because this genuinely plays through the video to re-record it without audio, a real-time capture rather than an instant file edit. A 3-minute video takes roughly 3 minutes to process.',
+    },
+    {
+      id: 'video-quality-mute',
+      question: 'Does muting reduce the video quality?',
+      answer: 'The video is re-encoded during the capture process, so there can be some quality difference compared to the original, similar to any browser-based re-recording. The visual content itself isn\u2019t cropped, cut, or altered though.',
+    },
+    {
+      id: 'why-webm-mute',
+      question: 'Why does the result download as WebM, even for an MP4 upload?',
+      answer: 'WebM is what your browser\u2019s own built-in video encoder produces. Using the browser\u2019s real, already-tested encoder is more reliable than attempting to build a custom encoder from scratch.',
+    },
+    {
+      id: 'keep-tab-active-mute',
+      question: 'Do I need to keep the browser tab open while this processes?',
+      answer: 'Yes. The video is genuinely playing in the background to be captured, so switching away or closing the tab partway through will interrupt the process.',
+    },
+    {
+      id: 'why-not-just-lower-volume',
+      question: 'Is this different from just turning the volume down to zero when playing the video?',
+      answer: 'Yes, genuinely different. Turning volume down only affects how the video sounds during playback on your device; the file itself still has its audio track. This tool actually produces a new file with no audio track at all.',
+    },
+  ],
+
+  'video-speed-changer': [
+    {
+      id: 'pitch-with-speed',
+      question: 'Does changing the speed also change the pitch of the audio?',
+      answer: 'Yes. Speeding up raises pitch, slowing down lowers it, the familiar effect of playing a recording faster or slower. This tool doesn\u2019t correct pitch independently of speed.',
+    },
+    {
+      id: 'processing-time-speed',
+      question: 'How long does processing take?',
+      answer: 'Roughly the new, sped-up or slowed-down duration, not the original one. At 2x speed, a 10-minute video takes about 5 minutes to process; at 0.5x, about 20 minutes.',
+    },
+    {
+      id: 'speed-range',
+      question: 'Why only these five speed options?',
+      answer: 'They cover the most common real-world use cases without cluttering the interface with too many choices. 0.5x to 2x is also a range where the audio pitch shift, while noticeable, generally stays understandable rather than becoming unrecognizable.',
+    },
+    {
+      id: 'keep-tab-active-speed',
+      question: 'Do I need to keep the browser tab open while this processes?',
+      answer: 'Yes. The video is genuinely playing at the new speed in the background to be captured, so switching away or closing the tab partway through will interrupt the process.',
+    },
+    {
+      id: 'multiple-speed-changes',
+      question: 'Can I apply the speed change more than once to stack the effect?',
+      answer: 'Yes, running the sped-up or slowed-down result back through this tool applies a second speed change on top of the first, though visible and audible quality can degrade slightly with each additional re-encoding pass applied.',
+    },
+  ],
+
+  'video-resizer': [
+    {
+      id: 'why-only-percentages',
+      question: 'Can I enter an exact pixel size instead of a percentage?',
+      answer: 'Not currently. The percentage options keep the video\u2019s original aspect ratio intact automatically, without needing to calculate exact target dimensions by hand or risk accidentally distorting the proportions.',
+    },
+    {
+      id: 'quality-after-resize',
+      question: 'Will the resized video look blurry?',
+      answer: 'Downscaling to a smaller resolution stays visually sharp, similar to resizing an image down. The video is genuinely redrawn at the smaller size, not just squeezed into a smaller display frame.',
+    },
+    {
+      id: 'why-only-shrink',
+      question: 'Can I make a video larger instead of smaller?',
+      answer: 'This tool only scales down. Enlarging a video beyond its original resolution doesn\u2019t add real detail that wasn\u2019t captured, so it isn\u2019t offered here as an option.',
+    },
+    {
+      id: 'aspect-ratio-preserved',
+      question: 'Will resizing distort my video\u2019s proportions?',
+      answer: 'No. Since each option scales width and height by the same percentage, the original aspect ratio is preserved automatically at every size.',
+    },
+    {
+      id: 'resize-vs-compress-difference',
+      question: 'How is this different from the Video Compressor tool?',
+      answer: 'Video Resizer is specifically about changing dimensions, with three simple, straightforward percentage options. Video Compressor is built around reducing overall file size, using resolution reduction as its main technique but also requesting a lower bitrate from the encoder alongside it.',
+    },
+  ],
+
+  'video-compressor': [
+    {
+      id: 'why-resolution-not-bitrate',
+      question: 'Why does compression mainly work by reducing resolution?',
+      answer: 'A lower resolution genuinely means less pixel data to store, so it reliably shrinks the file. A pure bitrate request to the browser\u2019s encoder isn\u2019t consistently honored the same way across every browser, so resolution is the dependable lever here.',
+    },
+    {
+      id: 'which-level-to-choose',
+      question: 'Which compression level should I use?',
+      answer: 'Medium is a reasonable default for most videos. Use Light if visual quality matters most and some size reduction is still welcome; use Aggressive when file size matters more than anything else.',
+    },
+    {
+      id: 'compress-again',
+      question: 'Can I compress an already-compressed video further?',
+      answer: 'Yes, but each additional pass reduces resolution further from an already-reduced source, so quality drops faster than compressing the true original once at a stronger setting.',
+    },
+    {
+      id: 'why-webm-compress',
+      question: 'Why does the compressed video download as WebM, even for an MP4 upload?',
+      answer: 'WebM is what your browser\u2019s own built-in video encoder produces during this process. Using the browser\u2019s real, already-tested encoder is more reliable than attempting to build a custom video encoder from scratch.',
+    },
+    {
+      id: 'audio-during-compression',
+      question: 'Does the audio track get compressed too, or just the video?',
+      answer: 'The video resolution reduction is what primarily drives the size savings here. The audio track is carried through the same single recording process alongside the resized video, rather than being separately re-compressed as its own distinct step.',
+    },
+  ],
+
+  'background-remover': [
+    {
+      id: 'is-this-ai',
+      question: 'Is this powered by AI?',
+      answer: 'No. This uses a classical color-detection technique (flood-fill from the image edges), not a trained AI model. It\u2019s labeled that way on purpose, since it\u2019s a genuinely different, less capable approach than true AI-based segmentation on a complex background.',
+    },
+    {
+      id: 'best-photo-type',
+      question: 'What kind of photo works best?',
+      answer: 'A subject against a plain, fairly uniform background, a product on a solid color, a portrait against a plain wall. A busy, textured, or multi-colored background will confuse this technique in a way a real AI model wouldn\u2019t.',
+    },
+    {
+      id: 'subject-touches-edge',
+      question: 'Why did part of my subject get removed along with the background?',
+      answer: 'If any part of the subject touches the outer edge of the photo, that part gets treated as background too, since the detection starts from the image\u2019s literal border. Recomposing or cropping the photo so the subject doesn\u2019t touch the edges avoids this.',
+    },
+    {
+      id: 'adjust-sensitivity',
+      question: 'The result missed some background, or removed part of my subject. What should I do?',
+      answer: 'Adjust the sensitivity slider and try again. Raise it if background got left behind; lower it if the subject lost parts of itself. There\u2019s no single correct setting, since it depends on how different the subject\u2019s colors are from the background\u2019s.',
+    },
+    {
+      id: 'why-png-only',
+      question: 'Why does this only output PNG?',
+      answer: 'PNG is the common image format that supports transparency. JPG has no way to represent a transparent background at all, so PNG is the only option that can actually preserve the removed background as transparent rather than filling it with a solid color.',
+    },
+  ],
   'hash-generator': [
     {
       id: 'which-algorithm',
@@ -1638,13 +1956,6 @@ export const toolFaqs = {
     },
   ],
 
-  'ai-background-remover': [
-    {
-      id: 'when-available',
-      question: 'When will this be available?',
-      answer: 'This tool is prepared but not yet connected to an AI processing service. There\u2019s no fixed date \u2014 check back, or explore ToolHub\u2019s other working image tools in the meantime.',
-    },
-  ],
   'ai-image-upscaler': [
     {
       id: 'when-available',

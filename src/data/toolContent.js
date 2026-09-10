@@ -10,6 +10,7 @@ import {
   HiOutlineCpuChip,
   HiOutlineDocumentDuplicate,
   HiOutlineScale,
+  HiOutlineScissors,
   HiOutlineArrowsPointingOut,
   HiOutlineArrowsRightLeft,
   HiOutlineFingerPrint,
@@ -1161,6 +1162,233 @@ export const toolContent = {
       'Spotting an accidental change between two versions of something pasted from different places',
     ],
     privacy: NO_FILE_PRIVACY,
+  },
+
+  'audio-merger': {
+    about:
+      'Add two or more audio files, put them in the order you want, and this stitches them into one continuous file.\n\nMerging works at the sample level: each file is decoded, and the actual audio data is concatenated end to end, not just referenced or linked together. If the files use different channel setups, say one is mono and another is stereo, the mono file is automatically upmixed (duplicated into both channels) so everything lines up correctly rather than producing a mismatched or broken result.\n\nThe order the files are listed in is the order they play in the final result. Reordering them before merging changes nothing about the individual files themselves, just the sequence they\u2019re combined in.',
+    features: [
+      { title: 'Any order you choose', description: 'Reorder files with simple up/down controls before merging.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Handles mono and stereo together', description: 'Mixed channel counts are automatically upmixed so nothing breaks.', icon: HiOutlineShieldCheck },
+      { title: 'Real sample-level merging', description: 'Files are decoded and their actual audio data is joined together.', icon: HiOutlineSparkles },
+      { title: 'Add or remove files freely', description: 'Add more files or remove one before committing to the merge.', icon: HiOutlineArrowsRightLeft },
+    ],
+    howToUse: [
+      'Upload two or more audio files.',
+      'Reorder them using the up/down arrows if needed.',
+      'Click Merge.',
+      'Download the combined file.',
+    ],
+    useCases: [
+      'Combining several voice memos into one continuous recording',
+      'Joining separate music clips into a single track',
+      'Merging an intro clip with a main recording',
+      'Stitching together audio segments recorded at different times',
+      'Assembling separate podcast segments recorded in different sessions into one episode',
+    ],
+    supportedFormats: { input: 'MP3, WAV, OGG, M4A, WebM, FLAC (whatever your browser supports)', output: 'WAV', maxSize: '50 MB per file' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'audio-volume-changer': {
+    about:
+      'Slide the volume up or down and get back an audio file with that change actually applied, not just previewed.\n\nThe adjustment works by multiplying every audio sample by a gain factor: 150% multiplies by 1.5, 50% multiplies by 0.5, and so on. Values are clamped to the valid audio range, so pushing the volume up on already-loud audio won\u2019t wrap around or produce garbled noise, it\u2019ll cap out cleanly instead.\n\nWorth knowing: this changes overall loudness uniformly across the whole file. It won\u2019t fix audio that\u2019s quiet in one section and loud in another, since it applies the same multiplier everywhere rather than analyzing and balancing different sections independently.\n\nA practical way to think about the range: 200% doubles the actual signal amplitude, which sounds noticeably louder, though not necessarily "twice as loud" to the ear, since human loudness perception isn\u2019t a straight linear scale. Small adjustments, in the 110-130% range, are often enough to fix a recording that\u2019s just slightly too quiet, without pushing toward the point where clipping becomes audible.',
+    features: [
+      { title: 'Simple percentage control', description: '100% is unchanged; go up to 300% or down to 10%.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Safe clamping', description: 'Values are capped at the valid range, avoiding distorted, wrapped-around audio.', icon: HiOutlineShieldCheck },
+      { title: 'Instant results', description: 'Processing happens locally in your browser.', icon: HiOutlineSparkles },
+    ],
+    howToUse: ['Upload an audio file.', 'Adjust the volume slider.', 'Click Apply Volume Change, then download.'],
+    useCases: [
+      'Boosting a quiet voice recording so it\u2019s easier to hear',
+      'Reducing the volume of a clip that\u2019s too loud relative to others',
+      'Matching the loudness of two clips before combining them',
+      'Turning down background music under a voiceover',
+    ],
+    supportedFormats: { input: 'MP3, WAV, OGG, M4A, WebM, FLAC (whatever your browser supports)', output: 'WAV', maxSize: '50 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'audio-reverser': {
+    about:
+      'Flips an audio file so it plays backwards, start to end.\n\nThis works by reversing the actual sample order of the decoded audio: the very last sample becomes the first, and vice versa, all the way through. It\u2019s a direct manipulation of the raw audio data, not a playback trick, so the reversed file plays backwards in any player, not just this one.\n\nA fun, common use is checking what a piece of speech or a phrase sounds like reversed, though it\u2019s equally useful for straightforward sound-design purposes, like a reversed cymbal swell or a backwards intro effect. Reversed audio has a long history in music production too, most famously in "backmasking," where a message or sound is recorded so it\u2019s only recognizable when the track is played in reverse, a technique used on and off since the 1960s.\n\nReversing is fully lossless: the same samples are simply reordered, nothing is discarded or re-encoded in the process, so a reversed file contains exactly as much information as the original, just running the opposite direction.',
+    features: [
+      { title: 'One-click reverse', description: 'No settings to configure, just upload and reverse.', icon: HiOutlineArrowsRightLeft },
+      { title: 'True sample reversal', description: 'The actual audio data is reversed, not just played backwards in this tool alone.', icon: HiOutlineSparkles },
+      { title: 'Instant results', description: 'Processing happens locally in your browser.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload an audio file.', 'Click Reverse Audio.', 'Download the result.'],
+    useCases: [
+      'Creating a reversed sound effect for a video or music project',
+      'Checking how a phrase or word sounds played backwards',
+      'Making a backwards intro or transition effect',
+      'Experimenting with reversed audio for a creative project',
+      'Recreating a classic backmasking effect for a music production',
+    ],
+    supportedFormats: { input: 'MP3, WAV, OGG, M4A, WebM, FLAC (whatever your browser supports)', output: 'WAV', maxSize: '50 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'audio-fade': {
+    about:
+      'Adds a smooth fade-in at the start and a fade-out at the end of an audio file, with independent control over how long each one lasts.\n\nThe fade is a linear ramp: volume rises steadily from silent to full over the fade-in duration, and falls steadily from full to silent over the fade-out duration, with the untouched middle of the file left exactly as it was. A hard cut at the start or end of a clip is often the difference between an amateur-sounding edit and a clean one, and a short fade is usually all it takes to fix it.\n\nFade durations can be set independently, and each is capped at half the file\u2019s total length, since a fade-in and fade-out that each tried to cover the entire file wouldn\u2019t leave anything at full volume.\n\nA short fade, often well under a second, is enough to smooth out a click or pop at the very start or end of a recording without anyone noticing the fade itself happened. Longer fades, several seconds or more, are more of a deliberate stylistic choice, commonly used to close out a song or transition a podcast segment.',
+    features: [
+      { title: 'Independent fade in/out', description: 'Set different durations for the start and end.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Smooth linear ramp', description: 'A genuine gradual volume change, not an abrupt cut.', icon: HiOutlineSparkles },
+      { title: 'Middle stays untouched', description: 'Only the start and end are affected; everything else plays exactly as it was.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload an audio file.', 'Set the fade-in and fade-out durations.', 'Click Apply Fade, then download.'],
+    useCases: [
+      'Smoothing out an abrupt start or end on a recorded clip',
+      'Adding a professional-sounding fade to a podcast intro or outro',
+      'Softening the transition into and out of a music clip',
+      'Fixing a hard cut where audio starts or stops too suddenly',
+    ],
+    supportedFormats: { input: 'MP3, WAV, OGG, M4A, WebM, FLAC (whatever your browser supports)', output: 'WAV', maxSize: '50 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'silence-trimmer': {
+    about:
+      'Finds where the real audio actually starts and ends, and trims away the silence before and after it, automatically.\n\nThe detection works by scanning the audio for the first and last point where the volume rises above an adjustable threshold. Everything before that first point and after that last point gets cut, leaving just the part that was actually audible. Raising the sensitivity treats quieter sounds as real audio (trimming less); lowering it requires a louder sound to count (trimming more aggressively).\n\nThis specifically handles silence at the start and end, not brief pauses in the middle of a recording. A long pause partway through a voice memo will be left exactly as it was; only the leading and trailing edges are affected.\n\nGetting the sensitivity right sometimes takes a little trial and error. A room with a faint background hum or hiss might need a slightly higher threshold so that constant low-level noise isn\u2019t mistaken for real audio content; a very quiet, clean recording usually works fine at a lower threshold, catching even soft speech near the true start and end.',
+    features: [
+      { title: 'Automatic detection', description: 'No need to manually find where the silence ends.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Adjustable sensitivity', description: 'Fine-tune the threshold if quiet background noise is being kept or real audio is getting cut.', icon: HiOutlineExclamationTriangle },
+      { title: 'Start and end only', description: 'Trims leading and trailing silence without touching pauses in the middle.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload an audio file.', 'Adjust the sensitivity if needed.', 'Click Trim Silence, then download.'],
+    useCases: [
+      'Cleaning up dead air at the start of a voice memo or recording',
+      'Removing silence before and after a music clip',
+      'Tightening up a podcast segment before publishing',
+      'Preparing a clip for a project where extra silence wastes space',
+    ],
+    supportedFormats: { input: 'MP3, WAV, OGG, M4A, WebM, FLAC (whatever your browser supports)', output: 'WAV', maxSize: '50 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'video-to-audio': {
+    about:
+      'Pulls the audio track out of a video file and hands it back as a standalone audio file, ready to use on its own.\n\nThis works the same way the Audio Converter does: your browser\u2019s own built-in media decoder reads the file and extracts whatever audio it contains. Since that decoder doesn\u2019t distinguish between "a video file" and "an audio file" internally, it works the same way whether the audio came packaged inside an MP4 or as a standalone MP3.\n\nLike the other audio tools here, the extracted output is a WAV file: a real, uncompressed format this tool can encode correctly, rather than something this tool would need a much heavier MP3 encoder library to produce reliably.\n\nThis is genuinely different from muting a video, which keeps the video but removes its sound. This tool does the opposite: it keeps only the sound and discards the video entirely, useful whenever the audio itself, not the visuals, is what\u2019s actually needed.\n\nUnlike most of the other video tools here, this one doesn\u2019t need to play through the video in real time. Decoding the audio track directly is a much faster operation than the play-and-record approach video trimming, resizing, or speed-changing rely on, so extraction typically finishes well before a video of the same length would take to simply watch.',
+    features: [
+      { title: 'Real audio extraction', description: 'Pulls the actual audio track, not a placeholder or silent file.', icon: HiOutlineArrowsRightLeft },
+      { title: 'Works with common video formats', description: 'MP4, WebM, MOV and more, whatever your browser can already play.', icon: HiOutlineDocumentText },
+      { title: 'Nothing uploaded', description: 'The video never leaves your device.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload a video file.', 'Click Extract Audio.', 'Download the resulting WAV file.'],
+    useCases: [
+      'Pulling music or a voiceover out of a video for reuse elsewhere',
+      'Getting just the audio from a recorded lecture or meeting',
+      'Saving a video\u2019s soundtrack as a standalone file',
+      'Extracting spoken narration from a video for transcription',
+      'Getting a podcast-ready audio file from a recorded video interview',
+    ],
+    supportedFormats: { input: 'MP4, WebM, MOV, OGV', output: 'WAV', maxSize: '200 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'video-muter': {
+    about:
+      'Removes the audio track from a video, leaving the visuals untouched and completely silent.\n\nLike Video Trimmer, this genuinely plays through the video and re-records it, this time explicitly excluding the audio track from the stream being captured. The video itself isn\u2019t edited or re-cut in any way, only the audio is dropped from the output.\n\nBecause this is a real-time capture rather than an instant file edit, muting takes about as long as the video itself. A 2-minute video takes roughly 2 minutes to process, not an instant operation.\n\nA muted video is a real, complete file with no audio track at all, not a video with its volume simply set to zero. That distinction matters for some platforms and editing tools, which treat "no audio track" and "silent audio track" differently.\n\nA video\u2019s own visual quality isn\u2019t the goal of this process, removing audio is, but because the video does get re-encoded during the real-time capture, it\u2019s worth expecting a result broadly similar in visual quality to the original rather than a byte-for-byte identical copy.',
+    features: [
+      { title: 'Complete audio removal', description: 'The output video has no audio track at all, not just silenced audio.', icon: HiOutlineShieldCheck },
+      { title: 'Uses your browser\u2019s real encoder', description: 'The same engine your browser already uses for video playback handles the actual encoding.', icon: HiOutlineArrowsRightLeft },
+      { title: 'Live progress', description: 'A progress bar tracks the process as it happens in real time.', icon: HiOutlineClock },
+    ],
+    howToUse: ['Upload a video file.', 'Click Remove Audio and wait \u2014 it takes about as long as the video itself.', 'Download the result.'],
+    useCases: [
+      'Removing a copyrighted soundtrack before reusing a video clip',
+      'Preparing a silent video meant to have new audio added separately',
+      'Creating a background video loop with no audio for a website',
+      'Stripping unwanted narration or noise from a screen recording',
+    ],
+    supportedFormats: { input: 'MP4, WebM, MOV, OGV', output: 'WebM', maxSize: '200 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'video-speed-changer': {
+    about:
+      'Speeds up or slows down a video\u2019s playback, from half speed up to double speed.\n\nThis works by setting the video\u2019s own playback rate before recording it, then capturing that altered playback in real time. At 2x speed, a video plays through and gets captured in half its original duration; at 0.5x, it takes twice as long. The recorded result reflects whatever speed was actually played, since it\u2019s a genuine real-time capture rather than a post-processing time-stretch.\n\nAudio speeds up or slows down along with the video, which naturally raises or lowers its pitch too, the familiar chipmunk-voice effect at high speed or the deep, slowed-down effect at low speed. This tool doesn\u2019t correct pitch independently of speed, since that requires a much more complex audio-processing technique than a straightforward playback-rate change.\n\nThe available range, 0.5x to 2x, was chosen deliberately. More extreme speeds start to push audio pitch shifting into territory where speech becomes genuinely hard to understand, and very slow playback can run into diminishing returns for most practical purposes.',
+    features: [
+      { title: 'Five speed options', description: '0.5x, 0.75x, 1.25x, 1.5x, and 2x.', icon: HiOutlineBolt },
+      { title: 'Audio and video stay in sync', description: 'Both are captured together at the new speed, so timing stays aligned.', icon: HiOutlineArrowsRightLeft },
+      { title: 'Live progress', description: 'A progress bar tracks the process as it happens in real time.', icon: HiOutlineClock },
+    ],
+    howToUse: ['Upload a video file.', 'Choose a playback speed.', 'Click Change Speed and wait for it to process.', 'Download the result.'],
+    useCases: [
+      'Speeding up a long screen recording or tutorial for faster viewing',
+      'Slowing down a clip to analyze motion or detail more closely',
+      'Creating a sped-up timelapse-style effect from a normal recording',
+      'Adjusting a video\u2019s pace to match music or a specific runtime',
+      'Speeding through a long meeting recording to review it faster',
+    ],
+    supportedFormats: { input: 'MP4, WebM, MOV, OGV', output: 'WebM', maxSize: '200 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'video-resizer': {
+    about:
+      'Scales a video down to a smaller resolution, at 75%, 50%, or 25% of its original size.\n\nEach frame is redrawn onto a canvas at the new, smaller size as the video plays, and that canvas is what actually gets recorded, combined with the original audio track. This is a genuine resolution change, not a display-only resize; the output file itself has fewer pixels per frame.\n\nA smaller resolution also means a smaller file, since there\u2019s simply less pixel data to store per frame. Resizing to 50% of the original dimensions, for instance, reduces the total pixel count to roughly a quarter of the original, which typically translates to a meaningfully smaller file as well.\n\nThe target dimensions are always rounded to the nearest even number, since some video encoders specifically require even width and height values to work correctly.\n\nA smaller video also generally uploads and loads faster wherever it ends up, which matters beyond just the raw file size number: a lighter file means less waiting, whether that\u2019s for a page to load a video or for an upload to finish over a slower connection.',
+    features: [
+      { title: 'Three scale options', description: '75%, 50%, or 25% of the original resolution.', icon: HiOutlineArrowsPointingOut },
+      { title: 'Real dimension change', description: 'The output file genuinely has fewer pixels per frame, not just a smaller display size.', icon: HiOutlineScale },
+      { title: 'Audio preserved', description: 'The original audio track carries over unchanged.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload a video file.', 'Choose a size (75%, 50%, or 25%).', 'Click Resize Video and wait for it to process.', 'Download the result.'],
+    useCases: [
+      'Shrinking a video\u2019s dimensions to reduce its file size',
+      'Preparing a smaller video for a platform with upload size limits',
+      'Reducing resolution for faster uploading over a slow connection',
+      'Creating a smaller preview version of a larger video file',
+      'Matching a video\u2019s resolution to a specific display or embed size requirement',
+    ],
+    supportedFormats: { input: 'MP4, WebM, MOV, OGV', output: 'WebM', maxSize: '200 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'video-compressor': {
+    about:
+      'Reduces a video\u2019s file size, mainly by shrinking its resolution, with three compression levels to choose from.\n\nResolution reduction is the most reliable way to genuinely shrink a video\u2019s file size directly in a browser. Asking the recorder for a lower bitrate can help too, and this tool does request one alongside the resolution change, but that request isn\u2019t guaranteed to be honored the same way by every browser. A smaller resolution, on the other hand, always means less pixel data to store, so it\u2019s the dependable part of the compression here.\n\nThe three levels trade size against quality differently: Light keeps 75% of the original resolution for a modest reduction with minor visible change, Medium drops to 50% for a more noticeable but still reasonable balance, and Aggressive goes down to 35% for the smallest possible file, at the cost of visibly reduced detail.\n\nThere\u2019s a real, practical limit to how much a single pass can shrink a file, since resolution alone can only go so far before a video looks noticeably different from the original. For a video that\u2019s still too large even at the Aggressive setting, trimming its length first (with Video Trimmer) alongside compressing its resolution will generally get further than pushing resolution reduction alone.',
+    features: [
+      { title: 'Three compression levels', description: 'Light, Medium, and Aggressive, trading file size against visual quality.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Real, reliable size reduction', description: 'Resolution reduction genuinely shrinks the file, not just a bitrate request that may or may not be honored.', icon: HiOutlineScale },
+      { title: 'Before/after size shown', description: 'See exactly how much smaller the result is.', icon: HiOutlineArrowDownTray },
+    ],
+    howToUse: ['Upload a video file.', 'Choose a compression level.', 'Click Compress Video and wait for it to process.', 'Download the result.'],
+    useCases: [
+      'Shrinking a large video file before uploading it somewhere with a size limit',
+      'Reducing storage space used by a video library',
+      'Making a video small enough to send as an email attachment',
+      'Preparing a lighter video file for a slower internet connection',
+      'Compressing a screen recording that came out larger than expected',
+    ],
+    supportedFormats: { input: 'MP4, WebM, MOV, OGV', output: 'WebM', maxSize: '200 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'background-remover': {
+    about:
+      'Removes the background from a photo, leaving the subject on a transparent PNG. Worth being upfront about how this actually works: it\u2019s a classical color-detection technique, not an AI model, so it works best on photos with a fairly plain, uniform backdrop, a product shot on a solid color, a portrait against a plain wall, that kind of thing.\n\nThe technique works by starting from the photo\u2019s outer edges and spreading inward through connected pixels that are similar in color to their neighbors, the same underlying idea as a "magic wand" selection tool in an image editor. Since the edges of most photos are the background, that gives a reasonable starting assumption for where the background actually is, without needing a trained model to guess at it.\n\nThat starting assumption is also the source of this tool\u2019s most important limitation, worth stating directly rather than glossing over: because it starts flood-filling from the literal edges of the image, any part of the subject that touches the photo\u2019s border gets treated as background too, regardless of its own color. A portrait where a shoulder or the top of someone\u2019s head runs right up to the frame edge will have that part removed along with the real background. Recompose or crop the photo so the subject has a little breathing room from the edges for a cleaner result.\n\nA sensitivity slider controls how aggressively colors are treated as background. Push it higher on a background with some texture or gradient; keep it lower if the background and subject are close in color, to avoid eating into the subject itself. The preview renders against a checkerboard pattern, the standard way to show transparency, so what needs adjusting is visible before downloading.',
+    features: [
+      { title: 'Real, working background removal', description: 'A genuine, tested computer-vision technique, not a placeholder.', icon: HiOutlineScissors },
+      { title: 'Honestly labeled', description: 'This uses classical color detection, not an AI model, and says so directly.', icon: HiOutlineShieldCheck },
+      { title: 'Adjustable sensitivity', description: 'Fine-tune how aggressively the background gets detected.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Live transparency preview', description: 'See the actual result on a checkerboard background before downloading.', icon: HiOutlineEyeDropper },
+    ],
+    howToUse: [
+      'Upload a photo with a fairly plain or uniform background.',
+      'Adjust the sensitivity slider if needed.',
+      'Click Remove Background.',
+      'Preview the result, adjust and retry if needed, then download the PNG.',
+    ],
+    useCases: [
+      'Isolating a product photo shot against a solid-color background',
+      'Removing a plain wall or backdrop from a portrait',
+      'Preparing a subject to place onto a different background',
+      'Cutting out a logo or graphic shot against a flat color',
+    ],
+    supportedFormats: { input: 'JPG / PNG / WEBP', output: 'PNG (with transparency)', maxSize: '25 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
   },
 
   'hash-generator': {

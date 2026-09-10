@@ -60,6 +60,17 @@ const VideoTrimmer = lazy(() => import('./pages/tools/VideoTrimmer.jsx'))
 const UnitConverter = lazy(() => import('./pages/tools/UnitConverter.jsx'))
 const MetaTagGenerator = lazy(() => import('./pages/tools/MetaTagGenerator.jsx'))
 const TextDiffChecker = lazy(() => import('./pages/tools/TextDiffChecker.jsx'))
+const AudioMerger = lazy(() => import('./pages/tools/AudioMerger.jsx'))
+const AudioVolumeChanger = lazy(() => import('./pages/tools/AudioVolumeChanger.jsx'))
+const AudioReverser = lazy(() => import('./pages/tools/AudioReverser.jsx'))
+const AudioFade = lazy(() => import('./pages/tools/AudioFade.jsx'))
+const SilenceTrimmer = lazy(() => import('./pages/tools/SilenceTrimmer.jsx'))
+const VideoToAudio = lazy(() => import('./pages/tools/VideoToAudio.jsx'))
+const VideoMuter = lazy(() => import('./pages/tools/VideoMuter.jsx'))
+const VideoSpeedChanger = lazy(() => import('./pages/tools/VideoSpeedChanger.jsx'))
+const VideoResizer = lazy(() => import('./pages/tools/VideoResizer.jsx'))
+const VideoCompressor = lazy(() => import('./pages/tools/VideoCompressor.jsx'))
+const BackgroundRemover = lazy(() => import('./pages/tools/BackgroundRemover.jsx'))
 const ShortUrlRedirect = lazy(() => import('./pages/ShortUrlRedirect.jsx'))
 const HashGenerator = lazy(() => import('./pages/tools/HashGenerator.jsx'))
 const TimestampConverter = lazy(() => import('./pages/tools/TimestampConverter.jsx'))
@@ -79,7 +90,6 @@ const LoremIpsumGenerator = lazy(() => import('./pages/tools/LoremIpsumGenerator
 const PasswordGenerator = lazy(() => import('./pages/tools/PasswordGenerator.jsx'))
 const PasswordStrengthChecker = lazy(() => import('./pages/tools/PasswordStrengthChecker.jsx'))
 const InstagramPostResizer = lazy(() => import('./pages/tools/InstagramPostResizer.jsx'))
-const AiBackgroundRemover = lazy(() => import('./pages/tools/AiBackgroundRemover.jsx'))
 const AiImageUpscaler = lazy(() => import('./pages/tools/AiImageUpscaler.jsx'))
 const AiImageEnhancer = lazy(() => import('./pages/tools/AiImageEnhancer.jsx'))
 
@@ -156,6 +166,17 @@ export default function App() {
           <Route path="/tools/unit-converter" element={<UnitConverter />} />
           <Route path="/tools/meta-tag-generator" element={<MetaTagGenerator />} />
           <Route path="/tools/text-diff-checker" element={<TextDiffChecker />} />
+          <Route path="/tools/audio-merger" element={<AudioMerger />} />
+          <Route path="/tools/audio-volume-changer" element={<AudioVolumeChanger />} />
+          <Route path="/tools/audio-reverser" element={<AudioReverser />} />
+          <Route path="/tools/audio-fade" element={<AudioFade />} />
+          <Route path="/tools/silence-trimmer" element={<SilenceTrimmer />} />
+          <Route path="/tools/video-to-audio" element={<VideoToAudio />} />
+          <Route path="/tools/video-muter" element={<VideoMuter />} />
+          <Route path="/tools/video-speed-changer" element={<VideoSpeedChanger />} />
+          <Route path="/tools/video-resizer" element={<VideoResizer />} />
+          <Route path="/tools/video-compressor" element={<VideoCompressor />} />
+          <Route path="/tools/background-remover" element={<BackgroundRemover />} />
           <Route path="/s/:code" element={<ShortUrlRedirect />} />
           <Route path="/tools/hash-generator" element={<HashGenerator />} />
           <Route path="/tools/timestamp-converter" element={<TimestampConverter />} />
@@ -175,7 +196,6 @@ export default function App() {
           <Route path="/tools/password-generator" element={<PasswordGenerator />} />
           <Route path="/tools/password-strength-checker" element={<PasswordStrengthChecker />} />
           <Route path="/tools/instagram-post-resizer" element={<InstagramPostResizer />} />
-          <Route path="/tools/ai-background-remover" element={<AiBackgroundRemover />} />
           <Route path="/tools/ai-image-upscaler" element={<AiImageUpscaler />} />
           <Route path="/tools/ai-image-enhancer" element={<AiImageEnhancer />} />
 

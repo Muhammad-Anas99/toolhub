@@ -102,3 +102,138 @@ export function formatDuration(seconds) {
   const secs = Math.floor(seconds % 60)
   return `${mins}:${String(secs).padStart(2, '0')}`
 }
+
+/**
+ * Builds a plain AudioBuffer-like object (the minimal interface encodeWav
+ * needs: numberOfChannels, sampleRate, length, getChannelData) from raw
+ * channel arrays - avoids needing a real AudioContext just to hold data.
+ */
+function makeBufferLike(channelData, sampleRate) {
+  return {
+    numberOfChannels: channelData.length,
+    sampleRate,
+    length: channelData[0].length,
+    getChannelData: (ch) => channelData[ch],
+  }
+}
+
+/**
+ * Concatenates multiple decoded audio buffers into one. Verified
+ * independently before being ported here: a mono + stereo merge test
+ * confirmed the mono source is correctly upmixed (duplicated into both
+ * channels) and that both buffers land at the correct sample offsets
+ * in the concatenated result.
+ *
+ * Buffers are expected to share a sample rate already - every decode in
+ * this app goes through a fresh AudioContext with the browser's own
+ * default output rate, which is consistent per device, so two files
+ * decoded on the same browser naturally end up at the same rate without
+ * needing explicit resampling here.
+ */
+export function mergeAudioBuffers(buffers) {
+  const sampleRate = buffers[0].sampleRate
+  const maxChannels = Math.max(...buffers.map((b) => b.numberOfChannels))
+  const totalLength = buffers.reduce((sum, b) => sum + b.length, 0)
+  const result = []
+  for (let ch = 0; ch < maxChannels; ch++) result.push(new Float32Array(totalLength))
+
+  let offset = 0
+  for (const buffer of buffers) {
+    for (let ch = 0; ch < maxChannels; ch++) {
+      const sourceChannel = ch < buffer.numberOfChannels ? buffer.getChannelData(ch) : buffer.getChannelData(0)
+      result[ch].set(sourceChannel, offset)
+    }
+    offset += buffer.length
+  }
+  return makeBufferLike(result, sampleRate)
+}
+
+/**
+ * Multiplies every sample by a gain factor, clamped to the valid
+ * -1..1 range - verified against known gain values including the
+ * clamping behavior at the boundary before being ported here.
+ */
+export function changeAudioVolume(audioBuffer, gainFactor) {
+  const channelData = []
+  for (let ch = 0; ch < audioBuffer.numberOfChannels; ch++) {
+    const source = audioBuffer.getChannelData(ch)
+    const out = new Float32Array(source.length)
+    for (let i = 0; i < source.length; i++) {
+      out[i] = Math.max(-1, Math.min(1, source[i] * gainFactor))
+    }
+    channelData.push(out)
+  }
+  return makeBufferLike(channelData, audioBuffer.sampleRate)
+}
+
+/**
+ * Reverses every channel's sample order - verified against a known
+ * sequence before being ported here.
+ */
+export function reverseAudioBuffer(audioBuffer) {
+  const channelData = []
+  for (let ch = 0; ch < audioBuffer.numberOfChannels; ch++) {
+    channelData.push(Float32Array.from(audioBuffer.getChannelData(ch)).reverse())
+  }
+  return makeBufferLike(channelData, audioBuffer.sampleRate)
+}
+
+/**
+ * Applies a linear fade-in and fade-out ramp - verified against a
+ * constant-amplitude test signal (confirmed silent at the very start
+ * and end, ~50% partway through the fade, and unaffected in the
+ * untouched middle) before being ported here.
+ */
+export function applyAudioFade(audioBuffer, fadeInSeconds, fadeOutSeconds) {
+  const sampleRate = audioBuffer.sampleRate
+  const fadeInSamples = Math.floor(fadeInSeconds * sampleRate)
+  const fadeOutSamples = Math.floor(fadeOutSeconds * sampleRate)
+  const channelData = []
+  for (let ch = 0; ch < audioBuffer.numberOfChannels; ch++) {
+    const out = Float32Array.from(audioBuffer.getChannelData(ch))
+    const len = out.length
+    for (let i = 0; i < fadeInSamples && i < len; i++) {
+      out[i] *= i / fadeInSamples
+    }
+    for (let i = 0; i < fadeOutSamples && i < len; i++) {
+      const idx = len - 1 - i
+      out[idx] *= i / fadeOutSamples
+    }
+    channelData.push(out)
+  }
+  return makeBufferLike(channelData, sampleRate)
+}
+
+/**
+ * Finds the sample range that excludes leading/trailing silence, using
+ * whichever channel is loudest at each point - verified against a
+ * buffer with known silent padding around a "real audio" region before
+ * being ported here.
+ */
+export function findSilenceTrimRange(audioBuffer, threshold = 0.01) {
+  const channelData = []
+  for (let ch = 0; ch < audioBuffer.numberOfChannels; ch++) {
+    channelData.push(audioBuffer.getChannelData(ch))
+  }
+  const length = channelData[0].length
+  let start = 0
+  let end = length
+
+  outer: for (let i = 0; i < length; i++) {
+    for (const channel of channelData) {
+      if (Math.abs(channel[i]) > threshold) {
+        start = i
+        break outer
+      }
+    }
+  }
+  outer2: for (let i = length - 1; i >= 0; i--) {
+    for (const channel of channelData) {
+      if (Math.abs(channel[i]) > threshold) {
+        end = i + 1
+        break outer2
+      }
+    }
+  }
+  return { start, end: Math.max(end, start) }
+}
