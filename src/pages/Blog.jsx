@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Container from '../components/ui/Container.jsx'
 import BlogCard from '../components/ui/BlogCard.jsx'
@@ -7,7 +8,8 @@ import ErrorMessage from '../components/tools/ErrorMessage.jsx'
 import { api } from '../lib/api.js'
 
 export default function Blog() {
-  const [activeCategory, setActiveCategory] = useState('all')
+  const [searchParams] = useSearchParams()
+  const activeCategory = searchParams.get('category') || 'all'
   const [posts, setPosts] = useState(null)
   const [error, setError] = useState(null)
 
@@ -34,13 +36,17 @@ export default function Blog() {
     return sorted.filter((post) => post.category === activeCategory)
   }, [posts, activeCategory])
 
+  const capitalizedCategory = activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)
+  const pageTitle = activeCategory === 'all' ? 'Blog' : `${capitalizedCategory} Posts`
+  const pageDescription =
+    activeCategory === 'all'
+      ? 'Guides, tips and updates from the ToolHub team on getting the most out of your files and tools.'
+      : `Guides and posts about ${activeCategory} on the ToolHub blog.`
+  const canonicalPath = activeCategory === 'all' ? '/blog' : `/blog?category=${activeCategory}`
+
   return (
     <>
-      <SEO
-        title="Blog"
-        description="Guides, tips and updates from the ToolHub team on getting the most out of your files and tools."
-        canonicalPath="/blog"
-      />
+      <SEO title={pageTitle} description={pageDescription} canonicalPath={canonicalPath} />
 
       <Container className="py-16">
         <motion.div
@@ -50,7 +56,7 @@ export default function Blog() {
           className="mx-auto max-w-2xl text-center"
         >
           <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-            The ToolHub Blog
+            {activeCategory === 'all' ? 'The ToolHub Blog' : `${capitalizedCategory} Posts`}
           </h1>
           <p className="mt-4 text-slate-500 dark:text-slate-400">
             Guides and tips on file formats, compression, and getting more out of your tools.
@@ -62,10 +68,9 @@ export default function Blog() {
         {postCategories.length > 1 && (
           <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
             {postCategories.map((category) => (
-              <button
+              <Link
                 key={category}
-                type="button"
-                onClick={() => setActiveCategory(category)}
+                to={category === 'all' ? '/blog' : `/blog?category=${category}`}
                 className={`rounded-full px-4 py-1.5 text-sm font-medium capitalize transition-colors ${
                   activeCategory === category
                     ? 'bg-brand-600 text-white'
@@ -73,7 +78,7 @@ export default function Blog() {
                 }`}
               >
                 {category === 'all' ? 'All posts' : category}
-              </button>
+              </Link>
             ))}
           </div>
         )}
