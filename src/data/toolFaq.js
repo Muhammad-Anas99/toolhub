@@ -627,27 +627,32 @@ export const toolFaqs = {
     {
       id: 'minify-vs-format',
       question: 'What\u2019s the difference between Format and Minify?',
-      answer: 'Format adds indentation and line breaks for readability; Minify strips all unnecessary whitespace to make the file as small as possible \u2014 the underlying data is identical either way, only the whitespace changes.',
+      answer: 'Format adds indentation and line breaks for readability. Minify strips all unnecessary whitespace to make the file as small as possible. The underlying data is identical either way, only the whitespace changes.',
     },
     {
       id: 'why-apis-minify',
       question: 'Why do APIs usually return minified JSON?',
-      answer: 'Whitespace adds size with no functional benefit to a machine parsing the response, so stripping it saves real (if often small) bandwidth. That\u2019s exactly why a formatter is useful for a human reading that same response \u2014 it adds back the readability a machine never needed.',
+      answer: 'Whitespace adds size with no functional benefit to a machine parsing the response, so stripping it saves real, if often small, bandwidth. That\u2019s exactly why a formatter is useful for a human reading that same response: it adds back the readability a machine never needed.',
     },
     {
       id: 'does-formatting-change-data',
       question: 'Does formatting or minifying change my actual data?',
-      answer: 'No \u2014 only whitespace changes. The keys, values, and structure of your JSON stay exactly the same; formatting is purely cosmetic.',
+      answer: 'No, only whitespace changes. The keys, values, and structure of your JSON stay exactly the same; formatting is purely cosmetic.',
     },
     {
       id: 'large-json',
       question: 'Is there a size limit on the JSON I can format?',
-      answer: 'Very large JSON files (many megabytes) may feel slower to format in the browser, since parsing and re-serializing happens on your device rather than a server \u2014 but there\u2019s no hard limit for typical config files or API responses.',
+      answer: 'Very large JSON files (many megabytes) may feel slower to format in the browser, since parsing and re-serializing happens on your device rather than a server, but there\u2019s no hard limit for typical config files or API responses.',
     },
     {
       id: 'nested-json',
       question: 'Does formatting work correctly on deeply nested JSON?',
-      answer: 'Yes \u2014 arbitrarily deep nested objects and arrays are indented correctly at every level, which is exactly where formatting helps most: a deeply nested minified structure is genuinely hard to read without it.',
+      answer: 'Yes, arbitrarily deep nested objects and arrays are indented correctly at every level, which is exactly where formatting helps most: a deeply nested minified structure is genuinely hard to read without it.',
+    },
+    {
+      id: 'json-vs-js-object',
+      question: 'Can I format a JavaScript object literal, or only valid JSON?',
+      answer: 'Only valid JSON. Since a JavaScript object literal can include unquoted keys, single quotes, or trailing commas, none of which are valid JSON, pasting one in will report an error at the specific point it violates JSON\u2019s stricter syntax, rather than silently accepting it.',
     },
   ],
   'json-validator': [
@@ -1444,17 +1449,22 @@ export const toolFaqs = {
     {
       id: 'why-missing-quality',
       question: 'Why don\u2019t I see a Max Resolution option for every video?',
-      answer: 'The highest resolution thumbnail (1280\u00d7720) only exists for videos uploaded at sufficient source resolution. When it\u2019s not available, that option is automatically hidden \u2014 the other sizes are generated for every video.',
+      answer: 'The highest resolution thumbnail (1280\u00d7720) only exists for videos uploaded at sufficient source resolution. When it\u2019s not available, that option is automatically hidden. The other sizes are generated for every video.',
     },
     {
       id: 'is-this-allowed',
       question: 'Is it okay to use a downloaded thumbnail?',
-      answer: 'The thumbnail image itself is already publicly served by YouTube for embedding purposes. That said, the thumbnail\u2019s content (like a photo or artwork within it) may still be under copyright, so how you use it \u2014 particularly for anything commercial or republished \u2014 is worth thinking through separately from whether the file is technically downloadable.',
+      answer: 'The thumbnail image itself is already publicly served by YouTube for embedding purposes. That said, the thumbnail\u2019s content (like a photo or artwork within it) may still be under copyright, so how it gets used, particularly for anything commercial or republished, is worth thinking through separately from whether the file is technically downloadable.',
     },
     {
       id: 'private-videos',
       question: 'Does this work on private or unlisted videos?',
       answer: 'It only works for videos where YouTube has generated a publicly accessible thumbnail, which is the case for standard public and unlisted videos. Fully private videos generally won\u2019t have an accessible thumbnail this way.',
+    },
+    {
+      id: 'thumbnail-changes-later',
+      question: 'What if the video owner changes the thumbnail after I download it?',
+      answer: 'The downloaded file stays exactly as it was at the moment it was saved. Re-checking the same video later would show the updated thumbnail, since this tool always fetches whatever YouTube is currently serving, not a cached copy.',
     },
   ],
 
@@ -1467,12 +1477,12 @@ export const toolFaqs = {
     {
       id: 'reading-time',
       question: 'How is reading time calculated?',
-      answer: 'Based on an average reading speed of 200 words per minute \u2014 a common estimate for adult silent reading of straightforward text. Actual reading speed varies by person and by how dense the text is, so treat it as a helpful ballpark, not an exact figure.',
+      answer: 'Based on an average reading speed of 200 words per minute, a common estimate for adult silent reading of straightforward text. Actual reading speed varies by person and by how dense the text is, so treat it as a helpful ballpark, not an exact figure.',
     },
     {
       id: 'why-two-char-counts',
       question: 'Why are there two different character counts?',
-      answer: 'Different platforms and forms count characters differently \u2014 some limits include spaces, others don\u2019t. Showing both numbers means you always know which one applies to whatever limit you\u2019re working against.',
+      answer: 'Different platforms and forms count characters differently. Some limits include spaces, others don\u2019t. Showing both numbers means always knowing which one applies to whatever limit is being worked against.',
     },
     {
       id: 'paragraph-counting',
@@ -1482,12 +1492,17 @@ export const toolFaqs = {
     {
       id: 'why-count-matters',
       question: 'Why do word count requirements exist for essays and articles?',
-      answer: 'A word count target is usually a proxy for depth \u2014 enough length to actually develop an argument or cover a topic properly, without padding. Checking your count as you write helps you gauge that without waiting until the end to find out you\u2019re short or over.',
+      answer: 'A word count target is usually a proxy for depth, enough length to actually develop an argument or cover a topic properly, without padding. Checking the count while writing helps gauge that without waiting until the end to find out it\u2019s short or over.',
     },
     {
       id: 'live-vs-paste',
       question: 'Does it count text I paste in, or only text I type?',
-      answer: 'Both \u2014 the stats update the moment text appears in the box, whether you typed it directly or pasted it in from somewhere else.',
+      answer: 'Both. The stats update the moment text appears in the box, whether it was typed directly or pasted in from somewhere else.',
+    },
+    {
+      id: 'spaces-only-text',
+      question: 'What does it count if I paste text that\u2019s mostly whitespace or blank lines?',
+      answer: 'Blank lines don\u2019t count as words or sentences, but they do factor into the paragraph count if they\u2019re being used to separate blocks of text. A block of pure whitespace with no actual words shows a word count of zero.',
     },
   ],
   'case-converter': [
