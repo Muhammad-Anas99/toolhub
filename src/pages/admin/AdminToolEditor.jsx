@@ -86,9 +86,9 @@ export default function AdminToolEditor() {
         Back to tools
       </Link>
 
-      <h2 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">
+      <h1 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">
         {isEditing ? `Edit "${tool.name}"` : 'New Tool'}
-      </h2>
+      </h1>
 
       {!isEditing && (
         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">

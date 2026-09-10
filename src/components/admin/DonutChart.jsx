@@ -12,7 +12,7 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS
 // visually distinguishable from its neighbors.
 const SEGMENT_COLORS = ['#3b82f6', '#8b5cf6', '#f43f5e', '#f59e0b', '#10b981', '#06b6d4', '#ec4899', '#84cc16']
 
-export default function DonutChart({ segments }) {
+export default function DonutChart({ segments, centerLabel, centerValue }) {
   if (!segments || segments.length === 0) return null
 
   const total = segments.reduce((sum, segment) => sum + segment.value, 0)
@@ -29,23 +29,33 @@ export default function DonutChart({ segments }) {
 
   return (
     <div className="flex items-center gap-5">
-      <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="flex-shrink-0 -rotate-90">
-        <circle cx={SIZE / 2} cy={SIZE / 2} r={RADIUS} fill="none" strokeWidth={STROKE} className="stroke-slate-100 dark:stroke-slate-800" />
-        {arcs.map((arc, index) => (
-          <circle
-            key={index}
-            cx={SIZE / 2}
-            cy={SIZE / 2}
-            r={RADIUS}
-            fill="none"
-            stroke={arc.color}
-            strokeWidth={STROKE}
-            strokeDasharray={`${arc.dash} ${arc.gap}`}
-            strokeDashoffset={-arc.offset}
-            strokeLinecap="butt"
-          />
-        ))}
-      </svg>
+      <div className="relative flex-shrink-0" style={{ width: SIZE, height: SIZE }}>
+        <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="-rotate-90">
+          <circle cx={SIZE / 2} cy={SIZE / 2} r={RADIUS} fill="none" strokeWidth={STROKE} className="stroke-slate-100 dark:stroke-slate-800" />
+          {arcs.map((arc, index) => (
+            <circle
+              key={index}
+              cx={SIZE / 2}
+              cy={SIZE / 2}
+              r={RADIUS}
+              fill="none"
+              stroke={arc.color}
+              strokeWidth={STROKE}
+              strokeDasharray={`${arc.dash} ${arc.gap}`}
+              strokeDashoffset={-arc.offset}
+              strokeLinecap="butt"
+            />
+          ))}
+        </svg>
+        {(centerValue !== undefined || centerLabel) && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            {centerValue !== undefined && (
+              <span className="text-xl font-bold text-slate-900 dark:text-white">{centerValue}</span>
+            )}
+            {centerLabel && <span className="text-[11px] text-slate-400 dark:text-slate-500">{centerLabel}</span>}
+          </div>
+        )}
+      </div>
       <div className="min-w-0 flex-1 space-y-1.5">
         {segments.map((segment, index) => (
           <div key={segment.label} className="flex items-center gap-2 text-xs">
@@ -72,4 +82,6 @@ DonutChart.propTypes = {
       value: PropTypes.number.isRequired,
     })
   ),
+  centerLabel: PropTypes.string,
+  centerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }

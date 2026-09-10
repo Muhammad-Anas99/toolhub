@@ -4,21 +4,9 @@ import { HiOutlineArrowsRightLeft } from 'react-icons/hi2'
 import { UNIT_CATEGORIES, convert } from '../../../lib/unitConversionUtils.js'
 import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
-const CATEGORY_DEFAULTS = {
-  length: { from: 'km', to: 'mi' },
-  weight: { from: 'kg', to: 'lb' },
-  volume: { from: 'l', to: 'usGal' },
-  temperature: { from: 'c', to: 'f' },
-  area: { from: 'm2', to: 'ft2' },
-  speed: { from: 'kmh', to: 'mph' },
-  time: { from: 'hr', to: 'min' },
-  data: { from: 'GB', to: 'MB' },
-}
-
-export default function UnitConverterTool({ toolSlug, toolName, category }) {
-  const [categoryId, setCategoryId] = useState('length')
-  const [fromUnit, setFromUnit] = useState(CATEGORY_DEFAULTS.length.from)
-  const [toUnit, setToUnit] = useState(CATEGORY_DEFAULTS.length.to)
+export default function SingleUnitConverterTool({ categoryId, defaultFrom, defaultTo, toolSlug, toolName, category }) {
+  const [fromUnit, setFromUnit] = useState(defaultFrom)
+  const [toUnit, setToUnit] = useState(defaultTo)
   const [inputValue, setInputValue] = useState('1')
   const { logDebounced } = useHistoryLogger({ toolSlug, toolName, category })
 
@@ -31,13 +19,7 @@ export default function UnitConverterTool({ toolSlug, toolName, category }) {
     logDebounced('Unit converted')
     return converted
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryId, inputValue, fromUnit, toUnit])
-
-  function handleCategoryChange(newCategoryId) {
-    setCategoryId(newCategoryId)
-    setFromUnit(CATEGORY_DEFAULTS[newCategoryId].from)
-    setToUnit(CATEGORY_DEFAULTS[newCategoryId].to)
-  }
+  }, [inputValue, fromUnit, toUnit])
 
   function handleSwap() {
     setFromUnit(toUnit)
@@ -46,23 +28,6 @@ export default function UnitConverterTool({ toolSlug, toolName, category }) {
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-wrap gap-2">
-        {Object.entries(UNIT_CATEGORIES).map(([id, cat]) => (
-          <button
-            key={id}
-            type="button"
-            onClick={() => handleCategoryChange(id)}
-            className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
-              categoryId === id
-                ? 'bg-brand-600 text-white shadow-sm'
-                : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800'
-            }`}
-          >
-            {cat.label}
-          </button>
-        ))}
-      </div>
-
       <div className="grid grid-cols-1 items-end gap-3 sm:grid-cols-[1fr_auto_1fr]">
         <div>
           <label htmlFor="unit-from" className="text-xs text-slate-500 dark:text-slate-400">
@@ -134,7 +99,10 @@ export default function UnitConverterTool({ toolSlug, toolName, category }) {
   )
 }
 
-UnitConverterTool.propTypes = {
+SingleUnitConverterTool.propTypes = {
+  categoryId: PropTypes.string.isRequired,
+  defaultFrom: PropTypes.string.isRequired,
+  defaultTo: PropTypes.string.isRequired,
   toolSlug: PropTypes.string,
   toolName: PropTypes.string,
   category: PropTypes.string,

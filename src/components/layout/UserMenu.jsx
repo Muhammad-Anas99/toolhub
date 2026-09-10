@@ -74,7 +74,7 @@ export default function UserMenu() {
             transition={{ duration: 0.15 }}
             className="absolute right-0 top-full z-40 mt-3 w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl dark:border-slate-800 dark:bg-slate-900"
           >
-            <div className="px-3 py-2">
+            <div className="rounded-xl bg-slate-50 px-3 py-2.5 dark:bg-slate-800/60">
               <p className="truncate text-sm font-semibold text-slate-900 dark:text-white">
                 {user?.name}
               </p>

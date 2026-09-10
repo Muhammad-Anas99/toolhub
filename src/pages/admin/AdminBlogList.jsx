@@ -48,7 +48,7 @@ export default function AdminBlogList() {
       <SEO title="Admin — Blog" description="Manage ToolHub blog posts." canonicalPath="/admin/blog" noIndex />
 
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Blog</h2>
+        <h1 className="text-lg font-semibold text-slate-900 dark:text-white">Blog</h1>
         <Link to="/admin/blog/new" className="btn-primary text-sm">
           <HiOutlinePlus className="h-4 w-4" />
           New Post

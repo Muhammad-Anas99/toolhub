@@ -8,6 +8,7 @@ import {
   HiOutlineShieldCheck,
   HiOutlineShare,
   HiOutlineMusicalNote,
+  HiOutlineCalculator,
 } from 'react-icons/hi2'
 
 export const categories = [
@@ -105,6 +106,16 @@ export const categories = [
     icon: HiOutlineMusicalNote,
     color: 'cyan',
   },
+  {
+    id: 'unit-converters',
+    name: 'Unit Converters',
+    slug: 'unit-converters',
+    description: 'Convert length, weight, volume, temperature and more.',
+    intro:
+      'Dedicated converters for everyday units, each with its own focused page: length, weight, volume, temperature, area, speed, time, and data storage. Every conversion factor is the standardized, internationally-defined exact value, not a rounded approximation.',
+    icon: HiOutlineCalculator,
+    color: 'teal',
+  },
 ]
 
 export function getCategoryBySlug(slug) {
@@ -168,6 +179,12 @@ export const categoryColorClasses = {
     text: 'text-cyan-600 dark:text-cyan-400',
     ring: 'ring-cyan-500/20',
     gradient: 'from-cyan-500 to-cyan-600',
+  },
+  teal: {
+    bg: 'bg-teal-50 dark:bg-teal-950',
+    text: 'text-teal-600 dark:text-teal-400',
+    ring: 'ring-teal-500/20',
+    gradient: 'from-teal-500 to-teal-600',
   },
 }
 

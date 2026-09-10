@@ -71,6 +71,14 @@ const VideoSpeedChanger = lazy(() => import('./pages/tools/VideoSpeedChanger.jsx
 const VideoResizer = lazy(() => import('./pages/tools/VideoResizer.jsx'))
 const VideoCompressor = lazy(() => import('./pages/tools/VideoCompressor.jsx'))
 const BackgroundRemover = lazy(() => import('./pages/tools/BackgroundRemover.jsx'))
+const LengthConverter = lazy(() => import('./pages/tools/LengthConverter.jsx'))
+const WeightConverter = lazy(() => import('./pages/tools/WeightConverter.jsx'))
+const VolumeConverter = lazy(() => import('./pages/tools/VolumeConverter.jsx'))
+const TemperatureConverter = lazy(() => import('./pages/tools/TemperatureConverter.jsx'))
+const AreaConverter = lazy(() => import('./pages/tools/AreaConverter.jsx'))
+const SpeedConverter = lazy(() => import('./pages/tools/SpeedConverter.jsx'))
+const TimeConverter = lazy(() => import('./pages/tools/TimeConverter.jsx'))
+const DataConverter = lazy(() => import('./pages/tools/DataConverter.jsx'))
 const ShortUrlRedirect = lazy(() => import('./pages/ShortUrlRedirect.jsx'))
 const HashGenerator = lazy(() => import('./pages/tools/HashGenerator.jsx'))
 const TimestampConverter = lazy(() => import('./pages/tools/TimestampConverter.jsx'))
@@ -177,6 +185,14 @@ export default function App() {
           <Route path="/tools/video-resizer" element={<VideoResizer />} />
           <Route path="/tools/video-compressor" element={<VideoCompressor />} />
           <Route path="/tools/background-remover" element={<BackgroundRemover />} />
+          <Route path="/tools/length-converter" element={<LengthConverter />} />
+          <Route path="/tools/weight-converter" element={<WeightConverter />} />
+          <Route path="/tools/volume-converter" element={<VolumeConverter />} />
+          <Route path="/tools/temperature-converter" element={<TemperatureConverter />} />
+          <Route path="/tools/area-converter" element={<AreaConverter />} />
+          <Route path="/tools/speed-converter" element={<SpeedConverter />} />
+          <Route path="/tools/time-converter" element={<TimeConverter />} />
+          <Route path="/tools/data-converter" element={<DataConverter />} />
           <Route path="/s/:code" element={<ShortUrlRedirect />} />
           <Route path="/tools/hash-generator" element={<HashGenerator />} />
           <Route path="/tools/timestamp-converter" element={<TimestampConverter />} />

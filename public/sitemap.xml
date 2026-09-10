@@ -330,6 +330,46 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://trytoolhub.net/tools/length-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/weight-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/volume-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/temperature-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/area-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/speed-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/time-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/data-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://trytoolhub.net/tools/hash-generator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

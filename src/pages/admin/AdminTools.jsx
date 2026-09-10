@@ -57,7 +57,7 @@ export default function AdminTools() {
 
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Tools</h2>
+          <h1 className="text-lg font-semibold text-slate-900 dark:text-white">Tools</h1>
           <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
             Add a new tool as a placeholder, then switch it to Live once it's actually built. Every tool shown here
             comes directly from the live database.

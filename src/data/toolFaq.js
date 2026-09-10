@@ -1445,6 +1445,245 @@ export const toolFaqs = {
       answer: 'PNG is the common image format that supports transparency. JPG has no way to represent a transparent background at all, so PNG is the only option that can actually preserve the removed background as transparent rather than filling it with a solid color.',
     },
   ],
+
+  'length-converter': [
+    {
+      id: 'which-length-inch',
+      question: 'How precise is the inch-to-metric conversion?',
+      answer: 'Exact. An inch is officially defined as exactly 0.0254 meters, an internationally agreed value fixed by treaty, not a rounded approximation, so every conversion here carries that same precision.',
+    },
+    {
+      id: 'combined-vs-dedicated-length',
+      question: 'How is this different from the combined Unit Converter?',
+      answer: 'Same underlying, verified conversion logic, just focused on length alone with its own dedicated page and URL, useful for bookmarking or linking directly to a length-only conversion without needing to select a category first.',
+    },
+    {
+      id: 'decimal-places-length',
+      question: 'Why does the result sometimes show many decimal places?',
+      answer: 'Some unit pairs simply don\u2019t divide evenly (a mile isn\u2019t a round number of meters), so the exact result can have several decimal digits rather than a clean, short number.',
+    },
+    {
+      id: 'negative-length',
+      question: 'Can I convert a negative length value?',
+      answer: 'The math handles it, but a negative length doesn\u2019t correspond to anything physical on its own, it\u2019s typically only meaningful as a relative change or offset in a specific context.',
+    },
+    {
+      id: 'nautical-mile-length',
+      question: 'Is a nautical mile the same as a regular mile?',
+      answer: 'No, genuinely different units. A nautical mile is 1852 meters, while a standard (statute) mile is 1609.344 meters, roughly 15% shorter. This converter uses the standard mile; the nautical mile is available in the separate Speed Converter\u2019s knot unit.',
+    },
+    {
+      id: 'why-meters-base-length',
+      question: 'Why is the base unit meters instead of, say, centimeters?',
+      answer: 'The meter is the standard SI base unit for length, and using it here keeps every other unit\u2019s conversion factor as a single, direct multiplication in either direction, rather than needing an intermediate conversion step in between.',
+    },
+  ],
+
+  'weight-converter': [
+    {
+      id: 'weight-vs-mass',
+      question: 'Is this actually converting weight or mass?',
+      answer: 'Mass, in the everyday sense, the same sense a kitchen scale or shipping label uses. True weight depends on gravity and would differ on the Moon; a kilogram or pound here means the same physical quantity anywhere.',
+    },
+    {
+      id: 'pound-precision',
+      question: 'How precise is the pound-to-gram conversion?',
+      answer: 'Exact. One pound is officially defined as exactly 453.59237 grams, agreed internationally in 1959, not a rounded estimate.',
+    },
+    {
+      id: 'ton-type',
+      question: 'Which "ton" does this use?',
+      answer: 'The metric ton (1,000 kilograms), not the US short ton (2,000 pounds) or UK long ton (2,240 pounds), which are different, separately-defined units.',
+    },
+    {
+      id: 'stone-missing',
+      question: 'Why isn\u2019t "stone" included as a unit?',
+      answer: 'Stone (commonly used for body weight in the UK and Ireland) wasn\u2019t included in this first set of units, though it\u2019s a straightforward addition, 1 stone equals exactly 14 pounds, if it comes up as a common request.',
+    },
+    {
+      id: 'gram-vs-kg-default',
+      question: 'Why is the base unit grams instead of kilograms?',
+      answer: 'Grams keep every other unit\u2019s conversion factor as a whole or simple decimal number relative to it. Using kilograms as the base would just shift the same factors around by a factor of 1000 without changing anything meaningful about the actual math.',
+    },
+    {
+      id: 'ounce-troy-vs-avoirdupois',
+      question: 'Is the ounce here the same as a troy ounce used for precious metals?',
+      answer: 'No, different units. This converter uses the standard avoirdupois ounce (the everyday one, about 28.35 grams). A troy ounce, used for gold, silver, and other precious metals, is heavier, about 31.1 grams, a separate historical measurement system.',
+    },
+  ],
+
+  'volume-converter': [
+    {
+      id: 'why-gallons-separate-vol',
+      question: 'Why are US and UK gallons shown separately instead of one "gallon"?',
+      answer: 'Because they\u2019re genuinely different sizes, a US gallon is about 3.785 liters, a UK gallon about 4.546 liters, roughly 20% larger. Combining them into one option would silently give a wrong answer depending on which one someone actually meant.',
+    },
+    {
+      id: 'which-cup',
+      question: 'Which "cup" measurement does this use?',
+      answer: 'The US customary cup (about 236.6 mL). Some countries define a cup differently, so if converting a recipe from a source using a different regional cup size, that difference is worth checking separately.',
+    },
+    {
+      id: 'ml-vs-cc',
+      question: 'Is a milliliter the same as a cubic centimeter?',
+      answer: 'Yes, exactly the same volume, just different naming conventions, one common in everyday and medical contexts, the other in engineering and automotive contexts.',
+    },
+    {
+      id: 'pint-missing',
+      question: 'Why isn\u2019t "pint" included?',
+      answer: 'Pints weren\u2019t included in this first set, and since US and UK pints are also genuinely different sizes (like gallons), adding them the right way means labeling both explicitly, the same care taken with gallons here.',
+    },
+    {
+      id: 'why-ml-base-volume',
+      question: 'Why is the base unit milliliters instead of liters?',
+      answer: 'Milliliters keep the metric side of this converter as whole numbers (1 liter = 1000 mL exactly) and give the smallest common reference point across both the metric and US customary units used here.',
+    },
+    {
+      id: 'liquid-vs-dry-volume',
+      question: 'Does this account for the difference between liquid and dry measurements?',
+      answer: 'No, this converter handles liquid (fluid) volume units specifically. US dry measure (used historically for produce like grain) uses a separate, differently-sized gallon and quart, a distinction this tool doesn\u2019t cover.',
+    },
+  ],
+
+  'temperature-converter': [
+    {
+      id: 'why-offset-needed',
+      question: 'Why can\u2019t temperature just be converted by multiplying, like other units?',
+      answer: 'Because Celsius, Fahrenheit and Kelvin don\u2019t share the same zero point. Length or weight units all start at zero together; temperature scales don\u2019t, so an offset has to be added or subtracted alongside any scaling.',
+    },
+    {
+      id: 'negative-forty',
+      question: 'Is it true that -40\u00b0C and -40\u00b0F are the same temperature?',
+      answer: 'Yes, exactly. It\u2019s a genuine mathematical coincidence of where the two scales\u2019 conversion formulas cross, and a handy way to sanity-check that a conversion is working correctly.',
+    },
+    {
+      id: 'kelvin-negative',
+      question: 'Can Kelvin ever be negative?',
+      answer: 'No. Kelvin starts at absolute zero, the physical limit of how cold anything can get, so a negative Kelvin value has no physical meaning and would indicate an input error.',
+    },
+    {
+      id: 'why-kelvin-science',
+      question: 'Why do scientists use Kelvin instead of Celsius?',
+      answer: 'Kelvin\u2019s zero point is an unambiguous physical limit, absolute zero, rather than an arbitrary reference like water freezing (Celsius) or a historical brine mixture (Fahrenheit), which makes it the natural choice for physics and chemistry calculations.',
+    },
+    {
+      id: 'who-uses-fahrenheit',
+      question: 'Why does the US still use Fahrenheit when most of the world uses Celsius?',
+      answer: 'Largely historical: the US adopted Fahrenheit widely before the international push toward metric standardization, and everyday infrastructure (weather reporting, home thermostats, cooking) never fully switched over, unlike most other English-speaking countries.',
+    },
+  ],
+
+  'area-converter': [
+    {
+      id: 'hectare-vs-acre',
+      question: 'How big is a hectare compared to an acre?',
+      answer: 'One hectare is about 2.471 acres, meaning a hectare is the larger of the two. They come from different systems (hectare is a clean metric unit, acre traces back to old English land measurement), so the ratio between them isn\u2019t a tidy round number.',
+    },
+    {
+      id: 'why-area-squares',
+      question: 'Why do area conversion factors look so different from length ones?',
+      answer: 'Because area scales by the square of the underlying length ratio. A unit that\u2019s 10 times longer covers 100 times the area, not 10 times, which is why area conversion factors grow much faster than length ones between the same units.',
+    },
+    {
+      id: 'square-vs-cubic',
+      question: 'Does this handle volume (cubic) units too?',
+      answer: 'No, this is specifically for two-dimensional area (square units). For three-dimensional volume, ToolHub\u2019s separate Volume Converter is the right tool.',
+    },
+    {
+      id: 'hectare-familiar-size',
+      question: 'How big is a hectare in more familiar terms?',
+      answer: 'A hectare is exactly 10,000 square meters, roughly a 100m \u00d7 100m square. A standard soccer pitch is somewhat smaller, typically in the 6,000-8,000 square meter range depending on the specific regulation size used.',
+    },
+    {
+      id: 'why-m2-base-area',
+      question: 'Why is the base unit square meters instead of hectares?',
+      answer: 'Square meters give the smallest common reference point across both the metric units here (square millimeters through square kilometers) and the imperial ones (square feet, acres, square miles), keeping every conversion factor a single multiplication rather than a chain of unit changes.',
+    },
+  ],
+
+  'speed-converter': [
+    {
+      id: 'why-knots-navigation',
+      question: 'Why do ships and planes use knots instead of mph or km/h?',
+      answer: 'A knot is based on the nautical mile, which was historically defined to correspond to one minute of latitude, making navigation calculations more direct when plotting a course on a nautical chart. It\u2019s a practical convention from navigation, not an arbitrary unit choice.',
+    },
+    {
+      id: 'knot-precision',
+      question: 'How precise is the knot conversion?',
+      answer: 'Exact. One knot is defined as exactly 1852 meters per hour, based on the internationally standardized nautical mile, not an approximation.',
+    },
+    {
+      id: 'negative-speed',
+      question: 'Can I convert a negative speed value?',
+      answer: 'The math works the same either way, but a negative speed doesn\u2019t correspond to anything physical, it\u2019s typically only meaningful in a context like velocity with direction, which this tool doesn\u2019t track.',
+    },
+    {
+      id: 'mach-missing',
+      question: 'Why isn\u2019t Mach (speed of sound) included?',
+      answer: 'Mach isn\u2019t a fixed unit, it depends on the speed of sound at the specific altitude and temperature involved, which varies. That makes it a genuinely different kind of conversion than the fixed-ratio units here.',
+    },
+    {
+      id: 'why-mps-base-speed',
+      question: 'Why is the base unit meters per second instead of km/h?',
+      answer: 'Meters per second is the standard SI unit for speed, and using it as the base keeps every other unit\u2019s conversion factor as a single, direct multiplication rather than needing to convert through an intermediate unit first.',
+    },
+    {
+      id: 'speed-vs-velocity',
+      question: 'Is this the same as converting velocity?',
+      answer: 'For the numeric magnitude, yes. Velocity technically also includes direction, which this tool doesn\u2019t track, so it converts speed (how fast) rather than full velocity (how fast, in which direction).',
+    },
+  ],
+
+  'time-converter': [
+    {
+      id: 'time-vs-timestamp',
+      question: 'Can this convert a date or timestamp, not just a duration?',
+      answer: 'No, this converts a length of time (how long something lasts), not a specific point in time. For an actual date or Unix timestamp, ToolHub\u2019s separate Timestamp Converter is the right tool.',
+    },
+    {
+      id: 'why-60-24',
+      question: 'Why don\u2019t time units follow a clean base-10 pattern like metric units?',
+      answer: 'Seconds-to-minutes and minutes-to-hours both use base 60, a legacy of ancient Babylonian counting; hours-to-days uses 24, tied to the Earth\u2019s actual rotation. None of that was designed as a clean system the way metric units were.',
+    },
+    {
+      id: 'month-year-missing',
+      question: 'Why aren\u2019t months or years included as units?',
+      answer: 'Because they don\u2019t have one fixed length, a month can be 28 to 31 days, and a year is about 365.25 days on average. Converting to or from those units meaningfully requires a specific calendar date, which is outside what a plain duration converter can do accurately.',
+    },
+    {
+      id: 'why-different-bases',
+      question: 'Why does an hour have 60 minutes but a day has 24 hours?',
+      answer: 'They come from different historical origins. The 60-based minute and hour trace back to ancient Babylonian base-60 counting; the 24-hour day traces back to ancient Egyptian timekeeping. Neither was designed to match the other cleanly.',
+    },
+    {
+      id: 'why-seconds-base-time',
+      question: 'Why is the base unit seconds instead of minutes or hours?',
+      answer: 'The second is the standard SI base unit for time, and using it here keeps every other unit\u2019s conversion factor as a single, direct multiplication, milliseconds down, minutes and hours up, without needing an intermediate conversion step.',
+    },
+  ],
+
+  'data-converter': [
+    {
+      id: 'why-drive-shows-less',
+      question: 'Why does my hard drive show less space than what\u2019s printed on the box?',
+      answer: 'Manufacturers label drives using the decimal definition (1 TB = 1,000,000,000,000 bytes), while most operating systems display capacity using binary units (1024-based). The same 1 TB drive shows as roughly 931 GiB in that binary counting, even though no storage is actually missing.',
+    },
+    {
+      id: 'which-one-to-use',
+      question: 'Which should I use, the decimal or binary units?',
+      answer: 'Match whatever the number is already being compared against. A manufacturer\u2019s spec or an internet speed figure is usually decimal (KB/MB/GB); a file size shown by an operating system\u2019s file manager is usually binary (KiB/MiB/GiB), even when it\u2019s labeled with the decimal-looking name.',
+    },
+    {
+      id: 'bits-vs-bytes',
+      question: 'Does this handle bits as well as bytes?',
+      answer: 'No, this specifically converts between byte-based units. Internet speeds are commonly quoted in bits per second (a different unit, 8 bits per byte), which is worth keeping in mind when comparing a download speed to a file size.',
+    },
+    {
+      id: 'why-binary-default',
+      question: 'Why do operating systems still use binary (1024-based) units if the "correct" IEC name is different?',
+      answer: 'Mostly historical inertia. Computers work naturally in powers of two, so early systems adopted 1024-based counting and labeled it with the familiar decimal prefixes (KB, MB) rather than the newer IEC names (KiB, MiB), which weren\u2019t standardized until 1998, long after the convention was already widespread.',
+    },
+  ],
   'hash-generator': [
     {
       id: 'which-algorithm',

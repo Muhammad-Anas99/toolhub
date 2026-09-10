@@ -1391,6 +1391,150 @@ export const toolContent = {
     privacy: BROWSER_ONLY_PRIVACY,
   },
 
+  'length-converter': {
+    about:
+      'Converts between eight common length units: millimeters, centimeters, meters, kilometers, inches, feet, yards and miles, using the exact, internationally-defined conversion factors, not rounded approximations.\n\nThe metric units here (millimeters through kilometers) are all simple powers of ten apart, which is the whole point of the metric system: no memorizing odd ratios, just moving a decimal point. The imperial units (inches, feet, yards, miles) don\u2019t share that clean relationship with each other, let alone with the metric side, which is exactly why a dedicated converter is more reliable than trying to do the math by hand. An inch is defined as exactly 0.0254 meters, and every other imperial-to-metric figure here is derived from that single, official definition.\n\nThis is the same conversion logic used in ToolHub\u2019s combined Unit Converter, on its own dedicated page for length specifically, so a bookmark or shared link always lands directly on length, without needing to select a category first.',
+    features: [
+      { title: 'Eight common units', description: 'Millimeters, centimeters, meters, kilometers, inches, feet, yards and miles.', icon: HiOutlineScale },
+      { title: 'Exact conversion factors', description: 'Every value uses the real, internationally-defined standard, not a rounded shortcut.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'One-click swap', description: 'Flip the from/to units instantly instead of resetting both manually.', icon: HiOutlineArrowsRightLeft },
+    ],
+    howToUse: ['Choose the units to convert from and to.', 'Type a value and the result updates instantly.'],
+    useCases: [
+      'Converting a distance from miles to kilometers for travel planning',
+      'Checking a measurement in centimeters against an inch-based spec',
+      'Converting a height or dimension between metric and imperial',
+      'Quickly converting a recipe or DIY measurement to a different unit',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'weight-converter': {
+    about:
+      'Converts between six common weight units, milligrams, grams, kilograms, ounces, pounds and metric tons, using the exact, standardized conversion factors.\n\nAn ounce and a pound are defined in terms of the gram, not the other way around: one avoirdupois pound is exactly 453.59237 grams, and an ounce is one-sixteenth of that. That\u2019s the official international definition, agreed on in 1959 by the US, UK and several other countries specifically to standardize these units against the metric system, which is why this tool\u2019s imperial-to-metric figures are exact values, not measured approximations.\n\nWorth a quick note on terminology: "weight" and "mass" are technically different physical concepts (weight depends on gravity, mass doesn\u2019t), but in everyday and even most commercial use, a kilogram or a pound is used to mean mass, and that\u2019s the sense this tool works in, the same way a kitchen scale or a shipping label does.\n\nA metric ton here specifically means 1,000 kilograms, distinct from the US short ton (2,000 pounds) and the UK long ton (2,240 pounds), two other, separately-defined units that happen to share the word "ton" but aren\u2019t the same size.',
+    features: [
+      { title: 'Six common units', description: 'Milligrams, grams, kilograms, ounces, pounds and metric tons.', icon: HiOutlineScale },
+      { title: 'Exact conversion factors', description: 'Based on the official 1959 international agreement defining the pound in grams.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'One-click swap', description: 'Flip the from/to units instantly instead of resetting both manually.', icon: HiOutlineArrowsRightLeft },
+    ],
+    howToUse: ['Choose the units to convert from and to.', 'Type a value and the result updates instantly.'],
+    useCases: [
+      'Converting a recipe\u2019s ingredient weight between grams and ounces',
+      'Checking a package\u2019s weight in pounds against a kilogram-based limit',
+      'Converting a body weight reading between kg and lb',
+      'Working out a shipment\u2019s weight in metric tons from a pounds figure',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'volume-converter': {
+    about:
+      'Converts between six volume units, including both US and UK gallons and fluid ounces kept as explicitly separate, correctly labeled units, since they\u2019re genuinely different sizes.\n\nA US gallon is about 3.785 liters; a UK (Imperial) gallon is about 4.546 liters, roughly 20% larger. Mixing the two up in a real recipe, fuel calculation, or product spec gives a meaningfully wrong answer, not just a rounding error, which is exactly why this tool never collapses them into one generic "gallon."\n\nThe metric side (milliliters, liters) scales in simple powers of ten, the same clean relationship as the rest of the metric system. The US customary side (fluid ounces, cups, gallons) doesn\u2019t share that pattern, and its exact relationship to the metric system is itself a matter of legal definition rather than something derivable from first principles, which is why the standardized, official values matter here.\n\nA milliliter and a cubic centimeter (cc) are, for practical purposes, exactly the same volume, just conventionally used in different fields, milliliters in everyday and medical contexts, cubic centimeters in engineering and automotive contexts, like an engine\u2019s displacement.',
+    features: [
+      { title: 'US and UK units kept separate', description: 'Gallons and fluid ounces are explicitly labeled by system, since the sizes genuinely differ.', icon: HiOutlineExclamationTriangle },
+      { title: 'Exact conversion factors', description: 'Every value uses the real, standardized definition, not a rounded shortcut.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'One-click swap', description: 'Flip the from/to units instantly instead of resetting both manually.', icon: HiOutlineArrowsRightLeft },
+    ],
+    howToUse: ['Choose the units to convert from and to.', 'Type a value and the result updates instantly.'],
+    useCases: [
+      'Converting a recipe between milliliters and US cups',
+      'Checking fuel economy figures that mix US and UK gallons',
+      'Converting a bottle or container\u2019s volume between liters and fluid ounces',
+      'Working out a US gallon figure from a UK gallon spec, or vice versa',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'temperature-converter': {
+    about:
+      'Converts between Celsius, Fahrenheit and Kelvin, the three temperature scales that actually come up in everyday and scientific use.\n\nUnlike length or weight, temperature scales don\u2019t all share a common zero point, so converting between them isn\u2019t just a matter of multiplying by a fixed factor, it involves an offset too. Celsius and Kelvin share the same size of degree but a different zero point, 0\u00b0C is exactly 273.15 K, since Kelvin is defined to start at absolute zero. Fahrenheit uses a different degree size entirely, which is why its conversion formula involves both a multiplication and an offset.\n\nOne genuinely useful reference point: -40\u00b0 is the exact temperature where Celsius and Fahrenheit read the same number, -40\u00b0C equals -40\u00b0F precisely. It\u2019s a real mathematical coincidence of the two scales\u2019 formulas, and a handy way to sanity-check that a conversion is working correctly.\n\nKelvin has no negative values at all, since it\u2019s defined to start at absolute zero, the physical limit of how cold anything can possibly get. That\u2019s why Kelvin is the standard scale in physics and chemistry: there\u2019s no ambiguity about what "zero" means, unlike Celsius\u2019s zero (water freezing) or Fahrenheit\u2019s zero (an arbitrary historical reference point).',
+    features: [
+      { title: 'Three temperature scales', description: 'Celsius, Fahrenheit and Kelvin, covering everyday and scientific use.', icon: HiOutlineScale },
+      { title: 'Correct offset math', description: 'Properly accounts for each scale\u2019s different zero point, not just a multiplication.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'One-click swap', description: 'Flip the from/to units instantly instead of resetting both manually.', icon: HiOutlineArrowsRightLeft },
+    ],
+    howToUse: ['Choose the units to convert from and to.', 'Type a value and the result updates instantly.'],
+    useCases: [
+      'Converting a weather forecast from Fahrenheit to Celsius',
+      'Checking a recipe\u2019s oven temperature in the right scale',
+      'Converting a scientific measurement to or from Kelvin',
+      'Double-checking a thermostat or lab reading in a different scale',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'area-converter': {
+    about:
+      'Converts between ten area units, from square millimeters up to square miles, including hectares and acres.\n\nArea units scale by the square of their underlying length unit, which is why the numbers involved grow so quickly. Since 1 meter is 100 centimeters, 1 square meter is 100 \u00d7 100 = 10,000 square centimeters, not just 100. That squaring effect is worth keeping in mind whenever converting between area units at very different scales, like square millimeters and square kilometers.\n\nHectares and acres are both units specifically for land area, and both come up constantly in real estate and agriculture, but they\u2019re not interchangeable: one hectare is about 2.471 acres. A hectare is a clean metric unit (exactly 10,000 square meters), while an acre\u2019s definition traces back to old English land-measurement units, which is exactly why the two don\u2019t convert to any tidy round number between them.\n\nThis converter handles two-dimensional area specifically, not three-dimensional volume. Square meters, acres, and hectares describe how much surface a shape covers; for how much a container holds, ToolHub\u2019s separate Volume Converter is the right tool instead.',
+    features: [
+      { title: 'Ten area units', description: 'From square millimeters to square miles, including hectares and acres.', icon: HiOutlineScale },
+      { title: 'Exact conversion factors', description: 'Every value uses the real, standardized definition, not a rounded shortcut.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'One-click swap', description: 'Flip the from/to units instantly instead of resetting both manually.', icon: HiOutlineArrowsRightLeft },
+    ],
+    howToUse: ['Choose the units to convert from and to.', 'Type a value and the result updates instantly.'],
+    useCases: [
+      'Converting a property\u2019s land size between acres and hectares',
+      'Checking a room or floor plan\u2019s area in square feet vs square meters',
+      'Converting a farm or field\u2019s area for an agricultural calculation',
+      'Working out square footage from a metric building spec',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'speed-converter': {
+    about:
+      'Converts between five speed units: meters per second, kilometers per hour, miles per hour, knots and feet per second.\n\nEach of these units combines a distance unit with a time unit, which is why the conversion factors look less tidy than something like length alone. A kilometer per hour is exactly 1000/3600 meters per second (1000 meters in a kilometer, divided by 3600 seconds in an hour), and miles per hour follows the same logic using the exact mile-to-meter definition.\n\nKnots specifically are used in aviation and maritime navigation, not casually, but because a nautical mile (the distance a knot is based on) is defined to correspond to one minute of latitude on the Earth\u2019s surface, which makes navigation calculations more direct for anyone plotting a course on a nautical chart. One knot is exactly 1852 meters per hour, based on the internationally standardized nautical mile.\n\nFor context on the actual numbers here: 100 km/h is about 62 mph, a common highway speed limit in metric countries. A brisk walking pace is roughly 5 km/h, and most commercial airliners cruise somewhere around 900 km/h, or roughly 485 knots.',
+    features: [
+      { title: 'Five speed units', description: 'Meters/second, km/h, mph, knots and feet/second.', icon: HiOutlineScale },
+      { title: 'Exact conversion factors', description: 'Derived from the standardized definitions of the mile and nautical mile.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'One-click swap', description: 'Flip the from/to units instantly instead of resetting both manually.', icon: HiOutlineArrowsRightLeft },
+    ],
+    howToUse: ['Choose the units to convert from and to.', 'Type a value and the result updates instantly.'],
+    useCases: [
+      'Converting a speed limit or car spec between km/h and mph',
+      'Understanding a boat or aircraft\u2019s speed in knots',
+      'Converting a scientific or physics measurement in m/s to another unit',
+      'Checking a wind speed reading given in an unfamiliar unit',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'time-converter': {
+    about:
+      'Converts between six time units, from milliseconds up to weeks.\n\nTime units are unusual among physical measurements in that they don\u2019t follow a single consistent base like 10 or 1000, seconds to minutes is a factor of 60, minutes to hours another factor of 60, hours to days a factor of 24. That\u2019s a legacy of ancient Babylonian base-60 counting for the first two, and the Earth\u2019s actual rotation period for the third, not a designed, clean system the way metric length or weight units are.\n\nFor converting an actual date or a Unix timestamp rather than a duration, ToolHub\u2019s separate Timestamp Converter is the more direct tool, since this one is specifically for converting a length of time (how long something takes or lasts), not a specific point in time.\n\nMonths and years are deliberately left out of this converter, since neither has one fixed length, a month runs 28 to 31 days, and a year averages about 365.25 days (accounting for leap years) rather than a clean 365. Converting to or from those units meaningfully requires an actual calendar date, not just a fixed ratio, which is outside what a plain duration converter can do accurately.',
+    features: [
+      { title: 'Six time units', description: 'Milliseconds, seconds, minutes, hours, days and weeks.', icon: HiOutlineScale },
+      { title: 'Handles mixed bases correctly', description: 'Correctly converts through time\u2019s inconsistent 60/24/7 relationships.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'One-click swap', description: 'Flip the from/to units instantly instead of resetting both manually.', icon: HiOutlineArrowsRightLeft },
+    ],
+    howToUse: ['Choose the units to convert from and to.', 'Type a value and the result updates instantly.'],
+    useCases: [
+      'Converting a duration in minutes to hours for a schedule',
+      'Working out how many days a given number of hours amounts to',
+      'Converting a video or audio length between seconds and minutes',
+      'Checking a project timeline given in weeks against a daily estimate',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'data-converter': {
+    about:
+      'Converts between data storage units, both the decimal (SI, 1000-based) family, kilobytes through terabytes, and the binary (IEC, 1024-based) family, kibibytes through tebibytes, kept explicitly separate.\n\nThis is a genuinely common source of confusion worth explaining directly: a "kilobyte" has historically meant two different things. Storage manufacturers and the formal SI standard define it as exactly 1000 bytes, while operating systems and file managers have traditionally used 1024 bytes (since computers work naturally in powers of two). That\u2019s the real reason a drive labeled "1 TB" often shows up as roughly 931 GB in an operating system, both numbers are correct, they\u2019re just using different definitions of the unit.\n\nTo remove that ambiguity, this tool uses the proper IEC binary prefixes (KiB, MiB, GiB, TiB) specifically for the 1024-based values, and the standard SI prefixes (KB, MB, GB, TB) for the 1000-based ones, so a conversion here always means exactly what it says, with nothing left to guess at.\n\nInternet connection speeds add one more layer worth knowing: they\u2019re typically quoted in bits per second, not bytes, and there are 8 bits in a byte. A "100 Mbps" connection tops out around 12.5 megabytes per second in practice, a genuinely common point of confusion when comparing a quoted internet speed to an actual file download size.',
+    features: [
+      { title: 'Decimal and binary, clearly separated', description: 'KB/MB/GB/TB (1000-based) and KiB/MiB/GiB/TiB (1024-based) as distinct, correctly labeled units.', icon: HiOutlineExclamationTriangle },
+      { title: 'Explains the "missing" storage', description: 'The reason a drive shows less space than advertised is a genuine unit difference, not an error.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'One-click swap', description: 'Flip the from/to units instantly instead of resetting both manually.', icon: HiOutlineArrowsRightLeft },
+    ],
+    howToUse: ['Choose the units to convert from and to.', 'Type a value and the result updates instantly.'],
+    useCases: [
+      'Understanding why a drive shows less capacity than its advertised size',
+      'Converting a file size between MB and GB for an upload limit',
+      'Working out how many GB a given number of MB amounts to',
+      'Converting between decimal and binary storage units precisely',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
   'hash-generator': {
     about:
       'Produces MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes from text. SHA hashes use your browser\u2019s native Web Crypto API, and MD5 (not included in Web Crypto since it\u2019s cryptographically broken for security purposes) uses a standard, verified implementation for file-checksum and compatibility use cases.\n\nA hash function takes input of any length and produces a fixed-length output, called a hash or digest. The same input always produces the same hash, and even a tiny, single-character change in the input produces a completely different result. That property makes hashes useful for verifying that a piece of text or a file hasn\u2019t been altered, without needing to compare the full content directly.\n\nMD5 and SHA-1 are both considered cryptographically broken: collisions (two different inputs producing the same hash) can be computed quickly with modern hardware, which makes them unsuitable for anything security-sensitive. They\u2019re still commonly used for non-security purposes like file checksums, cache keys, and deduplication, where the risk of a deliberate, malicious collision doesn\u2019t apply. SHA-256 is the current practical standard for real security-relevant work. It\u2019s what software projects typically publish alongside a download so users can verify the file wasn\u2019t corrupted or tampered with, and it\u2019s a building block in TLS, Git\u2019s newer object format, and Bitcoin\u2019s proof-of-work.\n\nOne important distinction worth being explicit about: none of these algorithms should be used to store passwords, even SHA-512. They\u2019re deliberately fast to compute, which is exactly what makes them weak for password storage. An attacker with a list of leaked hashes can try billions of guesses per second against a fast hash. Password storage needs a deliberately slow algorithm designed for that purpose, like bcrypt, scrypt, or Argon2, not a general-purpose hash function.',

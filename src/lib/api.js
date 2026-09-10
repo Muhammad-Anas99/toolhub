@@ -199,7 +199,7 @@ export const api = {
   adminUpdateSettings: (data) => authorizedRequest('/settings', { method: 'PUT', body: JSON.stringify(data) }),
 
   // --- Admin: analytics --------------------------------------------------------------
-  adminGetAnalyticsOverview: () => authorizedRequest('/analytics/overview'),
+  adminGetAnalyticsOverview: (range = '30d') => authorizedRequest(`/analytics/overview${toQuery({ range })}`),
   adminGetToolsUsage: (direction = 'desc') => authorizedRequest(`/analytics/tools-usage${toQuery({ direction })}`),
 
   // --- Uploads (admin) -----------------------------------------------------------------

@@ -95,9 +95,9 @@ export default function AdminBlogEditor() {
         Back to posts
       </Link>
 
-      <h2 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">
+      <h1 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">
         {isEditing ? `Edit "${post.title}"` : 'New Post'}
-      </h2>
+      </h1>
 
       {error && <ErrorMessage message={error} onDismiss={() => setError(null)} />}
 

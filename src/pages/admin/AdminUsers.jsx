@@ -33,7 +33,7 @@ export default function AdminUsers() {
       <SEO title="Admin — Users" description="Manage ToolHub users." canonicalPath="/admin/users" noIndex />
 
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Users</h2>
+        <h1 className="text-lg font-semibold text-slate-900 dark:text-white">Users</h1>
         <form onSubmit={handleSearchSubmit} className="relative">
           <HiOutlineMagnifyingGlass className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <input
