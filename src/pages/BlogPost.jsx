@@ -9,6 +9,7 @@ import ErrorMessage from '../components/tools/ErrorMessage.jsx'
 import { api } from '../lib/api.js'
 import { parseBlogContent } from '../lib/blogContentParser.js'
 import LikeDislikeButtons from '../components/blog/LikeDislikeButtons.jsx'
+import CommentSection from '../components/blog/CommentSection.jsx'
 import { tools } from '../data/tools.js'
 import { categories } from '../data/categories.js'
 
@@ -171,6 +172,8 @@ export default function BlogPost() {
               </div>
             </div>
           )}
+
+          <CommentSection slug={post.slug} />
 
           <Link
             to="/blog"

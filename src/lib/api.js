@@ -115,6 +115,10 @@ export const api = {
   getBlogPosts: (params = {}) => request(`/blog${toQuery(params)}`),
   getBlogPost: (slug) => request(`/blog/${slug}`),
   reactToBlogPost: (slug, payload) => request(`/blog/${slug}/react`, { method: 'POST', body: JSON.stringify(payload) }),
+  getComments: (slug) => request(`/blog/${slug}/comments`),
+  createComment: (slug, content) => authorizedRequest(`/blog/${slug}/comments`, { method: 'POST', body: JSON.stringify({ content }) }),
+  updateComment: (commentId, content) => authorizedRequest(`/comments/${commentId}`, { method: 'PUT', body: JSON.stringify({ content }) }),
+  deleteComment: (commentId) => authorizedRequest(`/comments/${commentId}`, { method: 'DELETE' }),
   getBlogPostBySlug: (slug) => request(`/blog/${slug}`),
 
   getSettings: () => request('/settings'),
