@@ -11,15 +11,14 @@ export default function UserMenu() {
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef(null)
 
-  // Closes the menu on ANY route change — not just the specific links
-  // inside it (which already close it individually via their own
-  // onClick). The navbar never unmounts during client-side navigation,
-  // so without this, the menu's open state could persist onto whatever
-  // page you land on next, regardless of what actually triggered the
-  // navigation (another navbar link, browser back/forward, etc.).
+  // Closes the menu on ANY navigation - not just a changed pathname,
+  // but also a changed query string (like switching categories on
+  // /tools?category=X, which keeps the same pathname). location.key
+  // changes on every history entry React Router creates, which
+  // location.pathname alone does not catch.
   useEffect(() => {
     setIsOpen(false)
-  }, [location.pathname])
+  }, [location.key])
 
   useEffect(() => {
     if (!isOpen) return

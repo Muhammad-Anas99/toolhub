@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/layout/Layout.jsx'
+import ScrollToTop from './components/layout/ScrollToTop.jsx'
 import PageLoader from './components/ui/PageLoader.jsx'
 import ProtectedRoute from './components/auth/ProtectedRoute.jsx'
 import DashboardLayout from './components/dashboard/DashboardLayout.jsx'
@@ -127,11 +128,13 @@ const Subscription = lazy(() => import('./pages/dashboard/Subscription.jsx'))
 
 export default function App() {
   return (
-    <Suspense fallback={<PageLoader />}>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/tools" element={<Tools />} />
+    <>
+      <ScrollToTop />
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/tools" element={<Tools />} />
 
           {/* Image tools */}
           <Route path="/tools/jpg-to-png" element={<JpgToPng />} />
@@ -267,5 +270,6 @@ export default function App() {
         </Route>
       </Routes>
     </Suspense>
+    </>
   )
 }
