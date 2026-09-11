@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { HiOutlineCalendar, HiOutlineClock } from 'react-icons/hi2'
+import LikeDislikeButtons from '../blog/LikeDislikeButtons.jsx'
 
 function formatDate(dateString) {
   return new Date(dateString).toLocaleDateString('en-US', {
@@ -43,6 +44,9 @@ export default function BlogCard({ post }) {
               {post.readTime}
             </span>
           </div>
+          <div className="mt-3">
+            <LikeDislikeButtons slug={post.slug} initialLikes={post.likes} initialDislikes={post.dislikes} size="sm" />
+          </div>
         </div>
       </Link>
     </motion.div>
@@ -57,5 +61,7 @@ BlogCard.propTypes = {
     category: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
     readTime: PropTypes.string.isRequired,
+    likes: PropTypes.number,
+    dislikes: PropTypes.number,
   }).isRequired,
 }

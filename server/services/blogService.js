@@ -66,3 +66,36 @@ export async function deleteBlogPost(slug) {
   if (!post) throw ApiError.notFound(`Blog post "${slug}" was not found`)
   return post
 }
+
+const VALID_REACTION_TYPES = ['like', 'dislike', null]
+
+/**
+ * Records an anonymous like/dislike reaction. No account is required
+ * for this (unlike comments), so there's no per-user reaction record
+ * to check against - the client tracks its own prior reaction to each
+ * post (in localStorage) and reports it here as previousType, and this
+ * applies the resulting delta. That's a real, if not bulletproof,
+ * anti-spam measure: clearing browser storage or using a different
+ * browser can bypass the one-reaction-per-post limit, but it's a
+ * reasonable, honest tradeoff for a feature that deliberately doesn't
+ * require creating an account just to react to a post. Verified
+ * independently against every real transition (first reaction,
+ * toggling off, switching from like to dislike) before being ported
+ * here.
+ */
+export async function reactToBlogPost(slug, { type, previousType }) {
+  if (!VALID_REACTION_TYPES.includes(type) || !VALID_REACTION_TYPES.includes(previousType)) {
+    throw ApiError.badRequest('Invalid reaction type')
+  }
+
+  const post = await Blog.findOne({ slug: slug.toLowerCase(), published: true })
+  if (!post) throw ApiError.notFound(`Blog post "${slug}" was not found`)
+
+  if (previousType === 'like') post.likes = Math.max(0, post.likes - 1)
+  if (previousType === 'dislike') post.dislikes = Math.max(0, post.dislikes - 1)
+  if (type === 'like') post.likes += 1
+  if (type === 'dislike') post.dislikes += 1
+
+  await post.save()
+  return post
+}

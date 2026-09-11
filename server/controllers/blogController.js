@@ -42,3 +42,12 @@ export const deleteBlogPost = asyncHandler(async (req, res) => {
   await blogService.deleteBlogPost(req.params.slug)
   sendSuccess(res, { message: 'Blog post deleted' })
 })
+
+// Public, no account required - the client reports its own previously
+// recorded reaction (tracked in localStorage) alongside the new one, so
+// switching or undoing a reaction adjusts the counts correctly.
+export const reactToBlogPost = asyncHandler(async (req, res) => {
+  const { type, previousType } = req.body
+  const post = await blogService.reactToBlogPost(req.params.slug, { type: type ?? null, previousType: previousType ?? null })
+  sendSuccess(res, { data: { likes: post.likes, dislikes: post.dislikes } })
+})

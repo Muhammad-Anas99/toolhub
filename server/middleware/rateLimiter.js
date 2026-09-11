@@ -70,3 +70,22 @@ export const urlShortenerRateLimiter = rateLimit({
     message: 'Too many links created. Please try again in a little while.',
   },
 })
+
+/**
+ * Applied to the blog like/dislike endpoint — public and unauthenticated
+ * (no account required to react, unlike comments), so an IP-based limit
+ * is the only real backstop against a script rapidly inflating or
+ * deflating a post's counts. Generous enough that someone genuinely
+ * reading through several posts in one sitting and reacting to each
+ * won't hit it.
+ */
+export const blogReactionRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many reactions sent. Please try again in a little while.',
+  },
+})

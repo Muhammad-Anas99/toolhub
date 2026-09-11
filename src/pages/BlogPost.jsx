@@ -8,6 +8,7 @@ import Breadcrumb from '../components/tools/Breadcrumb.jsx'
 import ErrorMessage from '../components/tools/ErrorMessage.jsx'
 import { api } from '../lib/api.js'
 import { parseBlogContent } from '../lib/blogContentParser.js'
+import LikeDislikeButtons from '../components/blog/LikeDislikeButtons.jsx'
 import { tools } from '../data/tools.js'
 import { categories } from '../data/categories.js'
 
@@ -119,6 +120,10 @@ export default function BlogPost() {
               {post.readTime}
             </span>
             <span>{post.author}</span>
+          </div>
+
+          <div className="mt-4">
+            <LikeDislikeButtons slug={post.slug} initialLikes={post.likes} initialDislikes={post.dislikes} />
           </div>
 
           {post.image && (

@@ -3,6 +3,7 @@ import * as blogController from '../controllers/blogController.js'
 import { createBlogValidator, updateBlogValidator } from '../middleware/validators/blogValidator.js'
 import { handleValidationErrors } from '../middleware/validate.js'
 import { protect, authorize } from '../middleware/auth.js'
+import { blogReactionRateLimiter } from '../middleware/rateLimiter.js'
 
 const router = Router()
 
@@ -13,6 +14,8 @@ router.get('/admin/:slug', protect, authorize('admin'), blogController.getBlogPo
 
 router.get('/', blogController.getBlogPosts)
 router.get('/:slug', blogController.getBlogPost)
+
+router.post('/:slug/react', blogReactionRateLimiter, blogController.reactToBlogPost)
 
 router.post('/', protect, authorize('admin'), createBlogValidator, handleValidationErrors, blogController.createBlogPost)
 router.put('/:slug', protect, authorize('admin'), updateBlogValidator, handleValidationErrors, blogController.updateBlogPost)

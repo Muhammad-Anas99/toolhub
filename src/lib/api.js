@@ -114,6 +114,7 @@ export const api = {
 
   getBlogPosts: (params = {}) => request(`/blog${toQuery(params)}`),
   getBlogPost: (slug) => request(`/blog/${slug}`),
+  reactToBlogPost: (slug, payload) => request(`/blog/${slug}/react`, { method: 'POST', body: JSON.stringify(payload) }),
   getBlogPostBySlug: (slug) => request(`/blog/${slug}`),
 
   getSettings: () => request('/settings'),
