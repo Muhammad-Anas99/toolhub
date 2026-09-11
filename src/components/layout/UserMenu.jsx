@@ -56,13 +56,19 @@ export default function UserMenu() {
         onClick={() => setIsOpen((prev) => !prev)}
         aria-expanded={isOpen}
         aria-label="Account menu"
-        className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-brand-100 text-sm font-semibold text-brand-700 dark:bg-brand-900 dark:text-brand-300"
+        className="flex items-center gap-2.5 rounded-full py-1 pl-1 pr-1 transition-colors md:rounded-2xl md:bg-slate-50 md:pr-3.5 md:hover:bg-slate-100 md:dark:bg-slate-800/60 md:dark:hover:bg-slate-800"
       >
-        {user?.avatar ? (
-          <img src={user.avatar} alt="" className="h-full w-full object-cover" />
-        ) : (
-          initials
-        )}
+        <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-brand-100 text-sm font-semibold text-brand-700 dark:bg-brand-900 dark:text-brand-300">
+          {user?.avatar ? <img src={user.avatar} alt="" className="h-full w-full object-cover" /> : initials}
+        </span>
+        <span className="hidden min-w-0 flex-col items-start text-left md:flex">
+          <span className="max-w-[9rem] truncate text-sm font-semibold leading-tight text-slate-900 dark:text-white">
+            {user?.name}
+          </span>
+          <span className="max-w-[9rem] truncate text-xs leading-tight text-slate-500 dark:text-slate-400">
+            {user?.email}
+          </span>
+        </span>
       </button>
 
       <AnimatePresence>
@@ -74,13 +80,13 @@ export default function UserMenu() {
             transition={{ duration: 0.15 }}
             className="absolute right-0 top-full z-40 mt-3 w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl dark:border-slate-800 dark:bg-slate-900"
           >
-            <div className="rounded-xl bg-slate-50 px-3 py-2.5 dark:bg-slate-800/60">
+            <div className="rounded-xl bg-slate-50 px-3 py-2.5 dark:bg-slate-800/60 md:hidden">
               <p className="truncate text-sm font-semibold text-slate-900 dark:text-white">
                 {user?.name}
               </p>
               <p className="truncate text-xs text-slate-500 dark:text-slate-400">{user?.email}</p>
             </div>
-            <div className="my-1 border-t border-slate-100 dark:border-slate-800" />
+            <div className="my-1 border-t border-slate-100 dark:border-slate-800 md:hidden" />
 
             <Link
               to="/dashboard"

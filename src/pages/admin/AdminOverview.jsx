@@ -25,10 +25,30 @@ import { getToolBySlug } from '../../data/tools.js'
 import { getCountryName, getCountryFlagEmoji } from '../../lib/countryUtils.js'
 
 const ACCENTS = {
-  brand: { bg: 'bg-brand-50 dark:bg-brand-950', text: 'text-brand-600 dark:text-brand-400', stroke: 'stroke-brand-500 text-brand-500' },
-  violet: { bg: 'bg-violet-50 dark:bg-violet-950', text: 'text-violet-600 dark:text-violet-400', stroke: 'stroke-violet-500 text-violet-500' },
-  amber: { bg: 'bg-amber-50 dark:bg-amber-950', text: 'text-amber-600 dark:text-amber-400', stroke: 'stroke-amber-500 text-amber-500' },
-  emerald: { bg: 'bg-emerald-50 dark:bg-emerald-950', text: 'text-emerald-600 dark:text-emerald-400', stroke: 'stroke-emerald-500 text-emerald-500' },
+  brand: {
+    cardBg: 'bg-brand-50/70 dark:bg-brand-950/40',
+    border: 'border-brand-100 dark:border-brand-900',
+    iconBg: 'bg-white text-brand-600 dark:bg-slate-900 dark:text-brand-400',
+    stroke: 'stroke-brand-500 text-brand-500',
+  },
+  violet: {
+    cardBg: 'bg-violet-50/70 dark:bg-violet-950/40',
+    border: 'border-violet-100 dark:border-violet-900',
+    iconBg: 'bg-white text-violet-600 dark:bg-slate-900 dark:text-violet-400',
+    stroke: 'stroke-violet-500 text-violet-500',
+  },
+  amber: {
+    cardBg: 'bg-amber-50/70 dark:bg-amber-950/40',
+    border: 'border-amber-100 dark:border-amber-900',
+    iconBg: 'bg-white text-amber-600 dark:bg-slate-900 dark:text-amber-400',
+    stroke: 'stroke-amber-500 text-amber-500',
+  },
+  emerald: {
+    cardBg: 'bg-emerald-50/70 dark:bg-emerald-950/40',
+    border: 'border-emerald-100 dark:border-emerald-900',
+    iconBg: 'bg-white text-emerald-600 dark:bg-slate-900 dark:text-emerald-400',
+    stroke: 'stroke-emerald-500 text-emerald-500',
+  },
 }
 
 const RANGE_LABELS = {
@@ -37,14 +57,15 @@ const RANGE_LABELS = {
   '30d': 'the last 30 days',
   '90d': 'the last 90 days',
   '1y': 'the last year',
+  lifetime: 'all time',
 }
 
 function KpiCard({ label, value, icon: Icon, sublabel, accent, trend, sparklinePoints }) {
   const colors = ACCENTS[accent]
   return (
-    <article className="card p-5">
+    <article className={`rounded-2xl border p-5 shadow-sm ${colors.cardBg} ${colors.border}`}>
       <div className="flex items-start justify-between">
-        <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl ${colors.bg} ${colors.text}`}>
+        <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl shadow-sm ${colors.iconBg}`}>
           <Icon className="h-5 w-5" />
         </div>
         {trend !== undefined && trend !== null && <TrendBadge percentChange={trend} />}
@@ -92,7 +113,9 @@ export default function AdminOverview() {
     i % labelEvery === 0 || i === data.dailyActivity.length - 1
       ? range === 'today'
         ? d.date
-        : new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+        : range === 'lifetime'
+          ? new Date(d.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+          : new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
       : ''
   )
 
@@ -187,7 +210,11 @@ export default function AdminOverview() {
                 </div>
                 <TrendBadge percentChange={data.activityTrend?.percentChange} />
               </div>
-              <div className="mt-4">
+              <p className="mt-4 text-3xl font-bold text-slate-900 dark:text-white">
+                {data.activityTrend?.current ?? '\u2014'}
+                <span className="ml-2 text-sm font-normal text-slate-400 dark:text-slate-500">total conversions</span>
+              </p>
+              <div className="mt-3">
                 <ActivityChart points={dailyPoints} labels={dayLabels} />
               </div>
             </article>
@@ -195,7 +222,7 @@ export default function AdminOverview() {
             <article className="card p-5">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <HiOutlineWrenchScrewdriver className="h-4 w-4 text-slate-400" />
+                  <HiOutlineWrenchScrewdriver className="h-4 w-4 text-brand-500" />
                   <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Most-used Tools</h2>
                 </div>
                 <a href="/admin/tools" className="text-xs font-medium text-brand-600 hover:underline dark:text-brand-400">
@@ -240,7 +267,7 @@ export default function AdminOverview() {
           <section aria-label="Categories, countries and devices" className="grid grid-cols-1 gap-5 lg:grid-cols-3">
             <article className="card p-5">
               <div className="flex items-center gap-2">
-                <HiOutlineSwatch className="h-4 w-4 text-slate-400" />
+                <HiOutlineSwatch className="h-4 w-4 text-brand-500" />
                 <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Most-used Categories</h2>
               </div>
               {categorySegments && categorySegments.length > 0 ? (
@@ -254,7 +281,7 @@ export default function AdminOverview() {
 
             <article className="card p-5">
               <div className="flex items-center gap-2">
-                <HiOutlineGlobeAmericas className="h-4 w-4 text-slate-400" />
+                <HiOutlineGlobeAmericas className="h-4 w-4 text-brand-500" />
                 <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Top Countries</h2>
               </div>
               {data.countries?.length > 0 ? (
@@ -284,7 +311,7 @@ export default function AdminOverview() {
 
             <article className="card p-5">
               <div className="flex items-center gap-2">
-                <HiOutlineDevicePhoneMobile className="h-4 w-4 text-slate-400" />
+                <HiOutlineDevicePhoneMobile className="h-4 w-4 text-brand-500" />
                 <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Devices</h2>
               </div>
               {devicesWithPercent.length > 0 ? (

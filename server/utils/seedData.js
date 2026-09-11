@@ -81,6 +81,14 @@ export const categorySeed = [
     color: 'cyan',
     order: 9,
   },
+  {
+    name: 'Unit Converters',
+    slug: 'unit-converters',
+    description: 'Convert length, weight, volume, temperature and more.',
+    icon: 'HiOutlineCalculator',
+    color: 'teal',
+    order: 10,
+  },
 ]
 
 export const toolSeed = [

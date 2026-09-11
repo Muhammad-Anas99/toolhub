@@ -8,6 +8,7 @@ import {
   HiOutlineShieldCheck,
   HiOutlineShare,
   HiOutlineMusicalNote,
+  HiOutlineCalculator,
 } from 'react-icons/hi2'
 import {
   FaFileImage,
@@ -70,6 +71,7 @@ export const iconRegistry = {
   HiOutlineShieldCheck,
   HiOutlineShare,
   HiOutlineMusicalNote,
+  HiOutlineCalculator,
 
   // Tool icons (Font Awesome 6)
   FaFileImage,

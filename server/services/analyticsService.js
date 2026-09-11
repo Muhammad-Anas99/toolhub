@@ -83,9 +83,44 @@ async function getWeeklyActivity(weeks) {
  */
 async function getActivityForRange(range) {
   if (range === 'today') return getHourlyActivityToday()
+  if (range === 'lifetime') return getLifetimeActivity()
   if (range === '1y') return getWeeklyActivity(52)
   const days = RANGE_DAYS[range] || 30
   return getDailyActivity(days)
+}
+
+/**
+ * Real per-month conversion counts from the earliest logged conversion
+ * to now - used for the 'lifetime' range, where the actual span is
+ * unknown and could be anywhere from days to years, so monthly is the
+ * one bucket size that stays reasonable regardless. Falls back to an
+ * empty chart (handled gracefully by the frontend, not fabricated)
+ * when there's no data at all yet.
+ */
+async function getLifetimeActivity() {
+  const earliest = await ConversionHistory.findOne().sort({ createdAt: 1 }).select('createdAt')
+  if (!earliest) return []
+
+  const rows = await ConversionHistory.aggregate([
+    {
+      $group: {
+        _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { _id: 1 } },
+  ])
+  const countByMonth = Object.fromEntries(rows.map((row) => [row._id, row.count]))
+
+  const result = []
+  const cursor = new Date(earliest.createdAt.getFullYear(), earliest.createdAt.getMonth(), 1)
+  const now = new Date()
+  while (cursor <= now) {
+    const key = `${cursor.getFullYear()}-${String(cursor.getMonth() + 1).padStart(2, '0')}`
+    result.push({ date: key, count: countByMonth[key] || 0 })
+    cursor.setMonth(cursor.getMonth() + 1)
+  }
+  return result
 }
 
 /**
@@ -108,6 +143,13 @@ async function getActivityTrendForRange(range) {
       }),
     ])
     return { current: today, previous: yesterdaySoFar, percentChange: percentChange(today, yesterdaySoFar) }
+  }
+
+  if (range === 'lifetime') {
+    const current = await ConversionHistory.countDocuments()
+    // No genuine "previous period" exists for all of time, so this is
+    // reported honestly as no comparison rather than a fabricated one.
+    return { current, previous: null, percentChange: null }
   }
 
   const days = range === '1y' ? 365 : RANGE_DAYS[range] || 30
@@ -334,7 +376,7 @@ export async function getPublicStats() {
   return { topTools, totalConversions, totalUsers }
 }
 
-const VALID_RANGES = ['today', '7d', '30d', '90d', '1y']
+const VALID_RANGES = ['today', '7d', '30d', '90d', '1y', 'lifetime']
 
 export async function getDashboardOverview(range = '30d') {
   const safeRange = VALID_RANGES.includes(range) ? range : '30d'

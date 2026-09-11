@@ -8,6 +8,7 @@ const RANGE_OPTIONS = [
   { value: '30d', label: 'Last 30 days' },
   { value: '90d', label: 'Last 90 days' },
   { value: '1y', label: 'Last year' },
+  { value: 'lifetime', label: 'Lifetime' },
 ]
 
 export default function DateRangeSelector({ value, onChange }) {
