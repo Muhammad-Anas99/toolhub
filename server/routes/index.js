@@ -2,6 +2,7 @@ import { Router } from 'express'
 import toolRoutes from './toolRoutes.js'
 import categoryRoutes from './categoryRoutes.js'
 import blogRoutes from './blogRoutes.js'
+import commentRoutes from './commentRoutes.js'
 import settingsRoutes from './settingsRoutes.js'
 import uploadRoutes from './uploadRoutes.js'
 import authRoutes from './authRoutes.js'
@@ -31,6 +32,7 @@ router.use('/shorten', urlShortenerRoutes)
 router.use('/tools', toolRoutes)
 router.use('/categories', categoryRoutes)
 router.use('/blog', blogRoutes)
+router.use('/comments', commentRoutes)
 router.use('/settings', settingsRoutes)
 router.use('/uploads', uploadRoutes)
 
