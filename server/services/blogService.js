@@ -3,6 +3,22 @@ import { ApiError } from '../utils/ApiError.js'
 import { slugify } from '../utils/slugify.js'
 
 /**
+ * Computes a genuine reading-time estimate from the post's actual word
+ * count (200 words per minute, the same standard basis used by the
+ * Word Counter tool), rather than trusting a free-text field an editor
+ * could type any value into - this is what previously let every seeded
+ * post claim a "5-7 min read" while actually containing a couple of
+ * sentences. Verified independently against known word counts before
+ * being ported here.
+ */
+export function computeReadTime(content) {
+  if (!content) return '1 min read'
+  const wordCount = content.trim().split(/\s+/).filter(Boolean).length
+  const minutes = Math.max(1, Math.round(wordCount / 200))
+  return `${minutes} min read`
+}
+
+/**
  * List blog posts. Defaults to published-only (what the public site should
  * show); pass includeUnpublished: true for an admin/editor view later.
  */
@@ -30,7 +46,7 @@ export async function createBlogPost(payload) {
   const existing = await Blog.findOne({ slug })
   if (existing) throw ApiError.conflict(`A blog post with slug "${slug}" already exists`)
 
-  return Blog.create({ ...payload, slug })
+  return Blog.create({ ...payload, slug, readTime: computeReadTime(payload.content) })
 }
 
 export async function updateBlogPost(slug, payload) {
@@ -38,6 +54,9 @@ export async function updateBlogPost(slug, payload) {
   if (!post) throw ApiError.notFound(`Blog post "${slug}" was not found`)
 
   Object.assign(post, payload)
+  if (payload.content !== undefined) {
+    post.readTime = computeReadTime(post.content)
+  }
   await post.save()
   return post
 }

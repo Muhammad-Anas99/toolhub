@@ -195,17 +195,10 @@ export default function AdminBlogEditor() {
             />
           </div>
           <div>
-            <label htmlFor="blog-readtime" className="text-sm font-medium text-slate-700 dark:text-slate-300">
-              Read time
-            </label>
-            <input
-              id="blog-readtime"
-              type="text"
-              placeholder="5 min read"
-              value={post.readTime}
-              onChange={(event) => updateField('readTime', event.target.value)}
-              className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
-            />
+            <p className="text-sm font-medium text-slate-700 dark:text-slate-300">Read time</p>
+            <p className="mt-1.5 flex h-[42px] items-center text-sm text-slate-400 dark:text-slate-500">
+              Calculated automatically from your content{post.readTime ? ` (currently ${post.readTime})` : ''}
+            </p>
           </div>
         </div>
 

@@ -7,6 +7,7 @@ import SEO, { SITE_URL } from '../components/ui/SEO.jsx'
 import Breadcrumb from '../components/tools/Breadcrumb.jsx'
 import ErrorMessage from '../components/tools/ErrorMessage.jsx'
 import { api } from '../lib/api.js'
+import { parseBlogContent } from '../lib/blogContentParser.js'
 import { tools } from '../data/tools.js'
 import { categories } from '../data/categories.js'
 
@@ -125,7 +126,25 @@ export default function BlogPost() {
           )}
 
           <div className="prose prose-slate mt-8 max-w-none dark:prose-invert">
-            <p className="leading-relaxed text-slate-600 dark:text-slate-300">{post.content}</p>
+            {parseBlogContent(post.content).map((block) =>
+              block.type === 'heading' ? (
+                <h2 key={block.key} className="text-xl font-bold text-slate-900 dark:text-white">
+                  {block.text}
+                </h2>
+              ) : (
+                <p key={block.key} className="leading-relaxed text-slate-600 dark:text-slate-300">
+                  {block.segments.map((segment) =>
+                    segment.type === 'bold' ? (
+                      <strong key={segment.key} className="font-semibold text-slate-800 dark:text-slate-100">
+                        {segment.text}
+                      </strong>
+                    ) : (
+                      <React.Fragment key={segment.key}>{segment.text}</React.Fragment>
+                    )
+                  )}
+                </p>
+              )
+            )}
           </div>
 
           {relatedTools.length > 0 && (
