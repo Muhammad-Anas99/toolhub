@@ -2195,18 +2195,49 @@ export const toolFaqs = {
     },
   ],
 
-  'ai-image-upscaler': [
+  'image-upscaler': [
     {
-      id: 'when-available',
-      question: 'When will this be available?',
-      answer: 'This tool is prepared but not yet connected to an AI processing service. There\u2019s no fixed date \u2014 check back, or explore ToolHub\u2019s other working image tools in the meantime.',
+      id: 'is-this-ai',
+      question: 'Does this use AI to upscale images?',
+      answer: 'No. This uses high-quality interpolation combined with sharpening, both real, classical image-processing techniques, not a trained AI model. It\u2019s labeled that way on purpose.',
+    },
+    {
+      id: 'can-it-add-detail',
+      question: 'Can this add detail that wasn\u2019t in the original photo?',
+      answer: 'No genuine upscaling technique, AI included, can perfectly reconstruct detail that was never captured. This tool makes a larger image look as clean and sharp as reasonably possible at the new size, it doesn\u2019t invent new information.',
+    },
+    {
+      id: 'best-scale',
+      question: 'What scale factor should I use?',
+      answer: '2x gives the cleanest result with the least visible softness. Going to 3x or 4x enlarges further but makes any softening or artifacts in the original more noticeable, since there\u2019s proportionally more image to estimate.',
+    },
+    {
+      id: 'why-png-output-upscale',
+      question: 'Why does this only output PNG?',
+      answer: 'PNG is lossless, so the upscaled result isn\u2019t immediately degraded by a second round of compression on top of the enlargement itself.',
     },
   ],
-  'ai-image-enhancer': [
+
+  'image-enhancer': [
     {
-      id: 'when-available',
-      question: 'When will this be available?',
-      answer: 'This tool is prepared but not yet connected to an AI processing service. There\u2019s no fixed date \u2014 check back, or explore ToolHub\u2019s other working image tools in the meantime.',
+      id: 'is-this-ai-enhancer',
+      question: 'Does this use AI?',
+      answer: 'No. Sharpening uses a real technique called unsharp masking, and noise reduction uses a real Gaussian blur, both classical, well-established image-processing methods, not a trained AI model.',
+    },
+    {
+      id: 'denoise-tradeoff',
+      question: 'Why does increasing noise reduction make my photo look softer?',
+      answer: 'Because reducing noise and preserving fine detail genuinely pull in opposite directions, noise and fine detail look similar to a simple filter. Start with a low denoise value and increase it only as much as the photo actually needs.',
+    },
+    {
+      id: 'sharpen-too-much',
+      question: 'Why does my image look like it has outlines or halos around edges at high sharpen values?',
+      answer: 'That\u2019s a real, expected effect of unsharp-mask sharpening at strong settings, not a bug. Lowering the sharpen amount reduces it.',
+    },
+    {
+      id: 'order-of-operations-enhance',
+      question: 'Does it matter whether I apply denoise or sharpen first?',
+      answer: 'This tool denoises first, then sharpens, since sharpening a noisy image tends to amplify the noise itself along with real detail. Denoising first gives the sharpening step cleaner information to work with.',
     },
   ],
 }

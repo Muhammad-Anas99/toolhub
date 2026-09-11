@@ -42,14 +42,6 @@ export const categorySeed = [
     order: 4,
   },
   {
-    name: 'AI Tools',
-    slug: 'ai-tools',
-    description: 'AI-powered background removal, upscaling and more.',
-    icon: 'HiOutlineSparkles',
-    color: 'fuchsia',
-    order: 5,
-  },
-  {
     name: 'Color Tools',
     slug: 'color-tools',
     description: 'Pick colors, build palettes and generate gradients.',
@@ -176,8 +168,8 @@ export const toolSeed = [
   { name: 'Lorem Ipsum Generator', slug: 'lorem-ipsum-generator', path: '/tools/lorem-ipsum-generator', category: 'text-tools', description: 'Generate placeholder text for mockups and designs, by words, sentences or paragraphs.', icon: 'FaFont', comingSoon: false },
 
   // ---------- AI Tools ----------
-  { name: 'AI Image Upscaler', slug: 'ai-image-upscaler', path: '/tools/ai-image-upscaler', category: 'ai-tools', description: 'Upscale images to higher resolution with AI.', icon: 'FaImages', badge: 'new', comingSoon: true },
-  { name: 'AI Image Enhancer', slug: 'ai-image-enhancer', path: '/tools/ai-image-enhancer', category: 'ai-tools', description: 'Automatically sharpen, denoise and improve photo quality using AI.', icon: 'FaWandMagicSparkles', comingSoon: true },
+  { name: 'Image Upscaler', slug: 'image-upscaler', path: '/tools/image-upscaler', category: 'image-tools', description: 'Enlarge an image 2-4x using high-quality interpolation and sharpening.', icon: 'FaImages', badge: 'new', comingSoon: false },
+  { name: 'Image Enhancer', slug: 'image-enhancer', path: '/tools/image-enhancer', category: 'image-tools', description: 'Sharpen detail and reduce noise in a photo with adjustable controls.', icon: 'FaWandMagicSparkles', badge: 'new', comingSoon: false },
 
   // ---------- Security Tools ----------
   { name: 'Password Generator', slug: 'password-generator', path: '/tools/password-generator', category: 'security-tools', description: 'Generate strong, random and secure passwords with adjustable length and character types.', icon: 'FaKey', badge: 'popular', comingSoon: false },

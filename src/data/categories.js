@@ -3,7 +3,6 @@ import {
   HiOutlineDocumentText,
   HiOutlineCommandLine,
   HiOutlineLanguage,
-  HiOutlineSparkles,
   HiOutlineSwatch,
   HiOutlineShieldCheck,
   HiOutlineShare,
@@ -55,15 +54,6 @@ export const categories = [
     icon: HiOutlineLanguage,
     color: 'emerald',
     promoImage: '/images/promo/text-tools.png',
-  },
-  {
-    id: 'ai-tools',
-    name: 'AI Tools',
-    slug: 'ai-tools',
-    description: 'AI-powered background removal, upscaling and more.',
-    intro: 'AI-powered image editing tools, including background removal and image upscaling.',
-    icon: HiOutlineSparkles,
-    color: 'fuchsia',
   },
   {
     id: 'color-tools',

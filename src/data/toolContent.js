@@ -1391,6 +1391,56 @@ export const toolContent = {
     privacy: BROWSER_ONLY_PRIVACY,
   },
 
+  'image-upscaler': {
+    about:
+      'Enlarges an image 2x to 4x while keeping it as sharp as reasonably possible at the new size. Worth being upfront about the technique: this uses high-quality interpolation combined with sharpening, both real, classical image-processing methods, not an AI model.\n\nEnlarging an image is fundamentally different from shrinking one. When an image gets smaller, existing pixels are simply combined, no guessing required. When an image gets bigger, new pixels have to be created that were never actually captured, so the tool has to estimate what they probably look like based on their neighbors. That estimation is why a plain, naive upscale tends to look soft, the interpolation is doing its best, but it\u2019s working with less information than the final image actually contains.\n\nThis tool addresses that softness directly with a second step: after the high-quality interpolation, unsharp-mask sharpening is applied specifically to counteract the blur that comes from enlarging. Unsharp masking works by isolating the fine detail in an image (the difference between the image and a blurred version of itself) and adding a boosted amount of that detail back in, which is a real, well-established sharpening technique, not a cosmetic filter.\n\nNo upscaling method, including genuine AI-based approaches, can perfectly reconstruct detail that was never captured in the original photo. What this tool does is make a larger version look as clean and sharp as the original information reasonably allows, at a scale reasonable for browser-based processing (2x to 4x), rather than promising something no technique can actually deliver.',
+    features: [
+      { title: 'Real, working upscaling', description: 'High-quality interpolation plus sharpening, not a fabricated AI claim.', icon: HiOutlineArrowsPointingOut },
+      { title: 'Honestly labeled', description: 'A classical technique, clearly described as such, not disguised as AI.', icon: HiOutlineShieldCheck },
+      { title: 'Sharpening built in', description: 'Automatically counteracts the softness that comes from enlarging an image.', icon: HiOutlineSparkles },
+      { title: '2x to 4x scaling', description: 'Choose how much to enlarge, with results shown before downloading.', icon: HiOutlineAdjustmentsHorizontal },
+    ],
+    howToUse: [
+      'Upload an image.',
+      'Choose a scale factor (2x, 3x, or 4x).',
+      'Click Upscale Image.',
+      'Preview the result and download the PNG.',
+    ],
+    useCases: [
+      'Enlarging a small product photo for a listing that requires a minimum resolution',
+      'Making a low-resolution image usable for a larger print or display',
+      'Scaling up a graphic or icon while keeping edges reasonably clean',
+      'Preparing an old, smaller photo for a modern high-resolution screen',
+    ],
+    supportedFormats: { input: 'JPG / PNG / WEBP', output: 'PNG', maxSize: '15 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'image-enhancer': {
+    about:
+      'Sharpens detail and reduces noise in a photo with two independent, adjustable controls. This uses real, classical image-processing techniques, not an AI model, and is labeled that way deliberately.\n\nSharpening here uses unsharp masking: the image is blurred, that blur is subtracted from the original to isolate its fine detail, and a boosted amount of that detail is added back in. It\u2019s a well-established, real sharpening technique used in photo editing software for decades, not a placebo filter. Pushed too far, it produces a visible "halo" effect around hard edges, a real, expected characteristic of the technique itself, not a bug, which is why the sharpen control is adjustable rather than fixed at one aggressive setting.\n\nNoise reduction uses a Gaussian blur, smoothing out the small random variations that show up as visual noise, particularly in photos taken in low light. The honest tradeoff here is real: noise and genuine fine detail look similar to a blur-based filter, so reducing one always costs a little of the other. There\u2019s no way around that tradeoff with this technique, which is exactly why the control starts at zero and is meant to be raised only as much as a specific photo actually needs, rather than applied at a fixed high value by default.\n\nWhen both are used together, denoising is applied first and sharpening second, deliberately in that order. Sharpening a noisy image first would amplify the noise right along with the real detail, so cleaning up the noise before sharpening gives the sharpening step cleaner information to actually work with.',
+    features: [
+      { title: 'Independent sharpen and denoise', description: 'Two separate sliders, since these two adjustments trade off differently depending on the photo.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Real classical techniques', description: 'Unsharp masking and Gaussian blur, honestly labeled, not an AI model.', icon: HiOutlineShieldCheck },
+      { title: 'Correct processing order', description: 'Denoises first, then sharpens, so sharpening doesn\u2019t amplify leftover noise.', icon: HiOutlineSparkles },
+      { title: 'Preview before downloading', description: 'See the actual result before committing to a download.', icon: HiOutlineExclamationTriangle },
+    ],
+    howToUse: [
+      'Upload an image.',
+      'Adjust the Sharpen and Reduce Noise sliders.',
+      'Click Enhance Image.',
+      'Preview the result and download the PNG.',
+    ],
+    useCases: [
+      'Sharpening a slightly soft or out-of-focus photo',
+      'Reducing visible grain in a photo taken in low light',
+      'Cleaning up a scanned photo before sharing or printing it',
+      'Giving a photo a bit more visual punch before posting it online',
+    ],
+    supportedFormats: { input: 'JPG / PNG / WEBP', output: 'PNG', maxSize: '15 MB' },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
   'length-converter': {
     about:
       'Converts between eight common length units: millimeters, centimeters, meters, kilometers, inches, feet, yards and miles, using the exact, internationally-defined conversion factors, not rounded approximations.\n\nThe metric units here (millimeters through kilometers) are all simple powers of ten apart, which is the whole point of the metric system: no memorizing odd ratios, just moving a decimal point. The imperial units (inches, feet, yards, miles) don\u2019t share that clean relationship with each other, let alone with the metric side, which is exactly why a dedicated converter is more reliable than trying to do the math by hand. An inch is defined as exactly 0.0254 meters, and every other imperial-to-metric figure here is derived from that single, official definition.\n\nThis is the same conversion logic used in ToolHub\u2019s combined Unit Converter, on its own dedicated page for length specifically, so a bookmark or shared link always lands directly on length, without needing to select a category first.',

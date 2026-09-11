@@ -98,8 +98,8 @@ const LoremIpsumGenerator = lazy(() => import('./pages/tools/LoremIpsumGenerator
 const PasswordGenerator = lazy(() => import('./pages/tools/PasswordGenerator.jsx'))
 const PasswordStrengthChecker = lazy(() => import('./pages/tools/PasswordStrengthChecker.jsx'))
 const InstagramPostResizer = lazy(() => import('./pages/tools/InstagramPostResizer.jsx'))
-const AiImageUpscaler = lazy(() => import('./pages/tools/AiImageUpscaler.jsx'))
-const AiImageEnhancer = lazy(() => import('./pages/tools/AiImageEnhancer.jsx'))
+const ImageUpscaler = lazy(() => import('./pages/tools/ImageUpscaler.jsx'))
+const ImageEnhancer = lazy(() => import('./pages/tools/ImageEnhancer.jsx'))
 
 // Auth (Phase 5)
 const Login = lazy(() => import('./pages/auth/Login.jsx'))
@@ -212,8 +212,8 @@ export default function App() {
           <Route path="/tools/password-generator" element={<PasswordGenerator />} />
           <Route path="/tools/password-strength-checker" element={<PasswordStrengthChecker />} />
           <Route path="/tools/instagram-post-resizer" element={<InstagramPostResizer />} />
-          <Route path="/tools/ai-image-upscaler" element={<AiImageUpscaler />} />
-          <Route path="/tools/ai-image-enhancer" element={<AiImageEnhancer />} />
+          <Route path="/tools/image-upscaler" element={<ImageUpscaler />} />
+          <Route path="/tools/image-enhancer" element={<ImageEnhancer />} />
 
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
