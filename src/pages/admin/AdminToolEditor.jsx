@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams, Link } from 'react-router-dom'
-import { HiOutlineArrowLeft } from 'react-icons/hi2'
+import { HiOutlineArrowLeft, HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineCheck, HiOutlineXMark } from 'react-icons/hi2'
 import SEO from '../../components/ui/SEO.jsx'
 import ErrorMessage from '../../components/tools/ErrorMessage.jsx'
 import { api } from '../../lib/api.js'
@@ -62,6 +62,51 @@ export default function AdminToolEditor() {
     } catch (err) {
       setError(err.message || 'Could not save this tool.')
       setSaving(false)
+    }
+  }
+
+  const [newFaq, setNewFaq] = useState({ question: '', answer: '' })
+  const [editingFaqId, setEditingFaqId] = useState(null)
+  const [editFaqDraft, setEditFaqDraft] = useState({ question: '', answer: '' })
+  const [faqError, setFaqError] = useState(null)
+
+  async function handleAddFaq(event) {
+    event.preventDefault()
+    if (!newFaq.question.trim() || !newFaq.answer.trim()) return
+    setFaqError(null)
+    try {
+      const { data } = await api.adminAddToolFaq(slug, newFaq)
+      setTool((prev) => ({ ...prev, faqs: [...(prev.faqs || []), data] }))
+      setNewFaq({ question: '', answer: '' })
+    } catch (err) {
+      setFaqError(err.message || 'Could not add this FAQ.')
+    }
+  }
+
+  function startEditingFaq(faq) {
+    setEditingFaqId(faq._id)
+    setEditFaqDraft({ question: faq.question, answer: faq.answer })
+  }
+
+  async function handleSaveFaqEdit(faqId) {
+    if (!editFaqDraft.question.trim() || !editFaqDraft.answer.trim()) return
+    setFaqError(null)
+    try {
+      const { data } = await api.adminUpdateToolFaq(slug, faqId, editFaqDraft)
+      setTool((prev) => ({ ...prev, faqs: prev.faqs.map((f) => (f._id === faqId ? data : f)) }))
+      setEditingFaqId(null)
+    } catch (err) {
+      setFaqError(err.message || 'Could not update this FAQ.')
+    }
+  }
+
+  async function handleDeleteFaq(faqId) {
+    setFaqError(null)
+    try {
+      await api.adminDeleteToolFaq(slug, faqId)
+      setTool((prev) => ({ ...prev, faqs: prev.faqs.filter((f) => f._id !== faqId) }))
+    } catch (err) {
+      setFaqError(err.message || 'Could not delete this FAQ.')
     }
   }
 
@@ -166,6 +211,116 @@ export default function AdminToolEditor() {
           {saving ? 'Saving...' : isEditing ? 'Save Changes' : 'Create Tool'}
         </button>
       </form>
+
+      {isEditing && (
+        <div className="mt-10 max-w-xl">
+          <h2 className="text-base font-semibold text-slate-900 dark:text-white">FAQs</h2>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            Once this tool has at least one FAQ here, these replace the built-in ones shown on the live page.
+          </p>
+
+          {faqError && (
+            <div className="mt-3">
+              <ErrorMessage message={faqError} onDismiss={() => setFaqError(null)} />
+            </div>
+          )}
+
+          {tool.faqs && tool.faqs.length > 0 && (
+            <ul className="mt-4 space-y-3">
+              {tool.faqs.map((faq) => (
+                <li key={faq._id} className="card p-4">
+                  {editingFaqId === faq._id ? (
+                    <div className="space-y-2">
+                      <input
+                        type="text"
+                        value={editFaqDraft.question}
+                        onChange={(event) => setEditFaqDraft((prev) => ({ ...prev, question: event.target.value }))}
+                        maxLength={200}
+                        className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 focus:border-brand-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                      />
+                      <textarea
+                        value={editFaqDraft.answer}
+                        onChange={(event) => setEditFaqDraft((prev) => ({ ...prev, answer: event.target.value }))}
+                        maxLength={2000}
+                        rows={3}
+                        className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 focus:border-brand-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                      />
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleSaveFaqEdit(faq._id)}
+                          className="flex items-center gap-1 text-xs font-medium text-brand-600 hover:underline dark:text-brand-400"
+                        >
+                          <HiOutlineCheck className="h-3.5 w-3.5" />
+                          Save
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEditingFaqId(null)}
+                          className="flex items-center gap-1 text-xs font-medium text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300"
+                        >
+                          <HiOutlineXMark className="h-3.5 w-3.5" />
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <p className="text-sm font-medium text-slate-900 dark:text-white">{faq.question}</p>
+                      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{faq.answer}</p>
+                      <div className="mt-2 flex items-center gap-3">
+                        <button
+                          type="button"
+                          onClick={() => startEditingFaq(faq)}
+                          className="flex items-center gap-1 text-xs font-medium text-slate-400 hover:text-brand-600 dark:text-slate-500 dark:hover:text-brand-400"
+                        >
+                          <HiOutlinePencil className="h-3.5 w-3.5" />
+                          Edit
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteFaq(faq._id)}
+                          className="flex items-center gap-1 text-xs font-medium text-slate-400 hover:text-rose-600 dark:text-slate-500 dark:hover:text-rose-400"
+                        >
+                          <HiOutlineTrash className="h-3.5 w-3.5" />
+                          Delete
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <form onSubmit={handleAddFaq} className="mt-4 space-y-2 card p-4">
+            <input
+              type="text"
+              placeholder="Question"
+              value={newFaq.question}
+              onChange={(event) => setNewFaq((prev) => ({ ...prev, question: event.target.value }))}
+              maxLength={200}
+              className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 focus:border-brand-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+            />
+            <textarea
+              placeholder="Answer"
+              value={newFaq.answer}
+              onChange={(event) => setNewFaq((prev) => ({ ...prev, answer: event.target.value }))}
+              maxLength={2000}
+              rows={3}
+              className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 focus:border-brand-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+            />
+            <button
+              type="submit"
+              disabled={!newFaq.question.trim() || !newFaq.answer.trim()}
+              className="btn-secondary text-sm"
+            >
+              <HiOutlinePlus className="h-4 w-4" />
+              Add FAQ
+            </button>
+          </form>
+        </div>
+      )}
     </>
   )
 }

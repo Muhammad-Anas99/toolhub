@@ -68,3 +68,28 @@ export async function deleteTool(slug) {
   if (!tool) throw ApiError.notFound(`Tool "${slug}" was not found`)
   return tool
 }
+
+export async function addToolFaq(slug, { question, answer }) {
+  const tool = await getToolBySlug(slug)
+  tool.faqs.push({ question, answer })
+  await tool.save()
+  return tool.faqs[tool.faqs.length - 1]
+}
+
+export async function updateToolFaq(slug, faqId, { question, answer }) {
+  const tool = await getToolBySlug(slug)
+  const faq = tool.faqs.id(faqId)
+  if (!faq) throw ApiError.notFound('FAQ not found for this tool')
+  faq.question = question
+  faq.answer = answer
+  await tool.save()
+  return faq
+}
+
+export async function deleteToolFaq(slug, faqId) {
+  const tool = await getToolBySlug(slug)
+  const faq = tool.faqs.id(faqId)
+  if (!faq) throw ApiError.notFound('FAQ not found for this tool')
+  faq.deleteOne()
+  await tool.save()
+}

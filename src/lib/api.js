@@ -107,6 +107,9 @@ export const api = {
   // --- Public content ---------------------------------------------------------
   getTools: (params = {}) => request(`/tools${toQuery(params)}`),
   getToolBySlug: (slug) => request(`/tools/${slug}`),
+  adminAddToolFaq: (slug, payload) => authorizedRequest(`/tools/${slug}/faqs`, { method: 'POST', body: JSON.stringify(payload) }),
+  adminUpdateToolFaq: (slug, faqId, payload) => authorizedRequest(`/tools/${slug}/faqs/${faqId}`, { method: 'PUT', body: JSON.stringify(payload) }),
+  adminDeleteToolFaq: (slug, faqId) => authorizedRequest(`/tools/${slug}/faqs/${faqId}`, { method: 'DELETE' }),
 
   getCategories: () => request('/categories'),
   getPublicStats: () => request('/analytics/public-stats'),

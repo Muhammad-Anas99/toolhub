@@ -27,3 +27,18 @@ export const deleteTool = asyncHandler(async (req, res) => {
   await toolService.deleteTool(req.params.slug)
   sendSuccess(res, { message: 'Tool deleted' })
 })
+
+export const addToolFaq = asyncHandler(async (req, res) => {
+  const faq = await toolService.addToolFaq(req.params.slug, req.body)
+  sendSuccess(res, { statusCode: 201, message: 'FAQ added', data: faq })
+})
+
+export const updateToolFaq = asyncHandler(async (req, res) => {
+  const faq = await toolService.updateToolFaq(req.params.slug, req.params.faqId, req.body)
+  sendSuccess(res, { message: 'FAQ updated', data: faq })
+})
+
+export const deleteToolFaq = asyncHandler(async (req, res) => {
+  await toolService.deleteToolFaq(req.params.slug, req.params.faqId)
+  sendSuccess(res, { message: 'FAQ deleted' })
+})

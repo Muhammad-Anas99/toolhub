@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { HiOutlineShieldCheck } from 'react-icons/hi2'
@@ -14,6 +14,7 @@ import ToolInformation from './info/ToolInformation.jsx'
 import { getCategoryBySlug } from '../../data/categories.js'
 import { toolContent } from '../../data/toolContent.js'
 import { useCategories } from '../../hooks/useCategories.js'
+import { api } from '../../lib/api.js'
 
 /**
  * Shared shell for every tool page. Handles the parts that are identical
@@ -35,6 +36,35 @@ export default function ToolLayout({ tool, children, faqItems }) {
   const category = getCategoryBySlug(tool.category)
   const hasContent = Boolean(toolContent[tool.slug])
   const { categories } = useCategories()
+
+  // Admin-managed FAQs, when a tool has any, take priority over the
+  // static fallback passed in as faqItems - this lets FAQs be edited
+  // from the admin panel without needing to touch every individual
+  // tool page file, since they all funnel through this shared layout.
+  // Starts as null (not yet checked) rather than an empty array, so a
+  // slow or failed fetch doesn't briefly hide FAQs that do exist
+  // statically while the request is in flight.
+  const [dbFaqs, setDbFaqs] = useState(null)
+
+  useEffect(() => {
+    let cancelled = false
+    api
+      .getToolBySlug(tool.slug)
+      .then(({ data }) => {
+        if (!cancelled) setDbFaqs(data.faqs || [])
+      })
+      .catch(() => {
+        if (!cancelled) setDbFaqs([])
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [tool.slug])
+
+  const effectiveFaqItems =
+    dbFaqs && dbFaqs.length > 0
+      ? dbFaqs.map((faq) => ({ id: faq._id, question: faq.question, answer: faq.answer }))
+      : faqItems
 
   const breadcrumbItems = [
     { label: 'Tools', to: '/tools' },
@@ -80,12 +110,12 @@ export default function ToolLayout({ tool, children, faqItems }) {
     // Only added when the same FAQs are visibly rendered on the page
     // below (via ToolFAQSection) — structured data must match what a
     // visitor actually sees, not be added speculatively.
-    ...(faqItems && faqItems.length > 0
+    ...(effectiveFaqItems && effectiveFaqItems.length > 0
       ? [
           {
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
-            mainEntity: faqItems.map((item) => ({
+            mainEntity: effectiveFaqItems.map((item) => ({
               '@type': 'Question',
               name: item.question,
               acceptedAnswer: { '@type': 'Answer', text: item.answer },
@@ -191,7 +221,7 @@ export default function ToolLayout({ tool, children, faqItems }) {
 
             <div className="mx-auto mt-20 max-w-3xl space-y-16">
               <RelatedTools currentToolId={tool.id} category={tool.category} />
-              <ToolFAQSection items={faqItems} />
+              <ToolFAQSection items={effectiveFaqItems} />
             </div>
 
             <div className="mx-auto mt-16 max-w-3xl text-center">

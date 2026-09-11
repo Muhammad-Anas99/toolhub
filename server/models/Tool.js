@@ -62,6 +62,32 @@ const toolSchema = new mongoose.Schema(
       default: [],
       set: (tags) => tags.map((tag) => tag.trim().toLowerCase()).filter(Boolean),
     },
+    // Admin-managed FAQs for this tool. Each entry gets its own _id
+    // (Mongoose default for subdocuments) so a specific FAQ can be
+    // targeted for editing or deletion without touching the others.
+    // Empty by default - the frontend falls back to its own static FAQ
+    // content for a tool until an admin adds FAQs here for it, so
+    // existing tool pages don't regress to "no FAQs" the moment this
+    // field is introduced.
+    faqs: {
+      type: [
+        {
+          question: {
+            type: String,
+            required: [true, 'FAQ question is required'],
+            trim: true,
+            maxlength: [200, 'FAQ question cannot exceed 200 characters'],
+          },
+          answer: {
+            type: String,
+            required: [true, 'FAQ answer is required'],
+            trim: true,
+            maxlength: [2000, 'FAQ answer cannot exceed 2000 characters'],
+          },
+        },
+      ],
+      default: [],
+    },
   },
   { timestamps: true }
 )
