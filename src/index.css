@@ -45,3 +45,18 @@
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
 }
+
+@layer utilities {
+  /* Hides the visible scrollbar on an element while keeping it fully
+     scrollable via mouse wheel, trackpad, touch, or keyboard - used on
+     areas like the category sidebar where scrolling should work but a
+     visible scrollbar track/thumb would look like visual clutter. */
+  .no-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Legacy IE/Edge */
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Chromium-based Edge */
+  }
+}

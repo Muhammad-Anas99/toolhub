@@ -24,7 +24,7 @@ import { categoryColorClasses } from '../../data/categories.js'
  */
 export default function CategorySidebar({ categories, activeCategory, onSelect, topContent }) {
   return (
-    <div className="sticky top-24 max-h-[calc(100vh-7rem)] space-y-5 overflow-y-auto pb-2">
+    <div className="no-scrollbar sticky top-24 max-h-[calc(100vh-7rem)] space-y-5 overflow-y-auto pb-2">
       {topContent}
       <nav className="card p-4">
         <h2 className="px-2 text-sm font-semibold text-slate-900 dark:text-white">Categories</h2>
