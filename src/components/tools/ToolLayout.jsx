@@ -135,38 +135,31 @@ export default function ToolLayout({ tool, children, faqItems }) {
         {/* Sidebar + main content — starts right after the breadcrumb/
             mobile category selector above, with no separate full-width
             header row spanning above both columns. */}
-        <div className="mt-6 grid grid-cols-1 gap-8 lg:mt-10 lg:grid-cols-[240px_1fr]">
+        <div className="mt-6 grid grid-cols-1 gap-8 lg:mt-10 lg:grid-cols-[210px_1fr]">
           <aside className="hidden lg:block">
             <CategorySidebar categories={categories} activeCategory={tool.category} />
           </aside>
 
           <div>
-            {/* Name + "100% Free to Use" as a row scoped to this column
-                only — starting beside the sidebar, not spanning above it.
-                Stacks to a single column on narrow screens via flex-col,
-                so there's no separate mobile-only duplicate needed. */}
-            <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            {/* Title/description own the full row now - the "100% Free"
+                badge is a small inline pill rather than a separate box
+                competing with the title for the same space, so nothing
+                stands between the visitor and the tool itself except a
+                single compact line. */}
+            <div className="mb-5">
               <ToolHeader icon={tool.icon} title={tool.name} description={tool.description} toolSlug={tool.slug} />
-
-              <div className="flex flex-shrink-0 items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900 sm:w-72">
-                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400">
-                  <HiOutlineShieldCheck className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-slate-900 dark:text-white">100% Free to Use</p>
-                  <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                    No sign up required. All tools are free and easy to use.
-                  </p>
-                </div>
+              <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">
+                <HiOutlineShieldCheck className="h-3.5 w-3.5" />
+                100% free, no sign-up required
               </div>
             </div>
 
-            {/* The tool itself stays the visual focus near the top of
+            {/* The tool itself is the clear visual focus near the top of
                 this column — everything below (info sections, related
                 tools, FAQ, CTA) is reference material a visitor scrolls
-                to only if they want it. A subtle background panel gives
-                the actual tool area visual separation from the page,
-                same treatment already used on the Tools listing page. */}
+                to only if they want it. A white card with a real border
+                and shadow gives the tool genuine visual weight against
+                the page background, rather than blending into it. */}
             {tool.category === 'pdf-tools' && (
               <div className="mx-auto mb-4 flex max-w-3xl items-start gap-3 rounded-xl bg-emerald-50 px-4 py-3 dark:bg-emerald-950">
                 <HiOutlineShieldCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-600 dark:text-emerald-400" />
@@ -177,7 +170,7 @@ export default function ToolLayout({ tool, children, faqItems }) {
               </div>
             )}
 
-            <div className="mx-auto max-w-3xl rounded-2xl bg-slate-50 p-5 dark:bg-slate-900/40 sm:p-6">{children}</div>
+            <div className="mx-auto max-w-3xl rounded-2xl border border-slate-200 bg-white p-5 shadow-md dark:border-slate-800 dark:bg-slate-900 sm:p-7">{children}</div>
 
             {tool.promoImage && (
               <div className="mx-auto mt-8 max-w-3xl">

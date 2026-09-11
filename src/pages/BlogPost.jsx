@@ -10,6 +10,7 @@ import { api } from '../lib/api.js'
 import { parseBlogContent } from '../lib/blogContentParser.js'
 import LikeDislikeButtons from '../components/blog/LikeDislikeButtons.jsx'
 import CommentSection from '../components/blog/CommentSection.jsx'
+import BlogCard from '../components/ui/BlogCard.jsx'
 import { tools } from '../data/tools.js'
 import { categories } from '../data/categories.js'
 
@@ -21,6 +22,7 @@ export default function BlogPost() {
   const { slug } = useParams()
   const [post, setPost] = useState(null)
   const [error, setError] = useState(null)
+  const [allPosts, setAllPosts] = useState(null)
 
   useEffect(() => {
     setPost(null)
@@ -30,6 +32,30 @@ export default function BlogPost() {
       .then(({ data }) => setPost(data))
       .catch((err) => setError(err.message || 'This post could not be found.'))
   }, [slug])
+
+  // Fetched once, independent of which specific post is being viewed -
+  // powers both the related-posts list and the category browse row
+  // below, so switching between posts doesn't need a fresh request for
+  // data that hasn't actually changed.
+  useEffect(() => {
+    api
+      .getBlogPosts()
+      .then(({ data }) => setAllPosts(data))
+      .catch(() => setAllPosts([]))
+  }, [])
+
+  const blogCategories = allPosts ? [...new Set(allPosts.map((p) => p.category).filter(Boolean))] : []
+
+  // Prioritizes other posts in the same category; if there aren't
+  // enough, fills the remaining slots with the most recent other posts
+  // instead of showing fewer than intended.
+  const relatedPosts = (() => {
+    if (!allPosts || !post) return []
+    const others = allPosts.filter((p) => p.slug !== post.slug)
+    const sameCategory = others.filter((p) => p.category === post.category)
+    const rest = others.filter((p) => p.category !== post.category)
+    return [...sameCategory, ...rest].slice(0, 3)
+  })()
 
   // Real internal linking, not decorative — the tools that actually match
   // this post's own category, so a reader can go straight from the
@@ -134,7 +160,7 @@ export default function BlogPost() {
           <div className="prose prose-slate mt-8 max-w-none dark:prose-invert">
             {parseBlogContent(post.content).map((block) =>
               block.type === 'heading' ? (
-                <h2 key={block.key} className="text-xl font-bold text-slate-900 dark:text-white">
+                <h2 key={block.key} className="mt-10 text-2xl font-extrabold tracking-tight text-slate-900 first:mt-0 dark:text-white">
                   {block.text}
                 </h2>
               ) : (
@@ -167,6 +193,38 @@ export default function BlogPost() {
                   >
                     {tool.name}
                     <HiArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {relatedPosts.length > 0 && (
+            <div className="mt-16">
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white">Related posts</h2>
+              <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+                {relatedPosts.map((relatedPost) => (
+                  <BlogCard key={relatedPost.slug} post={relatedPost} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {blogCategories.length > 1 && (
+            <div className="mt-10">
+              <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Browse by category</h2>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {blogCategories.map((category) => (
+                  <Link
+                    key={category}
+                    to={`/blog?category=${category}`}
+                    className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
+                      category === post.category
+                        ? 'bg-brand-600 text-white shadow-sm'
+                        : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800'
+                    }`}
+                  >
+                    {category}
                   </Link>
                 ))}
               </div>
