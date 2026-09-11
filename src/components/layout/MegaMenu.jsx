@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { HiChevronDown } from 'react-icons/hi2'
 import { categories, categoryColorClasses } from '../../data/categories.js'
@@ -9,6 +9,15 @@ import { getToolsByCategory } from '../../data/tools.js'
 export default function MegaMenu({ onNavigate }) {
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef(null)
+  const location = useLocation()
+
+  // Closes on any navigation, not just a click on one of this menu's
+  // own links - a sibling dropdown (like an individual category's
+  // hover menu) can also trigger navigation, and without this, this
+  // menu wouldn't know to close along with it.
+  useEffect(() => {
+    setIsOpen(false)
+  }, [location.key])
 
   useEffect(() => {
     if (!isOpen) return

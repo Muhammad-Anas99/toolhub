@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { HiChevronDown } from 'react-icons/hi2'
 import { getCategoryBySlug } from '../../data/categories.js'
@@ -22,11 +22,20 @@ const MAX_VISIBLE_TOOLS = 6
 export default function CategoryToolsDropdown({ categorySlug, label, onNavigate }) {
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef(null)
+  const location = useLocation()
 
   const category = getCategoryBySlug(categorySlug)
   const allTools = getToolsByCategory(categorySlug)
   const visibleTools = allTools.slice(0, MAX_VISIBLE_TOOLS)
   const hiddenCount = allTools.length - visibleTools.length
+
+  // Closes on any navigation, not just a click on this dropdown's own
+  // links - each category shortcut is its own independent component
+  // instance, so a different one (or the Categories mega menu)
+  // triggering navigation wouldn't otherwise tell this one to close too.
+  useEffect(() => {
+    setIsOpen(false)
+  }, [location.key])
 
   useEffect(() => {
     if (!isOpen) return
