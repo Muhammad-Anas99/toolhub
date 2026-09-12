@@ -330,7 +330,7 @@ The reverse direction matters too. A human-edited, nicely-formatted JSON config 
 
 ## Catching problems early
 
-The most reliable habit is validating JSON immediately after writing or editing it by hand, rather than waiting until something downstream fails to parse it. A validator that reports the exact line and column of a syntax error turns a vague "invalid JSON" failure into something fixable in seconds, especially in a large, deeply-nested config file where the actual mistake might be nowhere near where the error first surfaces.
+The most reliable habit is validating JSON immediately after writing or editing it by hand, rather than waiting until something downstream fails to parse it. A validator that reports the exact line and column of a syntax error turns a vague "invalid JSON" failure into something fixable in seconds, especially in a large, deeply-nested config file where the actual mistake might be nowhere near where the error first surfaces. ToolHub's [JSON Formatter](/tools/json-formatter) does exactly this, entirely in the browser, with no file ever uploaded anywhere.
 
 It's also worth being specifically suspicious of JSON that was copied from a JavaScript codebase rather than generated as JSON in the first place, since that's exactly the scenario where an unquoted key or a trailing comma is most likely to sneak in unnoticed.`,
     category: 'Developer Tools',

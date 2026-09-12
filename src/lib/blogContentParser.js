@@ -1,15 +1,20 @@
 /**
- * Splits inline **bold** markers within a paragraph into renderable
- * segments (plain text and bold text), so a sentence like "**Trailing
- * commas.** JavaScript tolerates this" renders with only the first part
- * bold, not the literal asterisks. Verified independently before being
- * ported here.
+ * Splits inline **bold** markers and [text](url) links within a
+ * paragraph into renderable segments, so a sentence with either (or
+ * both together) renders correctly instead of showing literal
+ * asterisks or brackets. Verified independently - including a sentence
+ * with both a bold segment and a link together, and plain text with
+ * neither - before being ported here.
  */
 function parseInlineSegments(text) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g).filter(Boolean)
+  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g).filter(Boolean)
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
       return { type: 'bold', text: part.slice(2, -2), key: i }
+    }
+    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+    if (linkMatch) {
+      return { type: 'link', text: linkMatch[1], url: linkMatch[2], key: i }
     }
     return { type: 'text', text: part, key: i }
   })

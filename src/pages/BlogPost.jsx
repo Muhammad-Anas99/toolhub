@@ -165,15 +165,38 @@ export default function BlogPost() {
                 </h2>
               ) : (
                 <p key={block.key} className="leading-relaxed text-slate-600 dark:text-slate-300">
-                  {block.segments.map((segment) =>
-                    segment.type === 'bold' ? (
-                      <strong key={segment.key} className="font-semibold text-slate-800 dark:text-slate-100">
-                        {segment.text}
-                      </strong>
-                    ) : (
-                      <React.Fragment key={segment.key}>{segment.text}</React.Fragment>
-                    )
-                  )}
+                  {block.segments.map((segment) => {
+                    if (segment.type === 'bold') {
+                      return (
+                        <strong key={segment.key} className="font-semibold text-slate-800 dark:text-slate-100">
+                          {segment.text}
+                        </strong>
+                      )
+                    }
+                    if (segment.type === 'link') {
+                      const isInternal = segment.url.startsWith('/')
+                      return isInternal ? (
+                        <Link
+                          key={segment.key}
+                          to={segment.url}
+                          className="font-medium text-brand-600 hover:underline dark:text-brand-400"
+                        >
+                          {segment.text}
+                        </Link>
+                      ) : (
+                        <a
+                          key={segment.key}
+                          href={segment.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-medium text-brand-600 hover:underline dark:text-brand-400"
+                        >
+                          {segment.text}
+                        </a>
+                      )
+                    }
+                    return <React.Fragment key={segment.key}>{segment.text}</React.Fragment>
+                  })}
                 </p>
               )
             )}
