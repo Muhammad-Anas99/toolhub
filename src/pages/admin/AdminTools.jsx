@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { HiOutlinePlus, HiOutlinePencil, HiOutlineArrowUp, HiOutlineArrowDown } from 'react-icons/hi2'
+import { FaStar } from 'react-icons/fa6'
 import SEO from '../../components/ui/SEO.jsx'
 import ErrorMessage from '../../components/tools/ErrorMessage.jsx'
 import { api } from '../../lib/api.js'
@@ -9,6 +10,7 @@ import { getCategoryBySlug } from '../../data/categories.js'
 export default function AdminTools() {
   const [tools, setTools] = useState([])
   const [usageByTool, setUsageByTool] = useState({})
+  const [sortKey, setSortKey] = useState('usage')
   const [sortDirection, setSortDirection] = useState('desc')
   const [error, setError] = useState(null)
   const [loaded, setLoaded] = useState(false)
@@ -38,17 +40,28 @@ export default function AdminTools() {
       .finally(() => setLoaded(true))
   }, [sortDirection])
 
-  function toggleSortDirection() {
-    setSortDirection((prev) => (prev === 'desc' ? 'asc' : 'desc'))
+  function toggleUsageSort() {
+    setSortKey('usage')
+    setSortDirection((prev) => (sortKey === 'usage' && prev === 'desc' ? 'asc' : 'desc'))
   }
 
-  // Sorts the same full list of tools by usage count - nothing is ever
-  // hidden, only reordered. A tool with no recorded usage sorts as 0,
-  // landing at whichever end matches the current direction.
+  function toggleRatingSort() {
+    setSortKey('rating')
+    setSortDirection((prev) => (sortKey === 'rating' && prev === 'desc' ? 'asc' : 'desc'))
+  }
+
+  function averageRating(tool) {
+    return tool.ratingCount > 0 ? tool.ratingSum / tool.ratingCount : 0
+  }
+
+  // Sorts the same full list of tools by whichever column was last
+  // clicked - nothing is ever hidden, only reordered. A tool with no
+  // recorded usage or no ratings yet sorts as 0, landing at whichever
+  // end matches the current direction.
   const sortedTools = [...tools].sort((a, b) => {
-    const aCount = usageByTool[a.slug] ?? 0
-    const bCount = usageByTool[b.slug] ?? 0
-    return sortDirection === 'desc' ? bCount - aCount : aCount - bCount
+    const aValue = sortKey === 'rating' ? averageRating(a) : usageByTool[a.slug] ?? 0
+    const bValue = sortKey === 'rating' ? averageRating(b) : usageByTool[b.slug] ?? 0
+    return sortDirection === 'desc' ? bValue - aValue : aValue - bValue
   })
 
   return (
@@ -81,15 +94,31 @@ export default function AdminTools() {
               <th className="px-5 py-3 font-medium">
                 <button
                   type="button"
-                  onClick={toggleSortDirection}
+                  onClick={toggleUsageSort}
                   className="inline-flex items-center gap-1 font-medium uppercase tracking-wide text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300"
                 >
                   Recent use
-                  {sortDirection === 'desc' ? (
-                    <HiOutlineArrowDown className="h-3.5 w-3.5" />
-                  ) : (
-                    <HiOutlineArrowUp className="h-3.5 w-3.5" />
-                  )}
+                  {sortKey === 'usage' &&
+                    (sortDirection === 'desc' ? (
+                      <HiOutlineArrowDown className="h-3.5 w-3.5" />
+                    ) : (
+                      <HiOutlineArrowUp className="h-3.5 w-3.5" />
+                    ))}
+                </button>
+              </th>
+              <th className="px-5 py-3 font-medium">
+                <button
+                  type="button"
+                  onClick={toggleRatingSort}
+                  className="inline-flex items-center gap-1 font-medium uppercase tracking-wide text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300"
+                >
+                  Rating
+                  {sortKey === 'rating' &&
+                    (sortDirection === 'desc' ? (
+                      <HiOutlineArrowDown className="h-3.5 w-3.5" />
+                    ) : (
+                      <HiOutlineArrowUp className="h-3.5 w-3.5" />
+                    ))}
                 </button>
               </th>
               <th className="px-5 py-3 font-medium">Edit</th>
@@ -115,6 +144,17 @@ export default function AdminTools() {
                   </td>
                   <td className="px-5 py-3 text-slate-500 dark:text-slate-400">
                     {loaded ? (usageByTool[tool.slug] != null ? usageByTool[tool.slug] : '\u2014') : '...'}
+                  </td>
+                  <td className="px-5 py-3 text-slate-500 dark:text-slate-400">
+                    {tool.ratingCount > 0 ? (
+                      <span className="inline-flex items-center gap-1">
+                        <FaStar className="h-3.5 w-3.5 text-amber-400" />
+                        {(tool.ratingSum / tool.ratingCount).toFixed(1)}
+                        <span className="text-slate-400 dark:text-slate-500">({tool.ratingCount})</span>
+                      </span>
+                    ) : (
+                      <span className="text-slate-400 dark:text-slate-500">No ratings yet</span>
+                    )}
                   </td>
                   <td className="px-5 py-3">
                     <Link

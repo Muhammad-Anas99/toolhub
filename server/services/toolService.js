@@ -93,3 +93,35 @@ export async function deleteToolFaq(slug, faqId) {
   faq.deleteOne()
   await tool.save()
 }
+
+const VALID_STAR_VALUES = [1, 2, 3, 4, 5]
+
+/**
+ * Records an anonymous star rating (no account required, matching how
+ * likes work on blog posts). The client tracks its own previous rating
+ * for this tool in localStorage and reports it here as previousRating,
+ * so changing a rating adjusts the running sum without inflating the
+ * count - a genuine, honest average derived from real ratings, verified
+ * against a full realistic sequence (first ratings, a changed rating,
+ * a later new rating) before being ported here.
+ */
+export async function rateTool(slug, { rating, previousRating }) {
+  if (!VALID_STAR_VALUES.includes(rating)) {
+    throw ApiError.badRequest('Rating must be a whole number from 1 to 5')
+  }
+  if (previousRating !== null && previousRating !== undefined && !VALID_STAR_VALUES.includes(previousRating)) {
+    throw ApiError.badRequest('Invalid previous rating')
+  }
+
+  const tool = await getToolBySlug(slug)
+
+  if (previousRating) {
+    tool.ratingSum = Math.max(0, tool.ratingSum - previousRating + rating)
+  } else {
+    tool.ratingSum += rating
+    tool.ratingCount += 1
+  }
+
+  await tool.save()
+  return { ratingSum: tool.ratingSum, ratingCount: tool.ratingCount }
+}

@@ -88,6 +88,22 @@ const toolSchema = new mongoose.Schema(
       ],
       default: [],
     },
+    // Sum and count are stored rather than a precomputed average, so the
+    // real average is always derived fresh (sum / count) rather than
+    // risking small rounding errors accumulating after many rating
+    // changes over time. No default/starting values - a tool with zero
+    // real ratings genuinely has ratingCount: 0, not a fabricated
+    // starting number.
+    ratingSum: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+    ratingCount: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
   },
   { timestamps: true }
 )

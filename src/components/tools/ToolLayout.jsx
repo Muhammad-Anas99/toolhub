@@ -10,6 +10,7 @@ import CategorySidebar from './CategorySidebar.jsx'
 import SuggestToolBanner from './SuggestToolBanner.jsx'
 import RelatedTools from './RelatedTools.jsx'
 import ToolFAQSection from './ToolFAQSection.jsx'
+import StarRating from './StarRating.jsx'
 import ToolInformation from './info/ToolInformation.jsx'
 import { getCategoryBySlug } from '../../data/categories.js'
 import { toolContent } from '../../data/toolContent.js'
@@ -45,16 +46,29 @@ export default function ToolLayout({ tool, children, faqItems }) {
   // slow or failed fetch doesn't briefly hide FAQs that do exist
   // statically while the request is in flight.
   const [dbFaqs, setDbFaqs] = useState(null)
+  // Real rating totals for the star widget - fetched from the same
+  // request as the FAQs above, since both live on the same tool
+  // document, rather than making a second call for it. Starts as null
+  // (not yet fetched) rather than {0, 0}, since a genuinely brand-new
+  // tool with zero real ratings would look identical to "still
+  // loading" if 0 were used as the not-yet-fetched sentinel - the star
+  // widget only mounts once this is set to the real fetched values, so
+  // it never has to reconcile stale initial props against a later fetch.
+  const [ratingData, setRatingData] = useState(null)
 
   useEffect(() => {
     let cancelled = false
     api
       .getToolBySlug(tool.slug)
       .then(({ data }) => {
-        if (!cancelled) setDbFaqs(data.faqs || [])
+        if (cancelled) return
+        setDbFaqs(data.faqs || [])
+        setRatingData({ ratingSum: data.ratingSum || 0, ratingCount: data.ratingCount || 0 })
       })
       .catch(() => {
-        if (!cancelled) setDbFaqs([])
+        if (cancelled) return
+        setDbFaqs([])
+        setRatingData({ ratingSum: 0, ratingCount: 0 })
       })
     return () => {
       cancelled = true
@@ -178,9 +192,18 @@ export default function ToolLayout({ tool, children, faqItems }) {
                 single compact line. */}
             <div className="mb-5">
               <ToolHeader icon={tool.icon} title={tool.name} description={tool.description} toolSlug={tool.slug} />
-              <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">
-                <HiOutlineShieldCheck className="h-3.5 w-3.5" />
-                100% free, no sign-up required
+              <div className="mt-3 flex flex-wrap items-center gap-3">
+                <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">
+                  <HiOutlineShieldCheck className="h-3.5 w-3.5" />
+                  100% free, no sign-up required
+                </div>
+                {ratingData && (
+                  <StarRating
+                    slug={tool.slug}
+                    initialRatingSum={ratingData.ratingSum}
+                    initialRatingCount={ratingData.ratingCount}
+                  />
+                )}
               </div>
             </div>
 

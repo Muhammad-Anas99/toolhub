@@ -1,5 +1,6 @@
 import ContactMessage from '../models/ContactMessage.js'
 import { sendContactFormEmail } from '../utils/email.js'
+import { ApiError } from '../utils/ApiError.js'
 
 /**
  * Always saves the message first — so even if email delivery genuinely
@@ -18,4 +19,17 @@ export async function submitContactMessage({ name, email, subject, message, ipAd
   await record.save()
 
   return record
+}
+
+// Admin-only: messages were previously saved with no way to ever read
+// them back except direct database access - this and deleteContactMessage
+// below are the genuine missing piece that makes the contact form
+// actually usable end to end, not just a write-only form.
+export async function listContactMessages() {
+  return ContactMessage.find().sort({ createdAt: -1 })
+}
+
+export async function deleteContactMessage(id) {
+  const message = await ContactMessage.findByIdAndDelete(id)
+  if (!message) throw ApiError.notFound('Message not found')
 }

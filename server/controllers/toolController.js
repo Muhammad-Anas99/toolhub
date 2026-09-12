@@ -42,3 +42,9 @@ export const deleteToolFaq = asyncHandler(async (req, res) => {
   await toolService.deleteToolFaq(req.params.slug, req.params.faqId)
   sendSuccess(res, { message: 'FAQ deleted' })
 })
+
+export const rateTool = asyncHandler(async (req, res) => {
+  const { rating, previousRating } = req.body
+  const result = await toolService.rateTool(req.params.slug, { rating, previousRating: previousRating ?? null })
+  sendSuccess(res, { data: result })
+})

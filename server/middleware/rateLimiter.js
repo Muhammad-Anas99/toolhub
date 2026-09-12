@@ -89,3 +89,21 @@ export const blogReactionRateLimiter = rateLimit({
     message: 'Too many reactions sent. Please try again in a little while.',
   },
 })
+
+/**
+ * Applied to the tool star-rating endpoint — public and unauthenticated
+ * (no account required to rate, matching blog reactions), so this is
+ * the real backstop against a script rapidly skewing a tool's average.
+ * Same generous allowance as blog reactions, since rating several
+ * tools while browsing in one session is normal use.
+ */
+export const toolRatingRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many ratings sent. Please try again in a little while.',
+  },
+})

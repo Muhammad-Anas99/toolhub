@@ -22,3 +22,13 @@ export const submitContactForm = asyncHandler(async (req, res) => {
 
   sendSuccess(res, { statusCode: 201, message: 'Message sent' })
 })
+
+export const getContactMessages = asyncHandler(async (req, res) => {
+  const messages = await contactService.listContactMessages()
+  sendSuccess(res, { data: messages, meta: { count: messages.length } })
+})
+
+export const deleteContactMessage = asyncHandler(async (req, res) => {
+  await contactService.deleteContactMessage(req.params.id)
+  sendSuccess(res, { message: 'Message deleted' })
+})

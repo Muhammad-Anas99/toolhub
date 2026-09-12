@@ -5,6 +5,8 @@ import {
   HiOutlineUsers,
   HiOutlineWrenchScrewdriver,
   HiOutlineNewspaper,
+  HiOutlineEnvelope,
+  HiOutlineChatBubbleLeftRight,
   HiOutlineArrowTopRightOnSquare,
   HiOutlineCog6Tooth,
   HiOutlineArrowRightOnRectangle,
@@ -18,6 +20,8 @@ const NAV_ITEMS = [
   { label: 'Users', to: '/admin/users', icon: HiOutlineUsers },
   { label: 'Tools', to: '/admin/tools', icon: HiOutlineWrenchScrewdriver },
   { label: 'Blog', to: '/admin/blog', icon: HiOutlineNewspaper },
+  { label: 'Contact', to: '/admin/contact', icon: HiOutlineEnvelope },
+  { label: 'Comments', to: '/admin/comments', icon: HiOutlineChatBubbleLeftRight },
 ]
 
 const sidebarLinkClasses = ({ isActive }) =>

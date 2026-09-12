@@ -4,6 +4,7 @@ import { createToolValidator, updateToolValidator } from '../middleware/validato
 import { toolFaqValidator } from '../middleware/validators/toolFaqValidator.js'
 import { handleValidationErrors } from '../middleware/validate.js'
 import { protect, authorize } from '../middleware/auth.js'
+import { toolRatingRateLimiter } from '../middleware/rateLimiter.js'
 
 const router = Router()
 
@@ -17,5 +18,7 @@ router.delete('/:slug', protect, authorize('admin'), toolController.deleteTool)
 router.post('/:slug/faqs', protect, authorize('admin'), toolFaqValidator, handleValidationErrors, toolController.addToolFaq)
 router.put('/:slug/faqs/:faqId', protect, authorize('admin'), toolFaqValidator, handleValidationErrors, toolController.updateToolFaq)
 router.delete('/:slug/faqs/:faqId', protect, authorize('admin'), toolController.deleteToolFaq)
+
+router.post('/:slug/rate', toolRatingRateLimiter, toolController.rateTool)
 
 export default router

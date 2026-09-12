@@ -110,6 +110,7 @@ export const api = {
   adminAddToolFaq: (slug, payload) => authorizedRequest(`/tools/${slug}/faqs`, { method: 'POST', body: JSON.stringify(payload) }),
   adminUpdateToolFaq: (slug, faqId, payload) => authorizedRequest(`/tools/${slug}/faqs/${faqId}`, { method: 'PUT', body: JSON.stringify(payload) }),
   adminDeleteToolFaq: (slug, faqId) => authorizedRequest(`/tools/${slug}/faqs/${faqId}`, { method: 'DELETE' }),
+  rateTool: (slug, payload) => request(`/tools/${slug}/rate`, { method: 'POST', body: JSON.stringify(payload) }),
 
   getCategories: () => request('/categories'),
   getPublicStats: () => request('/analytics/public-stats'),
@@ -122,6 +123,7 @@ export const api = {
   createComment: (slug, content) => authorizedRequest(`/blog/${slug}/comments`, { method: 'POST', body: JSON.stringify({ content }) }),
   updateComment: (commentId, content) => authorizedRequest(`/comments/${commentId}`, { method: 'PUT', body: JSON.stringify({ content }) }),
   deleteComment: (commentId) => authorizedRequest(`/comments/${commentId}`, { method: 'DELETE' }),
+  adminGetAllComments: () => authorizedRequest('/comments/admin/all'),
   getBlogPostBySlug: (slug) => request(`/blog/${slug}`),
 
   getSettings: () => request('/settings'),
@@ -181,6 +183,8 @@ export const api = {
 
   // --- Admin: users --------------------------------------------------------------
   adminGetUsers: (params = {}) => authorizedRequest(`/users${toQuery(params)}`),
+  adminGetContactMessages: () => authorizedRequest('/contact'),
+  adminDeleteContactMessage: (id) => authorizedRequest(`/contact/${id}`, { method: 'DELETE' }),
   adminGetUser: (id) => authorizedRequest(`/users/${id}`),
   adminUpdateUser: (id, data) => authorizedRequest(`/users/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   adminDeleteUser: (id) => authorizedRequest(`/users/${id}`, { method: 'DELETE' }),

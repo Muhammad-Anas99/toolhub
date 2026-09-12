@@ -15,6 +15,17 @@ export async function listCommentsForPost(slug) {
     .populate('user', 'name avatar')
 }
 
+// Admin-only: every comment across every post, for moderation. Unlike
+// listCommentsForPost above, this isn't scoped to one blog post, so
+// each comment needs its own post title/slug populated too, not just
+// the author, to give a moderator enough context to act on it.
+export async function listAllCommentsAdmin() {
+  return Comment.find()
+    .sort({ createdAt: -1 })
+    .populate('user', 'name email')
+    .populate('blog', 'title slug')
+}
+
 export async function createComment(slug, userId, content) {
   const blog = await getPublishedBlogBySlug(slug)
   try {

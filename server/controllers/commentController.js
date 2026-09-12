@@ -7,6 +7,11 @@ export const getComments = asyncHandler(async (req, res) => {
   sendSuccess(res, { data: comments, meta: { count: comments.length } })
 })
 
+export const getAllCommentsAdmin = asyncHandler(async (req, res) => {
+  const comments = await commentService.listAllCommentsAdmin()
+  sendSuccess(res, { data: comments, meta: { count: comments.length } })
+})
+
 export const createComment = asyncHandler(async (req, res) => {
   const comment = await commentService.createComment(req.params.slug, req.user._id, req.body.content)
   sendSuccess(res, { statusCode: 201, message: 'Comment posted', data: comment })
