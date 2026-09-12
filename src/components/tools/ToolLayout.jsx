@@ -6,6 +6,7 @@ import Container from '../ui/Container.jsx'
 import SEO, { SITE_URL } from '../ui/SEO.jsx'
 import Breadcrumb from './Breadcrumb.jsx'
 import ToolHeader from './ToolHeader.jsx'
+import FavoriteButton from './FavoriteButton.jsx'
 import CategorySidebar from './CategorySidebar.jsx'
 import SuggestToolBanner from './SuggestToolBanner.jsx'
 import RelatedTools from './RelatedTools.jsx'
@@ -197,7 +198,7 @@ export default function ToolLayout({ tool, children, faqItems }) {
                 stands between the visitor and the tool itself except a
                 single compact line. */}
             <div className="mb-5">
-              <ToolHeader icon={tool.icon} title={tool.name} description={tool.description} toolSlug={tool.slug} />
+              <ToolHeader icon={tool.icon} title={tool.name} description={tool.description} />
               <div className="mt-3 flex flex-wrap items-center gap-3">
                 <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">
                   <HiOutlineShieldCheck className="h-3.5 w-3.5" />
@@ -206,6 +207,7 @@ export default function ToolLayout({ tool, children, faqItems }) {
                 {ratingData && (
                   <StarRating ratingSum={ratingSum} ratingCount={ratingCount} userRating={userRating} onRate={handleRate} />
                 )}
+                <FavoriteButton toolSlug={tool.slug} />
               </div>
             </div>
 
