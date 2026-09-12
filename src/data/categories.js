@@ -14,6 +14,7 @@ export const categories = [
   {
     id: 'image-tools',
     name: 'Image Tools',
+    seoTitle: 'Free Online Image Tools \u2014 Resize, Compress & Convert',
     slug: 'image-tools',
     description: 'Convert, compress, resize, crop and rotate images.',
     intro:
@@ -25,6 +26,7 @@ export const categories = [
   {
     id: 'pdf-tools',
     name: 'PDF Tools',
+    seoTitle: 'Free PDF Tools Online \u2014 Merge, Split & Compress PDF',
     slug: 'pdf-tools',
     description: 'Merge, split, compress and convert PDF files.',
     intro:
@@ -36,6 +38,7 @@ export const categories = [
   {
     id: 'developer-tools',
     name: 'Developer Tools',
+    seoTitle: 'Free Developer Tools \u2014 JSON, Regex, Base64 & More',
     slug: 'developer-tools',
     description: 'Formatters, encoders and testers for everyday dev work.',
     intro:
@@ -47,6 +50,7 @@ export const categories = [
   {
     id: 'text-tools',
     name: 'Text Tools',
+    seoTitle: 'Free Text Tools Online \u2014 Word Counter & Case Converter',
     slug: 'text-tools',
     description: 'Count, convert, format and generate text content.',
     intro:
@@ -58,6 +62,7 @@ export const categories = [
   {
     id: 'color-tools',
     name: 'Color Tools',
+    seoTitle: 'Free Color Tools \u2014 Picker, Palette & Gradient Generator',
     slug: 'color-tools',
     description: 'Pick colors, build palettes and generate gradients.',
     intro:
@@ -69,6 +74,7 @@ export const categories = [
   {
     id: 'security-tools',
     name: 'Security Tools',
+    seoTitle: 'Free Security Tools \u2014 Password Generator & Hash Checker',
     slug: 'security-tools',
     description: 'Generate passwords, hashes and check data safety.',
     intro:
@@ -79,6 +85,7 @@ export const categories = [
   {
     id: 'social-media-tools',
     name: 'Social Media Tools',
+    seoTitle: 'Free Social Media Image Resizer \u2014 Every Platform',
     slug: 'social-media-tools',
     description: 'Resize and prepare images for every social platform.',
     intro:
@@ -89,6 +96,7 @@ export const categories = [
   {
     id: 'audio-video-tools',
     name: 'Audio & Video Tools',
+    seoTitle: 'Free Audio & Video Tools \u2014 Convert, Trim & Edit',
     slug: 'audio-video-tools',
     description: 'Convert, trim and edit audio and video files.',
     intro:
@@ -99,6 +107,7 @@ export const categories = [
   {
     id: 'unit-converters',
     name: 'Unit Converters',
+    seoTitle: 'Free Unit Converter \u2014 Length, Weight, Temperature & More',
     slug: 'unit-converters',
     description: 'Convert length, weight, volume, temperature and more.',
     intro:

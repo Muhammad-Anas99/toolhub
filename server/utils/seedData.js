@@ -117,7 +117,7 @@ export const toolSeed = [
   { name: 'HEX to HSL', slug: 'hex-to-hsl', path: '/tools/hex-to-hsl', category: 'color-tools', description: 'Convert HEX color codes to HSL values instantly.', icon: 'FaSliders', comingSoon: false },
   { name: 'Color Converter', slug: 'color-converter', path: '/tools/color-converter', category: 'color-tools', description: 'Convert between HEX, RGB and HSL color formats in one place.', icon: 'FaPalette', badge: 'new', comingSoon: false },
   { name: 'Color Palette Generator', slug: 'palette-generator', path: '/tools/palette-generator', category: 'color-tools', description: 'Generate complementary, analogous, triadic and shade palettes from any color.', icon: 'FaPalette', badge: 'popular', comingSoon: false },
-  { name: 'Gradient Generator', slug: 'gradient-generator', path: '/tools/gradient-generator', category: 'color-tools', description: 'Create smooth linear and radial CSS gradients with a visual editor.', icon: 'FaPalette', comingSoon: false },
+  { name: 'Gradient Generator', slug: 'gradient-generator', path: '/tools/gradient-generator', category: 'color-tools', description: 'Create CSS gradient backgrounds with a visual editor, random generation, and ready-made presets.', icon: 'FaPalette', comingSoon: false },
 
   // ---------- Developer Tools (fully working) ----------
   { name: 'JSON Formatter', slug: 'json-formatter', path: '/tools/json-formatter', category: 'developer-tools', description: 'Format, beautify or minify JSON data instantly.', icon: 'FaCode', badge: 'popular', comingSoon: false },

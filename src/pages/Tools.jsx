@@ -77,7 +77,7 @@ export default function Tools() {
     ? activeCategoryData.intro || activeCategoryData.description
     : 'Browse every free ToolHub tool, or search and filter by category to find exactly what you need.'
 
-  const pageTitle = activeCategoryData ? activeCategoryData.name : 'All Tools'
+  const pageTitle = activeCategoryData ? activeCategoryData.seoTitle : 'Free Online Tools \u2014 Image, PDF, Text & More'
   const pageDescription = activeCategoryData
     ? `${activeCategoryData.description} Free, fast, and works right in your browser.`
     : 'Browse every free online tool available on ToolHub, including image converters, PDF tools, developer utilities and more.'

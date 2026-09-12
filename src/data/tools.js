@@ -395,11 +395,11 @@ export const tools = [
   {
     id: 'gradient-generator',
     name: 'Gradient Generator',
-    seoTitle: 'CSS Gradient Generator — Create Gradients Online Free',
+    seoTitle: 'CSS Gradient Generator — Create Gradient Backgrounds Free',
     slug: 'gradient-generator',
     path: '/tools/gradient-generator',
     category: 'color-tools',
-    description: 'Create smooth linear and radial CSS gradients with a visual editor.',
+    description: 'Create CSS gradient backgrounds with a visual editor, random generation, and ready-made presets.',
     icon: FaPalette,
     comingSoon: false,
   },
