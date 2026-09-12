@@ -1,52 +1,22 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { FaStar, FaRegStar } from 'react-icons/fa6'
-import { api } from '../../lib/api.js'
-import { getStoredRating, setStoredRating } from '../../lib/toolRatingStorage.js'
 
 const MIN_RATINGS_TO_SHOW_COUNT = 3
 
-export default function StarRating({ slug, initialRatingSum, initialRatingCount }) {
-  const [ratingSum, setRatingSum] = useState(initialRatingSum)
-  const [ratingCount, setRatingCount] = useState(initialRatingCount)
-  const [userRating, setUserRating] = useState(() => getStoredRating(slug))
+/**
+ * Purely presentational - the actual rating state and submission logic
+ * live in the useToolRating hook, shared across every StarRating
+ * instance on the page (a tool page renders one near the top and one
+ * at the end), so rating via either one keeps both in sync. Only the
+ * hover-preview state stays local here, since hovering is genuinely
+ * specific to whichever instance the cursor is actually over.
+ */
+export default function StarRating({ ratingSum, ratingCount, userRating, onRate }) {
   const [hoveredStar, setHoveredStar] = useState(0)
-  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const average = ratingCount > 0 ? ratingSum / ratingCount : 0
   const filledCount = hoveredStar > 0 ? hoveredStar : userRating || Math.round(average)
-
-  async function handleRate(star) {
-    if (isSubmitting || star === userRating) return
-    const previousRating = userRating
-
-    setIsSubmitting(true)
-    setUserRating(star)
-    setStoredRating(slug, star)
-    if (previousRating) {
-      setRatingSum((s) => s - previousRating + star)
-    } else {
-      setRatingSum((s) => s + star)
-      setRatingCount((c) => c + 1)
-    }
-
-    try {
-      const { data } = await api.rateTool(slug, { rating: star, previousRating })
-      setRatingSum(data.ratingSum)
-      setRatingCount(data.ratingCount)
-    } catch (err) {
-      setUserRating(previousRating)
-      setStoredRating(slug, previousRating)
-      if (previousRating) {
-        setRatingSum((s) => s - star + previousRating)
-      } else {
-        setRatingSum((s) => s - star)
-        setRatingCount((c) => c - 1)
-      }
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
 
   return (
     <div className="flex items-center gap-2.5">
@@ -56,7 +26,7 @@ export default function StarRating({ slug, initialRatingSum, initialRatingCount 
             key={star}
             type="button"
             onMouseEnter={() => setHoveredStar(star)}
-            onClick={() => handleRate(star)}
+            onClick={() => onRate(star)}
             aria-label={`Rate ${star} out of 5 stars`}
             className="text-slate-300 transition-colors hover:scale-110 dark:text-slate-600"
           >
@@ -78,12 +48,8 @@ export default function StarRating({ slug, initialRatingSum, initialRatingCount 
 }
 
 StarRating.propTypes = {
-  slug: PropTypes.string.isRequired,
-  initialRatingSum: PropTypes.number,
-  initialRatingCount: PropTypes.number,
-}
-
-StarRating.defaultProps = {
-  initialRatingSum: 0,
-  initialRatingCount: 0,
+  ratingSum: PropTypes.number.isRequired,
+  ratingCount: PropTypes.number.isRequired,
+  userRating: PropTypes.number,
+  onRate: PropTypes.func.isRequired,
 }

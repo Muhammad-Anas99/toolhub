@@ -11,6 +11,7 @@ import SuggestToolBanner from './SuggestToolBanner.jsx'
 import RelatedTools from './RelatedTools.jsx'
 import ToolFAQSection from './ToolFAQSection.jsx'
 import StarRating from './StarRating.jsx'
+import { useToolRating } from '../../hooks/useToolRating.js'
 import ToolInformation from './info/ToolInformation.jsx'
 import { getCategoryBySlug } from '../../data/categories.js'
 import { toolContent } from '../../data/toolContent.js'
@@ -55,6 +56,11 @@ export default function ToolLayout({ tool, children, faqItems }) {
   // widget only mounts once this is set to the real fetched values, so
   // it never has to reconcile stale initial props against a later fetch.
   const [ratingData, setRatingData] = useState(null)
+  const { ratingSum, ratingCount, userRating, handleRate } = useToolRating(
+    tool.slug,
+    ratingData?.ratingSum,
+    ratingData?.ratingCount
+  )
 
   useEffect(() => {
     let cancelled = false
@@ -198,11 +204,7 @@ export default function ToolLayout({ tool, children, faqItems }) {
                   100% free, no sign-up required
                 </div>
                 {ratingData && (
-                  <StarRating
-                    slug={tool.slug}
-                    initialRatingSum={ratingData.ratingSum}
-                    initialRatingCount={ratingData.ratingCount}
-                  />
+                  <StarRating ratingSum={ratingSum} ratingCount={ratingCount} userRating={userRating} onRate={handleRate} />
                 )}
               </div>
             </div>
@@ -246,6 +248,15 @@ export default function ToolLayout({ tool, children, faqItems }) {
               <RelatedTools currentToolId={tool.id} category={tool.category} />
               <ToolFAQSection items={effectiveFaqItems} />
             </div>
+
+            {ratingData && (
+              <div className="mx-auto mt-16 max-w-3xl text-center">
+                <h2 className="text-base font-semibold text-slate-900 dark:text-white">Rate this tool</h2>
+                <div className="mt-3 flex justify-center">
+                  <StarRating ratingSum={ratingSum} ratingCount={ratingCount} userRating={userRating} onRate={handleRate} />
+                </div>
+              </div>
+            )}
 
             <div className="mx-auto mt-16 max-w-3xl text-center">
               <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-10 dark:border-slate-800 dark:bg-slate-900/50">
