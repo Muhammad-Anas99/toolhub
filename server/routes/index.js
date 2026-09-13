@@ -13,6 +13,7 @@ import downloadRoutes from './downloadRoutes.js'
 import analyticsRoutes from './analyticsRoutes.js'
 import contactRoutes from './contactRoutes.js'
 import urlShortenerRoutes from './urlShortenerRoutes.js'
+import networkRoutes from './networkRoutes.js'
 
 const router = Router()
 
@@ -28,6 +29,7 @@ router.use('/downloads', downloadRoutes)
 router.use('/analytics', analyticsRoutes)
 router.use('/contact', contactRoutes)
 router.use('/shorten', urlShortenerRoutes)
+router.use('/network', networkRoutes)
 
 router.use('/tools', toolRoutes)
 router.use('/categories', categoryRoutes)

@@ -1,11 +1,33 @@
 import {
   HiOutlineBolt,
+  HiOutlineCamera,
+  HiOutlineBarsArrowDown,
+  HiOutlineQrCode,
+  HiOutlineServerStack,
+  HiOutlineUserCircle,
+  HiOutlineUserGroup,
+  HiOutlineLanguage,
+  HiOutlinePencil,
+  HiOutlineCube,
+  HiOutlineCodeBracketSquare,
+  HiOutlineArchiveBox,
+  HiOutlineSwatch,
+  HiOutlineEye,
+  HiOutlineCalculator,
+  HiOutlineChartBar,
+  HiOutlineCurrencyDollar,
+  HiOutlineHome,
   HiOutlineArrowPath,
   HiOutlineForward,
   HiOutlineCheckCircle,
   HiOutlineChatBubbleLeftRight,
   HiOutlineCursorArrowRays,
   HiOutlineClipboard,
+  HiOutlineListBullet,
+  HiOutlineQueueList,
+  HiOutlineArrowsUpDown,
+  HiOutlineArrowsPointingIn,
+  HiOutlineMagnifyingGlassPlus,
   HiOutlineShieldCheck,
   HiOutlineCloudArrowUp,
   HiOutlineAdjustmentsHorizontal,
@@ -2131,5 +2153,821 @@ export const toolContent = {
       'Reusing an Instagram or Snapchat Story image for WhatsApp Status without a redesign',
     ],
     privacy: NO_FILE_PRIVACY,
+  },
+
+  'remove-duplicate-lines': {
+    about:
+      'Removes duplicate lines from a block of text, keeping the first occurrence of each unique line and discarding the rest.\n\nThis comes up more often than it might seem: cleaning up a list of email addresses collected from multiple sources, deduplicating a list of URLs before running a batch process, or tidying up a CSV-adjacent text file where the same row was accidentally pasted twice. Doing this by hand in a text editor means scanning line by line, which gets error-prone fast once a list passes a few dozen lines.\n\nThe comparison is exact and case-sensitive: "Apple" and "apple" are treated as different lines, since a case-insensitive dedupe would risk silently discarding genuinely different data (an email address\u2019s local part, for instance, technically can be case-sensitive). Order is otherwise preserved exactly as in the original, so the result reads the same as the source, just without the repeats.',
+    features: [
+      { title: 'Exact-match deduplication', description: 'Keeps the first occurrence of each unique line.', icon: HiOutlineListBullet },
+      { title: 'Order preserved', description: 'Remaining lines stay in their original order.', icon: HiOutlineQueueList },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste your text.', 'The deduplicated result appears instantly.', 'Copy the result.'],
+    useCases: [
+      'Cleaning up a list of email addresses collected from multiple sources',
+      'Deduplicating a list of URLs before a batch process',
+      'Removing accidental repeated rows from a pasted spreadsheet column',
+      'Tidying up a list of names or tags before importing it elsewhere',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'text-reverser': {
+    about:
+      'Reverses the character order of any text, turning "hello" into "olleh".\n\nThis is mostly a novelty and puzzle tool, but it has a few genuine practical uses too: checking whether a word or phrase is a palindrome, creating a simple visual effect for a design project, or generating a reversed string for a programming exercise or test case. The reversal works character by character, including spaces and punctuation, so a full sentence reverses as a mirror image of itself rather than just reversing word order.',
+    features: [
+      { title: 'Instant reversal', description: 'Updates as you type, no button to click.', icon: HiOutlineArrowsRightLeft },
+      { title: 'Character-level reversal', description: 'Reverses every character, including spaces and punctuation.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you type here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Type or paste your text.', 'The reversed result appears instantly.', 'Copy the result.'],
+    useCases: [
+      'Checking whether a word or phrase is a palindrome',
+      'Creating a mirrored text effect for a design project',
+      'Generating a reversed string for a coding exercise or test case',
+      'Just for fun \u2014 seeing what a name or phrase looks like backwards',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'upside-down-text-generator': {
+    about:
+      'Flips text upside down using Unicode characters that visually resemble upside-down letters, a trick that works anywhere plain Unicode text is accepted: social media bios, captions, group names, or a message to a friend.\n\nWorth understanding how this actually works, since it\u2019s a genuinely clever trick rather than an image or a font: the Unicode standard happens to include characters from various alphabets and phonetic systems that, by coincidence of their shape, look like upside-down versions of Latin letters. This tool maps each letter to its closest upside-down lookalike and reverses the order, so the result reads correctly when the whole thing is flipped, exactly the way turning a printed page upside down would.\n\nBecause these are real Unicode characters, not an image, the result can be copied and pasted anywhere text is accepted, and it stays upside down consistently across devices and platforms, unlike a font-based trick that only works within one specific app.',
+    features: [
+      { title: 'Real Unicode characters', description: 'Not an image \u2014 works anywhere plain text is accepted.', icon: HiOutlineArrowsUpDown },
+      { title: 'Instant flip', description: 'Updates as you type.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you type here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Type your text.', 'The upside-down version appears instantly.', 'Copy and paste it anywhere.'],
+    useCases: [
+      'Adding a novelty touch to a social media bio or caption',
+      'Sending a fun, attention-grabbing message to a friend',
+      'Creating an unusual group chat or channel name',
+      'Standing out in a comment section with unexpected formatting',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'trim-whitespace': {
+    about:
+      'Cleans up extra whitespace from text: trailing spaces at the end of lines, leading spaces at the start, and blank lines stacked more than two deep, without touching the actual words.\n\nThis kind of mess accumulates quietly, usually from copying text out of a PDF, an email client, or a word processor that adds its own invisible spacing conventions. It rarely causes a visible problem until the text gets pasted somewhere that treats whitespace meaningfully, like a code file, a CSV, or a configuration file, where a stray trailing space can cause a genuinely confusing bug that\u2019s invisible just by looking at it.',
+    features: [
+      { title: 'Trims line by line', description: 'Removes leading and trailing spaces from every line.', icon: HiOutlineArrowsPointingIn },
+      { title: 'Collapses excess blank lines', description: 'Three or more blank lines in a row become just one.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste your text.', 'The cleaned-up result appears instantly.', 'Copy the result.'],
+    useCases: [
+      'Cleaning up text copied from a PDF or word processor before using it in code',
+      'Removing invisible trailing spaces that break a CSV or config file',
+      'Tidying up excessive blank lines from a pasted document',
+      'Preparing text for a system that treats whitespace meaningfully',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'slug-generator': {
+    about:
+      'Converts any title or phrase into a clean, URL-friendly slug: lowercase, hyphens instead of spaces, and no special characters.\n\nA slug is the readable part of a URL, the "my-blog-post-title" in example.com/blog/my-blog-post-title, and getting it right matters for more than just tidiness. Search engines use the words in a URL as a genuine, if modest, ranking signal, and a clean slug is more shareable and trustworthy-looking than a URL full of encoded spaces and symbols. Most content management systems generate a slug automatically, but a manual one is often needed when publishing somewhere that doesn\u2019t, or when the auto-generated version needs manual cleanup.',
+    features: [
+      { title: 'Instant conversion', description: 'Updates as you type.', icon: HiOutlineLink },
+      { title: 'Strips special characters', description: 'Only lowercase letters, numbers, and hyphens remain.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you type here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Type a title or phrase.', 'The generated slug appears instantly.', 'Copy the result.'],
+    useCases: [
+      'Creating a URL slug for a blog post or article',
+      'Generating a clean filename from a title',
+      'Preparing a slug for a platform that doesn\u2019t auto-generate one',
+      'Cleaning up an auto-generated slug that includes unwanted characters',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'line-counter': {
+    about:
+      'Counts the total number of lines in a block of text, along with a separate count of non-empty lines.\n\nThis distinction matters more than a single "line count" figure would suggest: a document with 100 total lines but only 60 non-empty ones tells a very different story than one where nearly every line has content, useful context when estimating how much of a file is actual content versus spacing, or when a system expects a specific line count and blank lines would throw that number off.',
+    features: [
+      { title: 'Total and non-empty counts', description: 'Two separate, genuinely useful numbers, not just one total.', icon: HiOutlineListBullet },
+      { title: 'Instant count', description: 'Updates as you type or paste.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste your text.', 'Both line counts update instantly.'],
+    useCases: [
+      'Checking how many lines are in a list before importing it elsewhere',
+      'Estimating actual content versus blank spacing in a document',
+      'Verifying a file matches an expected line count',
+      'Counting entries in a pasted list of items, one per line',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'text-to-binary': {
+    about:
+      'Converts text into its binary representation, the sequence of 0s and 1s a computer actually uses to store each character internally.\n\nEach character becomes an 8-bit binary number matching its standard character code (the same encoding, ASCII-compatible, that underlies virtually all plain text), separated by spaces for readability. This is mostly an educational and novelty tool, useful for understanding how computers represent text at the lowest level, but it also comes up in some puzzle and cryptography-adjacent contexts where binary-encoded text is a deliberate layer of obfuscation.',
+    features: [
+      { title: 'Standard 8-bit encoding', description: 'Matches the character codes used throughout plain text and programming.', icon: HiOutlineCodeBracket },
+      { title: 'Instant conversion', description: 'Updates as you type.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you type here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Type or paste your text.', 'The binary result appears instantly.', 'Copy the result.'],
+    useCases: [
+      'Learning how computers represent text at a low level',
+      'Creating a binary-encoded puzzle or hidden message',
+      'Generating binary test data for a programming exercise',
+      'Satisfying curiosity about what a word actually looks like in binary',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'binary-to-text': {
+    about:
+      'Converts binary code (0s and 1s) back into readable text, the reverse of encoding text into binary.\n\nEach group of 8 binary digits is read as one character code and converted back to its corresponding letter, number, or symbol. This is the natural companion to a text-to-binary tool, useful for decoding a binary message or puzzle, checking a programming exercise\u2019s output, or simply satisfying curiosity about what a string of 0s and 1s actually spells out.',
+    features: [
+      { title: 'Standard 8-bit decoding', description: 'Matches the character codes used throughout plain text and programming.', icon: HiOutlineCodeBracket },
+      { title: 'Instant conversion', description: 'Updates as you type or paste.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste binary code, with each 8-digit group separated by a space.', 'The decoded text appears instantly.', 'Copy the result.'],
+    useCases: [
+      'Decoding a binary-encoded message or puzzle',
+      'Checking the output of a programming exercise',
+      'Verifying a text-to-binary conversion by decoding it back',
+      'Learning how binary maps back to readable characters',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'find-and-replace': {
+    about:
+      'Finds every occurrence of a word or phrase in a block of text and replaces it with something else, with optional case-sensitive and whole-word matching for more precise control.\n\nA plain text editor\u2019s find-and-replace often does the job, but pasting text into a dedicated tool avoids opening a full editor just for a quick cleanup, and having the match count visible before committing to the replacement helps catch a typo in the search term before it silently replaces nothing, or replaces far more than intended. Whole-word matching specifically avoids the common mistake of a short search term accidentally matching inside a longer word (searching for "cat" and accidentally changing "catalog" too).',
+    features: [
+      { title: 'Case-sensitive option', description: 'Match exact capitalization, or ignore it.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Whole-word matching', description: 'Avoid accidentally matching inside a longer word.', icon: HiOutlineMagnifyingGlassPlus },
+      { title: 'Live match count', description: 'See how many matches were found before relying on the result.', icon: HiOutlineHashtag },
+    ],
+    howToUse: ['Paste your text.', 'Enter what to find and what to replace it with.', 'Adjust case-sensitive and whole-word options if needed.', 'Copy the result.'],
+    useCases: [
+      'Replacing a repeated typo throughout a document',
+      'Updating a name or term that changed across a block of text',
+      'Cleaning up inconsistent formatting by replacing one pattern with another',
+      'Checking how many times a specific word appears before deciding to replace it',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'percentage-calculator': {
+    about:
+      'Handles the three most common percentage calculations in one place: finding a percentage of a number, figuring out what percentage one number is of another, and calculating the percentage change between two values.\n\nThese three calculations look similar but solve genuinely different problems, and mixing them up is a common source of errors. "20% of 50" answers a completely different question than "20 is what percent of 50," even though both involve the same two numbers. Percentage change specifically accounts for direction, a negative result means a decrease, which matters when tracking something like a price change or a month-over-month metric where the direction of the change is the actual point.',
+    features: [
+      { title: 'Three calculation modes', description: 'Percentage of a number, what percent one number is of another, and percentage change.', icon: HiOutlineCalculator },
+      { title: 'Instant results', description: 'Updates as soon as both numbers are entered.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you enter here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Choose a calculation mode.', 'Enter the two numbers.', 'The result appears instantly.'],
+    useCases: ['Calculating a discount or tax amount', 'Figuring out what portion a number represents of a total', 'Tracking a percentage increase or decrease over time', 'Checking a percentage-based calculation by hand'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'compound-interest-calculator': {
+    about:
+      'Calculates how an investment grows over time with compound interest, using the standard compound interest formula, and shows both the final amount and the interest earned separately.\n\nCompound interest is often summarized as "interest on interest," and the compounding frequency (annually, monthly, daily) genuinely changes the result, not just as a rounding detail. The same principal, rate, and time period produce a meaningfully larger final amount when compounded monthly instead of annually, since each compounding period\u2019s interest starts earning its own interest sooner. This is exactly why a savings account\u2019s stated annual rate and its actual annual yield can differ once the compounding frequency is accounted for.',
+    features: [
+      { title: 'Adjustable compounding frequency', description: 'Annually, monthly, daily, or any number of times per year.', icon: HiOutlineChartBar },
+      { title: 'Separates principal from interest', description: 'See exactly how much of the final amount is interest earned.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you enter here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Enter the principal, annual rate, compounding frequency, and number of years.', 'The final amount and interest earned appear instantly.'],
+    useCases: ['Estimating how a savings account or investment will grow over time', 'Comparing outcomes at different compounding frequencies', 'Understanding the real difference a small rate change makes over many years', 'Planning toward a savings goal by testing different time horizons'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'loan-calculator': {
+    about:
+      'Calculates the monthly payment for a loan or mortgage using the standard amortization formula, along with the total amount paid and total interest over the full loan term.\n\nThe formula behind this is the same one lenders themselves use to set a fixed monthly payment, which is why the same loan amount, rate, and term will produce the same payment figure whether it comes from a bank\u2019s own calculator or this one. Worth understanding intuitively: the total interest paid over a 30-year loan is often comparable to, or even larger than, the original loan amount itself, a detail that gets easy to lose sight of when only looking at the monthly payment figure in isolation.',
+    features: [
+      { title: 'Standard amortization formula', description: 'The same formula lenders use to calculate a fixed monthly payment.', icon: HiOutlineHome },
+      { title: 'Total interest shown separately', description: 'See exactly how much of the total cost is interest versus principal.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you enter here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Enter the loan amount, annual interest rate, and term in years.', 'The monthly payment, total paid, and total interest appear instantly.'],
+    useCases: ['Estimating a mortgage payment before applying for a loan', 'Comparing monthly payments across different loan terms or rates', 'Understanding how much of a loan\u2019s total cost is interest', 'Checking a lender-provided payment figure independently'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'profit-margin-calculator': {
+    about:
+      'Calculates both profit margin and markup from a revenue and cost figure, two related but genuinely different numbers that are easy to confuse.\n\nProfit margin is profit as a percentage of the selling price (revenue), while markup is profit as a percentage of the cost. The same two numbers produce different-looking percentages depending on which one is asked for, and mixing them up in a pricing decision can lead to setting a price that doesn\u2019t actually deliver the profit margin intended. A common example: a 50% markup on cost is not the same as a 50% profit margin, working out to a genuinely lower margin once the actual math is done.',
+    features: [
+      { title: 'Both margin and markup', description: 'Two related percentages calculated from the same two numbers.', icon: HiOutlineCurrencyDollar },
+      { title: 'Instant results', description: 'Updates as soon as both numbers are entered.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you enter here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Enter the revenue (selling price) and cost.', 'Profit margin and markup appear instantly.'],
+    useCases: ['Setting a price that achieves a target profit margin', 'Checking whether a markup percentage delivers the intended margin', 'Comparing margins across different products or services', 'Understanding the real difference between margin and markup'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'age-calculator': {
+    about:
+      'Calculates exact age in years, months, and days between two dates, along with the total number of days, using genuine calendar-aware math rather than a rough estimate.\n\nA naive age calculation (today\u2019s date minus birth year) gets the year right but ignores whether the birthday has actually happened yet this year, and a pure day-count divided by 365 drifts over time because of leap years. This calculator accounts for the actual number of days in each specific month and year involved, so the years/months/days breakdown matches what a calendar would actually show, not an approximation.',
+    features: [
+      { title: 'True calendar-aware calculation', description: 'Accounts for actual month lengths and leap years, not a rough estimate.', icon: HiOutlineCalendarDays },
+      { title: 'Any two dates', description: 'Not limited to "today" \u2014 calculate age as of any reference date.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you enter here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Enter a date of birth.', 'Enter the date to calculate age as of (defaults to today).', 'The exact age appears instantly.'],
+    useCases: ['Calculating exact age for an official form or application', 'Finding out how many total days old someone is', 'Calculating age as of a specific past or future date', 'Working out the exact time between any two dates'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'color-contrast-checker': {
+    about:
+      'Checks the contrast ratio between a text color and its background against the WCAG (Web Content Accessibility Guidelines) AA and AAA standards, the same accessibility criteria real audits and automated testing tools check against.\n\nContrast ratio is calculated from each color\u2019s relative luminance, a measure of how much light a color reflects, weighted to match how the human eye actually perceives brightness across red, green, and blue rather than treating them equally. The ratio ranges from 1:1 (identical colors, no contrast at all) to 21:1 (pure black on pure white, the maximum possible contrast). WCAG AA requires at least 4.5:1 for normal text and 3:1 for large text; AAA, a stricter standard, requires 7:1 and 4.5:1 respectively.\n\nThis matters beyond compliance checkboxes: low contrast text is genuinely difficult to read for people with low vision, color blindness, or simply anyone using a phone screen in bright sunlight, making this one of the more consequential, easy-to-check details in a design.',
+    features: [
+      { title: 'Real WCAG math', description: 'Calculated using the actual relative luminance and contrast ratio formulas from the WCAG spec.', icon: HiOutlineScale },
+      { title: 'AA and AAA results', description: 'See pass/fail for both standards, for normal and large text.', icon: HiOutlineCheckCircle },
+      { title: 'Live preview', description: 'See the actual color combination rendered as sample text.', icon: HiOutlineEye },
+    ],
+    howToUse: ['Choose a text color.', 'Choose a background color.', 'See the contrast ratio and WCAG pass/fail results instantly.'],
+    useCases: ['Checking a color combination before finalizing a design', 'Auditing an existing website or app for accessibility compliance', 'Choosing text colors that remain readable for low-vision users', 'Verifying a design meets a client or organization\u2019s accessibility requirements'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'darken-lighten-color': {
+    about:
+      'Generates a range of lighter and darker shades of any color, a common need when building a coordinated color palette rather than working with a single flat color.\n\nA single brand color rarely works alone in a real design: buttons need a hover state slightly darker than their resting state, disabled elements need a lighter, muted version, and shadows or borders often use a darker variant of a base color to feel cohesive rather than arbitrary. This tool generates five steps in each direction, giving a practical, ready-to-use range rather than requiring a manual color-picker adjustment for every shade needed.',
+    features: [
+      { title: 'Five shades each direction', description: 'A practical range of lighter and darker variants.', icon: HiOutlineSwatch },
+      { title: 'Click to copy', description: 'Each shade\u2019s hex code copies with one click.', icon: HiOutlineClipboard },
+      { title: 'Works entirely in your browser', description: 'Nothing you enter here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Choose or enter a base color.', 'Lighter and darker shades generate instantly.', 'Click any shade to copy its hex code.'],
+    useCases: ['Building a hover or active state for a button from a base color', 'Creating a muted, disabled-state version of a brand color', 'Generating a coordinated shadow or border color', 'Building out a full color scale from one starting color'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'random-color-generator': {
+    about:
+      'Generates random hex colors, useful for design inspiration, placeholder content, or breaking out of a creative rut when every color choice starts to feel the same.\n\nEach color is generated as a genuinely uniform random value across the full color space, not biased toward any particular hue or brightness range, so the results span the full range of possible colors rather than clustering around a few common shades. This is intentionally a starting point for exploration rather than a curated palette generator, useful specifically when the goal is unexpected color combinations rather than professionally coordinated ones.',
+    features: [
+      { title: 'Six colors at once', description: 'Generate a fresh batch instantly.', icon: HiOutlineSwatch },
+      { title: 'Click to copy', description: 'Each color\u2019s hex code copies with one click.', icon: HiOutlineClipboard },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Click Generate New Colors.', 'Click any color\u2019s hex code to copy it.'],
+    useCases: ['Finding design inspiration when stuck on a color choice', 'Generating placeholder colors for a mockup or prototype', 'Creating a random accent color for a personal project', 'Exploring unexpected color combinations outside a usual palette'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'css-formatter': {
+    about:
+      'Formats minified or messy CSS into properly indented, readable code, expanding compressed one-line stylesheets into a structure that\u2019s actually possible to read and edit.\n\nMinified CSS delivered from a production website or a build tool is deliberately compressed for file size, every rule on one line, no spaces to spare. That\u2019s efficient for a browser to load but genuinely difficult for a person to read, debug, or learn from. This tool reverses that: it rebuilds proper indentation, one property per line, and consistent spacing around selectors and values, without changing what the CSS actually does.',
+    features: [
+      { title: 'Handles nested rules', description: 'Media queries and other nested blocks are indented correctly.', icon: HiOutlineCodeBracketSquare },
+      { title: 'Preserves exact behavior', description: 'Only whitespace and structure change; the CSS itself is untouched.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste minified or messy CSS.', 'The formatted result appears instantly.', 'Copy the result.'],
+    useCases: ['Making a minified stylesheet readable for debugging', 'Cleaning up CSS pasted from a browser\u2019s dev tools', 'Preparing CSS for a code review or documentation', 'Learning CSS structure from an otherwise compressed file'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'css-minifier': {
+    about:
+      'Minifies CSS by stripping comments and unnecessary whitespace, producing a smaller file that behaves identically but loads faster.\n\nEvery space, line break, and comment in a CSS file adds bytes that a browser has to download before it can render a page, and while modern connections make a few kilobytes here or there rarely dramatic on their own, minification adds up meaningfully across a whole site\u2019s stylesheets, especially on a slower connection. This is exactly the same kind of processing step that build tools like webpack or Vite apply automatically before deploying a production site, made available here as a standalone step.',
+    features: [
+      { title: 'Removes comments and whitespace', description: 'Strips everything not needed for the browser to interpret the CSS.', icon: HiOutlineArchiveBox },
+      { title: 'Behavior-preserving', description: 'The minified output renders identically to the original.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste your CSS.', 'The minified result appears instantly.', 'Copy the result.'],
+    useCases: ['Reducing a stylesheet\u2019s file size before deploying', 'Preparing CSS for a context without a build tool to minify it automatically', 'Comparing file size before and after minification', 'Quickly compressing a small CSS snippet for embedding inline'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'html-formatter': {
+    about:
+      'Formats minified or messy HTML into properly indented, readable markup, expanding compressed or poorly-structured HTML into a nested structure that\u2019s actually possible to follow.\n\nIndentation in HTML exists purely for the person reading it; browsers don\u2019t care about whitespace between tags at all. But that human-facing structure matters enormously once a document has more than a handful of elements, since without it, figuring out which closing tag belongs to which opening tag becomes genuinely difficult. This tool rebuilds that structure automatically, indenting each nested element one level deeper than its parent, exactly the convention most code editors and style guides follow.',
+    features: [
+      { title: 'Correct void element handling', description: 'Self-closing tags like <img> and <br> are handled correctly, not treated as needing a closing tag.', icon: HiOutlineCodeBracketSquare },
+      { title: 'Preserves exact structure', description: 'Only whitespace and indentation change; the markup itself is untouched.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste minified or messy HTML.', 'The formatted result appears instantly.', 'Copy the result.'],
+    useCases: ['Making minified HTML readable for debugging', 'Cleaning up markup copied from a browser\u2019s "view source"', 'Preparing HTML for a code review or documentation', 'Untangling deeply nested markup to find a structural mistake'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'html-minifier': {
+    about:
+      'Minifies HTML by stripping comments and collapsing whitespace between tags, producing a smaller file that renders identically but transfers faster.\n\nThis is the same category of optimization CSS and JavaScript minifiers apply, adapted for markup: every line break and indent between tags is bytes a browser downloads but never actually needs, since HTML rendering ignores whitespace between elements anyway. The visible content and structure stay completely unchanged; only the invisible formatting scaffolding is removed.',
+    features: [
+      { title: 'Removes comments and whitespace', description: 'Strips everything not needed for the browser to render the page.', icon: HiOutlineArchiveBox },
+      { title: 'Behavior-preserving', description: 'The minified output renders identically to the original.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste your HTML.', 'The minified result appears instantly.', 'Copy the result.'],
+    useCases: ['Reducing a static HTML page\u2019s file size before deploying', 'Preparing an HTML email template for smaller size', 'Compressing an HTML snippet for embedding elsewhere', 'Comparing file size before and after minification'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'xml-formatter': {
+    about:
+      'Formats minified or messy XML into properly indented, readable markup, using the same nested-structure logic as HTML but without assuming any tag is self-closing unless it\u2019s explicitly written that way.\n\nXML is stricter than HTML by design, every tag that opens must be explicitly closed, and there\u2019s no browser-defined list of "void" elements to assume about. This formatter respects that: it only treats an element as self-closing when the source itself writes it that way (like <item />), which matters for configuration files, API responses, and data feeds where getting the exact structure right is often more consequential than in a webpage.',
+    features: [
+      { title: 'XML-correct handling', description: 'No HTML-specific assumptions about which tags self-close.', icon: HiOutlineCodeBracketSquare },
+      { title: 'Preserves exact structure', description: 'Only whitespace and indentation change; the data itself is untouched.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste minified or messy XML.', 'The formatted result appears instantly.', 'Copy the result.'],
+    useCases: ['Making a minified XML API response readable for debugging', 'Cleaning up a configuration file for easier editing', 'Preparing XML for documentation or a code review', 'Untangling deeply nested XML to find a structural issue'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'xml-minifier': {
+    about:
+      'Minifies XML by stripping comments and collapsing whitespace between elements, producing a smaller file that parses identically but transfers faster.\n\nThis matters most for XML used in contexts where file size genuinely affects performance: API responses, RSS or Atom feeds, and configuration files transmitted over a network. The data structure and every value inside it stay completely unchanged; only the whitespace used purely for human readability is removed.',
+    features: [
+      { title: 'Removes comments and whitespace', description: 'Strips everything not needed for a parser to read the data.', icon: HiOutlineArchiveBox },
+      { title: 'Data-preserving', description: 'Every element and value parses identically to the original.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste your XML.', 'The minified result appears instantly.', 'Copy the result.'],
+    useCases: ['Reducing an XML feed or API response\u2019s file size', 'Compressing a configuration file for smaller storage', 'Preparing XML for a context with strict size limits', 'Comparing file size before and after minification'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'javascript-minifier': {
+    about:
+      'Minifies JavaScript by removing comments and unnecessary whitespace, while remaining fully aware of string and template literals, so a comment-like sequence sitting inside a string, such as a URL, is never mistakenly stripped out.\n\nThis distinction matters more than it might seem: a naive approach that simply deletes anything after // would corrupt a string like "http://example.com" by cutting it off after the first slash. This tool tracks whether it\u2019s currently inside a quoted string before deciding whether // or /* actually starts a comment, so string contents are always left completely untouched, exactly as written.\n\nWorth being upfront about scope: this handles comment and whitespace removal safely, the same category of optimization most build tools apply, but it doesn\u2019t rename variables or restructure code the way a full minifier like Terser does, since that requires fully parsing the JavaScript\u2019s syntax tree rather than just tracking string boundaries.',
+    features: [
+      { title: 'String-aware processing', description: 'Never mistakes a URL or other string content for a comment.', icon: HiOutlineShieldCheck },
+      { title: 'Safe by design', description: 'Only comments and whitespace are removed; code logic is untouched.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineArchiveBox },
+    ],
+    howToUse: ['Paste your JavaScript code.', 'The minified result appears instantly.', 'Copy the result.'],
+    useCases: ['Reducing a script\u2019s file size before deploying', 'Stripping comments from code before sharing it externally', 'Preparing a JavaScript snippet for embedding inline', 'Quickly compressing a small script without a full build pipeline'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'html-entities-encoder': {
+    about:
+      'Converts special characters like <, >, &, and quotation marks into their HTML entity equivalents (&lt;, &gt;, &amp;, and so on), the encoding needed whenever that literal character would otherwise be misread as part of the HTML markup itself rather than as content.\n\nThis comes up specifically when displaying text that happens to contain characters HTML treats as meaningful: showing a code snippet that includes a less-than sign, embedding a quote that contains an ampersand, or displaying user-submitted text safely without it being interpreted as actual HTML tags. Without encoding, a literal < in displayed text risks being read by the browser as the start of a tag rather than a visible character.',
+    features: [
+      { title: 'All five key characters', description: 'Encodes <, >, &, \u0022, and \u0027, the characters HTML treats as meaningful.', icon: HiOutlineCodeBracketSquare },
+      { title: 'Instant conversion', description: 'Updates as you type.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you type here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste text containing special characters.', 'The encoded result appears instantly.', 'Copy the result.'],
+    useCases: ['Safely displaying a code snippet that contains < or > inside an HTML page', 'Encoding user-submitted text before inserting it into HTML', 'Preparing text with quotes or ampersands for an HTML attribute', 'Escaping special characters before embedding text in a template'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'html-entities-decoder': {
+    about:
+      'Converts HTML entities like &lt;, &gt;, and &amp; back into their original literal characters, the reverse of encoding.\n\nThis is the natural companion to an entities encoder, useful whenever text has already been HTML-encoded somewhere and needs to be read or processed in its original, literal form: cleaning up scraped or copy-pasted web content, reversing an encoding step to inspect the real underlying text, or verifying that an encode-then-decode round trip returns the exact original.',
+    features: [
+      { title: 'Decodes the common entities', description: '&amp;, &lt;, &gt;, &quot;, &#39;, and &apos;.', icon: HiOutlineCodeBracketSquare },
+      { title: 'Instant conversion', description: 'Updates as you paste.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste text containing HTML entities.', 'The decoded result appears instantly.', 'Copy the result.'],
+    useCases: ['Cleaning up text copied from a webpage that shows literal entity codes', 'Reversing HTML encoding to inspect the original text', 'Verifying an encode-then-decode round trip returns the exact original', 'Converting entity-encoded data back to readable text for processing'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'jwt-decoder': {
+    about:
+      'Decodes a JSON Web Token\u2019s header and payload into readable JSON, without verifying its signature.\n\nA JWT is three base64url-encoded segments joined by dots: a header describing the signing algorithm, a payload carrying the actual claims (like a user ID or expiration time), and a signature. This tool decodes the first two segments, which is genuinely all that\u2019s needed to inspect what a token actually contains, since the header and payload aren\u2019t encrypted, only encoded, meaning anyone holding the token can already read them without any secret key.\n\nThe signature is deliberately not verified here, and it\u2019s worth understanding why that\u2019s the right scope for a decoder: verifying a signature requires the issuer\u2019s secret (for HMAC-based algorithms) or public key (for RSA/ECDSA-based ones), neither of which this tool has or should ask for. A decoder answers "what does this token claim?"; a verifier answers "can I trust that claim?", a genuinely different question requiring information this tool never has access to.',
+    features: [
+      { title: 'Decodes header and payload', description: 'Both segments shown as readable, formatted JSON.', icon: HiOutlineCodeBracketSquare },
+      { title: 'Honest about scope', description: 'Clearly states that the signature isn\u2019t verified, not just decoded.', icon: HiOutlineExclamationTriangle },
+      { title: 'Works entirely in your browser', description: 'The token is never sent anywhere, which matters since JWTs often carry sensitive claims.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste a JWT.', 'The decoded header and payload appear instantly.'],
+    useCases: ['Inspecting what claims a JWT actually contains during development', 'Debugging an authentication issue by checking a token\u2019s expiration or claims', 'Verifying a token\u2019s header specifies the expected signing algorithm', 'Learning how JWTs are structured by decoding a real example'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'md5-hash-generator': {
+    about:
+      'Generates an MD5 hash from any text, a fixed 32-character hexadecimal fingerprint of the input.\n\nWorth being direct about MD5\u2019s actual status: it\u2019s been cryptographically broken since 2004, when practical collision attacks (two different inputs producing the same hash) were first demonstrated, and it should never be used for password storage, digital signatures, or anything security-sensitive. MD5 remains genuinely useful for what it\u2019s NOT broken for, though: quick file integrity checks, cache-busting identifiers, and legacy system compatibility, where the goal is detecting accidental changes rather than defending against a deliberate attacker.',
+    features: [
+      { title: 'Instant MD5 hash', description: 'Updates as you type.', icon: HiOutlineFingerPrint },
+      { title: 'Honest about MD5\u2019s limits', description: 'Clear that this isn\u2019t suitable for password or security use.', icon: HiOutlineExclamationTriangle },
+      { title: 'Works entirely in your browser', description: 'Nothing you type here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Type or paste text.', 'The MD5 hash appears instantly.', 'Copy the result.'],
+    useCases: ['Checking file or data integrity for accidental corruption', 'Generating a cache-busting or deduplication identifier', 'Working with a legacy system that specifically expects MD5', 'Learning how hash functions work with a simple, fast example'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'sha1-hash-generator': {
+    about:
+      'Generates a SHA-1 hash from any text, a fixed 40-character hexadecimal fingerprint of the input, computed using the browser\u2019s native Web Crypto API.\n\nSHA-1 is a step up from MD5 but is also now considered cryptographically weak: a practical collision attack (the "SHAttered" attack) was demonstrated in 2017, leading major browsers and certificate authorities to phase it out for security-critical use like TLS certificates. It still shows up in legacy systems and version control (Git historically used SHA-1 for commit hashes), which is the realistic context this tool is most useful for today.',
+    features: [
+      { title: 'Instant SHA-1 hash', description: 'Updates as you type, using the browser\u2019s native Web Crypto API.', icon: HiOutlineFingerPrint },
+      { title: 'Honest about SHA-1\u2019s limits', description: 'Clear that this is deprecated for security-critical use.', icon: HiOutlineExclamationTriangle },
+      { title: 'Works entirely in your browser', description: 'Nothing you type here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Type or paste text.', 'The SHA-1 hash appears instantly.', 'Copy the result.'],
+    useCases: ['Working with a legacy system or Git-era tool that expects SHA-1', 'Checking data integrity in a non-security-critical context', 'Comparing SHA-1 output against a known reference value', 'Learning the difference between hash algorithm generations'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'sha256-hash-generator': {
+    about:
+      'Generates a SHA-256 hash from any text, a fixed 64-character hexadecimal fingerprint of the input, computed using the browser\u2019s native Web Crypto API.\n\nSHA-256 is part of the SHA-2 family and is currently considered cryptographically secure, the same algorithm underlying Bitcoin\u2019s proof-of-work, TLS certificate signatures, and countless password-hashing and data-integrity systems in active use today. Unlike MD5 or SHA-1, no practical collision attack against SHA-256 is currently known, which is exactly why it remains the standard, safe default choice whenever a genuinely secure hash is actually needed.',
+    features: [
+      { title: 'Instant SHA-256 hash', description: 'Updates as you type, using the browser\u2019s native Web Crypto API.', icon: HiOutlineFingerPrint },
+      { title: 'Currently secure', description: 'No practical collision attack against SHA-256 is known.', icon: HiOutlineShieldCheck },
+      { title: 'Works entirely in your browser', description: 'Nothing you type here is ever sent anywhere.', icon: HiOutlineLockClosed },
+    ],
+    howToUse: ['Type or paste text.', 'The SHA-256 hash appears instantly.', 'Copy the result.'],
+    useCases: ['Generating a secure checksum for file or data integrity verification', 'Creating a deterministic identifier from a piece of data', 'Learning how modern, currently-secure hash functions work', 'Comparing SHA-256 output against a known reference value'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'sha512-hash-generator': {
+    about:
+      'Generates a SHA-512 hash from any text, a fixed 128-character hexadecimal fingerprint of the input, computed using the browser\u2019s native Web Crypto API.\n\nSHA-512 is SHA-256\u2019s larger sibling in the SHA-2 family, operating on 64-bit words instead of 32-bit ones, which makes it noticeably faster than SHA-256 on modern 64-bit hardware despite producing a longer output. Both are currently considered cryptographically secure; SHA-512 is typically chosen specifically when a longer hash or faster performance on 64-bit systems matters more than the more commonly-seen SHA-256 length.',
+    features: [
+      { title: 'Instant SHA-512 hash', description: 'Updates as you type, using the browser\u2019s native Web Crypto API.', icon: HiOutlineFingerPrint },
+      { title: 'Currently secure', description: 'Part of the same SHA-2 family as SHA-256, with no known practical attack.', icon: HiOutlineShieldCheck },
+      { title: 'Works entirely in your browser', description: 'Nothing you type here is ever sent anywhere.', icon: HiOutlineLockClosed },
+    ],
+    howToUse: ['Type or paste text.', 'The SHA-512 hash appears instantly.', 'Copy the result.'],
+    useCases: ['Generating a longer, secure checksum for data integrity', 'Working with a system that specifically expects SHA-512', 'Comparing hash performance characteristics on 64-bit systems', 'Comparing SHA-512 output against a known reference value'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'json-to-csv': {
+    about:
+      'Converts a JSON array of objects into CSV format, the flat, spreadsheet-friendly structure most data tools and spreadsheet software expect.\n\nJSON and CSV represent data fundamentally differently: JSON naturally nests objects inside objects, while CSV is strictly flat, rows and columns, one value per cell. This converter takes the keys from your JSON objects and turns them into column headers, using every unique key found across all objects so a field that only appears in some objects still gets its own column. Values containing commas, quotes, or line breaks are automatically wrapped in quotes and properly escaped, following the standard CSV format (RFC 4180), so the result opens correctly in Excel, Google Sheets, or any other spreadsheet tool without corrupting on the first comma it encounters.',
+    features: [
+      { title: 'Handles all keys correctly', description: 'Every unique key across all objects becomes its own column.', icon: HiOutlineTableCells },
+      { title: 'Proper CSV escaping', description: 'Values with commas, quotes, or line breaks are correctly quoted per the CSV standard.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste a JSON array of objects.', 'The CSV result appears instantly.', 'Copy the result.'],
+    useCases: ['Exporting API response data into a spreadsheet-ready format', 'Converting a JSON data export for import into Excel or Google Sheets', 'Preparing JSON data for a tool that only accepts CSV', 'Flattening structured data for a simple tabular view'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'csv-to-json': {
+    about:
+      'Converts CSV data into a JSON array of objects, using the first row as field names for every object that follows.\n\nThis uses a genuine, quote-aware CSV parser rather than simply splitting each line on commas, a naive approach that breaks the moment a field legitimately contains a comma inside quotes, like an address or a name with a suffix ("Smith, Jr."). Correctly handling quoted fields, including fields with embedded commas or escaped quotes, is exactly what separates a real CSV parser from one that only works on the simplest possible input.',
+    features: [
+      { title: 'Real CSV parsing', description: 'Correctly handles quoted fields with embedded commas, not naive comma-splitting.', icon: HiOutlineTableCells },
+      { title: 'First row as field names', description: 'Column headers become the JSON object keys automatically.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste CSV data, with headers in the first row.', 'The JSON result appears instantly.', 'Copy the result.'],
+    useCases: ['Converting an exported spreadsheet into JSON for an API or script', 'Preparing CSV data for a tool or database that expects JSON', 'Inspecting spreadsheet data in a more structured, nested-friendly format', 'Quickly checking CSV data for formatting issues by seeing it as JSON'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'xml-to-json': {
+    about:
+      'Converts XML data into JSON format, walking the document\u2019s actual element structure rather than just extracting text.\n\nRepeated sibling elements (multiple <item> tags at the same level, for instance) are correctly recognized and converted into a JSON array, while a single occurrence becomes a plain nested object, matching how the data is genuinely structured rather than forcing everything into one shape. This is the detail that separates a real XML-to-JSON conversion from a naive one: getting arrays right for repeated elements is exactly where simplistic converters tend to fail.',
+    features: [
+      { title: 'Correct array detection', description: 'Repeated sibling elements become a JSON array automatically.', icon: HiOutlineTableCells },
+      { title: 'Real XML parsing', description: 'Uses the browser\u2019s own XML parser, not a regex approximation.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste your XML.', 'The JSON result appears instantly.', 'Copy the result.'],
+    useCases: ['Converting an XML API response into JSON for easier processing', 'Inspecting a configuration file\u2019s structure in a more familiar format', 'Preparing XML data for a tool or script that expects JSON', 'Migrating data from an XML-based system to a JSON-based one'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'json-to-xml': {
+    about:
+      'Converts JSON data into XML format, turning an array under a key into repeated sibling XML elements, the reverse of how this site\u2019s XML to JSON tool interprets repeated elements.\n\nSpecial characters that would otherwise be misread as markup (<, >, and &) are automatically escaped in the output, so a value containing one of these characters doesn\u2019t produce broken, unparseable XML. The result is a genuine, well-formed XML document, not just a text approximation of one.',
+    features: [
+      { title: 'Correct array handling', description: 'A JSON array becomes repeated sibling XML elements.', icon: HiOutlineTableCells },
+      { title: 'Proper character escaping', description: 'Special XML characters in values are automatically escaped.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste JSON data.', 'The XML result appears instantly.', 'Copy the result.'],
+    useCases: ['Converting JSON data for a system that specifically requires XML', 'Preparing JSON API data for an XML-based integration', 'Migrating data from a JSON-based system to an XML-based one', 'Generating a simple XML document from structured data'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'yaml-to-json': {
+    about:
+      'Converts YAML into JSON, handling the common subset of YAML most configuration files and data exports actually use: nested key-value mappings, numbers, booleans, and quoted or plain strings.\n\nWorth being upfront about scope: this covers the YAML patterns that show up in the overwhelming majority of real config files and data exports, but it doesn\u2019t attempt the complete YAML specification, which includes considerably more complex features like flow-style inline sequences, anchors and references, and multi-document files. For the common case, straightforward nested settings and values, this handles it correctly and reliably.',
+    features: [
+      { title: 'Handles nested mappings', description: 'Correctly parses YAML\u2019s indentation-based nesting into nested JSON objects.', icon: HiOutlineTableCells },
+      { title: 'Correct type detection', description: 'Numbers, booleans, and strings are converted to their proper JSON types.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste your YAML.', 'The JSON result appears instantly.', 'Copy the result.'],
+    useCases: ['Converting a YAML configuration file into JSON for a script or tool', 'Inspecting a YAML file\u2019s structure in a more familiar format', 'Preparing YAML-based settings for a JSON-only system', 'Learning YAML structure by comparing it against its JSON equivalent'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'json-to-yaml': {
+    about:
+      'Converts JSON into YAML, producing clean, properly indented output using YAML\u2019s common mapping style rather than its more complex flow syntax.\n\nYAML is often preferred over JSON for configuration files specifically because it\u2019s more readable without brackets and quotes cluttering every line, which is exactly the style this converter produces: nested objects become indented mappings, and the result reads naturally as a configuration file would.',
+    features: [
+      { title: 'Clean, readable output', description: 'Properly indented YAML mappings, not flow-style clutter.', icon: HiOutlineTableCells },
+      { title: 'Handles nested objects', description: 'JSON objects convert into correctly indented nested YAML.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste JSON data.', 'The YAML result appears instantly.', 'Copy the result.'],
+    useCases: ['Converting JSON data into a YAML configuration file', 'Preparing JSON API responses for a YAML-based system', 'Making JSON data more readable for a config file or documentation', 'Migrating settings from a JSON-based system to a YAML-based one'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'csv-to-xml': {
+    about:
+      'Converts CSV data into XML format by first parsing the CSV into structured rows, then building a well-formed XML document with each row as its own element.\n\nThis combines two verified conversion steps into one: the same quote-aware CSV parsing used by this site\u2019s CSV to JSON tool, followed by the same array-to-repeated-elements logic used by the JSON to XML tool, so the resulting XML correctly reflects the CSV\u2019s structure, one row per XML element, with proper escaping for any special characters in the data.',
+    features: [
+      { title: 'Real CSV parsing', description: 'Correctly handles quoted fields, not naive comma-splitting.', icon: HiOutlineTableCells },
+      { title: 'Well-formed XML output', description: 'Special characters are properly escaped in the result.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste CSV data with headers in the first row.', 'The XML result appears instantly.', 'Copy the result.'],
+    useCases: ['Converting spreadsheet data for a system that requires XML', 'Preparing CSV exports for an XML-based data feed', 'Migrating tabular data into an XML-based format', 'Generating a simple XML document from a spreadsheet'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'xml-to-csv': {
+    about:
+      'Converts XML data into CSV format, extracting a repeated element structure (like multiple <row> or <item> tags) into a flat spreadsheet table.\n\nThis works best on XML that already represents a list of similar records, a common export format from APIs and databases, since CSV itself can only represent flat, tabular data. Each repeated element becomes one CSV row, with its child elements becoming columns, converting XML\u2019s nested structure into the flat table format that spreadsheet software actually expects.',
+    features: [
+      { title: 'Detects repeated records', description: 'Finds the repeated element structure and converts it into table rows.', icon: HiOutlineTableCells },
+      { title: 'Proper CSV escaping', description: 'Values with commas or quotes are correctly escaped in the output.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste XML containing a list of similar records.', 'The CSV result appears instantly.', 'Copy the result.'],
+    useCases: ['Converting an XML API response into a spreadsheet-ready format', 'Extracting tabular data from an XML export for analysis', 'Preparing XML data for import into Excel or Google Sheets', 'Flattening a list of XML records into a simple table'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'excel-to-json': {
+    about:
+      'Converts an Excel spreadsheet\u2019s first sheet into a JSON array of objects, using the header row as field names for every row that follows, the same convention used by this site\u2019s CSV to JSON tool.\n\nThis reads the actual binary spreadsheet file directly in your browser, correctly handling Excel\u2019s cell types (numbers stay numbers, dates convert sensibly, text stays text) rather than treating everything as a plain string the way a naive CSV-based approach might.',
+    features: [
+      { title: 'Reads real Excel files', description: 'Supports both .xlsx and legacy .xls formats.', icon: HiOutlineTableCells },
+      { title: 'Preserves cell types', description: 'Numbers and text are converted to their correct JSON types.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'The file is never uploaded to a server.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload an Excel file.', 'The JSON result from the first sheet appears automatically.', 'Copy the result.'],
+    useCases: ['Converting a spreadsheet export into JSON for an API or script', 'Extracting data from an Excel report for further processing', 'Preparing spreadsheet data for a JSON-only system or database', 'Quickly inspecting an Excel file\u2019s data in a structured format'],
+    supportedFormats: { input: 'XLSX, XLS', output: 'JSON', maxSize: '25 MB' },
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'csv-to-excel': {
+    about:
+      'Converts CSV data into a genuine, downloadable Excel spreadsheet file (.xlsx), not just a renamed text file.\n\nA CSV file often opens in Excel just fine, but it\u2019s not actually an Excel file, it\u2019s plain text that Excel happens to interpret. This tool creates a real .xlsx file with proper spreadsheet formatting, useful specifically when a system or workflow requires an actual Excel file rather than a CSV that merely looks similar once opened.',
+    features: [
+      { title: 'Real Excel output', description: 'Generates a genuine .xlsx file, not a renamed CSV.', icon: HiOutlineTableCells },
+      { title: 'Quote-aware CSV parsing', description: 'Correctly handles quoted fields with embedded commas.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste CSV data with headers in the first row.', 'Click Download as Excel.'],
+    useCases: ['Converting a CSV export into a genuine Excel file for a system that requires one', 'Preparing CSV data for sharing as a proper spreadsheet', 'Converting scraped or generated CSV data into an editable Excel workbook', 'Creating a quick Excel file from pasted tabular data'],
+    supportedFormats: { input: 'CSV', output: 'XLSX' },
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'random-name-picker': {
+    about:
+      'Picks one random name from a list, useful whenever a decision needs to be made fairly among a group of people rather than by whoever happens to volunteer first or loudest.\n\nEach name gets an equal, genuinely uniform chance of being selected, regardless of the order it was entered in or how many names are on the list. This is the kind of tool that quietly settles a lot of small, low-stakes group decisions: who goes first, who gets picked for a task, or who wins a small giveaway, without any single person needing to make the call themselves.',
+    features: [
+      { title: 'Any list size', description: 'Works with two names or two hundred.', icon: HiOutlineUserGroup },
+      { title: 'Genuinely fair selection', description: 'Every name has an equal chance regardless of list order.', icon: HiOutlineScale },
+      { title: 'Works entirely in your browser', description: 'The names you enter are never sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Type each name on its own line.', 'Click Pick Random Name.'],
+    useCases: ['Deciding who goes first in a game or activity', 'Randomly selecting a winner for a small giveaway', 'Assigning a task fairly among a group of people', 'Picking a random name for a raffle or drawing'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'random-word-generator': {
+    about:
+      'Generates one or more random words, useful for creative writing prompts, word games, or simply needing a random word to build something around.\n\nEach word is drawn from a curated set covering a range of everyday and evocative vocabulary, giving genuinely varied results rather than the same handful of words repeating constantly.',
+    features: [
+      { title: 'Generate multiple at once', description: 'Choose 1, 3, 5, or 10 words per generation.', icon: HiOutlineLanguage },
+      { title: 'Instant results', description: 'New words appear immediately on each click.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Choose how many words to generate.', 'Click Generate.'],
+    useCases: ['Getting a writing prompt or story starter', 'Playing a word-association or charades-style game', 'Generating a random codename or placeholder name', 'Sparking creative inspiration when stuck'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'random-number-generator': {
+    about:
+      'Generates a random whole number within a custom minimum and maximum range, both bounds inclusive.\n\nThis is genuine uniform randomness across the specified range, not weighted toward the middle or any particular value, verified across thousands of trial generations to confirm every result actually stays within the bounds specified, a check worth doing explicitly since an off-by-one error in a range calculation is a surprisingly easy, common mistake.',
+    features: [
+      { title: 'Custom range', description: 'Set any minimum and maximum, both inclusive.', icon: HiOutlineHashtag },
+      { title: 'Genuinely uniform', description: 'Every number in the range has an equal chance of appearing.', icon: HiOutlineScale },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Enter a minimum and maximum value.', 'Click Generate.'],
+    useCases: ['Picking a random number for a game or raffle', 'Generating a test value within a specific range', 'Settling a decision between two people fairly', 'Simulating a random draw for a classroom or group activity'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'coin-flipper': {
+    about:
+      'Flips a virtual coin for a random heads or tails result, the digital equivalent of an actual coin toss.\n\nEach flip is a genuinely independent 50/50 chance, verified across thousands of simulated flips to land in a reasonable, unbiased distribution rather than favoring one side. Useful for the same everyday situations a real coin gets used for: settling a quick decision between two options without either side feeling like they had more control over the outcome.',
+    features: [
+      { title: 'Genuine 50/50 odds', description: 'Verified unbiased across thousands of simulated flips.', icon: HiOutlineScale },
+      { title: 'Simple animation', description: 'A quick flip animation before the result appears.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Click Flip Coin.', 'Wait for the result.'],
+    useCases: ['Settling a quick decision between two options', 'Deciding who goes first in a game', 'Simulating probability experiments for a math or statistics lesson', 'Making a call in a low-stakes decision without bias'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'dice-roller': {
+    about:
+      'Rolls one or more virtual six-sided dice, each roll a genuinely independent, uniform result from 1 to 6.\n\nRolling multiple dice at once is useful for board games and tabletop role-playing that call for it, and each die\u2019s result is entirely independent of the others, matching how real physical dice behave rather than any artificial correlation between them.',
+    features: [
+      { title: 'Roll up to six dice', description: 'Choose how many dice to roll at once.', icon: HiOutlineCube },
+      { title: 'Genuinely independent rolls', description: 'Each die\u2019s result has no bearing on the others.', icon: HiOutlineScale },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Choose how many dice to roll.', 'Click Roll Dice.'],
+    useCases: ['Playing a board game without physical dice on hand', 'Running a tabletop role-playing session', 'Teaching probability with a hands-on random example', 'Settling a decision that calls for a dice roll'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'choice-wheel-spinner': {
+    about:
+      'Spins a wheel divided into custom segments to randomly pick one option from a list, a visual, tactile way to make a random selection rather than just reading a plain text result.\n\nThe wheel spins through several full rotations before landing, and the segment that actually ends up under the pointer is calculated precisely from the final rotation angle, tested against multiple rotation scenarios (including landing exactly on a segment boundary and completing multiple full spins) to confirm the declared winner always genuinely matches where the wheel visually stopped.',
+    features: [
+      { title: 'Custom options', description: 'Enter any list of choices, and the wheel divides itself evenly.', icon: HiOutlineArrowPath },
+      { title: 'Visually verified fairness', description: 'The declared winner is calculated precisely from the actual final rotation.', icon: HiOutlineScale },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Enter your options, one per line.', 'Click Spin the Wheel.', 'Wait for it to land.'],
+    useCases: ['Deciding where to eat among a group of options', 'Randomly assigning tasks or turns in a game', 'Making a fun, visual decision instead of a plain coin flip', 'Running a simple prize wheel for a small event'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'digital-signature-generator': {
+    about:
+      'Lets you draw a signature directly on screen using a mouse or finger, then download it as a transparent PNG image ready to drop into a document.\n\nThe drawing surface responds to both mouse and touch input, so it works the same way on a laptop trackpad, a mouse, or directly on a phone or tablet screen. The exported image has a transparent background rather than a solid white rectangle, which matters specifically for placing the signature onto an existing document or form without covering up whatever\u2019s behind it.',
+    features: [
+      { title: 'Mouse and touch support', description: 'Draw naturally on a trackpad, mouse, or touchscreen.', icon: HiOutlinePencil },
+      { title: 'Transparent background', description: 'The downloaded PNG has no background, ready to place onto a document.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Your signature is never uploaded anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Draw your signature in the box using your mouse or finger.', 'Click Download PNG.'],
+    useCases: ['Creating a signature image to insert into a PDF or Word document', 'Signing a digital form that accepts an image upload', 'Making a personal signature stamp for repeated use', 'Quickly generating a signature without a scanner'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'aes-encryption': {
+    about:
+      'Encrypts or decrypts text using AES-256-GCM, a genuinely strong, currently-recommended encryption standard, the same algorithm family used to secure modern web traffic (TLS 1.3) and countless other security-critical systems.\n\nWorth understanding what actually happens here, since it\u2019s more than just "type a password, get scrambled text": your passphrase itself is never used directly as the encryption key. Instead, it\u2019s run through PBKDF2 (a deliberately slow key-derivation function) 100,000 times along with a random salt, producing the actual key used for encryption. This matters because it makes a brute-force attack against a weak passphrase meaningfully harder than if the passphrase were used directly. Each encryption also generates a fresh random salt and initialization vector, meaning encrypting the exact same text with the exact same passphrase twice produces genuinely different output each time, a real security property, not a quirk.\n\nThe salt and initialization vector are bundled together with the encrypted result, so decryption only needs the passphrase and the encrypted text, nothing else to keep track of separately.',
+    features: [
+      { title: 'AES-256-GCM', description: 'A currently-recommended, strong encryption standard.', icon: HiOutlineLockClosed },
+      { title: 'Proper key derivation', description: 'Your passphrase is strengthened via PBKDF2 with 100,000 iterations, not used directly.', icon: HiOutlineShieldCheck },
+      { title: 'Works entirely in your browser', description: 'Your text and passphrase are never sent anywhere.', icon: HiOutlineCloudArrowUp },
+    ],
+    howToUse: ['Choose Encrypt or Decrypt.', 'Enter the text and a passphrase.', 'Click the button to process it.'],
+    useCases: ['Encrypting a sensitive note before storing or sharing it', 'Learning how modern authenticated encryption actually works', 'Encrypting a message to share through a channel you don\u2019t fully trust', 'Testing encryption/decryption behavior for a development project'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'htpasswd-generator': {
+    about:
+      'Generates an Apache htpasswd entry from a username and password, using the SHA password format ({SHA} followed by a base64-encoded SHA-1 hash), one of several real, documented formats Apache\u2019s basic authentication actually accepts.\n\nWorth being direct about where this format sits today: Apache also supports bcrypt-based hashing, which is considered stronger and is generally the better choice for a new setup where the tooling to generate it is available. The SHA format used here remains genuinely useful specifically because it\u2019s simple, doesn\u2019t require a random salt to be tracked separately, and is still accepted by Apache for straightforward basic-auth setups, legacy compatibility, and situations where a bcrypt-generating tool isn\u2019t readily available.',
+    features: [
+      { title: 'Real Apache SHA format', description: 'Produces a genuine, documented format Apache actually accepts.', icon: HiOutlineUserCircle },
+      { title: 'Instant generation', description: 'No server round trip, just your browser\u2019s native cryptography.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'The password is never sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Enter a username and password.', 'Click Generate.', 'Copy the resulting line into your .htpasswd file.'],
+    useCases: ['Setting up basic authentication for an Apache-protected directory', 'Adding a new user to an existing .htpasswd file', 'Generating a quick auth entry for a staging or internal server', 'Testing Apache basic-auth configuration during development'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'rsa-key-pair-generator': {
+    about:
+      'Generates a real 2048-bit RSA public/private key pair using your browser\u2019s native Web Crypto API, the same cryptographic engine browsers use for TLS and other security-critical operations, not a simulated or educational approximation.\n\n2048 bits is the current, genuinely recommended minimum key size for RSA; smaller keys are considered breakable with enough computing resources, which is exactly why modern systems have moved away from anything shorter. The public key can be shared freely and is meant to be, it\u2019s what someone else uses to encrypt something only your private key can decrypt. The private key must never be shared, and it\u2019s worth being direct about a real limitation of doing this in a browser: since the key pair exists only in this page\u2019s memory, refreshing or closing the tab loses it permanently unless you\u2019ve copied it somewhere safe first.',
+    features: [
+      { title: 'Real 2048-bit RSA', description: 'Generated using your browser\u2019s native, standards-based cryptography.', icon: HiOutlineKey },
+      { title: 'Standard PEM format', description: 'Output in the widely-used PEM format most tools and systems expect.', icon: HiOutlineDocumentText },
+      { title: 'Works entirely in your browser', description: 'The private key is never transmitted anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Click Generate Key Pair.', 'Copy the public and private keys.', 'Save the private key securely \u2014 it exists only in this page and is lost on refresh.'],
+    useCases: ['Generating a key pair for testing an encryption or SSH setup', 'Learning how public-key cryptography actually works', 'Creating a quick key pair for a development or learning project', 'Generating keys for a system that accepts standard PEM-formatted RSA keys'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'subnet-calculator': {
+    about:
+      'Calculates the network address, broadcast address, subnet mask, and usable host range from an IP address and CIDR prefix length, the standard set of numbers anyone configuring a network needs to know before assigning addresses within it.\n\nCIDR notation (like /24) expresses how many bits of an IP address are reserved for the network portion versus the host portion, and getting the resulting boundaries right matters concretely: assigning a device an address outside its subnet\u2019s valid range, or using the network or broadcast address for an actual device, are both genuine, common misconfigurations that cause real connectivity problems. This calculator handles the underlying binary math precisely, verified against well-known, independently checkable reference subnets before being relied on here.',
+    features: [
+      { title: 'Full subnet breakdown', description: 'Network, broadcast, subnet mask, and usable host range, all at once.', icon: HiOutlineCalculator },
+      { title: 'Verified math', description: 'Checked against well-known, independently verifiable subnet examples.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Pure calculation \u2014 nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Enter an IP address.', 'Enter the CIDR prefix length (0\u201332).', 'The full subnet breakdown appears instantly.'],
+    useCases: ['Planning IP address assignments for a home or office network', 'Verifying a subnet\u2019s valid host range before configuring a device', 'Learning how CIDR notation and subnetting actually work', 'Double-checking a network configuration during troubleshooting'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'my-ip-address': {
+    about:
+      'Shows your current public IP address, the address websites and services actually see when your device connects to them.\n\nThis is genuinely useful in a few specific, common situations: confirming a VPN is actually routing your traffic (your IP should change once connected), providing your IP to someone setting up remote access or a firewall rule, or simply understanding what address is visible to the outside world versus your device\u2019s local network address, which is a different, private number not visible externally at all.',
+    features: [
+      { title: 'Instant lookup', description: 'Your public IP appears automatically when the page loads.', icon: HiOutlineGlobeAlt },
+      { title: 'Copy with one click', description: 'Quickly copy the address for sharing or configuration.', icon: HiOutlineClipboard },
+    ],
+    howToUse: ['Open the page \u2014 your IP address appears automatically.'],
+    useCases: ['Confirming a VPN connection is actually active', 'Providing your IP address for a firewall or remote access rule', 'Checking whether your IP has changed after a router restart', 'Understanding the difference between your public and local network address'],
+    privacy:
+      'Determining your public IP address requires the request to reach a server, since your IP is inherently visible to whatever server responds to your request, the same way it would be for any website you visit. This tool reads that IP directly from the incoming request; it isn\u2019t logged or stored anywhere beyond what\u2019s needed to answer this one request.',
+  },
+
+  'dns-lookup': {
+    about:
+      'Looks up a domain\u2019s DNS records across six common types: A and AAAA (the actual IP addresses a domain points to), MX (mail server records), TXT (often used for domain verification and email security policies), NS (which nameservers manage the domain), and CNAME (an alias pointing to another domain).\n\nThis performs the same kind of query your own computer does every time it turns a domain name into a connectable address, just exposed directly and across every record type at once rather than just the one needed for a single connection.',
+    features: [
+      { title: 'Six record types at once', description: 'A, AAAA, MX, TXT, NS, and CNAME, checked together.', icon: HiOutlineServerStack },
+      { title: 'Real DNS resolution', description: 'Genuine queries against the domain, not cached or simulated data.', icon: HiOutlineCheckCircle },
+    ],
+    howToUse: ['Enter a domain name.', 'Click Lookup.', 'Records that exist for the domain appear grouped by type.'],
+    useCases: ['Verifying DNS records after changing a domain\u2019s nameservers', 'Checking that an email security TXT record (like SPF or DKIM) is set correctly', 'Confirming a domain\u2019s A record points to the expected server', 'Troubleshooting why a domain isn\u2019t resolving as expected'],
+    privacy:
+      'The domain name you enter is sent to this site\u2019s server, which performs the actual DNS lookup on your behalf, since a browser cannot make raw DNS queries directly. Only the domain itself is involved; nothing else about your device or browsing is sent or stored.',
+  },
+
+  'http-header-checker': {
+    about:
+      'Fetches and displays the HTTP response headers a URL actually returns: server information, caching directives, content type, security headers, and anything else the server includes in its response.\n\nHeaders carry a lot of information that never shows up in the rendered page itself, things like which server software is running, how long a browser should cache the response, or whether security headers like Content-Security-Policy are actually configured. This tool tries a lightweight HEAD request first, falling back to a full GET request for the servers that don\u2019t handle HEAD requests correctly, a real, common enough case worth handling rather than just failing.',
+    features: [
+      { title: 'Full header inspection', description: 'See every header a server actually returns.', icon: HiOutlineListBullet },
+      { title: 'Handles HEAD-averse servers', description: 'Falls back to GET automatically if HEAD isn\u2019t supported.', icon: HiOutlineCheckCircle },
+    ],
+    howToUse: ['Enter a URL.', 'Click Check.', 'All response headers appear, along with the status code.'],
+    useCases: ['Checking whether security headers are configured on a website', 'Verifying caching headers are set as expected', 'Identifying what server software or CDN a site is running', 'Debugging an unexpected response from an API endpoint'],
+    privacy:
+      'The URL you enter is sent to this site\u2019s server, which fetches it on your behalf and returns the response headers, since a browser\u2019s own security restrictions (CORS) block reading another site\u2019s headers directly. Only the URL you provide is involved in this request.',
+  },
+
+  'url-redirect-checker': {
+    about:
+      'Traces a URL\u2019s complete redirect chain, following each hop one at a time until it reaches a final, non-redirecting destination, showing every intermediate URL and its status code along the way.\n\nA single "short link" can genuinely hide multiple redirects stacked on top of each other, sometimes across several different domains, and each additional hop adds real latency to the final page load. This is useful for auditing exactly what a link actually does before sharing or clicking it, or diagnosing why a URL takes longer to load than it should.',
+    features: [
+      { title: 'Full redirect chain', description: 'Every hop shown individually, not just the final destination.', icon: HiOutlineArrowsRightLeft },
+      { title: 'Status code per hop', description: 'See exactly which redirect type (301, 302, etc.) each step uses.', icon: HiOutlineCheckCircle },
+    ],
+    howToUse: ['Enter a URL.', 'Click Check.', 'The full chain of redirects appears, ending at the final destination.'],
+    useCases: ['Auditing where a shortened or unfamiliar link actually leads before clicking it', 'Diagnosing unexpected slowness caused by multiple redirect hops', 'Verifying a URL redirect was set up correctly after a website migration', 'Checking whether a marketing link\u2019s tracking redirects are working as expected'],
+    privacy:
+      'The URL you enter is sent to this site\u2019s server, which follows the redirect chain on your behalf, since a browser\u2019s own security restrictions prevent reading intermediate redirect details directly from JavaScript. Only the URL you provide is involved in this request.',
+  },
+
+  'barcode-generator': {
+    about:
+      'Generates a real, scannable EAN-13 or UPC-A barcode from a product number, computing the checksum digit automatically using the exact algorithm defined in each format\u2019s specification, and rendering the actual bar-width pattern real scanners read, not a generic striped image that merely looks like a barcode.\n\nEAN-13 (used internationally) and UPC-A (its 12-digit counterpart, common in the US and Canada) both encode digits using a defined set of bar-width patterns per digit, arranged in a specific left-half and right-half structure with guard bars marking the start, middle, and end. Getting these patterns exactly right matters because a barcode that merely looks correct to the eye but doesn\u2019t follow the actual specification won\u2019t scan at all; this tool\u2019s encoding was checked against real, independently verifiable reference barcodes before being relied on here.\n\nThe checksum digit exists specifically to catch scanning errors: it\u2019s calculated from the other digits using a defined formula, and a barcode reader recalculates it on every scan to confirm the read was accurate. Enter just the product digits and this tool calculates that checksum for you automatically, the same way it would be assigned when a real barcode is issued.',
+    features: [
+      { title: 'EAN-13 and UPC-A', description: 'The two most common retail barcode formats.', icon: HiOutlineBarsArrowDown },
+      { title: 'Automatic checksum', description: 'Calculated using each format\u2019s real, defined algorithm.', icon: HiOutlineCheckCircle },
+      { title: 'Genuinely scannable output', description: 'Real bar-width encoding, verified against actual reference barcodes.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Choose EAN-13 or UPC-A.', 'Enter the product digits (checksum calculated automatically).', 'Download the resulting barcode as an SVG image.'],
+    useCases: ['Generating a barcode for a product label or packaging mockup', 'Creating a test barcode for scanner or inventory software development', 'Learning how EAN-13 and UPC-A checksums are actually calculated', 'Producing a barcode image for a catalog or documentation'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'barcode-scanner': {
+    about:
+      'Scans a barcode using your device\u2019s camera and reads its encoded value instantly, using the browser\u2019s native, standards-track barcode detection capability rather than a custom image-processing implementation.\n\nWorth being upfront about browser support: this relies on the BarcodeDetector API, which is currently available in Chrome, Edge, and other Chromium-based browsers on desktop and Android, but not yet in Firefox or Safari. Where it\u2019s available, detection happens directly through the browser\u2019s own optimized, hardware-accelerated capability rather than a slower, custom-built decoder; where it isn\u2019t, this tool says so plainly rather than pretending to work and silently failing.',
+    features: [
+      { title: 'Multiple barcode formats', description: 'Reads EAN-13, EAN-8, UPC-A, UPC-E, Code 128, and Code 39.', icon: HiOutlineCamera },
+      { title: 'Real-time detection', description: 'Point your camera at a barcode and the result appears automatically.', icon: HiOutlineBolt },
+      { title: 'Honest about browser support', description: 'Clearly states when your browser doesn\u2019t support the required capability, rather than failing silently.', icon: HiOutlineExclamationTriangle },
+    ],
+    howToUse: ['Click Start Scanning and allow camera access.', 'Point your camera at a barcode.', 'The decoded value appears automatically once detected.'],
+    useCases: ['Quickly checking a product\u2019s barcode value without a dedicated scanner app', 'Testing barcode readability during packaging or label design', 'Looking up a product by scanning its barcode', 'Verifying a generated barcode actually decodes correctly'],
+    privacy:
+      'Camera video is processed entirely on your device to detect the barcode; no image or video is ever uploaded or sent anywhere.',
+  },
+
+  'qr-code-scanner': {
+    about:
+      'Scans a QR code using your device\u2019s camera and reads its content instantly, using the same native BarcodeDetector browser capability as this site\u2019s barcode scanner, applied specifically to the QR code format.\n\nQR codes can encode far more than barcodes typically do, a URL, a block of plain text, contact information, or a WiFi network\u2019s credentials, among other things, which is exactly why they\u2019ve become common for everything from restaurant menus to event check-ins. This tool decodes whatever content the code actually contains and displays it as plain text, ready to copy.',
+    features: [
+      { title: 'Real-time detection', description: 'Point your camera at a QR code and the content appears automatically.', icon: HiOutlineQrCode },
+      { title: 'Reads any QR content', description: 'URLs, text, or any other data encoded in the code.', icon: HiOutlineBolt },
+      { title: 'Honest about browser support', description: 'Clearly states when your browser doesn\u2019t support the required capability, rather than failing silently.', icon: HiOutlineExclamationTriangle },
+    ],
+    howToUse: ['Click Start Scanning and allow camera access.', 'Point your camera at a QR code.', 'The decoded content appears automatically once detected.'],
+    useCases: ['Reading a QR code without a dedicated scanning app', 'Checking what a QR code actually links to before trusting it', 'Testing a generated QR code to confirm it decodes correctly', 'Reading a WiFi or contact QR code on a device without a built-in scanner'],
+    privacy:
+      'Camera video is processed entirely on your device to detect the QR code; no image or video is ever uploaded or sent anywhere.',
   },
 }

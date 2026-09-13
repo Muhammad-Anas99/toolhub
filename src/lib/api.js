@@ -106,6 +106,10 @@ function toQuery(params = {}) {
 export const api = {
   // --- Public content ---------------------------------------------------------
   getTools: (params = {}) => request(`/tools${toQuery(params)}`),
+  getMyIp: () => request('/network/my-ip'),
+  dnsLookup: (domain) => request(`/network/dns-lookup${toQuery({ domain })}`),
+  checkHttpHeaders: (url) => request(`/network/http-headers${toQuery({ url })}`),
+  checkRedirects: (url) => request(`/network/redirect-check${toQuery({ url })}`),
   getToolBySlug: (slug) => request(`/tools/${slug}`),
   adminAddToolFaq: (slug, payload) => authorizedRequest(`/tools/${slug}/faqs`, { method: 'POST', body: JSON.stringify(payload) }),
   adminUpdateToolFaq: (slug, faqId, payload) => authorizedRequest(`/tools/${slug}/faqs/${faqId}`, { method: 'PUT', body: JSON.stringify(payload) }),

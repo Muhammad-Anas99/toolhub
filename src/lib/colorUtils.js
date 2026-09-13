@@ -161,3 +161,51 @@ export const PALETTE_SCHEMES = [
   { id: 'triadic', label: 'Triadic' },
   { id: 'shades', label: 'Shades' },
 ]
+
+/**
+ * WCAG relative luminance and contrast ratio. Verified against exact
+ * known reference values (black-on-white = exactly 21:1, same color =
+ * exactly 1:1, #767676 on white \u2248 4.54:1, the standard AA text
+ * threshold reference) before being ported here - an earlier draft had
+ * an off-by-one slicing bug that silently gave wrong ratios.
+ */
+export function relativeLuminance(hex) {
+  const clean = hex.replace('#', '')
+  const rgb = [0, 2, 4].map((i) => parseInt(clean.slice(i, i + 2), 16) / 255)
+  const [r, g, b] = rgb.map((c) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)))
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b
+}
+
+export function contrastRatio(hex1, hex2) {
+  const l1 = relativeLuminance(hex1)
+  const l2 = relativeLuminance(hex2)
+  const lighter = Math.max(l1, l2)
+  const darker = Math.min(l1, l2)
+  return (lighter + 0.05) / (darker + 0.05)
+}
+
+export function getWcagLevel(ratio, isLargeText = false) {
+  const aaThreshold = isLargeText ? 3 : 4.5
+  const aaaThreshold = isLargeText ? 4.5 : 7
+  if (ratio >= aaaThreshold) return 'AAA'
+  if (ratio >= aaThreshold) return 'AA'
+  return 'Fail'
+}
+
+export function darkenColor(hex, percent) {
+  const clean = hex.replace('#', '')
+  const rgb = [0, 2, 4].map((i) => parseInt(clean.slice(i, i + 2), 16))
+  const adjusted = rgb.map((c) => Math.max(0, Math.round(c * (1 - percent / 100))))
+  return '#' + adjusted.map((c) => c.toString(16).padStart(2, '0')).join('')
+}
+
+export function lightenColor(hex, percent) {
+  const clean = hex.replace('#', '')
+  const rgb = [0, 2, 4].map((i) => parseInt(clean.slice(i, i + 2), 16))
+  const adjusted = rgb.map((c) => Math.min(255, Math.round(c + (255 - c) * (percent / 100))))
+  return '#' + adjusted.map((c) => c.toString(16).padStart(2, '0')).join('')
+}
+
+export function randomHexColor() {
+  return '#' + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0')
+}

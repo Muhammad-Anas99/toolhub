@@ -107,3 +107,21 @@ export const toolRatingRateLimiter = rateLimit({
     message: 'Too many ratings sent. Please try again in a little while.',
   },
 })
+
+/**
+ * Applied to the network diagnostic endpoints (DNS lookup, HTTP header
+ * check, redirect check) - these make real outbound network requests
+ * on the server's behalf, so a tighter limit than most public
+ * endpoints guards against the server being used to hammer arbitrary
+ * external targets.
+ */
+export const networkToolsRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many requests sent. Please try again in a little while.',
+  },
+})

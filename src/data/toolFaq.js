@@ -2581,4 +2581,208 @@ export const toolFaqs = {
       answer: 'Yes, video Status updates use that same 1080\u00d71920 vertical frame as well, though this particular tool specifically handles image resizing rather than video files.',
     },
   ],
+
+  'remove-duplicate-lines': [
+    { id: 'case-sensitive-dupes', question: 'Is duplicate detection case-sensitive?', answer: 'Yes, "Apple" and "apple" are treated as different lines, since a case-insensitive match risks discarding genuinely different data.' },
+    { id: 'which-copy-kept', question: 'Which copy of a duplicate line gets kept?', answer: 'The first occurrence is kept; every later repeat of that exact line is removed.' },
+  ],
+  'text-reverser': [
+    { id: 'reverses-words-or-chars', question: 'Does this reverse word order or character order?', answer: 'Character order \u2014 the entire string is reversed as a mirror image, not just the order of the words within it.' },
+  ],
+  'upside-down-text-generator': [
+    { id: 'is-it-an-image', question: 'Is this an image or a font trick?', answer: 'Neither \u2014 it uses real Unicode characters that happen to resemble upside-down letters, so it works as plain text anywhere, not just in one specific app.' },
+    { id: 'why-not-perfect', question: 'Why do some letters look slightly different upside down?', answer: 'Unicode doesn\u2019t have a true upside-down version of every letter, so the closest visual lookalike is used instead.' },
+  ],
+  'trim-whitespace': [
+    { id: 'does-it-change-words', question: 'Does this change any of the actual words?', answer: 'No, only whitespace (spaces and blank lines) is affected; the words themselves are untouched.' },
+  ],
+  'slug-generator': [
+    { id: 'what-is-a-slug', question: 'What exactly is a "slug"?', answer: 'The readable part of a URL, like "my-post-title" in example.com/blog/my-post-title \u2014 lowercase, hyphenated, no special characters.' },
+  ],
+  'line-counter': [
+    { id: 'why-two-counts', question: 'Why show two different line counts?', answer: 'Total lines and non-empty lines tell different stories \u2014 a document that\u2019s mostly blank lines looks very different from one that\u2019s mostly content, even with the same total count.' },
+  ],
+  'text-to-binary': [
+    { id: 'binary-encoding-used', question: 'What encoding does this use?', answer: 'Standard 8-bit character codes, the same ASCII-compatible encoding used throughout plain text and programming.' },
+  ],
+  'binary-to-text': [
+    { id: 'binary-format-expected', question: 'What format should the binary input be in?', answer: '8-digit groups separated by spaces, matching the output of this site\u2019s Text to Binary tool.' },
+  ],
+  'find-and-replace': [
+    { id: 'whole-word-explained', question: 'What does "whole word only" actually do?', answer: 'It prevents a short search term from matching inside a longer word \u2014 searching "cat" won\u2019t also change "catalog" when this is enabled.' },
+  ],
+
+  'percentage-calculator': [
+    { id: 'mode-difference', question: 'What\u2019s the difference between "20% of 50" and "20 is what % of 50"?', answer: 'They answer different questions using the same two numbers \u2014 the first finds a portion of a value, the second finds what portion one value is of another. Mixing them up is a common source of errors.' },
+    { id: 'negative-change', question: 'Why does percentage change show a negative number sometimes?', answer: 'A negative result means the value decreased \u2014 the sign carries real information about direction, not just magnitude.' },
+  ],
+  'compound-interest-calculator': [
+    { id: 'compounding-frequency-matters', question: 'Does compounding frequency really make a meaningful difference?', answer: 'Yes \u2014 the same rate compounded monthly produces a genuinely larger final amount than compounded annually, since each period\u2019s interest starts earning its own interest sooner.' },
+    { id: 'simple-vs-compound', question: 'How is this different from simple interest?', answer: 'Simple interest is calculated only on the original principal. Compound interest is calculated on the principal plus all previously earned interest, which is why it grows faster over time.' },
+  ],
+  'loan-calculator': [
+    { id: 'why-total-interest-so-high', question: 'Why is the total interest sometimes close to the loan amount itself?', answer: 'Over a long term like 30 years, interest accumulates on the remaining balance every month, and early payments go mostly toward interest rather than principal, which is why the total can add up to a substantial share of the original loan.' },
+    { id: 'matches-bank-calculator', question: 'Will this match what my bank quotes me?', answer: 'It uses the same standard amortization formula lenders use for a fixed-rate loan, so the numbers should match closely, though a real quote may include fees this calculator doesn\u2019t account for.' },
+  ],
+  'profit-margin-calculator': [
+    { id: 'margin-vs-markup', question: 'Is a 50% markup the same as a 50% profit margin?', answer: 'No \u2014 a 50% markup on cost actually works out to a 33.3% profit margin, since margin is calculated against revenue while markup is calculated against cost. They\u2019re genuinely different numbers.' },
+  ],
+  'age-calculator': [
+    { id: 'why-not-just-subtract-years', question: 'Why not just subtract the birth year from the current year?', answer: 'That ignores whether the birthday has happened yet this year, which can be off by one. This calculator checks the actual month and day too, matching what a calendar would show.' },
+    { id: 'leap-year-handling', question: 'Does this account for leap years correctly?', answer: 'Yes, it uses each specific month and year\u2019s actual number of days rather than a fixed 365-day assumption, so leap years don\u2019t cause any drift in the result.' },
+  ],
+
+  'color-contrast-checker': [
+    { id: 'aa-vs-aaa', question: 'What\u2019s the difference between AA and AAA compliance?', answer: 'AAA is a stricter standard requiring higher contrast (7:1 for normal text versus AA\u2019s 4.5:1). AA is the more commonly targeted baseline; AAA is recommended where possible but not always required.' },
+    { id: 'large-text-different', question: 'Why does large text have a lower contrast requirement?', answer: 'Larger text is inherently easier to read at lower contrast, so WCAG sets a more lenient threshold (3:1 for AA) for text above a certain size and weight.' },
+  ],
+  'darken-lighten-color': [
+    { id: 'how-shades-calculated', question: 'How are the shades actually calculated?', answer: 'Darker shades scale each RGB channel toward zero by the given percentage; lighter shades scale each channel toward 255 (white) by the same percentage.' },
+  ],
+  'random-color-generator': [
+    { id: 'truly-random', question: 'Are the colors genuinely random, or biased toward certain hues?', answer: 'Each color is generated as a uniform random value across the full color space, so no particular hue or brightness range is favored over another.' },
+  ],
+
+  'css-formatter': [
+    { id: 'changes-behavior', question: 'Does formatting change how the CSS actually works?', answer: 'No, only whitespace and indentation change. The selectors, properties, and values are completely untouched.' },
+    { id: 'handles-media-queries', question: 'Does this handle nested rules like media queries correctly?', answer: 'Yes, nested blocks are indented one level deeper than their parent, matching standard formatting conventions.' },
+  ],
+  'css-minifier': [
+    { id: 'reversible', question: 'Can I get the original formatting back after minifying?', answer: 'Not automatically \u2014 minification removes whitespace and comments permanently, though running the result through a CSS Formatter will make it readable again, just without the original comments.' },
+  ],
+  'html-formatter': [
+    { id: 'void-elements', question: 'How does this handle tags like <img> and <br> that don\u2019t have a closing tag?', answer: 'They\u2019re recognized as void elements and formatted correctly without expecting or adding an unnecessary closing tag.' },
+  ],
+  'html-minifier': [
+    { id: 'html-minify-safe', question: 'Is it safe to minify HTML that has inline JavaScript or CSS?', answer: 'This tool focuses on whitespace and comments in the HTML structure itself; content inside <script> and <style> tags should generally be minified separately with the dedicated JS or CSS tools for the safest result.' },
+  ],
+  'xml-formatter': [
+    { id: 'xml-vs-html-formatting', question: 'Why use this instead of the HTML Formatter for XML?', answer: 'XML doesn\u2019t have HTML\u2019s built-in list of self-closing tags, so this formatter only treats an element as self-closing when the source explicitly writes it that way, matching XML\u2019s stricter rules.' },
+  ],
+  'xml-minifier': [
+    { id: 'xml-minify-data-safe', question: 'Will minifying change any of my actual data values?', answer: 'No, only whitespace between elements and comments are removed. Every element and value parses identically to the original.' },
+  ],
+  'javascript-minifier': [
+    { id: 'js-minify-url-safe', question: 'Will this break a URL or string that contains //?', answer: 'No \u2014 this tool tracks whether it\u2019s currently inside a string before deciding whether // starts a real comment, so a URL like http://example.com inside a string is always preserved intact.' },
+    { id: 'js-minify-vs-terser', question: 'Does this rename variables or restructure code like a full build-tool minifier?', answer: 'No, this handles comment and whitespace removal safely, but doesn\u2019t rename variables or restructure logic, since that requires fully parsing the code\u2019s syntax tree rather than just tracking string boundaries.' },
+  ],
+
+  'html-entities-encoder': [
+    { id: 'why-encode-needed', question: 'Why can\u2019t I just type < directly into HTML?', answer: 'Because HTML interprets < as the start of a tag, not as a visible character. Encoding it as &lt; tells the browser to display the literal character instead of trying to parse it as markup.' },
+  ],
+  'html-entities-decoder': [
+    { id: 'which-entities-supported', question: 'Which entities does this decode?', answer: '&amp;, &lt;, &gt;, &quot;, &#39;, and &apos; \u2014 the common entities corresponding to the characters HTML treats as meaningful.' },
+  ],
+  'jwt-decoder': [
+    { id: 'is-jwt-encrypted', question: 'Is the information inside a JWT encrypted?', answer: 'No, by default it\u2019s only encoded (base64url), not encrypted. Anyone holding the token can read its header and payload without any secret key, which is exactly why this tool can decode it without needing one.' },
+    { id: 'why-no-verify', question: 'Why doesn\u2019t this verify the signature?', answer: 'Verifying requires the issuer\u2019s secret or public key, which this tool never has. A decoder answers what the token claims; verifying whether those claims are trustworthy is a genuinely different task requiring information only the issuer has.' },
+  ],
+  'md5-hash-generator': [
+    { id: 'md5-safe-for-passwords', question: 'Is MD5 safe to use for storing passwords?', answer: 'No \u2014 MD5 has been cryptographically broken since 2004 and should never be used for passwords or anything security-sensitive. It remains fine for non-security uses like file integrity checks or cache-busting identifiers.' },
+  ],
+  'sha1-hash-generator': [
+    { id: 'sha1-still-used', question: 'Is SHA-1 still safe to use?', answer: 'Not for security-critical purposes \u2014 a practical collision attack was demonstrated in 2017. It still appears in legacy systems and older Git repositories, which is the realistic context this tool is most useful for today.' },
+  ],
+  'sha256-hash-generator': [
+    { id: 'sha256-vs-md5', question: 'Why use SHA-256 instead of MD5?', answer: 'SHA-256 is currently considered cryptographically secure with no known practical collision attack, unlike MD5, which has been broken since 2004. SHA-256 is the standard choice whenever a genuinely secure hash is needed.' },
+  ],
+  'sha512-hash-generator': [
+    { id: 'sha512-vs-sha256', question: 'Should I use SHA-512 or SHA-256?', answer: 'Both are currently secure. SHA-512 is often faster on modern 64-bit hardware and produces a longer hash; SHA-256 is more commonly expected by existing systems. Either is a safe choice unless something specific requires one over the other.' },
+  ],
+
+  'json-to-csv': [
+    { id: 'nested-objects-csv', question: 'What happens to nested objects when converting to CSV?', answer: 'Since CSV can\u2019t represent nested structure, a nested object or array within a field is converted to its JSON text representation inside that cell, rather than being flattened into separate columns.' },
+  ],
+  'csv-to-json': [
+    { id: 'why-not-split-comma', question: 'Why not just split each line on commas?', answer: 'Because a field can legitimately contain a comma inside quotes, like an address or "Smith, Jr." A naive split would break on that comma; this tool uses a real, quote-aware parser instead.' },
+  ],
+  'xml-to-json': [
+    { id: 'how-arrays-detected', question: 'How does this decide what becomes a JSON array?', answer: 'Any XML element that appears more than once at the same level under its parent becomes an array in the JSON output; a single occurrence stays a plain object.' },
+  ],
+  'json-to-xml': [
+    { id: 'special-chars-xml', question: 'What happens to characters like < or & in my data?', answer: 'They\u2019re automatically escaped (as &lt; and &amp;) so the resulting XML stays well-formed and doesn\u2019t break on a value that happens to contain a markup-like character.' },
+  ],
+  'yaml-to-json': [
+    { id: 'yaml-scope-limit', question: 'Does this handle every YAML feature?', answer: 'It covers the common subset used by most real config files \u2014 nested mappings, numbers, booleans, and strings \u2014 but not the full spec\u2019s more advanced features like anchors, references, or inline flow sequences.' },
+  ],
+  'json-to-yaml': [
+    { id: 'why-yaml-over-json', question: 'Why would I want YAML instead of JSON?', answer: 'YAML is often considered more readable for configuration files specifically, since it uses indentation instead of brackets and quotes for structure.' },
+  ],
+  'csv-to-xml': [
+    { id: 'csv-xml-row-structure', question: 'How is each CSV row represented in the XML output?', answer: 'Each row becomes its own XML element, with the column values as that element\u2019s child elements, named after the CSV headers.' },
+  ],
+  'xml-to-csv': [
+    { id: 'xml-csv-best-input', question: 'What kind of XML works best with this tool?', answer: 'XML that already represents a list of similar records, like multiple <row> or <item> elements, since CSV can only represent flat, tabular data.' },
+  ],
+  'excel-to-json': [
+    { id: 'which-sheet-used', question: 'Which sheet does this convert if my file has multiple sheets?', answer: 'The first sheet in the workbook. If you need a different sheet, reordering it to be first in Excel before uploading will get it converted instead.' },
+  ],
+  'csv-to-excel': [
+    { id: 'is-this-a-real-xlsx', question: 'Is the downloaded file a genuine Excel file, not just a renamed CSV?', answer: 'Yes, it\u2019s a real .xlsx file built with proper spreadsheet formatting, not a CSV file that\u2019s simply been renamed with an Excel extension.' },
+  ],
+
+  'random-name-picker': [
+    { id: 'is-selection-fair', question: 'Does the order I type names in affect the odds?', answer: 'No, every name has an equal chance of being picked regardless of where it appears in the list.' },
+  ],
+  'random-word-generator': [
+    { id: 'word-source', question: 'Where do the words come from?', answer: 'A curated set of everyday and evocative vocabulary, giving varied results rather than the same handful of words repeating constantly.' },
+  ],
+  'random-number-generator': [
+    { id: 'bounds-inclusive', question: 'Are the minimum and maximum values included as possible results?', answer: 'Yes, both bounds are inclusive \u2014 setting a range of 1 to 10 means both 1 and 10 can genuinely appear as results.' },
+  ],
+  'coin-flipper': [
+    { id: 'genuinely-random-coin', question: 'Is this actually 50/50, or is it biased somehow?', answer: 'It\u2019s a genuine, independent 50/50 chance on every flip, verified across thousands of simulated flips to land in an unbiased distribution.' },
+  ],
+  'dice-roller': [
+    { id: 'dice-independent', question: 'If I roll multiple dice, does one result affect the others?', answer: 'No, each die is rolled completely independently, exactly like rolling separate physical dice.' },
+  ],
+  'choice-wheel-spinner': [
+    { id: 'wheel-winner-accuracy', question: 'How do you know the declared winner actually matches where the wheel stopped?', answer: 'The winning segment is calculated directly from the wheel\u2019s final rotation angle, tested against several rotation scenarios including landing exactly on a boundary and completing multiple full spins, to confirm the math always matches the visual result.' },
+  ],
+  'digital-signature-generator': [
+    { id: 'works-on-mobile', question: 'Can I draw a signature on my phone?', answer: 'Yes, the drawing area supports touch input directly, so it works the same way on a phone or tablet screen as it does with a mouse.' },
+  ],
+
+  'aes-encryption': [
+    { id: 'passphrase-vs-key', question: 'Why isn\u2019t my passphrase used directly as the encryption key?', answer: 'It\u2019s run through PBKDF2 100,000 times with a random salt first, which makes brute-forcing a weak passphrase meaningfully harder than using it directly as the key.' },
+    { id: 'same-text-different-output', question: 'Why does encrypting the same text twice give different results?', answer: 'Each encryption uses a fresh random salt and initialization vector, a genuine security property that prevents patterns from showing up across multiple encryptions of similar data.' },
+  ],
+  'htpasswd-generator': [
+    { id: 'sha-vs-bcrypt', question: 'Is the SHA format the strongest option for htpasswd?', answer: 'No, Apache also supports bcrypt, which is considered stronger for new setups. The SHA format here remains useful for simplicity and legacy compatibility.' },
+  ],
+  'rsa-key-pair-generator': [
+    { id: 'key-pair-persistence', question: 'Will my key pair still be here if I refresh the page?', answer: 'No, it exists only in this page\u2019s memory. Refreshing or closing the tab loses it permanently unless you\u2019ve already copied and saved both keys somewhere secure.' },
+    { id: 'why-2048-bits', question: 'Why 2048 bits specifically?', answer: 'It\u2019s the current, genuinely recommended minimum key size for RSA \u2014 shorter keys are considered breakable with enough computing resources.' },
+  ],
+
+  'subnet-calculator': [
+    { id: 'network-vs-broadcast', question: 'Can I assign a device the network or broadcast address?', answer: 'No, both are reserved \u2014 the network address identifies the subnet itself, and the broadcast address is used to reach every device on it at once. Neither should be assigned to an individual device.' },
+    { id: 'cidr-explained', question: 'What does the /24 in an address like 192.168.1.0/24 mean?', answer: 'It means the first 24 bits of the address are the network portion, leaving 8 bits for host addresses \u2014 256 total addresses, 254 of them usable.' },
+  ],
+  'my-ip-address': [
+    { id: 'public-vs-local-ip', question: 'Is this the same as the IP address shown in my computer\u2019s network settings?', answer: 'No, your computer\u2019s network settings usually show a private, local address only visible on your own network. This tool shows your public IP, the address visible to the outside internet.' },
+  ],
+  'dns-lookup': [
+    { id: 'why-some-types-empty', question: 'Why do some record types show nothing?', answer: 'Not every domain has every record type \u2014 a domain without email, for instance, simply won\u2019t have MX records. An empty result for one type isn\u2019t an error, just a genuinely accurate reflection of what that domain has configured.' },
+  ],
+  'http-header-checker': [
+    { id: 'head-vs-get', question: 'Why does this sometimes use a GET request instead of HEAD?', answer: 'A HEAD request is tried first since it\u2019s lighter, but some servers don\u2019t handle HEAD requests correctly, so this falls back to a full GET request automatically in that case.' },
+  ],
+  'url-redirect-checker': [
+    { id: 'max-hops', question: 'Is there a limit to how many redirects this will follow?', answer: 'Yes, up to 10 hops, which comfortably covers virtually any real-world redirect chain while still protecting against a genuinely broken, infinitely-looping redirect.' },
+  ],
+
+  'barcode-generator': [
+    { id: 'will-it-actually-scan', question: 'Will this barcode actually scan with a real scanner?', answer: 'Yes, it follows the real EAN-13/UPC-A bar-width specification exactly, verified against genuine reference barcodes, not just a striped image that looks like a barcode.' },
+    { id: 'why-checksum-automatic', question: 'Why do I only enter 11 or 12 digits instead of the full code?', answer: 'The final digit is a checksum calculated from the others using each format\u2019s defined formula, the same way it would be assigned when a real barcode is issued, so it\u2019s calculated for you rather than needing to be supplied.' },
+  ],
+
+  'barcode-scanner': [
+    { id: 'why-not-working', question: 'Why doesn\u2019t this work in my browser?', answer: 'It relies on the BarcodeDetector API, currently available in Chrome, Edge, and other Chromium-based browsers, but not yet in Firefox or Safari. The tool tells you directly if your browser doesn\u2019t support it.' },
+    { id: 'camera-privacy', question: 'Is my camera video sent anywhere?', answer: 'No, detection happens entirely on your device using your browser\u2019s own capability. No video or image is ever uploaded.' },
+  ],
+  'qr-code-scanner': [
+    { id: 'what-can-qr-contain', question: 'What kinds of content can a QR code contain?', answer: 'Far more than a typical barcode \u2014 URLs, plain text, contact details, WiFi credentials, and more. This tool decodes whatever is actually encoded and shows it as plain text.' },
+    { id: 'qr-browser-support', question: 'Does this work on all browsers?', answer: 'It relies on the BarcodeDetector API, currently available in Chrome, Edge, and other Chromium-based browsers, but not yet in Firefox or Safari.' },
+  ],
 }
