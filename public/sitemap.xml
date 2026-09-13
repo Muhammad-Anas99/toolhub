@@ -120,6 +120,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://trytoolhub.net/tools/powerpoint-to-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://trytoolhub.net/tools/excel-to-pdf</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -295,6 +300,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://trytoolhub.net/tools/audio-speed-changer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://trytoolhub.net/tools/silence-trimmer</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -311,6 +321,11 @@
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/video-speed-changer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/video-converter</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -366,6 +381,26 @@
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/data-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/pressure-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/energy-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/power-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/angle-converter</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -456,6 +491,26 @@
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/youtube-thumbnail-downloader</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/twitter-image-resizer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/facebook-image-resizer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/linkedin-image-resizer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/pinterest-pin-resizer</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

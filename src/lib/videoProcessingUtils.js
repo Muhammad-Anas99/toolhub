@@ -1,10 +1,18 @@
 /**
  * Picks whichever MIME type the browser's MediaRecorder actually
  * supports, tried in order of preference, rather than hardcoding one
- * that might not be available.
+ * that might not be available. When a preferredFormat is given
+ * ('mp4' or 'webm'), its candidates are tried first - but this is a
+ * genuine capability check, not a guarantee: MP4 recording is
+ * supported in Chromium-based browsers but generally not in Firefox,
+ * so the caller needs to know which format it actually got back,
+ * not just assume the request succeeded as asked.
  */
-function pickSupportedMimeType() {
-  const candidates = ['video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm']
+function pickSupportedMimeType(preferredFormat) {
+  const mp4Candidates = ['video/mp4;codecs=h264,aac', 'video/mp4']
+  const webmCandidates = ['video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm']
+  const candidates =
+    preferredFormat === 'mp4' ? [...mp4Candidates, ...webmCandidates] : [...webmCandidates, ...mp4Candidates]
   for (const type of candidates) {
     if (window.MediaRecorder && MediaRecorder.isTypeSupported(type)) return type
   }
@@ -26,8 +34,8 @@ async function loadVideoElement(file) {
   return video
 }
 
-function recordStream(stream, { onProgress, duration, playbackRate = 1, videoBitsPerSecond } = {}) {
-  const mimeType = pickSupportedMimeType()
+function recordStream(stream, { onProgress, duration, playbackRate = 1, videoBitsPerSecond, preferredFormat } = {}) {
+  const mimeType = pickSupportedMimeType(preferredFormat)
   const options = { ...(mimeType ? { mimeType } : {}), ...(videoBitsPerSecond ? { videoBitsPerSecond } : {}) }
   const recorder = new MediaRecorder(stream, options)
   const chunks = []
@@ -89,6 +97,36 @@ export async function reencodeVideo(file, { playbackRate = 1, keepAudio = true, 
 
   URL.revokeObjectURL(video.src)
   return new Blob(chunks, { type: mimeType || 'video/webm' })
+}
+
+/**
+ * Re-records a video targeting a specific container format (MP4 or
+ * WebM), reusing the exact same capture-and-record pipeline as
+ * reencodeVideo above. This is a genuine capability check, not a
+ * guarantee: MP4 recording works in Chromium-based browsers but
+ * generally not in Firefox, so the actual achieved format is reported
+ * back honestly rather than silently returning a different format
+ * than requested without saying so.
+ */
+export async function convertVideoFormat(file, { targetFormat = 'mp4', onProgress } = {}) {
+  const video = await loadVideoElement(file)
+
+  const stream = video.captureStream()
+  const { recorder, chunks, recordingDone, progressLoop, mimeType } = recordStream(stream, {
+    onProgress,
+    duration: video.duration,
+    preferredFormat: targetFormat,
+  })
+
+  video.play()
+  await progressLoop
+  video.pause()
+  recorder.stop()
+  await recordingDone
+
+  URL.revokeObjectURL(video.src)
+  const achievedFormat = mimeType.includes('mp4') ? 'mp4' : 'webm'
+  return { blob: new Blob(chunks, { type: mimeType || 'video/webm' }), achievedFormat }
 }
 
 /**

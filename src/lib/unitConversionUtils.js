@@ -116,6 +116,68 @@ export const UNIT_CATEGORIES = {
       TiB: { label: 'Tebibytes (TiB)', toBase: 1099511627776 },
     },
   },
+  // PSI derives from the exact pound-force (4.4482216152605 N) and
+  // square inch (0.00064516 m2) definitions. Atmosphere is the exact
+  // standard-atmosphere definition (101325 Pa); Torr is exactly
+  // 1/760th of that, by definition. Verified against the well-known
+  // reference that 1 atm is approximately 14.696 psi.
+  pressure: {
+    label: 'Pressure',
+    baseUnit: 'pa',
+    units: {
+      pa: { label: 'Pascals', toBase: 1 },
+      kpa: { label: 'Kilopascals', toBase: 1000 },
+      bar: { label: 'Bar', toBase: 100000 },
+      psi: { label: 'PSI', toBase: 6894.757293168361 },
+      atm: { label: 'Atmospheres', toBase: 101325 },
+      torr: { label: 'Torr (mmHg)', toBase: 133.32236842105263 },
+    },
+  },
+  // The calorie here is the exact thermochemical calorie (4.184 J).
+  // BTU is the exact International Table definition. Watt-hour and
+  // kWh follow directly from power x time. Verified against the
+  // well-known reference that 1 kWh is approximately 3412 BTU.
+  energy: {
+    label: 'Energy',
+    baseUnit: 'j',
+    units: {
+      j: { label: 'Joules', toBase: 1 },
+      kj: { label: 'Kilojoules', toBase: 1000 },
+      cal: { label: 'Calories', toBase: 4.184 },
+      kcal: { label: 'Kilocalories', toBase: 4184 },
+      wh: { label: 'Watt-hours', toBase: 3600 },
+      kwh: { label: 'Kilowatt-hours', toBase: 3600000 },
+      btu: { label: 'BTU', toBase: 1055.05585262 },
+    },
+  },
+  // Mechanical horsepower is exactly 550 ft*lbf/s; metric horsepower
+  // (PS) is exactly 75 kgf*m/s. Verified against the well-known
+  // reference that 1 hp is approximately 0.7457 kW.
+  power: {
+    label: 'Power',
+    baseUnit: 'w',
+    units: {
+      w: { label: 'Watts', toBase: 1 },
+      kw: { label: 'Kilowatts', toBase: 1000 },
+      hp: { label: 'Horsepower', toBase: 745.6998715822702 },
+      ps: { label: 'Metric Horsepower (PS)', toBase: 735.49875 },
+      btuh: { label: 'BTU/hour', toBase: 0.2930710701722222 },
+    },
+  },
+  // Radian is the SI base unit for angle, so it's used as the internal
+  // base here rather than degree. Verified that 360 degrees converts
+  // to exactly one full turn, the standard cross-check for this kind
+  // of conversion table.
+  angle: {
+    label: 'Angle',
+    baseUnit: 'rad',
+    units: {
+      deg: { label: 'Degrees', toBase: 0.017453292519943295 },
+      rad: { label: 'Radians', toBase: 1 },
+      grad: { label: 'Gradians', toBase: 0.015707963267948967 },
+      turn: { label: 'Turns', toBase: 6.283185307179586 },
+    },
+  },
 }
 
 function convertLinear(value, fromUnit, toUnit, units) {

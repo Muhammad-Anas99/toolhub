@@ -1684,6 +1684,94 @@ export const toolFaqs = {
       answer: 'Mostly historical inertia. Computers work naturally in powers of two, so early systems adopted 1024-based counting and labeled it with the familiar decimal prefixes (KB, MB) rather than the newer IEC names (KiB, MiB), which weren\u2019t standardized until 1998, long after the convention was already widespread.',
     },
   ],
+
+  'pressure-converter': [
+    {
+      id: 'why-so-many-units',
+      question: 'Why are there so many different pressure units?',
+      answer: 'Each comes from a different context: Pascal is the formal SI unit, PSI comes from the US customary pound and inch, bar is the practical everyday unit used across most of the world, atmosphere is a fixed reference value, and Torr traces back to the original mercury barometer.',
+    },
+    {
+      id: 'torr-vs-mmhg',
+      question: 'Is Torr the same as mmHg?',
+      answer: 'For practical purposes, yes, they\u2019re functionally identical, both descending from Evangelista Torricelli\u2019s original mercury-column barometer. mmHg is still the unit used on blood pressure monitors today.',
+    },
+    {
+      id: 'why-atmosphere-fixed',
+      question: 'Why is "atmosphere" a fixed number instead of a real measurement?',
+      answer: 'It\u2019s defined as exactly 101,325 Pascals, a standardized reference value representing typical sea-level pressure, rather than something that varies with actual weather conditions on a given day.',
+    },
+    {
+      id: 'why-pascal-tiny',
+      question: 'Why does the Pascal feel like such a small, impractical unit?',
+      answer: 'Because it\u2019s defined as just one newton of force per square meter, a genuinely small amount of pressure. Everyday atmospheric pressure works out to over 100,000 Pascals, which is exactly why kilopascals and bar exist as more convenient everyday sizes.',
+    },
+  ],
+
+  'energy-converter': [
+    {
+      id: 'calorie-vs-calorie',
+      question: 'Is a food "Calorie" the same as a scientific "calorie"?',
+      answer: 'No, a food label\u2019s Calorie (capitalized) is actually a kilocalorie, equal to 1,000 of the lowercase calories used in chemistry. It\u2019s a genuinely confusing but real distinction, not just a stylistic difference.',
+    },
+    {
+      id: 'why-kwh-on-bills',
+      question: 'Why do electricity bills use kilowatt-hours instead of joules?',
+      answer: 'A kilowatt-hour is a practically-sized unit for household energy use, it\u2019s the energy used by a 1,000-watt device running for one hour. The equivalent number of joules would be a much larger, less intuitive figure for a monthly bill.',
+    },
+    {
+      id: 'btu-rate-or-amount',
+      question: 'Is BTU an amount of energy or a rate?',
+      answer: 'BTU by itself is an amount of energy. BTU per hour, commonly seen on air conditioner specs, is a rate describing how quickly that unit can move heat, which is why converting a BTU/hour rating meaningfully involves thinking about it alongside time, not as a standalone energy amount.',
+    },
+  ],
+
+  'power-converter': [
+    {
+      id: 'imperial-vs-metric-hp',
+      question: 'Is horsepower the same in every country?',
+      answer: 'No. Imperial (mechanical) horsepower is about 745.7 watts, while metric horsepower (PS) is about 735.5 watts, a real, if small, difference between the two definitions. Car specifications don\u2019t always clarify which one is being used, so a direct number comparison between regions can end up being slightly misleading.',
+    },
+    {
+      id: 'why-called-horsepower',
+      question: 'Why is power measured in "horsepower" at all?',
+      answer: 'James Watt popularized the unit as a marketing comparison for selling his steam engines, letting factory owners understand how many horses one engine could realistically replace. It stuck as a standard unit of measurement long after horses stopped being the actual point of comparison for anything.',
+    },
+    {
+      id: 'btuh-meaning',
+      question: 'What does BTU/hour actually describe?',
+      answer: 'The rate of heat transfer, commonly seen on air conditioner and furnace ratings, describing how much heating or cooling capacity the unit delivers per hour rather than a one-time energy amount.',
+    },
+    {
+      id: 'watt-vs-horsepower-usage',
+      question: 'Why do some things get rated in watts and others in horsepower?',
+      answer: 'Largely tradition specific to each industry: automotive and engine-related power tends to stay in horsepower for historical reasons, while electrical devices and modern engineering contexts default to watts, the actual SI unit. Both genuinely describe the exact same physical quantity.',
+    },
+  ],
+
+  'angle-converter': [
+    {
+      id: 'why-code-uses-radians',
+      question: 'Why do sine and cosine functions in code expect radians, not degrees?',
+      answer: 'Mathematics treats the radian as the fundamental angle unit, defined by the relationship between arc length and radius. Passing a degree value into a function expecting radians is a very common source of bugs that look mysterious but are the function working correctly on unexpected units.',
+    },
+    {
+      id: 'why-360-degrees',
+      question: 'Why does a circle have 360 degrees specifically?',
+      answer: 'It traces back to ancient Babylonian mathematics, which used a base-60 number system, the same root that gives a clock 60 minutes and 60 seconds, rather than being derived from any particular geometric necessity.',
+    },
+    {
+      id: 'what-are-gradians',
+      question: 'What are gradians actually used for?',
+      answer: 'Mostly surveying and some European engineering contexts. A gradian divides a full circle into 400 units instead of 360, specifically chosen so a right angle comes out to a clean 100 gradians.',
+    },
+    {
+      id: 'what-is-a-turn',
+      question: 'What is a "turn" used for as an angle unit?',
+      answer: 'It expresses a full 360-degree rotation as simply "1," which is a natural way to describe rotational quantities like how many complete turns a wheel, motor shaft, or gear makes, rather than tracking degrees that keep climbing past 360.',
+    },
+  ],
+
   'hash-generator': [
     {
       id: 'which-algorithm',
@@ -1937,6 +2025,29 @@ export const toolFaqs = {
       id: 'file-valid',
       question: 'Will the .pptx file actually open correctly in PowerPoint?',
       answer: 'Yes \u2014 this generates the real OOXML structure a valid PowerPoint file requires (not just a renamed zip of images), and the output has been verified to open and read correctly, not just assumed to work because the conversion completed without an error.',
+    },
+  ],
+
+  'powerpoint-to-pdf': [
+    {
+      id: 'looks-different',
+      question: 'Why doesn\u2019t the PDF look exactly like my slides?',
+      answer: 'This extracts the real text and images from your presentation rather than visually rendering it, since no browser-based tool can fully reproduce an arbitrary PowerPoint slide\u2019s exact design. Colors, fonts, and shape positions aren\u2019t preserved \u2014 the actual words and images on each slide are.',
+    },
+    {
+      id: 'why-not-render',
+      question: 'Why not just render the slides as images, the way PDF to PowerPoint does?',
+      answer: 'That direction works because PDF.js, a mature, complete PDF-rendering engine, already exists and runs in the browser. There\u2019s no equivalent engine for rendering an arbitrary PowerPoint slide\u2019s exact visual layout, so that approach genuinely isn\u2019t available here.',
+    },
+    {
+      id: 'slide-order',
+      question: 'Will the slides be in the wrong order if I reordered them in PowerPoint?',
+      answer: 'No \u2014 slide order is resolved through the presentation file\u2019s own internal relationships, not through file naming, so reordered slides come through in their real, current order.',
+    },
+    {
+      id: 'formatted-text',
+      question: 'What happens to bold or italic text?',
+      answer: 'The words themselves come through correctly even when part of a sentence has different formatting, since PowerPoint stores that as separate text runs internally that get joined back into the full sentence. The bold or italic styling itself isn\u2019t preserved in the PDF text.',
     },
   ],
 
@@ -2238,6 +2349,144 @@ export const toolFaqs = {
       id: 'order-of-operations-enhance',
       question: 'Does it matter whether I apply denoise or sharpen first?',
       answer: 'This tool denoises first, then sharpens, since sharpening a noisy image tends to amplify the noise itself along with real detail. Denoising first gives the sharpening step cleaner information to work with.',
+    },
+  ],
+
+  'twitter-image-resizer': [
+    {
+      id: 'why-post-image-cropped',
+      question: 'Why does my shared image or link preview look cropped?',
+      answer: 'The post image size is 1200\u00d7675, a 16:9 ratio. An image with a different aspect ratio gets cropped or padded to fit that shape when the preview card is generated, which is exactly what this tool\u2019s presets are sized to avoid.',
+    },
+    {
+      id: 'why-circular-profile',
+      question: 'Why does my profile picture look cut off at the edges?',
+      answer: 'Profile pictures display as a circle everywhere on the platform. Anything positioned close to a corner of the square image gets clipped once that circular mask is applied, so centering the subject matters more than it looks like it should from the square original.',
+    },
+    {
+      id: 'header-vs-post',
+      question: 'What\u2019s the difference between the header and post image sizes?',
+      answer: 'The header (1500\u00d7500) is the wide banner behind your profile picture and bio, a 3:1 ratio. The post image (1200\u00d7675) is for images shared in individual posts, a 16:9 ratio. They\u2019re genuinely different shapes, not just different sizes of the same crop.',
+    },
+    {
+      id: 'fill-vs-fit-explained',
+      question: 'What\u2019s the actual difference between Fill and Fit?',
+      answer: 'Fill crops your image to exactly match the target dimensions, cutting off whatever doesn\u2019t fit. Fit resizes the whole image to stay visible, adding padding around the edges if the proportions don\u2019t match exactly. Fill usually looks more polished; Fit guarantees nothing important gets cropped out.',
+    },
+  ],
+
+  'facebook-image-resizer': [
+    {
+      id: 'why-1200x630',
+      question: 'Why is 1200\u00d7630 specifically the standard size?',
+      answer: 'It\u2019s become the de facto link-preview image size shared across Facebook, X, and LinkedIn alike, since all three converged on a very similar ratio. Using this size covers link previews on all three platforms at once.',
+    },
+    {
+      id: 'cover-mobile-desktop',
+      question: 'Why does my cover photo look different on mobile versus desktop?',
+      answer: 'Facebook\u2019s cover photo genuinely crops differently depending on the device, sometimes cutting the top and bottom more aggressively on a phone screen. Keeping the most important part of the image centered vertically, not just horizontally, helps it survive both crops.',
+    },
+    {
+      id: 'why-circular-profile-fb',
+      question: 'Why does my profile picture look cut off at the edges?',
+      answer: 'It displays as a circle, so anything close to a corner of the square original gets clipped by that circular crop. Centering the subject avoids this.',
+    },
+    {
+      id: 'fill-vs-fit-explained-fb',
+      question: 'What\u2019s the actual difference between Fill and Fit?',
+      answer: 'Fill crops your image to exactly match the target dimensions, cutting off whatever doesn\u2019t fit. Fit resizes the whole image to stay visible, adding padding around the edges if the proportions don\u2019t match exactly. Fill tends to look more polished for social posts; Fit guarantees nothing important gets cut off.',
+    },
+  ],
+
+  'linkedin-image-resizer': [
+    {
+      id: 'square-vs-landscape',
+      question: 'Should I use the square post or the landscape post size?',
+      answer: 'Square images tend to take up more visible vertical space scrolling past on mobile, which is part of why square posts often get more attention in the feed. Landscape (1200\u00d7627) is more traditional and works well for link-preview-style images.',
+    },
+    {
+      id: 'banner-vs-other-platforms',
+      question: 'Can I use my Facebook or X cover photo as my LinkedIn banner?',
+      answer: 'Not without recropping. LinkedIn\u2019s banner is a 4:1 ratio, notably wider and shorter than other platforms\u2019 cover images, so a photo sized for another platform will need different cropping, not just a resize, to look right.',
+    },
+    {
+      id: 'personal-vs-company-banner',
+      question: 'Is a personal profile banner the same as a Company Page cover image?',
+      answer: 'They\u2019re technically separate assets with their own upload locations on LinkedIn, even though they use similar dimensions. Worth double-checking which one you\u2019re updating if you manage both a personal profile and a company page.',
+    },
+    {
+      id: 'why-square-post-included',
+      question: 'Why offer a square post size at all if LinkedIn\u2019s standard is landscape?',
+      answer: 'Because square images genuinely perform differently in the feed, often taking up more vertical mobile screen space than a landscape image with identical content, which is worth having as a deliberate option rather than only supporting the traditional shape.',
+    },
+  ],
+
+  'pinterest-pin-resizer': [
+    {
+      id: 'why-vertical',
+      question: 'Why does Pinterest favor a tall, vertical image shape?',
+      answer: 'Pinterest\u2019s masonry-style grid is built around vertical images from the ground up, unlike the landscape or square defaults most other platforms favor. A standard Pin\u2019s 2:3 portrait ratio consistently takes up more visible space and draws more attention in that grid than a square or landscape image would.',
+    },
+    {
+      id: 'square-pin-when',
+      question: 'When should I use the square Pin size instead of the standard one?',
+      answer: 'For content like quote graphics or product shots specifically, where the extra vertical space a standard Pin provides would just be empty padding rather than genuinely useful content worth showing.',
+    },
+    {
+      id: 'pinterest-profile-crop',
+      question: 'Why does my Pinterest profile picture look cropped?',
+      answer: 'Like most platforms, it displays as a circle. Keeping the subject centered rather than close to an edge avoids an awkward crop once the circular mask is applied.',
+    },
+    {
+      id: 'pinterest-vs-others',
+      question: 'Can I reuse an image sized for Instagram or Facebook as a Pinterest Pin?',
+      answer: 'Not directly without recropping first. Most other platforms default to square or landscape shapes, while Pinterest\u2019s grid is built around tall, vertical images specifically, so a square or landscape original will need genuine recropping, not just a plain resize, to actually use the space well.',
+    },
+  ],
+
+  'video-converter': [
+    {
+      id: 'why-mp4-not-available',
+      question: 'Why did I ask for MP4 but get a WebM file?',
+      answer: 'MP4 recording is supported in Chromium-based browsers like Chrome and Edge, but generally not in Firefox. This tool checks what your specific browser actually supports and honestly falls back to WebM with a clear note, rather than silently failing or pretending it delivered MP4.',
+    },
+    {
+      id: 'mp4-vs-webm-difference',
+      question: 'What\u2019s the actual difference between MP4 and WebM?',
+      answer: 'MP4 typically wraps the H.264 codec, historically patent-encumbered (those patents have since expired) and now near-universally supported. WebM was built specifically as a royalty-free, open alternative around the VP8/VP9 codecs, which is why browsers default to it for native recording.',
+    },
+    {
+      id: 'how-long-conversion-takes',
+      question: 'Why does conversion take so long for a long video?',
+      answer: 'This works by playing the video through in real time and capturing the output, similar to how a recording device can\u2019t work faster than the material it\u2019s recording plays. A longer video takes proportionally longer to convert.',
+    },
+    {
+      id: 'audio-preserved',
+      question: 'Does the audio track survive the conversion?',
+      answer: 'Yes, the original audio track is captured and re-recorded along with the video, staying in sync with the newly converted output rather than being dropped or requiring a separate step.',
+    },
+  ],
+
+  'audio-speed-changer': [
+    {
+      id: 'why-pitch-changes',
+      question: 'Why does the audio sound higher or lower pitched after changing speed?',
+      answer: 'Speed and pitch are changed together here, the same effect as playing a vinyl record faster or slower than intended. Keeping pitch independent of speed requires more complex processing (a phase vocoder) that this tool doesn\u2019t attempt, in favor of a simpler, honestly-described approach.',
+    },
+    {
+      id: 'why-these-speed-presets',
+      question: 'Why only these six speed options?',
+      answer: 'They cover the range most people genuinely reach for in practice, from half speed up to double speed, while still letting you land on an exact, repeatable value each time rather than fine-tuning a slider back to the same setting over and over.',
+    },
+    {
+      id: 'good-for-transcription',
+      question: 'Is slowing audio down useful for transcription?',
+      answer: 'Yes, slowing spoken audio down is a common, practical use, even with the pitch drop that comes with it, since intelligibility usually matters more than pitch accuracy for that particular task.',
+    },
+    {
+      id: 'why-wav-output',
+      question: 'Why does this download as a WAV file?',
+      answer: 'WAV is an uncompressed format that every browser, phone, and audio program can open reliably without extra plugins, avoiding any additional quality loss from a second layer of lossy compression stacked on top of the speed change itself.',
     },
   ],
 }

@@ -13,6 +13,10 @@ const CATEGORY_DEFAULTS = {
   speed: { from: 'kmh', to: 'mph' },
   time: { from: 'hr', to: 'min' },
   data: { from: 'GB', to: 'MB' },
+  pressure: { from: 'psi', to: 'bar' },
+  energy: { from: 'kcal', to: 'kj' },
+  power: { from: 'hp', to: 'kw' },
+  angle: { from: 'deg', to: 'rad' },
 }
 
 export default function UnitConverterTool({ toolSlug, toolName, category }) {

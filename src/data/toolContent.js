@@ -1,5 +1,7 @@
 import {
   HiOutlineBolt,
+  HiOutlineArrowPath,
+  HiOutlineForward,
   HiOutlineShieldCheck,
   HiOutlineCloudArrowUp,
   HiOutlineAdjustmentsHorizontal,
@@ -542,6 +544,35 @@ export const toolContent = {
       input: 'PDF',
       output: 'PPTX',
       notes: 'Slides contain each page as an image, not editable text or shapes',
+      maxSize: '25 MB',
+    },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'powerpoint-to-pdf': {
+    about:
+      'Reads the real text and images directly out of a PowerPoint file\u2019s internal structure and lays them out clearly on their own PDF page per slide. Worth being upfront about what this is not: a visual copy of your actual slide design.\n\nHere is the honest reason why. A .pptx file is a zip archive containing an XML description of each slide\u2019s content, not a picture of what that slide looks like. Reliably turning a PDF page into an image is possible because PDF.js, a mature, complete PDF-rendering engine, already exists and runs in the browser. There is no equivalent engine available for rendering an arbitrary PowerPoint slide\u2019s exact visual layout the way it actually appears in PowerPoint, colors, fonts, and shape positions included. Building one from scratch, well enough to match real-world presentations reliably, is a different scale of problem than reading text and images out of the file directly.\n\nWhat this tool does instead is extract what can genuinely be extracted accurately: the real words on each slide, in the order they actually appear, correctly joined even when part of a sentence has different formatting applied to it (PowerPoint stores that as separate text runs internally), plus any images that were actually placed on that slide. Slide order is resolved through the presentation\u2019s own internal relationships rather than assumed from file naming, since slides can be reordered in PowerPoint without the underlying files being renamed to match.\n\nEach slide becomes its own PDF page, sized to match the presentation\u2019s actual slide dimensions rather than a fixed page size, so the proportions stay consistent with the original.',
+    features: [
+      { title: 'Real slide text extracted', description: 'Every word from every slide, in the correct reading order.', icon: HiOutlineDocumentText },
+      { title: 'Embedded images included', description: 'Pictures actually placed on a slide come through onto its PDF page.', icon: HiOutlinePhoto },
+      { title: 'Correct slide order', description: 'Resolved through the file\u2019s own internal structure, not file naming.', icon: HiOutlineSquares2X2 },
+      { title: 'Honest about its limits', description: 'Extracts content accurately; doesn\u2019t claim to visually recreate your slide design.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: [
+      'Upload a .pptx file.',
+      'Click Convert to PDF.',
+      'Download the resulting PDF, one page per slide.',
+    ],
+    useCases: [
+      'Getting the text content of a presentation into a format that\u2019s easy to share or print',
+      'Archiving what a presentation actually said, without needing PowerPoint installed to read it',
+      'Pulling slide content into a document for reference, without the original visual design',
+      'Sharing a presentation\u2019s content with someone who only has a PDF reader available',
+    ],
+    supportedFormats: {
+      input: 'PPTX',
+      output: 'PDF',
+      notes: 'Extracts real text and images; does not visually reproduce the original slide design',
       maxSize: '25 MB',
     },
     privacy: BROWSER_ONLY_PRIVACY,
@@ -1585,6 +1616,78 @@ export const toolContent = {
     privacy: NO_FILE_PRIVACY,
   },
 
+  'pressure-converter': {
+    about:
+      'Converts between six pressure units: Pascals, kilopascals, bar, PSI, atmospheres, and Torr, each of which shows up in a genuinely different real-world context rather than being interchangeable jargon for the same thing.\n\nThe Pascal is the actual SI unit of pressure, defined as one newton of force per square meter, but it\u2019s an inconveniently small unit for everyday use: normal atmospheric pressure at sea level is about 101,325 Pascals, an awkward number to work with directly. That\u2019s why kilopascals and bar exist as more practical everyday sizes, and why bar in particular became the standard for things like tire pressure gauges and weather reports across most of the world, a bar being close enough to one atmosphere to feel intuitive.\n\nPSI (pounds per square inch) is the unit most familiar to anyone in the United States checking tire pressure or working with plumbing, derived directly from the pound-force and square inch, both exactly defined units in their own right. Atmospheres are defined as a fixed reference value, exactly 101,325 Pascals, representing a standard average sea-level pressure, useful as a natural benchmark rather than a unit tied to a specific measuring instrument.\n\nTorr is the odd one out historically: it\u2019s named after Evangelista Torricelli, the physicist who invented the mercury barometer in the 17th century, and it\u2019s defined as exactly 1/760th of an atmosphere. Torr is functionally identical to millimeters of mercury (mmHg), the unit still used on blood pressure monitors today, a direct link back to Torricelli\u2019s original mercury-column instrument nearly 400 years later.',
+    features: [
+      { title: 'Six pressure units', description: 'Pascals, kilopascals, bar, PSI, atmospheres, and Torr.', icon: HiOutlineScale },
+      { title: 'Exact conversion factors', description: 'Derived from the standardized definitions of the pound-force, square inch, and standard atmosphere.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'One-click swap', description: 'Flip the from/to units instantly instead of resetting both manually.', icon: HiOutlineArrowsRightLeft },
+    ],
+    howToUse: ['Choose the units to convert from and to.', 'Type a value and the result updates instantly.'],
+    useCases: [
+      'Converting a tire pressure reading between PSI and bar',
+      'Understanding a weather report\u2019s atmospheric pressure in a different unit',
+      'Converting a blood pressure reading\u2019s mmHg into another pressure unit',
+      'Working with pressure specifications on industrial or scientific equipment',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'energy-converter': {
+    about:
+      'Converts between joules, calories, kilocalories, watt-hours, kilowatt-hours, and BTU, units that come from genuinely different fields, physics, food science, electricity billing, and heating and cooling, but all describe the same underlying physical quantity.\n\nThe joule is the SI unit of energy, but it\u2019s worth clearing up a genuinely common point of confusion around calories specifically. A food label\u2019s \"Calorie\" (capitalized) is actually a kilocalorie, equal to 1,000 of the lowercase \"calories\" used in chemistry and physics. That\u2019s not a rounding convention, it\u2019s a real, if confusing, difference in what the same word means depending on context, and it\u2019s why a food package\u2019s \"200 Calories\" is genuinely 200,000 calories in the strict scientific sense.\n\nThe kilowatt-hour is the unit that shows up directly on an electricity bill: it\u2019s the amount of energy used by a one-kilowatt device running for one hour, and it\u2019s a practical, human-scaled unit specifically because household energy use adds up to a convenient range of kWh per month rather than an unwieldy number of joules. The watt-hour is the same idea at a smaller scale, useful for describing a phone battery\u2019s capacity, for instance.\n\nBTU (British Thermal Unit) is the unit most commonly seen on air conditioner and heater specifications in the United States, originally defined as the energy needed to raise one pound of water by one degree Fahrenheit. An appliance rated in BTU per hour is really describing a rate of energy transfer, which is why converting a BTU rating meaningfully often means thinking of it alongside a time unit, not just a raw energy amount.',
+    features: [
+      { title: 'Seven energy units', description: 'Joules, kilojoules, calories, kilocalories, watt-hours, kilowatt-hours, and BTU.', icon: HiOutlineScale },
+      { title: 'Clears up the Calorie confusion', description: 'A food \"Calorie\" is a kilocalorie, 1,000 times the scientific calorie.', icon: HiOutlineExclamationTriangle },
+      { title: 'One-click swap', description: 'Flip the from/to units instantly instead of resetting both manually.', icon: HiOutlineArrowsRightLeft },
+    ],
+    howToUse: ['Choose the units to convert from and to.', 'Type a value and the result updates instantly.'],
+    useCases: [
+      'Converting a food label\u2019s Calories into kilojoules',
+      'Working out an appliance\u2019s energy use in kWh for an electricity bill estimate',
+      'Converting a BTU air conditioner rating into watts or kilowatts',
+      'Converting a battery capacity between watt-hours and joules',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'power-converter': {
+    about:
+      'Converts between watts, kilowatts, horsepower, metric horsepower (PS), and BTU per hour, five units that measure the same thing, the rate energy is used or produced, but come from very different origins.\n\nThe watt is the SI unit, named after James Watt, the engineer whose steam engine improvements made the unit\u2019s namesake practically synonymous with mechanical power in the first place. Horsepower itself, somewhat fittingly, was a unit Watt helped popularize, originally as a marketing comparison letting factory owners understand how many horses one of his steam engines could replace, defined as exactly 550 foot-pounds of work per second.\n\nA detail worth knowing specifically: imperial horsepower and metric horsepower (commonly labeled PS, from the German Pferdest\u00e4rke) are genuinely different sizes, not just a units label difference. One mechanical horsepower is about 745.7 watts, while one metric horsepower is about 735.5 watts, a real, if small, difference that shows up when comparing a car\u2019s power rating between US and European specifications, since manufacturers don\u2019t always specify which horsepower they mean.\n\nBTU per hour, the same BTU used for energy but expressed as a rate over time, is the unit most often seen on air conditioner and furnace specifications, describing how quickly the unit can move heat rather than a one-time energy amount.',
+    features: [
+      { title: 'Five power units', description: 'Watts, kilowatts, horsepower, metric horsepower (PS), and BTU/hour.', icon: HiOutlineScale },
+      { title: 'Imperial vs metric horsepower', description: 'Correctly distinguishes the two genuinely different horsepower definitions.', icon: HiOutlineExclamationTriangle },
+      { title: 'One-click swap', description: 'Flip the from/to units instantly instead of resetting both manually.', icon: HiOutlineArrowsRightLeft },
+    ],
+    howToUse: ['Choose the units to convert from and to.', 'Type a value and the result updates instantly.'],
+    useCases: [
+      'Converting a car\u2019s horsepower rating into kilowatts',
+      'Comparing a European PS power rating against a US horsepower spec',
+      'Converting an air conditioner\u2019s BTU/hour rating into watts',
+      'Working out a motor or appliance\u2019s power draw in a different unit',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'angle-converter': {
+    about:
+      'Converts between degrees, radians, gradians, and turns, the four angle units that come up across everyday use, mathematics and programming, and specialized surveying work.\n\nDegrees are the everyday, intuitive unit, and the 360-degree convention traces back to ancient Babylonian mathematics, which used a base-60 number system, the same root that gives clocks 60 minutes and 60 seconds. Radians, by contrast, are the unit mathematics actually treats as fundamental: one radian is defined as the angle where the arc length along a circle equals the circle\u2019s radius, which is exactly why trigonometric functions in essentially every programming language expect radians, not degrees, as their input.\n\nThat last point trips up a genuinely large number of people writing their first bit of graphics or physics code: calling a sine or cosine function with a degree value instead of converting to radians first produces a result that looks like a bug but is actually the function working exactly as documented, just on units the code didn\u2019t expect.\n\nGradians are less commonly encountered but still show up in specific fields like surveying and some European engineering contexts, dividing a full circle into 400 units instead of 360, chosen specifically to make a right angle a clean 100 gradians. Turns (or revolutions) describe a full 360-degree rotation as the unit \"1,\" a natural way to express rotational quantities like how many full turns a wheel or motor shaft completes.',
+    features: [
+      { title: 'Four angle units', description: 'Degrees, radians, gradians, and turns.', icon: HiOutlineScale },
+      { title: 'Built for developers too', description: 'Useful for converting degrees to the radians trigonometric functions actually expect in code.', icon: HiOutlineCodeBracket },
+      { title: 'One-click swap', description: 'Flip the from/to units instantly instead of resetting both manually.', icon: HiOutlineArrowsRightLeft },
+    ],
+    howToUse: ['Choose the units to convert from and to.', 'Type a value and the result updates instantly.'],
+    useCases: [
+      'Converting degrees to radians for a trigonometric function in code',
+      'Converting a surveying measurement between gradians and degrees',
+      'Working out how many full turns a given number of degrees represents',
+      'Converting an angle for a CAD, physics, or engineering calculation',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
   'hash-generator': {
     about:
       'Produces MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes from text. SHA hashes use your browser\u2019s native Web Crypto API, and MD5 (not included in Web Crypto since it\u2019s cryptographically broken for security purposes) uses a standard, verified implementation for file-checksum and compatibility use cases.\n\nA hash function takes input of any length and produces a fixed-length output, called a hash or digest. The same input always produces the same hash, and even a tiny, single-character change in the input produces a completely different result. That property makes hashes useful for verifying that a piece of text or a file hasn\u2019t been altered, without needing to compare the full content directly.\n\nMD5 and SHA-1 are both considered cryptographically broken: collisions (two different inputs producing the same hash) can be computed quickly with modern hardware, which makes them unsuitable for anything security-sensitive. They\u2019re still commonly used for non-security purposes like file checksums, cache keys, and deduplication, where the risk of a deliberate, malicious collision doesn\u2019t apply. SHA-256 is the current practical standard for real security-relevant work. It\u2019s what software projects typically publish alongside a download so users can verify the file wasn\u2019t corrupted or tampered with, and it\u2019s a building block in TLS, Git\u2019s newer object format, and Bitcoin\u2019s proof-of-work.\n\nOne important distinction worth being explicit about: none of these algorithms should be used to store passwords, even SHA-512. They\u2019re deliberately fast to compute, which is exactly what makes them weak for password storage. An attacker with a list of leaked hashes can try billions of guesses per second against a fast hash. Password storage needs a deliberately slow algorithm designed for that purpose, like bcrypt, scrypt, or Argon2, not a general-purpose hash function.',
@@ -1834,5 +1937,123 @@ export const toolContent = {
     },
     privacy:
       'This tool fetches thumbnail images directly from YouTube\u2019s own public image servers (img.youtube.com), the same publicly accessible thumbnails YouTube serves for embedding anywhere. No video content, account data, or anything beyond the video ID provided is involved.',
+  },
+
+  'twitter-image-resizer': {
+    about:
+      'Resizes an image to the three dimensions that actually matter on X: a 1200\u00d7675 post image, a 1500\u00d7500 header, and a 400\u00d7400 profile picture.\n\nThe post image size deserves a bit of context. When a link or image is shared, the platform generates a preview card, and getting the aspect ratio wrong is exactly why some shared links show an image that\u2019s been awkwardly cropped or padded with empty bars. 1200\u00d7675 is a 16:9 ratio, matching a genuinely common video and photo aspect ratio, which is part of why it was chosen as the standard.\n\nThe profile picture is displayed as a circle everywhere on the platform, including next to every post and reply, which matters for what to put near the edges of the image: anything too close to a corner gets clipped by the circular crop, so centering the important part of the image is worth doing deliberately rather than assuming a square crop will look right once it\u2019s circular.\n\nThe header image sits behind the profile picture and bio at the top of a profile, and its wide, short aspect ratio (3:1) means a portrait or square photo will need significant cropping to fit, another case where knowing the target dimensions before designing the image saves a redo later.',
+    features: [
+      { title: 'Three real X sizes', description: 'Post image, header, and profile picture, matching X\u2019s current specifications.', icon: HiOutlinePhoto },
+      { title: 'Fill or fit', description: 'Crop to fill the frame exactly, or fit the whole image with padding.', icon: HiOutlineArrowsPointingOut },
+      { title: 'Works entirely in your browser', description: 'The image is resized locally; nothing is uploaded anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload an image.', 'Choose Post, Header, or Profile Picture.', 'Choose Fill or Fit.', 'Download the resized image.'],
+    useCases: [
+      'Preparing a post image that won\u2019t get awkwardly cropped in the link preview',
+      'Resizing a photo to fit X\u2019s profile picture circle correctly',
+      'Creating a header image sized to X\u2019s wide banner dimensions',
+      'Fixing an image that displayed stretched or cropped after a previous upload',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'facebook-image-resizer': {
+    about:
+      'Resizes an image to three Facebook-specific sizes: a 1200\u00d7630 post image, an 820\u00d7312 cover photo, and a 170\u00d7170 profile picture.\n\nThe 1200\u00d7630 dimension is worth knowing about beyond just Facebook: it\u2019s become the de facto standard link-preview image size shared across Facebook, X, and LinkedIn alike, since all three platforms converged on a very similar ratio for how a shared link\u2019s preview card renders. Getting this one size right effectively covers link previews across all three platforms at once.\n\nThe cover photo is the wide banner image at the top of a profile or page, and it\u2019s worth knowing it displays differently on mobile versus desktop, sometimes cropping the top and bottom more aggressively on a phone screen. Keeping the most important part of a cover photo centered vertically, not just horizontally, avoids it being cut off on the device where most people will actually see it.\n\nThe profile picture displays as a circle, the same consideration as other platforms\u2019 circular profile crops: whatever sits closest to the corners of a square image is what gets clipped once the circular mask is applied, so centering matters more than it might seem from looking at the square original.',
+    features: [
+      { title: 'Three real Facebook sizes', description: 'Post image, cover photo, and profile picture, matching Facebook\u2019s current specifications.', icon: HiOutlinePhoto },
+      { title: 'Fill or fit', description: 'Crop to fill the frame exactly, or fit the whole image with padding.', icon: HiOutlineArrowsPointingOut },
+      { title: 'Works entirely in your browser', description: 'The image is resized locally; nothing is uploaded anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload an image.', 'Choose Post, Cover Photo, or Profile Picture.', 'Choose Fill or Fit.', 'Download the resized image.'],
+    useCases: [
+      'Preparing a cover photo that won\u2019t get cropped oddly on mobile',
+      'Resizing a photo to fit Facebook\u2019s circular profile picture correctly',
+      'Creating a 1200\u00d7630 image that also works as a link preview on other platforms',
+      'Fixing a page cover photo that displayed stretched after uploading the wrong size',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'linkedin-image-resizer': {
+    about:
+      'Resizes an image to four LinkedIn-specific sizes: a 1200\u00d7627 post image, a 1200\u00d71200 square post, a 1584\u00d7396 cover banner, and a 400\u00d7400 profile picture.\n\nBoth a landscape and a square post size are included deliberately, since LinkedIn\u2019s feed genuinely treats them differently: square images tend to take up more visible vertical space when scrolling past on mobile, which is part of why square posts often get more attention on the platform than a landscape image with the same content. Which shape to use depends on whether wider mobile-feed presence or a more traditional link-preview shape matters more for a given post.\n\nThe cover banner sits behind the profile picture and headline, and its 4:1 aspect ratio is notably wider and shorter than most other platforms\u2019 cover images, meaning a photo designed for Facebook or X\u2019s cover size will need very different cropping to fit LinkedIn\u2019s banner well, not just a resize.\n\nA personal profile\u2019s cover banner and a LinkedIn Company Page\u2019s cover image are technically separate assets with their own upload locations, worth keeping in mind since they\u2019re easy to mix up when managing both a personal profile and a company page.',
+    features: [
+      { title: 'Four real LinkedIn sizes', description: 'Post, square post, cover banner, and profile picture, matching LinkedIn\u2019s current specifications.', icon: HiOutlinePhoto },
+      { title: 'Fill or fit', description: 'Crop to fill the frame exactly, or fit the whole image with padding.', icon: HiOutlineArrowsPointingOut },
+      { title: 'Works entirely in your browser', description: 'The image is resized locally; nothing is uploaded anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload an image.', 'Choose a size: Post, Square Post, Cover Banner, or Profile Picture.', 'Choose Fill or Fit.', 'Download the resized image.'],
+    useCases: [
+      'Resizing a landscape photo into a square post for more mobile feed presence',
+      'Creating a cover banner sized correctly for LinkedIn\u2019s wide, short aspect ratio',
+      'Preparing a professional profile picture that fits LinkedIn\u2019s circular crop well',
+      'Converting an image built for another platform\u2019s cover size into LinkedIn\u2019s banner shape',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'pinterest-pin-resizer': {
+    about:
+      'Resizes an image to three Pinterest-specific sizes: a 1000\u00d71500 standard Pin, a 1000\u00d71000 square Pin, and a 165\u00d7165 profile picture.\n\nPinterest is worth calling out specifically because its design philosophy is genuinely different from most other platforms: where X, Facebook, and LinkedIn all default to landscape or square shapes optimized for a horizontally-scrolling or centered feed, Pinterest\u2019s masonry-style grid is built around vertical images from the ground up. The standard Pin\u2019s 2:3 portrait ratio isn\u2019t an afterthought, it\u2019s the shape the whole platform\u2019s layout is designed to showcase, which is why a vertical Pin consistently takes up more visible space and gets more attention than a square or landscape one dropped into the same grid.\n\nThe square Pin size still has a place though, particularly for content like quote graphics or product shots where the vertical extra space of a standard Pin would just mean empty padding rather than useful content.\n\nThe profile picture, like most platforms, displays as a circle, so keeping the subject centered rather than close to any edge avoids an awkward, unintended crop once that circular mask gets applied to the square original.',
+    features: [
+      { title: 'Three real Pinterest sizes', description: 'Standard Pin, square Pin, and profile picture, matching Pinterest\u2019s current specifications.', icon: HiOutlinePhoto },
+      { title: 'Fill or fit', description: 'Crop to fill the frame exactly, or fit the whole image with padding.', icon: HiOutlineArrowsPointingOut },
+      { title: 'Works entirely in your browser', description: 'The image is resized locally; nothing is uploaded anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload an image.', 'Choose Standard Pin, Square Pin, or Profile Picture.', 'Choose Fill or Fit.', 'Download the resized image.'],
+    useCases: [
+      'Resizing a photo into Pinterest\u2019s tall standard Pin shape for better grid visibility',
+      'Creating a square Pin for a quote graphic or product image with no extra vertical content',
+      'Preparing a profile picture that fits Pinterest\u2019s circular crop correctly',
+      'Converting a landscape image built for another platform into Pinterest\u2019s vertical format',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'video-converter': {
+    about:
+      'Converts a video between MP4 and WebM by playing it through and re-recording the output in the target container format.\n\nWorth understanding upfront: MP4 and WebM differ in more than just file extension. MP4 typically wraps H.264 video, a codec that was patent-encumbered for years (those patents have since expired), which is part of why it became the dominant, universally-supported format across devices and software. WebM was developed specifically as a royalty-free, open alternative, built around the VP8 and VP9 codecs, and it\u2019s the format most browsers default to when recording video directly, since no licensing is involved.\n\nThat licensing history is also exactly why MP4 output isn\u2019t guaranteed here: Chromium-based browsers (Chrome, Edge) support recording directly to MP4, but Firefox generally doesn\u2019t. This tool checks what your specific browser actually supports and is upfront about it, converting to WebM instead and clearly saying so if MP4 genuinely isn\u2019t available, rather than silently handing back a file in a different format than requested.\n\nBecause this works by playing the video through in real time and capturing the output, a longer video takes proportionally longer to convert, similar to how a physical recording device can\u2019t work faster than the material it\u2019s recording plays.',
+    features: [
+      { title: 'Convert to MP4 or WebM', description: 'Choose the target container format.', icon: HiOutlineArrowPath },
+      { title: 'Honest about browser support', description: 'Reports back which format was actually achieved if MP4 isn\u2019t available.', icon: HiOutlineExclamationTriangle },
+      { title: 'Works entirely in your browser', description: 'No file is ever uploaded to a server.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload a video.', 'Choose MP4 or WebM.', 'Click Convert Video.', 'Download the result once processing finishes.'],
+    useCases: [
+      'Converting a WebM file to MP4 for compatibility with software that only accepts MP4',
+      'Converting a video to WebM for a smaller, royalty-free web format',
+      'Getting a video into a specific container format required by another tool or platform',
+      'Standardizing a mix of video files into one consistent format',
+    ],
+    supportedFormats: {
+      input: 'MP4, WebM, MOV, OGV',
+      output: 'MP4 (where supported) or WebM',
+      maxSize: '200 MB',
+    },
+    privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'audio-speed-changer': {
+    about:
+      'Speeds up or slows down an audio file\u2019s playback by resampling it, reading through the original audio at a scaled rate to produce a shorter or longer output.\n\nWorth being upfront about: this changes pitch along with speed, the same effect as playing a vinyl record faster or slower than intended, where a faster record sounds noticeably higher-pitched, not just quicker. Preserving the original pitch independently of speed requires a meaningfully more complex kind of audio processing (commonly called a phase vocoder), which this tool doesn\u2019t attempt, in favor of a simpler, honestly-described approach.\n\nThat tradeoff is fine for a genuinely common set of use cases: speeding up a podcast or lecture recording for faster listening, where a bit of pitch shift is barely noticeable at moderate speeds, or slowing down a piece of music to work out a fast passage by ear, where the pitch drop is an accepted part of how musicians have always used slowed-down playback to learn quickly-played parts.\n\nThe six preset speeds range from half speed to double speed, covering the range most people actually reach for, while still allowing exact repeated use of the same setting rather than needing to fine-tune a slider back to a specific value each time.',
+    features: [
+      { title: 'Six speed presets', description: '0.5x through 2x, covering the most commonly used range.', icon: HiOutlineForward },
+      { title: 'Honest about pitch', description: 'Clearly states that pitch changes along with speed, rather than hiding the tradeoff.', icon: HiOutlineExclamationTriangle },
+      { title: 'Works entirely in your browser', description: 'No file is ever uploaded to a server.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload an audio file.', 'Choose a speed preset.', 'Click Change Speed.', 'Download the result.'],
+    useCases: [
+      'Speeding up a podcast or lecture recording for faster listening',
+      'Slowing down a piece of music to learn a fast passage by ear',
+      'Speeding up a long voice memo before sharing it',
+      'Slowing down spoken audio for more careful transcription',
+    ],
+    supportedFormats: {
+      input: 'MP3, WAV, OGG, M4A, WebM, FLAC',
+      output: 'WAV',
+      maxSize: '50 MB',
+    },
+    privacy: BROWSER_ONLY_PRIVACY,
   },
 }

@@ -65,10 +65,12 @@ const AudioMerger = lazy(() => import('./pages/tools/AudioMerger.jsx'))
 const AudioVolumeChanger = lazy(() => import('./pages/tools/AudioVolumeChanger.jsx'))
 const AudioReverser = lazy(() => import('./pages/tools/AudioReverser.jsx'))
 const AudioFade = lazy(() => import('./pages/tools/AudioFade.jsx'))
+const AudioSpeedChanger = lazy(() => import('./pages/tools/AudioSpeedChanger.jsx'))
 const SilenceTrimmer = lazy(() => import('./pages/tools/SilenceTrimmer.jsx'))
 const VideoToAudio = lazy(() => import('./pages/tools/VideoToAudio.jsx'))
 const VideoMuter = lazy(() => import('./pages/tools/VideoMuter.jsx'))
 const VideoSpeedChanger = lazy(() => import('./pages/tools/VideoSpeedChanger.jsx'))
+const VideoConverter = lazy(() => import('./pages/tools/VideoConverter.jsx'))
 const VideoResizer = lazy(() => import('./pages/tools/VideoResizer.jsx'))
 const VideoCompressor = lazy(() => import('./pages/tools/VideoCompressor.jsx'))
 const BackgroundRemover = lazy(() => import('./pages/tools/BackgroundRemover.jsx'))
@@ -80,6 +82,10 @@ const AreaConverter = lazy(() => import('./pages/tools/AreaConverter.jsx'))
 const SpeedConverter = lazy(() => import('./pages/tools/SpeedConverter.jsx'))
 const TimeConverter = lazy(() => import('./pages/tools/TimeConverter.jsx'))
 const DataConverter = lazy(() => import('./pages/tools/DataConverter.jsx'))
+const PressureConverter = lazy(() => import('./pages/tools/PressureConverter.jsx'))
+const EnergyConverter = lazy(() => import('./pages/tools/EnergyConverter.jsx'))
+const PowerConverter = lazy(() => import('./pages/tools/PowerConverter.jsx'))
+const AngleConverter = lazy(() => import('./pages/tools/AngleConverter.jsx'))
 const ShortUrlRedirect = lazy(() => import('./pages/ShortUrlRedirect.jsx'))
 const HashGenerator = lazy(() => import('./pages/tools/HashGenerator.jsx'))
 const TimestampConverter = lazy(() => import('./pages/tools/TimestampConverter.jsx'))
@@ -90,9 +96,14 @@ const GradientGenerator = lazy(() => import('./pages/tools/GradientGenerator.jsx
 const PdfToWord = lazy(() => import('./pages/tools/PdfToWord.jsx'))
 const CompressPdf = lazy(() => import('./pages/tools/CompressPdf.jsx'))
 const PdfToPowerpoint = lazy(() => import('./pages/tools/PdfToPowerpoint.jsx'))
+const PowerPointToPdf = lazy(() => import('./pages/tools/PowerPointToPdf.jsx'))
 const ExcelToPdf = lazy(() => import('./pages/tools/ExcelToPdf.jsx'))
 const WordToPdf = lazy(() => import('./pages/tools/WordToPdf.jsx'))
 const YoutubeThumbnailDownloader = lazy(() => import('./pages/tools/YoutubeThumbnailDownloader.jsx'))
+const TwitterImageResizer = lazy(() => import('./pages/tools/TwitterImageResizer.jsx'))
+const FacebookImageResizer = lazy(() => import('./pages/tools/FacebookImageResizer.jsx'))
+const LinkedInImageResizer = lazy(() => import('./pages/tools/LinkedInImageResizer.jsx'))
+const PinterestPinResizer = lazy(() => import('./pages/tools/PinterestPinResizer.jsx'))
 const WordCounter = lazy(() => import('./pages/tools/WordCounter.jsx'))
 const CaseConverter = lazy(() => import('./pages/tools/CaseConverter.jsx'))
 const LoremIpsumGenerator = lazy(() => import('./pages/tools/LoremIpsumGenerator.jsx'))
@@ -184,10 +195,12 @@ export default function App() {
           <Route path="/tools/audio-volume-changer" element={<AudioVolumeChanger />} />
           <Route path="/tools/audio-reverser" element={<AudioReverser />} />
           <Route path="/tools/audio-fade" element={<AudioFade />} />
+          <Route path="/tools/audio-speed-changer" element={<AudioSpeedChanger />} />
           <Route path="/tools/silence-trimmer" element={<SilenceTrimmer />} />
           <Route path="/tools/video-to-audio" element={<VideoToAudio />} />
           <Route path="/tools/video-muter" element={<VideoMuter />} />
           <Route path="/tools/video-speed-changer" element={<VideoSpeedChanger />} />
+          <Route path="/tools/video-converter" element={<VideoConverter />} />
           <Route path="/tools/video-resizer" element={<VideoResizer />} />
           <Route path="/tools/video-compressor" element={<VideoCompressor />} />
           <Route path="/tools/background-remover" element={<BackgroundRemover />} />
@@ -199,6 +212,10 @@ export default function App() {
           <Route path="/tools/speed-converter" element={<SpeedConverter />} />
           <Route path="/tools/time-converter" element={<TimeConverter />} />
           <Route path="/tools/data-converter" element={<DataConverter />} />
+          <Route path="/tools/pressure-converter" element={<PressureConverter />} />
+          <Route path="/tools/energy-converter" element={<EnergyConverter />} />
+          <Route path="/tools/power-converter" element={<PowerConverter />} />
+          <Route path="/tools/angle-converter" element={<AngleConverter />} />
           <Route path="/s/:code" element={<ShortUrlRedirect />} />
           <Route path="/tools/hash-generator" element={<HashGenerator />} />
           <Route path="/tools/timestamp-converter" element={<TimestampConverter />} />
@@ -209,9 +226,14 @@ export default function App() {
           <Route path="/tools/pdf-to-word" element={<PdfToWord />} />
           <Route path="/tools/compress-pdf" element={<CompressPdf />} />
           <Route path="/tools/pdf-to-powerpoint" element={<PdfToPowerpoint />} />
+          <Route path="/tools/powerpoint-to-pdf" element={<PowerPointToPdf />} />
           <Route path="/tools/excel-to-pdf" element={<ExcelToPdf />} />
           <Route path="/tools/word-to-pdf" element={<WordToPdf />} />
           <Route path="/tools/youtube-thumbnail-downloader" element={<YoutubeThumbnailDownloader />} />
+          <Route path="/tools/twitter-image-resizer" element={<TwitterImageResizer />} />
+          <Route path="/tools/facebook-image-resizer" element={<FacebookImageResizer />} />
+          <Route path="/tools/linkedin-image-resizer" element={<LinkedInImageResizer />} />
+          <Route path="/tools/pinterest-pin-resizer" element={<PinterestPinResizer />} />
           <Route path="/tools/word-counter" element={<WordCounter />} />
           <Route path="/tools/case-converter" element={<CaseConverter />} />
           <Route path="/tools/lorem-ipsum-generator" element={<LoremIpsumGenerator />} />

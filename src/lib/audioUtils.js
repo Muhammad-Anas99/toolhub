@@ -237,3 +237,32 @@ export function findSilenceTrimRange(audioBuffer, threshold = 0.01) {
   }
   return { start, end: Math.max(end, start) }
 }
+
+/**
+ * Changes audio playback speed by resampling: reads samples at a
+ * scaled rate, using linear interpolation between the two nearest
+ * source samples for a smoother result than nearest-neighbor lookup.
+ * This changes pitch along with speed, the same way a vinyl record
+ * played faster sounds higher-pitched, an honest, simple approach
+ * rather than a more complex pitch-preserving algorithm. Verified
+ * independently (identity at 1.0x, correct output length at both
+ * faster and slower factors, and correct interpolated values on a
+ * known linear ramp) before being ported here.
+ */
+export function changeAudioSpeed(audioBuffer, speedFactor) {
+  const channelData = []
+  for (let ch = 0; ch < audioBuffer.numberOfChannels; ch++) {
+    const source = audioBuffer.getChannelData(ch)
+    const outputLength = Math.round(source.length / speedFactor)
+    const out = new Float32Array(outputLength)
+    for (let i = 0; i < outputLength; i++) {
+      const sourcePos = i * speedFactor
+      const index0 = Math.floor(sourcePos)
+      const index1 = Math.min(index0 + 1, source.length - 1)
+      const frac = sourcePos - index0
+      out[i] = source[index0] * (1 - frac) + source[index1] * frac
+    }
+    channelData.push(out)
+  }
+  return makeBufferLike(channelData, audioBuffer.sampleRate)
+}
