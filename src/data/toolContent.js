@@ -2,6 +2,10 @@ import {
   HiOutlineBolt,
   HiOutlineArrowPath,
   HiOutlineForward,
+  HiOutlineCheckCircle,
+  HiOutlineChatBubbleLeftRight,
+  HiOutlineCursorArrowRays,
+  HiOutlineClipboard,
   HiOutlineShieldCheck,
   HiOutlineCloudArrowUp,
   HiOutlineAdjustmentsHorizontal,
@@ -2055,5 +2059,77 @@ export const toolContent = {
       maxSize: '50 MB',
     },
     privacy: BROWSER_ONLY_PRIVACY,
+  },
+
+  'whatsapp-link-generator': {
+    about:
+      'Builds a WhatsApp Click-to-Chat link (a wa.me address) from a phone number and an optional pre-filled message, ready to paste into a website, email signature, or social bio.\n\nThis isn\u2019t a workaround or a third-party trick: Click-to-Chat is a real, official WhatsApp feature, meant specifically for exactly this use case. Clicking or scanning a wa.me link opens a chat with that number directly, with any pre-filled message already typed in and ready to send, skipping the step of a visitor needing to save a number to their contacts first just to say hello.\n\nThe number format matters more than it might seem. WhatsApp\u2019s wa.me links expect the full international number as plain digits, no plus sign, no spaces, no leading zero before the country code. Typing a number the way it\u2019s normally written, with a + and spaces, is completely fine here since the actual cleanup happens automatically before the link is built, but a link built by hand without that cleanup is a common, quiet cause of "click to chat" buttons that mysteriously don\u2019t work.\n\nA pre-filled message is optional but worth using for a business context specifically: "Hi, I\u2019m interested in [product]" already sitting in the message box removes a small but real bit of friction for someone who was on the fence about reaching out at all, since starting a conversation from a blank message box can itself feel like a bigger step than it should.',
+    features: [
+      { title: 'Real wa.me links', description: 'Uses WhatsApp\u2019s own official Click-to-Chat feature, not a workaround.', icon: HiOutlineLink },
+      { title: 'Handles messy number formats', description: 'Spaces, dashes, and a leading + are all cleaned up automatically.', icon: HiOutlineCheckCircle },
+      { title: 'Optional pre-filled message', description: 'Give visitors a head start instead of a blank chat box.', icon: HiOutlineChatBubbleLeftRight },
+    ],
+    howToUse: ['Enter a phone number with its country code.', 'Optionally add a pre-filled message.', 'Copy the generated link, or click it to test.'],
+    useCases: [
+      'Adding a "Message us on WhatsApp" button to a website with no backend needed',
+      'Putting a Click-to-Chat link in an email signature or social media bio',
+      'Sharing a direct chat link with a pre-filled question for a specific product',
+      'Testing whether a wa.me link is formatted correctly before publishing it',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'whatsapp-text-formatter': {
+    about:
+      'Applies WhatsApp\u2019s own text formatting: bold, italic, strikethrough, and monospace, using the exact markup characters WhatsApp itself recognizes when a message is actually sent.\n\nThis is worth being precise about, since it\u2019s a common point of confusion: WhatsApp doesn\u2019t use a rich-text editor with a bold button built into the chat window. It recognizes plain characters typed around a word or phrase, an asterisk on each side for *bold*, an underscore for _italic_, a tilde for ~strikethrough~, and three backticks around ```monospace```, and renders them as formatted text once sent. Anyone who\u2019s seen bold text in a WhatsApp message has seen this system already; anyone who hasn\u2019t used it themselves often simply doesn\u2019t know the exact characters or that it exists at all.\n\nThis tool removes the need to remember the syntax or count characters by hand: select a word or phrase in the text box, click the format wanted, and the correct markup gets added around exactly what was selected. The result is real, working WhatsApp formatting the moment it\u2019s pasted into an actual chat, not a preview or approximation of one.\n\nWorth knowing: this formatting only renders inside WhatsApp itself. Pasted somewhere else, like an email or a text document, it\u2019ll show the literal asterisks or underscores rather than bold or italic text, since those other places don\u2019t interpret WhatsApp\u2019s specific markup.',
+    features: [
+      { title: 'WhatsApp\u2019s real markup', description: 'Bold, italic, strikethrough, and monospace, using WhatsApp\u2019s actual formatting characters.', icon: HiOutlineBolt },
+      { title: 'Select and click', description: 'No need to remember or manually type the correct symbols.', icon: HiOutlineCursorArrowRays },
+      { title: 'Copy when ready', description: 'One click copies the formatted text, ready to paste into a real chat.', icon: HiOutlineClipboard },
+    ],
+    howToUse: ['Type a message.', 'Select a word or phrase.', 'Click Bold, Italic, Strike, or Mono.', 'Copy the result and paste it into WhatsApp.'],
+    useCases: [
+      'Emphasizing a key word or phrase in a WhatsApp broadcast message',
+      'Formatting a business announcement or price list for a WhatsApp group',
+      'Learning WhatsApp\u2019s formatting syntax by seeing it applied automatically',
+      'Quickly adding strikethrough to show a price has changed',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'whatsapp-qr-generator': {
+    about:
+      'Generates a scannable QR code that opens a WhatsApp chat with a specific number, optionally with a message already filled in, using the same official wa.me link system as WhatsApp\u2019s own Click-to-Chat feature.\n\nA QR code solves a different problem than a clickable link does. A link works well anywhere someone is already looking at a screen, a website, an email, a social bio. A QR code is what actually works in the physical world: printed on a business card, a storefront window, a menu, or a flyer, where there\u2019s no clickable text at all, only something to point a camera at. Scanning it opens the chat directly, skipping the genuinely common friction of someone typing out a phone number by hand from a printed sign, a step where typos and abandoned attempts happen more often than it might seem.\n\nThe QR code is generated locally using the same verified encoding engine used elsewhere on this site, converting the wa.me link into the actual black-and-white pattern, then rendering it directly to a downloadable image.\n\nA pre-filled message works the same way here as with a plain Click-to-Chat link: someone scanning a code on a restaurant table for reservations, for instance, could land in a chat that already reads "Hi, I\u2019d like to book a table," removing a small step between curiosity and an actual message sent.',
+    features: [
+      { title: 'Real wa.me QR codes', description: 'Encodes WhatsApp\u2019s own official Click-to-Chat link format.', icon: HiOutlineLink },
+      { title: 'Optional pre-filled message', description: 'The chat opens with a message already typed in, if one is set.', icon: HiOutlineChatBubbleLeftRight },
+      { title: 'Download as PNG', description: 'Ready to print on a card, sign, or flyer.', icon: HiOutlineArrowDownTray },
+    ],
+    howToUse: ['Enter a phone number with its country code.', 'Optionally add a pre-filled message.', 'Download the generated QR code.'],
+    useCases: [
+      'Printing a QR code on a business card that opens a WhatsApp chat',
+      'Adding a scannable code to a storefront or restaurant table for quick contact',
+      'Putting a WhatsApp QR code on a flyer or printed menu',
+      'Making a WhatsApp contact easy to save by scanning instead of typing',
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'whatsapp-status-resizer': {
+    about:
+      'Resizes an image to WhatsApp\u2019s two most common dimensions: a 1080\u00d71920 Status image and a 640\u00d7640 profile picture.\n\nWhatsApp Status uses the same full-screen, 9:16 vertical format as Instagram Stories and Snapchat Stories, a detail worth knowing since a design built for one genuinely works for the others without modification. An image that doesn\u2019t match this ratio doesn\u2019t get stretched to fill the screen; WhatsApp shrinks it to fit the width and fills the empty space above and below with a solid color bar, which reads as noticeably less polished than a properly sized image filling the whole screen.\n\nWorth knowing for anyone designing a Status image specifically, not just resizing an existing photo: WhatsApp\u2019s interface overlays the sender\u2019s name near the top and a reply bar near the bottom, covering roughly the outer edges of the full 1080\u00d71920 frame. Keeping important text or a subject\u2019s face within the vertical center of the image avoids it landing under one of these overlays.\n\nThe profile picture, uploaded at up to 1080\u00d71080 but ultimately stored and displayed by WhatsApp at 640\u00d7640, is cropped to a circle everywhere it appears, in chats, contact lists, and group info, so keeping the subject centered rather than near a corner avoids it being clipped unexpectedly by that circular mask once it\u2019s applied.',
+    features: [
+      { title: 'Real WhatsApp dimensions', description: 'Status (1080\u00d71920) and profile picture (640\u00d7640), matching WhatsApp\u2019s current specifications.', icon: HiOutlinePhoto },
+      { title: 'Fill or fit', description: 'Crop to fill the frame exactly, or fit the whole image with padding.', icon: HiOutlineArrowsPointingOut },
+      { title: 'Works entirely in your browser', description: 'The image is resized locally; nothing is uploaded anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload an image.', 'Choose Status Image or Profile Picture.', 'Choose Fill or Fit.', 'Download the resized image.'],
+    useCases: [
+      'Resizing a photo to fill the screen properly as a WhatsApp Status update',
+      'Avoiding the black bars that appear when an image doesn\u2019t match the 9:16 ratio',
+      'Preparing a profile picture that fits WhatsApp\u2019s circular crop correctly',
+      'Reusing an Instagram or Snapchat Story image for WhatsApp Status without a redesign',
+    ],
+    privacy: NO_FILE_PRIVACY,
   },
 }

@@ -104,6 +104,10 @@ const TwitterImageResizer = lazy(() => import('./pages/tools/TwitterImageResizer
 const FacebookImageResizer = lazy(() => import('./pages/tools/FacebookImageResizer.jsx'))
 const LinkedInImageResizer = lazy(() => import('./pages/tools/LinkedInImageResizer.jsx'))
 const PinterestPinResizer = lazy(() => import('./pages/tools/PinterestPinResizer.jsx'))
+const WhatsAppLinkGenerator = lazy(() => import('./pages/tools/WhatsAppLinkGenerator.jsx'))
+const WhatsAppTextFormatter = lazy(() => import('./pages/tools/WhatsAppTextFormatter.jsx'))
+const WhatsAppQrGenerator = lazy(() => import('./pages/tools/WhatsAppQrGenerator.jsx'))
+const WhatsAppStatusResizer = lazy(() => import('./pages/tools/WhatsAppStatusResizer.jsx'))
 const WordCounter = lazy(() => import('./pages/tools/WordCounter.jsx'))
 const CaseConverter = lazy(() => import('./pages/tools/CaseConverter.jsx'))
 const LoremIpsumGenerator = lazy(() => import('./pages/tools/LoremIpsumGenerator.jsx'))
@@ -234,6 +238,10 @@ export default function App() {
           <Route path="/tools/facebook-image-resizer" element={<FacebookImageResizer />} />
           <Route path="/tools/linkedin-image-resizer" element={<LinkedInImageResizer />} />
           <Route path="/tools/pinterest-pin-resizer" element={<PinterestPinResizer />} />
+          <Route path="/tools/whatsapp-link-generator" element={<WhatsAppLinkGenerator />} />
+          <Route path="/tools/whatsapp-text-formatter" element={<WhatsAppTextFormatter />} />
+          <Route path="/tools/whatsapp-qr-generator" element={<WhatsAppQrGenerator />} />
+          <Route path="/tools/whatsapp-status-resizer" element={<WhatsAppStatusResizer />} />
           <Route path="/tools/word-counter" element={<WordCounter />} />
           <Route path="/tools/case-converter" element={<CaseConverter />} />
           <Route path="/tools/lorem-ipsum-generator" element={<LoremIpsumGenerator />} />

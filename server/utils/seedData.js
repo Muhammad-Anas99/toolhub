@@ -189,6 +189,10 @@ export const toolSeed = [
   { name: 'Facebook Image Resizer', slug: 'facebook-image-resizer', path: '/tools/facebook-image-resizer', category: 'social-media-tools', description: 'Resize an image for Facebook posts, cover photos, and profile pictures.', icon: 'FaFacebook', badge: 'new', comingSoon: false },
   { name: 'LinkedIn Image Resizer', slug: 'linkedin-image-resizer', path: '/tools/linkedin-image-resizer', category: 'social-media-tools', description: 'Resize an image for LinkedIn posts, cover banners, and profile pictures.', icon: 'FaLinkedin', badge: 'new', comingSoon: false },
   { name: 'Pinterest Pin Resizer', slug: 'pinterest-pin-resizer', path: '/tools/pinterest-pin-resizer', category: 'social-media-tools', description: 'Resize an image to Pinterest\u2019s standard and square pin dimensions.', icon: 'FaPinterest', badge: 'new', comingSoon: false },
+  { name: 'WhatsApp Link Generator', slug: 'whatsapp-link-generator', path: '/tools/whatsapp-link-generator', category: 'social-media-tools', description: 'Create a WhatsApp Click-to-Chat link with an optional pre-filled message.', icon: 'FaWhatsapp', badge: 'new', comingSoon: false },
+  { name: 'WhatsApp Text Formatter', slug: 'whatsapp-text-formatter', path: '/tools/whatsapp-text-formatter', category: 'social-media-tools', description: 'Format text with WhatsApp\u2019s own bold, italic, strikethrough, and monospace markup.', icon: 'FaWhatsapp', badge: 'new', comingSoon: false },
+  { name: 'WhatsApp QR Code Generator', slug: 'whatsapp-qr-generator', path: '/tools/whatsapp-qr-generator', category: 'social-media-tools', description: 'Generate a scannable QR code that opens a WhatsApp chat with a pre-filled message.', icon: 'FaWhatsapp', badge: 'new', comingSoon: false },
+  { name: 'WhatsApp Status Resizer', slug: 'whatsapp-status-resizer', path: '/tools/whatsapp-status-resizer', category: 'social-media-tools', description: 'Resize an image to WhatsApp\u2019s Status and profile picture dimensions.', icon: 'FaWhatsapp', badge: 'new', comingSoon: false },
 ]
 
 

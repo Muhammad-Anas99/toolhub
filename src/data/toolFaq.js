@@ -2489,4 +2489,96 @@ export const toolFaqs = {
       answer: 'WAV is an uncompressed format that every browser, phone, and audio program can open reliably without extra plugins, avoiding any additional quality loss from a second layer of lossy compression stacked on top of the speed change itself.',
     },
   ],
+
+  'whatsapp-link-generator': [
+    {
+      id: 'link-not-working',
+      question: 'Why doesn\u2019t my wa.me link work?',
+      answer: 'The most common cause is the number format: WhatsApp expects the full international number as plain digits, no +, spaces, or leading zero. This tool cleans up whatever format is typed in automatically, so a manually-built link without that cleanup is the usual culprit.',
+    },
+    {
+      id: 'is-this-official',
+      question: 'Is Click-to-Chat an official WhatsApp feature?',
+      answer: 'Yes, wa.me links are WhatsApp\u2019s own official Click-to-Chat system, built specifically for this purpose, not a third-party workaround.',
+    },
+    {
+      id: 'need-saved-contact',
+      question: 'Does the person need to have my number saved already?',
+      answer: 'No, that\u2019s the specific point of a Click-to-Chat link: it opens a chat with that number directly, without either side needing to save the other as a contact first.',
+    },
+    {
+      id: 'works-without-whatsapp-web',
+      question: 'Does this work on both phones and desktop computers?',
+      answer: 'Yes, on a phone with WhatsApp installed it opens the app directly, while on a desktop computer it opens WhatsApp Web instead, using whichever setup the visitor\u2019s own device already has in place.',
+    },
+  ],
+
+  'whatsapp-text-formatter': [
+    {
+      id: 'why-not-showing-formatted',
+      question: 'Why does my formatted text show asterisks instead of bold when I paste it elsewhere?',
+      answer: 'This formatting only renders inside WhatsApp itself. Pasted into an email, document, or another app, the literal asterisks, underscores, or tildes show as plain characters, since those other places don\u2019t interpret WhatsApp\u2019s specific markup.',
+    },
+    {
+      id: 'is-this-real-whatsapp-syntax',
+      question: 'Is this really how WhatsApp formatting works, or is this a workaround?',
+      answer: 'It\u2019s WhatsApp\u2019s own real, documented formatting syntax; the same characters anyone could type by hand directly into the WhatsApp app itself. This tool just adds them correctly around whatever text is selected.',
+    },
+    {
+      id: 'multiple-formats-at-once',
+      question: 'Can I combine bold and italic on the same text?',
+      answer: 'Yes, apply one format, then select the same text again (now including the markup characters) and apply the second one, the same way it would work typing the characters manually.',
+    },
+    {
+      id: 'works-on-mobile-whatsapp',
+      question: 'Does this formatting work the same way on WhatsApp mobile and desktop?',
+      answer: 'Yes, the markup characters are interpreted identically everywhere WhatsApp itself runs, whether that\u2019s a phone, WhatsApp Web, or the desktop app, since it\u2019s the same underlying formatting system across all of them.',
+    },
+  ],
+
+  'whatsapp-qr-generator': [
+    {
+      id: 'qr-vs-link',
+      question: 'What\u2019s the point of a QR code instead of just sharing the link?',
+      answer: 'A link works well anywhere someone is already on a screen. A QR code is what actually works printed on a business card, storefront, or flyer, where there\u2019s nothing clickable, only something to scan with a phone camera.',
+    },
+    {
+      id: 'does-scanning-need-whatsapp',
+      question: 'Does the person scanning need WhatsApp already installed?',
+      answer: 'Yes, scanning opens the link in WhatsApp, so the app needs to be installed on the device doing the scanning, the same requirement as clicking a wa.me link directly.',
+    },
+    {
+      id: 'qr-message-included',
+      question: 'Does the pre-filled message carry over into the QR code?',
+      answer: 'Yes, the QR code encodes the complete wa.me link, message included, so scanning it opens a chat with that message already typed in, exactly like clicking the link would.',
+    },
+    {
+      id: 'qr-expire',
+      question: 'Does the QR code expire or stop working after a while?',
+      answer: 'No, it encodes a fixed wa.me link tied to the phone number and message provided, so it keeps working indefinitely unless that number itself stops using WhatsApp.',
+    },
+  ],
+
+  'whatsapp-status-resizer': [
+    {
+      id: 'why-black-bars',
+      question: 'Why does my Status image show black bars on the sides?',
+      answer: 'WhatsApp Status uses a 9:16 vertical format (1080\u00d71920). An image with a different aspect ratio gets shrunk to fit the width, with the empty space above and below filled by a solid color bar rather than the image stretching to cover it.',
+    },
+    {
+      id: 'safe-zone-explained',
+      question: 'What is the "safe zone" for a Status image?',
+      answer: 'WhatsApp\u2019s interface overlays the sender\u2019s name near the top of the screen and a reply bar near the bottom, covering roughly the outer edges of the full frame. Keeping important text or a subject centered vertically avoids it landing under either overlay.',
+    },
+    {
+      id: 'reuse-instagram-story',
+      question: 'Can I use an Instagram Story image for WhatsApp Status?',
+      answer: 'Yes, both use the same 1080\u00d71920, 9:16 vertical format, so an image designed for one works directly for the other without any redesign needed.',
+    },
+    {
+      id: 'video-status-dimensions',
+      question: 'Do WhatsApp Status videos use the same dimensions as images?',
+      answer: 'Yes, video Status updates use that same 1080\u00d71920 vertical frame as well, though this particular tool specifically handles image resizing rather than video files.',
+    },
+  ],
 }
