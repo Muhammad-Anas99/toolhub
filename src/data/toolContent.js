@@ -2970,4 +2970,17 @@ export const toolContent = {
     privacy:
       'Camera video is processed entirely on your device to detect the QR code; no image or video is ever uploaded or sent anywhere.',
   },
+
+  'svg-converter': {
+    about:
+      'Converts an SVG file into either a PNG image at any size you choose, or a real, multi-resolution .ico icon file, the two most common reasons an SVG needs to become a raster format: displaying it somewhere that doesn\u2019t support SVG, or using it as a favicon or app icon.\n\nSVG is a vector format, meaning it\u2019s defined by mathematical shapes rather than a fixed grid of pixels, and scales to any size without losing quality. That\u2019s exactly why converting it asks you to pick the output size explicitly, rather than guessing one from the file itself: an SVG\u2019s own dimensions are often meaningless or even absent, since the whole point of the format is that it doesn\u2019t need one until it\u2019s actually rendered somewhere.\n\nThe ICO output builds a genuine multi-resolution icon file bundling 16\u00d716, 32\u00d732, and 48\u00d748 versions together in one file, the standard structure browsers and Windows expect, not just a single image renamed with an .ico extension.',
+    features: [
+      { title: 'Choose PNG or ICO', description: 'Pick the output format that matches what you actually need it for.', icon: HiOutlineArrowsRightLeft },
+      { title: 'Any PNG size', description: 'From 16\u00d716 up to 1024\u00d71024, chosen explicitly rather than guessed.', icon: HiOutlineArrowsPointingIn },
+      { title: 'Real multi-resolution ICO', description: 'Bundles three standard sizes into one genuine .ico file, not a renamed PNG.', icon: HiOutlineCheckCircle },
+    ],
+    howToUse: ['Upload an SVG file.', 'Choose PNG or ICO as the output format.', 'For PNG, choose an output size.', 'Click Convert, then download the result.'],
+    useCases: ['Converting a logo SVG into a PNG for a platform that doesn\u2019t accept SVG uploads', 'Generating a favicon.ico from a vector logo', 'Creating a specific-size PNG icon for an app or website', 'Preparing a vector graphic for a tool or document that only accepts raster images'],
+    privacy: NO_FILE_PRIVACY,
+  },
 }

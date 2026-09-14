@@ -2785,4 +2785,10 @@ export const toolFaqs = {
     { id: 'what-can-qr-contain', question: 'What kinds of content can a QR code contain?', answer: 'Far more than a typical barcode \u2014 URLs, plain text, contact details, WiFi credentials, and more. This tool decodes whatever is actually encoded and shows it as plain text.' },
     { id: 'qr-browser-support', question: 'Does this work on all browsers?', answer: 'It relies on the BarcodeDetector API, currently available in Chrome, Edge, and other Chromium-based browsers, but not yet in Firefox or Safari.' },
   ],
+
+  'svg-converter': [
+    { id: 'why-choose-size', question: 'Why do I need to pick a size instead of it just using the SVG\u2019s own size?', answer: 'An SVG is scalable by design and often doesn\u2019t have a meaningful fixed size of its own \u2014 choosing the size explicitly gives a predictable, correct result instead of guessing.' },
+    { id: 'ico-real-multi-res', question: 'Is the ICO file a real multi-resolution icon, or just one image renamed?', answer: 'It\u2019s a genuine multi-resolution .ico file bundling 16\u00d716, 32\u00d732, and 48\u00d748 versions together, the standard structure browsers and Windows actually expect.' },
+    { id: 'svg-conversion-fails', question: 'Why did my SVG fail to convert?', answer: 'Some SVG files need explicit width and height attributes on the root <svg> element (not just a viewBox) to render reliably \u2014 adding those to the file usually resolves it.' },
+  ],
 }

@@ -167,6 +167,7 @@ const UrlRedirectChecker = lazy(() => import('./pages/tools/UrlRedirectChecker.j
 const BarcodeGenerator = lazy(() => import('./pages/tools/BarcodeGenerator.jsx'))
 const BarcodeScanner = lazy(() => import('./pages/tools/BarcodeScanner.jsx'))
 const QrCodeScanner = lazy(() => import('./pages/tools/QrCodeScanner.jsx'))
+const SvgConverter = lazy(() => import('./pages/tools/SvgConverter.jsx'))
 const WordCounter = lazy(() => import('./pages/tools/WordCounter.jsx'))
 const CaseConverter = lazy(() => import('./pages/tools/CaseConverter.jsx'))
 const LoremIpsumGenerator = lazy(() => import('./pages/tools/LoremIpsumGenerator.jsx'))
@@ -360,6 +361,7 @@ export default function App() {
           <Route path="/tools/barcode-generator" element={<BarcodeGenerator />} />
           <Route path="/tools/barcode-scanner" element={<BarcodeScanner />} />
           <Route path="/tools/qr-code-scanner" element={<QrCodeScanner />} />
+          <Route path="/tools/svg-converter" element={<SvgConverter />} />
           <Route path="/tools/word-counter" element={<WordCounter />} />
           <Route path="/tools/case-converter" element={<CaseConverter />} />
           <Route path="/tools/lorem-ipsum-generator" element={<LoremIpsumGenerator />} />

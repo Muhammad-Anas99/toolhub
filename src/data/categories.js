@@ -8,6 +8,8 @@ import {
   HiOutlineShare,
   HiOutlineMusicalNote,
   HiOutlineCalculator,
+  HiOutlineChartBar,
+  HiOutlineFaceSmile,
 } from 'react-icons/hi2'
 
 export const categories = [
@@ -115,6 +117,28 @@ export const categories = [
     icon: HiOutlineCalculator,
     color: 'teal',
   },
+  {
+    id: 'calculator-tools',
+    name: 'Calculator Tools',
+    seoTitle: 'Free Online Calculators \u2014 Percentage, Loan, Age & More',
+    slug: 'calculator-tools',
+    description: 'Percentage, loan, interest, margin and age calculators.',
+    intro:
+      'Everyday calculators for money and dates: work out a percentage, compare loan payments, see how compound interest grows over time, check a profit margin, or calculate exact age between two dates. Every formula is the same standard math a bank or spreadsheet would use.',
+    icon: HiOutlineChartBar,
+    color: 'fuchsia',
+  },
+  {
+    id: 'fun-tools',
+    name: 'Fun Tools',
+    seoTitle: 'Free Fun Tools \u2014 Random Picker, Dice, Coin Flip & More',
+    slug: 'fun-tools',
+    description: 'Random pickers, dice, coin flips and a decision wheel.',
+    intro:
+      'Quick tools for random picks and small decisions: flip a coin, roll dice, spin a wheel of custom options, or pull a random name, word or number. Each one uses genuinely uniform randomness, not a result biased toward any particular outcome.',
+    icon: HiOutlineFaceSmile,
+    color: 'orange',
+  },
 ]
 
 export function getCategoryBySlug(slug) {
@@ -184,6 +208,12 @@ export const categoryColorClasses = {
     text: 'text-teal-600 dark:text-teal-400',
     ring: 'ring-teal-500/20',
     gradient: 'from-teal-500 to-teal-600',
+  },
+  orange: {
+    bg: 'bg-orange-50 dark:bg-orange-950',
+    text: 'text-orange-600 dark:text-orange-400',
+    ring: 'ring-orange-500/20',
+    gradient: 'from-orange-500 to-orange-600',
   },
 }
 
