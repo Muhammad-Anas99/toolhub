@@ -2791,4 +2791,125 @@ export const toolFaqs = {
     { id: 'ico-real-multi-res', question: 'Is the ICO file a real multi-resolution icon, or just one image renamed?', answer: 'It\u2019s a genuine multi-resolution .ico file bundling 16\u00d716, 32\u00d732, and 48\u00d748 versions together, the standard structure browsers and Windows actually expect.' },
     { id: 'svg-conversion-fails', question: 'Why did my SVG fail to convert?', answer: 'Some SVG files need explicit width and height attributes on the root <svg> element (not just a viewBox) to render reliably \u2014 adding those to the file usually resolves it.' },
   ],
+
+  'srt-to-vtt': [
+    { id: 'why-comma-vs-period', question: 'Why does the timestamp format matter?', answer: 'VTT requires a period before milliseconds (00:00:01.000); SRT uses a comma. A browser won\u2019t recognize a file with the wrong separator as valid VTT.' },
+  ],
+  'sql-to-markdown-table': [
+    { id: 'multiple-values-rows', question: 'Does this handle an INSERT with multiple rows?', answer: 'Yes, every VALUES (...) group in the statement becomes its own row in the resulting table.' },
+  ],
+  'json-to-html-table': [
+    { id: 'missing-keys-html-table', question: 'What happens if some objects are missing a key others have?', answer: 'That cell is simply left empty in the table \u2014 every unique key across all objects still gets its own column.' },
+  ],
+  'yaml-to-toml': [
+    { id: 'toml-scope-limit', question: 'Does this handle every TOML feature?', answer: 'It covers the common config-file case \u2014 flat keys and nested tables \u2014 not the full spec\u2019s more advanced features like arrays of tables or inline tables.' },
+  ],
+  'robots-txt-validator': [
+    { id: 'silent-failures', question: 'Why does a robots.txt mistake matter if there\u2019s no error message?', answer: 'Search engines interpret the file literally and don\u2019t report errors back to you \u2014 a malformed rule is often just silently ignored, which can mean a page you meant to block or allow quietly does the opposite with no warning anywhere.' },
+  ],
+  'json-string-escape': [
+    { id: 'which-characters-escaped', question: 'Which characters actually get escaped?', answer: 'The standard JSON escape set: quotes, backslashes, newlines, tabs, and other control characters that aren\u2019t allowed literally inside a JSON string.' },
+  ],
+  'anagram-name-shuffler': [
+    { id: 'spaces-in-shuffle', question: 'What happens to spaces in a full name?', answer: 'They\u2019re removed before shuffling, so a full name scrambles as one continuous set of letters rather than shuffling separately within each word.' },
+  ],
+  'sarcastic-text-alternator': [
+    { id: 'why-called-sarcastic', question: 'Why is this called "sarcastic" text?', answer: 'aLtErNaTiNg CaPs is a widely recognized meme format (popularized by the "mocking SpongeBob" meme) used specifically to convey sarcasm or mockery in text.' },
+  ],
+
+  'tailwind-grid-generator': [
+    { id: 'live-preview-accuracy', question: 'Does the live preview match what I\u2019ll actually get with the copied classes?', answer: 'Yes \u2014 the copied classes are real, standard Tailwind utilities that produce the same layout shown in the preview once pasted into a project where Tailwind can detect them.' },
+  ],
+  'glassmorphism-builder': [
+    { id: 'safari-support', question: 'Will this work in Safari?', answer: 'Yes \u2014 the generated CSS includes the -webkit-backdrop-filter prefix Safari still requires alongside the standard backdrop-filter property.' },
+  ],
+  'data-uri-encoder': [
+    { id: 'when-to-use-data-uri', question: 'When does it actually make sense to use a data URI instead of a normal image file?', answer: 'Mainly for small, frequently-reused images like icons, where avoiding an extra HTTP request outweighs the downside of a larger file and losing independent browser caching for that image.' },
+  ],
+  'base64-to-image': [
+    { id: 'bare-string-format', question: 'What format does this assume if I paste a bare base64 string without a data URI prefix?', answer: 'PNG. If your data is a different format, pasting the full data URI (starting with data:image/...) ensures it\u2019s decoded correctly.' },
+  ],
+  'buzzword-bingo': [
+    { id: 'unique-cards', question: 'Can two people get the same card?', answer: 'It\u2019s extremely unlikely \u2014 each card draws 24 unique buzzwords at random from the word bank, so the odds of an identical card are very low.' },
+  ],
+  'hex-code-scroller': [
+    { id: 'scroller-vs-generator', question: 'How is this different from the Color Palette Generator?', answer: 'This is an open-ended scrolling feed of unrelated random colors; the Color Palette Generator builds a coordinated set of colors from one base color you choose.' },
+  ],
+  'lorem-ipsum-fantasy': [
+    { id: 'fantasy-vs-classic-lorem', question: 'How is this different from regular Lorem Ipsum?', answer: 'It works the same way structurally (random filler text for length, not meaning) but draws from fantasy-genre vocabulary instead of pseudo-Latin, which fits a fantasy-themed design better.' },
+  ],
+  'dumb-phone-formatter': [
+    { id: 'why-strip-accents', question: 'Why does this remove accented characters?', answer: 'Many older feature phones can\u2019t display accented characters or emoji correctly in a contact name, so they\u2019re converted to their closest plain-ASCII equivalent to display reliably.' },
+  ],
+
+  'morse-audio-player': [
+    { id: 'why-timing-matters', question: 'Why does the exact timing matter?', answer: 'Morse code\u2019s standard timing ratios (a dash is 3\u00d7 a dot\u2019s length, with specific gaps between letters and words) are what make it genuinely decodable by ear \u2014 an approximate rhythm wouldn\u2019t actually read as real Morse code.' },
+  ],
+  'morse-tap-transmitter': [
+    { id: 'tap-timing-threshold', question: 'How does it decide if a tap is a dot or a dash?', answer: 'By how long you hold it \u2014 a quick tap under about a quarter second registers as a dot, anything held longer registers as a dash.' },
+  ],
+  'drum-pad': [
+    { id: 'why-no-samples', question: 'Why doesn\u2019t this use real drum samples?', answer: 'Every sound is synthesized directly with the Web Audio API using standard techniques (a pitch-dropping oscillator for the kick, filtered noise for the snare and hi-hat), so there\u2019s nothing to download before you can start playing.' },
+  ],
+  'soundboard': [
+    { id: 'soundboard-vs-drumpad', question: 'How is this different from the Drum Pad?', answer: 'The Drum Pad focuses on four core percussion sounds for rhythm; this Soundboard has six broader sound effects (buzzer, bell, whoosh, victory chime, and more) for reactions and cues.' },
+  ],
+  'white-noise-mixer': [
+    { id: 'noise-colors-really-different', question: 'Are white, pink, and brown noise actually different, or just relabeled?', answer: 'Genuinely different \u2014 they\u2019re generated with different algorithms and verified to have measurably different statistical characteristics, not the same static under three names.' },
+  ],
+  'tts-pitcher': [
+    { id: 'voice-varies-by-browser', question: 'Why does the voice sound different than I expected?', answer: 'This uses your browser\u2019s own built-in text-to-speech engine, so the available voice and its baseline sound depend on your browser and operating system \u2014 the pitch and rate controls adjust on top of whichever voice that is.' },
+  ],
+
+  'exif-scrubber': [
+    { id: 'how-verified-removal', question: 'How do you know the metadata is actually removed, not just hidden?', answer: 'This was tested end-to-end with a real photo containing genuine EXIF data \u2014 confirmed the metadata was completely absent from the output file, not just invisible in a preview.' },
+  ],
+  'csv-filter': [
+    { id: 'filter-case-sensitive', question: 'Is the filter match case-sensitive?', answer: 'No, it matches regardless of case, so filtering for "nyc" will match "NYC", "Nyc", or "nyc" in the data.' },
+  ],
+  'address-cleaner': [
+    { id: 'international-addresses', question: 'Does this work for international addresses?', answer: 'It\u2019s built around US shipping conventions and USPS-style abbreviations, so it\u2019s most accurate for US addresses specifically.' },
+  ],
+  'ascii-art': [
+    { id: 'how-brightness-verified', question: 'How do you know the brightness mapping is actually correct?', answer: 'It was checked against a real test image with known content \u2014 confirmed dark areas genuinely map to dense characters like @ and light areas map to sparse characters or blank space, not just visually estimated.' },
+  ],
+
+  'bubble-wrap-popper': [
+    { id: 'can-bubbles-repop', question: 'Can I pop the same bubble twice?', answer: 'No, once a bubble is popped it stays popped, just like real bubble wrap \u2014 click Reset Sheet to start over with a fresh one.' },
+  ],
+  'pixel-art-pad': [
+    { id: 'grid-size', question: 'How big is the drawing grid?', answer: '16\u00d716 pixels, exported at a larger scale so each pixel becomes a clean, crisp block of color in the downloaded PNG.' },
+  ],
+  '8bit-character-creator': [
+    { id: 'why-symmetric', question: 'Why does this only draw symmetric characters?', answer: 'Most character sprites are naturally symmetric (faces, bodies), so mirroring lets you draw a full character by only painting half of it \u2014 for a fully asymmetric design, the free-draw Pixel Art Pad is the better fit.' },
+  ],
+  'emoji-mashup': [
+    { id: 'is-result-a-real-image', question: 'Is the downloaded result a real image, or just two emoji displayed together?', answer: 'A genuine flattened PNG image \u2014 both emoji are drawn directly onto a canvas and combined into one file, not just positioned next to each other as text.' },
+  ],
+
+  'prompt-roulette': [
+    { id: 'how-many-combinations', question: 'How many different prompts can this generate?', answer: 'Subjects and styles combine independently, so the number of genuinely distinct combinations is well beyond either list\u2019s size on its own.' },
+  ],
+  'trivia-flashcards': [
+    { id: 'trivia-accuracy', question: 'Are the trivia facts actually accurate?', answer: 'Each one was checked before being included \u2014 these are general knowledge questions with clear, verifiable answers, not ambiguous or debatable trivia.' },
+  ],
+  'tarot-reader': [
+    { id: 'is-tarot-real-prediction', question: 'Does this actually predict anything?', answer: 'No \u2014 a random card draw has no genuine predictive power. This is offered purely for entertainment and reflection, not as real guidance for decisions.' },
+  ],
+  'meme-overlay': [
+    { id: 'text-auto-uppercase', question: 'Why does my text automatically become uppercase?', answer: 'That\u2019s the classic meme text convention this tool matches \u2014 bold, uppercase text with a black outline is the recognizable format the genre is known for.' },
+  ],
+  'fake-loading-screen': [
+    { id: 'does-it-actually-load-anything', question: 'Does this actually load or install anything?', answer: 'No, it\u2019s purely a visual animation for fun or as a prank \u2014 nothing real happens in the background.' },
+  ],
+  'habit-streak-counter': [
+    { id: 'streak-logic-accuracy', question: 'How does the streak count handle today not being checked in yet?', answer: 'It correctly continues your streak from yesterday if today simply hasn\u2019t been checked in yet, but resets if there\u2019s a genuine gap of a missed day \u2014 tested against exactly these scenarios before being relied on.' },
+    { id: 'where-is-data-stored', question: 'Where is my habit data stored?', answer: 'Only in this browser\u2019s local storage \u2014 never sent to a server, and not synced across devices. Clearing your browser data will remove it.' },
+  ],
+  'rickroll-generator': [
+    { id: 'can-i-change-destination', question: 'Can I make this link to something else instead?', answer: 'No, and that\u2019s intentional \u2014 this tool only ever produces a link to the one well-known video, since a tool that could disguise a link as going anywhere else would be functionally a phishing technique.' },
+  ],
+  'fake-error-designer': [
+    { id: 'could-this-fool-someone', question: 'Could this be used to convince someone their computer is actually broken?', answer: 'It\u2019s deliberately styled as an obvious joke card rather than a realistic system dialog, specifically to avoid that \u2014 it\u2019s meant to look clearly funny, not convincingly real.' },
+  ],
 }

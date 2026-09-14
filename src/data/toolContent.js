@@ -1,5 +1,17 @@
 import {
   HiOutlineBolt,
+  HiOutlineAcademicCap,
+  HiOutlineFire,
+  HiOutlineMoon,
+  HiOutlineMapPin,
+  HiOutlineTruck,
+  HiOutlineFunnel,
+  HiOutlineHandRaised,
+  HiOutlineMusicalNote,
+  HiOutlineSpeakerWave,
+  HiOutlineMicrophone,
+  HiOutlineDevicePhoneMobile,
+  HiOutlineFaceSmile,
   HiOutlineCamera,
   HiOutlineBarsArrowDown,
   HiOutlineQrCode,
@@ -2981,6 +2993,499 @@ export const toolContent = {
     ],
     howToUse: ['Upload an SVG file.', 'Choose PNG or ICO as the output format.', 'For PNG, choose an output size.', 'Click Convert, then download the result.'],
     useCases: ['Converting a logo SVG into a PNG for a platform that doesn\u2019t accept SVG uploads', 'Generating a favicon.ico from a vector logo', 'Creating a specific-size PNG icon for an app or website', 'Preparing a vector graphic for a tool or document that only accepts raster images'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'srt-to-vtt': {
+    about:
+      'Converts SubRip (.srt) subtitle files into the WebVTT (.vtt) format, the format modern web video players (including the HTML5 <track> element) actually expect.\n\nThe two formats are structurally very similar, both use numbered cues with start and end timestamps followed by the subtitle text, but they differ in two concrete ways this conversion handles: VTT requires a "WEBVTT" header line at the top of the file, and VTT timestamps use a period before the milliseconds (00:00:01.000) where SRT uses a comma (00:00:01,000). A file with the comma format simply won\u2019t be recognized as valid VTT by a browser.',
+    features: [
+      { title: 'Correct timestamp format', description: 'Converts SRT\u2019s comma-separated milliseconds to VTT\u2019s required period.', icon: HiOutlineClock },
+      { title: 'Adds the required header', description: 'Prepends the WEBVTT header VTT files must start with.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste your SRT subtitle content.', 'The VTT result appears instantly.', 'Copy the result.'],
+    useCases: ['Preparing subtitles for an HTML5 video player', 'Converting an existing SRT subtitle library for web use', 'Fixing a VTT file that was mistakenly saved with SRT-style timestamps', 'Adding captions to a video embedded on a website'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'sql-to-markdown-table': {
+    about:
+      'Converts a SQL INSERT statement into a Markdown table, reading the column names and every row of values directly from the statement itself.\n\nThis is useful for documentation specifically: pasting a query result or seed-data statement into a README, wiki page, or pull request description as a clean, readable table instead of raw SQL. The tool reads the column list from the INSERT INTO (...) clause and pairs it with each VALUES (...) row that follows, correctly handling multiple rows in a single statement.',
+    features: [
+      { title: 'Reads real column names', description: 'Uses the actual column list from the INSERT statement, not guessed headers.', icon: HiOutlineTableCells },
+      { title: 'Handles multiple rows', description: 'A single INSERT with several VALUES rows becomes a multi-row table.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste a SQL INSERT INTO statement.', 'The Markdown table result appears instantly.', 'Copy the result.'],
+    useCases: ['Documenting seed data in a README or wiki page', 'Sharing sample query results in a pull request or ticket', 'Turning a database export into a readable table for documentation', 'Preparing sample data for a technical blog post'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'json-to-html-table': {
+    about:
+      'Converts a JSON array of objects into a genuine, properly structured HTML table, using <thead> for column headers and <tbody> for the data rows, the semantically correct markup rather than a flat pile of <tr> tags.\n\nEvery unique key across all objects becomes its own column, and values are properly HTML-escaped so a value containing a character like < or & doesn\u2019t break the resulting markup.',
+    features: [
+      { title: 'Proper table semantics', description: 'Uses <thead> and <tbody>, not just a flat list of rows.', icon: HiOutlineTableCells },
+      { title: 'HTML-escaped values', description: 'Special characters in your data won\u2019t break the resulting markup.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste a JSON array of objects.', 'The HTML table markup appears instantly.', 'Copy the result into your page.'],
+    useCases: ['Turning an API response into a ready-to-use HTML table', 'Quickly previewing what JSON data looks like as a table', 'Generating table markup for a static site or email', 'Converting JSON data for a no-JavaScript display context'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'yaml-to-toml': {
+    about:
+      'Converts YAML into TOML, both common configuration file formats, by first parsing the YAML into structured data and then writing it back out in TOML\u2019s key-value-and-section syntax.\n\nTOML represents nested data using bracketed section headers (like [details]) rather than YAML\u2019s indentation, which is exactly the structural difference this conversion handles, turning a nested YAML mapping into its own TOML table section. As with this site\u2019s YAML to JSON tool, this covers the common configuration-file subset of YAML \u2014 nested mappings and basic scalar types \u2014 rather than the complete specification.',
+    features: [
+      { title: 'Correct section structure', description: 'Nested YAML mappings become proper TOML [section] tables.', icon: HiOutlineTableCells },
+      { title: 'Correct value formatting', description: 'Strings are quoted, numbers and booleans are left bare, matching TOML syntax.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste your YAML.', 'The TOML result appears instantly.', 'Copy the result.'],
+    useCases: ['Migrating a configuration file from YAML to TOML', 'Converting settings for a tool that specifically expects TOML (like many Rust projects)', 'Comparing the same configuration in both formats', 'Learning TOML syntax by converting a familiar YAML file'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'robots-txt-validator': {
+    about:
+      'Checks a robots.txt file for real syntax problems: unknown directives, a Disallow or Allow rule appearing before any User-agent line (which makes it ambiguous which crawler it applies to), a Disallow path missing its leading slash, and a missing User-agent entirely.\n\nA robots.txt file is one of the few places where a small syntax mistake can have an outsized, silent effect: search engines interpret the file literally, so a malformed rule might simply be ignored rather than erroring visibly, meaning a page you meant to block (or allow) quietly does the opposite of what you intended with no error message anywhere to catch it.',
+    features: [
+      { title: 'Checks real, common mistakes', description: 'Ordering issues, missing slashes, unknown directives, and more.', icon: HiOutlineExclamationTriangle },
+      { title: 'Line-by-line results', description: 'Each issue is tied to the specific line it was found on.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste your robots.txt content.', 'Any issues found appear instantly, listed by line number.'],
+    useCases: ['Checking a robots.txt file before deploying it to a live site', 'Debugging why a crawler seems to be ignoring an intended rule', 'Reviewing a robots.txt file inherited from a previous site setup', 'Learning correct robots.txt syntax by testing examples'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'json-string-escape': {
+    about:
+      'Escapes or unescapes a string for safe use inside JSON, handling the encoding JSON requires for special characters like quotes, backslashes, newlines, and tabs.\n\nJSON strings can\u2019t contain a literal newline or an unescaped double quote, they have to be represented as \\n and \\" respectively, along with a handful of other escape sequences. This matters whenever a string is being manually inserted into a JSON document or hardcoded into JSON-producing code, since forgetting to escape even one special character produces invalid JSON that fails to parse.',
+    features: [
+      { title: 'Both directions', description: 'Escape a raw string for JSON, or unescape a JSON string back to plain text.', icon: HiOutlineCodeBracketSquare },
+      { title: 'Handles all standard escapes', description: 'Quotes, backslashes, newlines, tabs, and other control characters.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Choose Escape or Unescape.', 'Paste your text.', 'The result appears instantly.'],
+    useCases: ['Preparing a multi-line string to hardcode into a JSON file', 'Reading an escaped string from an API response or log file', 'Debugging a JSON parsing error caused by an unescaped character', 'Converting text with quotes into a JSON-safe string'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'anagram-name-shuffler': {
+    about:
+      'Shuffles the letters of a name (or any word) into a random new arrangement, a genuine, uniformly random shuffle rather than a fixed or predictable pattern.\n\nSpaces are removed before shuffling, so a full name shuffles as one continuous set of letters rather than shuffling within each word separately, giving a more thorough scramble. This is mostly for fun and wordplay: finding a fun \u201canagram alias,\u201d generating a puzzle for someone else to unscramble, or just seeing what a familiar name looks like rearranged.',
+    features: [
+      { title: 'Genuinely random shuffle', description: 'A real, uniform shuffle, not a fixed or repeating pattern.', icon: HiOutlineArrowsRightLeft },
+      { title: 'Instant results', description: 'Updates as you type.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you type here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Type a name or word.', 'The shuffled anagram appears instantly.'],
+    useCases: ['Creating a fun anagram alias or username', 'Generating a word-puzzle for someone to unscramble', 'Finding creative name variations for a project or story', 'Just seeing what a familiar name looks like scrambled'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'sarcastic-text-alternator': {
+    about:
+      'Converts text into aLtErNaTiNg CaPs, the meme format widely recognized (thanks to the "mocking SpongeBob" meme) as conveying sarcasm or mockery in text form, where no tone of voice is available to carry it.\n\nEvery letter alternates between lowercase and uppercase in sequence, skipping over spaces and punctuation without breaking the alternating pattern, so the case genuinely alternates letter-by-letter rather than resetting at each word.',
+    features: [
+      { title: 'True letter-by-letter alternation', description: 'The pattern continues correctly across spaces and punctuation.', icon: HiOutlineFaceSmile },
+      { title: 'Instant conversion', description: 'Updates as you type.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing you type here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Type your text.', 'The sarcastic-case result appears instantly.', 'Copy and paste it anywhere.'],
+    useCases: ['Adding sarcastic emphasis to a message or comment', 'Creating the classic "mocking" meme text format', 'Making a reply stand out with an unmistakable tone', 'Just for fun \u2014 seeing what a phrase looks like in alternating caps'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'tailwind-grid-generator': {
+    about:
+      'Visually builds a CSS grid layout using sliders for columns, rows, and gap size, then outputs the exact Tailwind CSS utility classes that produce it.\n\nRather than looking up Tailwind\u2019s grid-cols and gap class names and guessing at the right combination, this shows a live preview alongside the generated classes, so what you see is exactly what you\u2019ll get once pasted into a real project. Every class produced (grid-cols-1 through grid-cols-12, and Tailwind\u2019s standard gap scale) is a genuine, pre-defined Tailwind utility, not an arbitrary or invented value.',
+    features: [
+      { title: 'Live visual preview', description: 'See the grid layout update as you adjust columns, rows, and gap.', icon: HiOutlineTableCells },
+      { title: 'Real Tailwind utilities', description: 'Every class generated is a genuine, standard Tailwind class.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Adjust columns, rows, and gap using the sliders.', 'Watch the live preview update.', 'Copy the generated Tailwind classes.'],
+    useCases: ['Prototyping a grid layout before writing it into a project', 'Finding the right Tailwind gap class without checking documentation', 'Teaching or learning how Tailwind\u2019s grid utilities work', 'Quickly testing different grid configurations visually'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'glassmorphism-builder': {
+    about:
+      'Visually builds a "frosted glass" UI effect (semi-transparent background, blur, and a subtle border) using sliders, then outputs the matching CSS, including the -webkit- prefixed version Safari still requires for backdrop-filter.\n\nGlassmorphism relies on backdrop-filter: blur(), a real CSS property that blurs whatever sits behind an element, combined with a translucent background so that blurred content shows through. Getting the combination of blur amount, background opacity, and border right by eye is fiddly through trial and error in dev tools; this shows the effect live against a sample background while you adjust each value.',
+    features: [
+      { title: 'Live visual preview', description: 'See the glass effect over a sample background as you adjust it.', icon: HiOutlineSwatch },
+      { title: 'Includes the Safari prefix', description: 'Outputs both backdrop-filter and -webkit-backdrop-filter.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Adjust blur, background opacity, border opacity, and corner radius.', 'Watch the live preview update.', 'Copy the generated CSS.'],
+    useCases: ['Building a frosted-glass card or navigation bar effect', 'Prototyping a glassmorphism design before implementing it', 'Finding the right blur and opacity balance by eye', 'Learning how the backdrop-filter CSS property works'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'data-uri-encoder': {
+    about:
+      'Encodes an uploaded image as a base64 data URI, the self-contained text format (data:image/png;base64,...) that lets an image be embedded directly inside CSS, HTML, or JSON rather than referenced as a separate file.\n\nThis trades a network request for a larger inline payload: a data URI eliminates a separate HTTP request for that image entirely, which can genuinely help for a small icon or background image, but makes the containing file itself larger and means the image can\u2019t be cached independently by the browser. It\u2019s a real, situational trade-off rather than a universal improvement, which is why this is typically reserved for small, frequently-reused images rather than photos or large graphics.',
+    features: [
+      { title: 'Genuine RFC 2397 format', description: 'Produces a standard, correctly-formatted data URI.', icon: HiOutlineCodeBracketSquare },
+      { title: 'Works with common formats', description: 'PNG, JPEG, GIF, WebP, and SVG.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Your image is never uploaded anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload an image.', 'The data URI appears automatically.', 'Copy it into your CSS, HTML, or JSON.'],
+    useCases: ['Embedding a small icon directly in a CSS file to avoid an extra request', 'Inlining an image into a single-file HTML document or email template', 'Embedding an image in JSON data for an API or config file', 'Avoiding a separate image file for a very small, frequently-used graphic'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'base64-to-image': {
+    about:
+      'Decodes a base64-encoded string or a full data URI back into a viewable, downloadable image, the reverse of encoding an image as a data URI.\n\nAccepts either a bare base64 string or a complete data:image/...;base64,... URI; a bare string is assumed to be PNG data unless a data URI with its own MIME type is provided. This is useful whenever base64 image data shows up somewhere without an accompanying image, an API response, a log file, or a piece of embedded CSS, and needs to actually be viewed or saved as a real image file.',
+    features: [
+      { title: 'Accepts both formats', description: 'Works with a bare base64 string or a full data URI.', icon: HiOutlineCodeBracketSquare },
+      { title: 'Instant preview', description: 'See the decoded image immediately, not just confirmation it worked.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste a base64 string or data URI.', 'The decoded image appears automatically.', 'Click Download Image to save it.'],
+    useCases: ['Viewing base64 image data found in an API response or log file', 'Extracting an embedded image from CSS or HTML source', 'Saving a data URI as an actual image file', 'Verifying a data URI was generated correctly'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'buzzword-bingo': {
+    about:
+      'Generates a random 5\u00d75 corporate buzzword bingo card, drawing from a set of genuinely overused meeting phrases, with a free center space, ready to play during your next call.\n\nEach card draws 24 unique buzzwords at random (plus the free space), so no two cards are the same, and clicking a square marks it, tracking your progress through the meeting in real time.',
+    features: [
+      { title: 'Genuinely unique cards', description: 'Each card draws 24 unique buzzwords at random.', icon: HiOutlineSparkles },
+      { title: 'Clickable squares', description: 'Mark words as they come up, right on the card.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Click New Card to generate a random bingo card.', 'Click a square whenever that buzzword comes up in your meeting.'],
+    useCases: ['Adding a little levity to a long or buzzword-heavy meeting', 'A lighthearted team icebreaker or game', 'Printing or sharing a card for an in-person meeting', 'Generating a fresh card for each recurring meeting'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'hex-code-scroller': {
+    about:
+      'A continuously scrollable feed of random hex colors, each shown with its swatch and code, ready to copy with one click, distinct from this site\u2019s Color Palette Generator, which builds a coordinated set of colors from a single base color rather than an open-ended browsing feed.\n\nUseful specifically for open-ended browsing rather than generating a matched set: scrolling through options when nothing specific comes to mind yet, or just enjoying looking at color.',
+    features: [
+      { title: 'Endless scrolling feed', description: 'Load more colors any time without losing what you\u2019ve already seen.', icon: HiOutlineSwatch },
+      { title: 'One-click copy', description: 'Copy any hex code directly from the list.', icon: HiOutlineClipboard },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Scroll through the list of colors.', 'Click Load More Colors for more.', 'Click the copy icon next to any color to copy its hex code.'],
+    useCases: ['Browsing for color inspiration with no starting point in mind', 'Finding an unexpected accent color outside a usual palette', 'Casually exploring color combinations', 'Quickly grabbing a random hex code for a mockup or placeholder'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'lorem-ipsum-fantasy': {
+    about:
+      'Generates fantasy-themed placeholder text using words like dragon, sorcerer, enchanted, and kingdom, instead of the classic Latin lorem ipsum, for mockups and designs where the theme itself calls for something more evocative than traditional filler text.\n\nStructurally, it works the same way real lorem ipsum does: random words assembled into sentences and paragraphs purely for length and visual rhythm, not meaning, just drawn from a fantasy-genre vocabulary instead of pseudo-Latin.',
+    features: [
+      { title: 'Fantasy-genre vocabulary', description: 'Dragons, sorcery, kingdoms, and relics instead of Latin filler.', icon: HiOutlineSparkles },
+      { title: 'Adjustable length', description: 'Choose how many paragraphs to generate.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Choose how many paragraphs.', 'Click Generate.', 'Copy the result.'],
+    useCases: ['Filling a fantasy game or book-themed website mockup with on-theme placeholder text', 'Adding thematic filler text to a tabletop RPG project template', 'Making a design mockup feel more finished than generic Latin filler would', 'Just for fun \u2014 generating whimsical-sounding nonsense text'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'dumb-phone-formatter': {
+    about:
+      'Cleans up a list of contact names and phone numbers for import into an older feature phone with limited character support: strips accented characters and emoji down to plain ASCII, keeps only basic safe characters, truncates names to a safe length, and reduces phone numbers to plain digits with an optional leading +.\n\nMany feature phones can\u2019t display accented characters, emoji, or other non-ASCII text correctly in a contact name, and some have a fairly short character limit for the name field itself. This produces a clean CSV export using only characters and lengths a feature phone can reliably handle, ready to import.',
+    features: [
+      { title: 'Strips accents and emoji', description: 'Converts names down to plain ASCII a feature phone can display correctly.', icon: HiOutlineDevicePhoneMobile },
+      { title: 'Cleans phone numbers', description: 'Reduces formatting like dashes and parentheses to plain digits.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you enter here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Enter contacts as "Name, Phone", one per line.', 'The cleaned list appears automatically.', 'Copy the CSV output to import.'],
+    useCases: ['Preparing a contact list for an older feature phone', 'Cleaning up accented or emoji-heavy names before a bulk import', 'Stripping phone number formatting for a system that expects plain digits', 'Converting a modern contact export into a simpler, more universally compatible format'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'morse-audio-player': {
+    about:
+      'Converts text into Morse code and plays it back as actual audio beeps, using the browser\u2019s Web Audio API to generate tones with the correct standard timing: a dash is three times the length of a dot, with proportionally spaced gaps between symbols, letters, and words.\n\nMorse code\u2019s timing ratios aren\u2019t arbitrary, they\u2019re what makes it decodable by ear, and this tool follows the real standard ratios rather than an approximation, so the rhythm genuinely sounds like Morse code rather than a rough imitation.',
+    features: [
+      { title: 'Correct standard timing', description: 'Real Morse ratios: dash = 3\u00d7 dot length, with proper gaps between letters and words.', icon: HiOutlineClock },
+      { title: 'See the code too', description: 'The dots and dashes are shown as text alongside the audio.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you type here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Type your text.', 'Click Play Morse Code to hear it.'],
+    useCases: ['Learning to recognize Morse code by ear', 'Practicing Morse code timing and rhythm', 'Creating a Morse code audio clip for a project', 'Just for fun \u2014 hearing what a phrase sounds like in Morse'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'morse-tap-transmitter': {
+    about:
+      'Lets you tap out Morse code by hand, quick taps register as a dot and slightly longer holds as a dash, and decodes what you tapped into text live as you go.\n\nThis is the reverse of typing text and hearing Morse code: here, you provide the Morse code yourself through timing and rhythm, the same way an actual Morse key or telegraph operator would, and the tool figures out what letters that sequence spells.',
+    features: [
+      { title: 'Real tap-timing detection', description: 'Distinguishes dots from dashes based on how long you hold each tap.', icon: HiOutlineHandRaised },
+      { title: 'Live decoding', description: 'See your tapped Morse code translated into text as you go.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you tap here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Tap quickly for a dot, hold briefly for a dash.', 'Pause between letters \u2014 a short gap is detected automatically.', 'Watch the decoded text appear.'],
+    useCases: ['Practicing sending Morse code by hand', 'Learning the physical rhythm of Morse code, not just recognizing it by ear', 'A hands-on way to spell out a short message in Morse', 'Testing your own timing consistency while tapping'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'drum-pad': {
+    about:
+      'A virtual drum pad with four classic percussion sounds, kick, snare, hi-hat, and clap, each synthesized directly using the Web Audio API rather than played from a sample file, so there\u2019s nothing to download before the first hit.\n\nEach sound uses a standard, well-established synthesis technique: the kick is a low oscillator with a fast pitch drop, the snare and hi-hat are filtered noise bursts tuned to their characteristic frequency range, and the clap layers several quick noise bursts to mimic the texture of a real hand clap.',
+    features: [
+      { title: 'Four classic sounds', description: 'Kick, snare, hi-hat, and clap, each with its own character.', icon: HiOutlineMusicalNote },
+      { title: 'Keyboard shortcuts', description: 'Play pads instantly with the A, S, D, F keys.', icon: HiOutlineBolt },
+      { title: 'No files to load', description: 'Every sound is generated instantly, nothing to download first.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Click a pad, or press A, S, D, or F on your keyboard.'],
+    useCases: ['Quickly sketching out a simple beat idea', 'A fun, low-stakes way to experiment with rhythm', 'Testing timing and coordination by playing along to a song', 'Just for fun \u2014 no download or setup needed'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'soundboard': {
+    about:
+      'A soundboard of six classic sound effects, buzzer, bell, whoosh, victory chime, boom, and applause, each synthesized on the spot using the Web Audio API rather than loaded from audio files.\n\nEvery sound is generated instantly when you click it: the buzzer is a harsh sustained tone, the bell a clean decaying sine wave, the whoosh a noise burst swept through rising frequencies, and the victory chime three ascending notes played in quick succession.',
+    features: [
+      { title: 'Six classic effects', description: 'Buzzer, bell, whoosh, victory chime, boom, and applause.', icon: HiOutlineSpeakerWave },
+      { title: 'Keyboard shortcuts', description: 'Trigger any sound instantly with keys 1 through 6.', icon: HiOutlineBolt },
+      { title: 'No files to load', description: 'Every sound is generated instantly, nothing to download first.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Click a button, or press a number key 1\u20136.'],
+    useCases: ['Adding a sound effect to a live stream or presentation', 'A fun reaction sound for game nights or quizzes', 'Quick audio feedback for a classroom activity or game', 'Just for fun \u2014 an instant soundboard with no setup'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'white-noise-mixer': {
+    about:
+      'Mixes white, pink, and brown noise with independent volume sliders for focus, relaxation, or sleep, each noise "color" genuinely different in character, not just the same static relabeled three times.\n\nWhite noise is flat, equal energy across all frequencies, the classic "untuned radio" sound. Pink noise is filtered to favor lower frequencies (equal energy per octave), producing a softer sound often compared to steady rain. Brown noise pushes further into low frequencies still, an integrated random walk that produces a deep, rumbling character closer to ocean waves. These are genuinely different signals, verified statistically (brown noise\u2019s samples are meaningfully more correlated with each other than white noise\u2019s) rather than just given different names.',
+    features: [
+      { title: 'Three genuinely distinct noise colors', description: 'White, pink, and brown noise, each with real, different frequency characteristics.', icon: HiOutlineSpeakerWave },
+      { title: 'Independent mixing', description: 'Blend any combination at any volume.', icon: HiOutlineCheckCircle },
+      { title: 'Loops seamlessly', description: 'Plays continuously for as long as you need.', icon: HiOutlineBolt },
+    ],
+    howToUse: ['Adjust the volume sliders for white, pink, and brown noise.', 'Click Play Mix.', 'Adjust volumes any time while it plays.'],
+    useCases: ['Background noise for focus while working or studying', 'A calming sound for falling asleep', 'Masking distracting background noise in a shared space', 'Finding which noise color personally helps you relax or concentrate'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'tts-pitcher': {
+    about:
+      'Reads text aloud using your browser\u2019s built-in text-to-speech engine, with adjustable pitch and speaking rate, using the standard Web Speech API rather than a server-based voice service.\n\nBecause this relies on your browser\u2019s own speech synthesis, the available voice and its baseline sound will vary by browser and operating system, but the pitch and rate controls apply on top of whichever voice your browser provides, letting you shift it noticeably higher, lower, faster, or slower than its default.',
+    features: [
+      { title: 'Adjustable pitch and rate', description: 'Shift the voice higher, lower, faster, or slower than default.', icon: HiOutlineMicrophone },
+      { title: 'Uses your browser\u2019s own voice engine', description: 'No account, no upload, no server-based voice service.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Type or paste text.', 'Adjust pitch and rate.', 'Click Speak.'],
+    useCases: ['Proofreading writing by listening to it read aloud', 'Creating a fun, pitched voice clip for a project', 'Testing how text sounds at different speaking rates', 'A quick accessibility check for how content reads aloud'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'exif-scrubber': {
+    about:
+      'Removes EXIF metadata, including GPS location, camera or phone model, and the exact date and time a photo was taken, by re-rendering the image through a canvas, a technique that inherently discards all metadata since a canvas only ever stores pixel data.\n\nModern phone cameras embed a surprising amount of information into every photo by default, often including the precise GPS coordinates of where it was taken. This is invisible when just looking at the image, but readable by anyone who knows to check, which matters before posting a photo publicly or sharing it with someone you\u2019d rather not know your exact location. This approach was verified end-to-end with a real EXIF-bearing test photo, confirming the metadata is genuinely gone from the output, not just hidden.',
+    features: [
+      { title: 'Removes all metadata', description: 'GPS location, camera model, timestamp, and everything else embedded in the file.', icon: HiOutlineMapPin },
+      { title: 'Verified removal', description: 'Tested end-to-end against a real EXIF-bearing image to confirm the data is genuinely gone.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Your photo is never uploaded anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload a photo.', 'Click Remove Metadata.', 'Download the cleaned image.'],
+    useCases: ['Removing GPS location data before posting a photo publicly', 'Stripping camera details before sharing a photo professionally', 'Protecting privacy before sending a photo to someone you don\u2019t fully trust', 'Cleaning metadata from a batch of photos before archiving them'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'csv-filter': {
+    about:
+      'Filters CSV rows by a value in a chosen column and extracts only the columns you actually need, all processed locally rather than needing a spreadsheet program or a script.\n\nThis handles the two most common quick-cleanup tasks on tabular data: narrowing down to just the rows that match a condition (like all rows where the city column contains "NYC"), and trimming down to just the columns relevant to what you\u2019re doing next, without needing to open a full spreadsheet application for a task that\u2019s genuinely this simple.',
+    features: [
+      { title: 'Filter by any column', description: 'Keep only rows where a chosen column contains a specific value.', icon: HiOutlineFunnel },
+      { title: 'Pick exactly which columns to keep', description: 'Trim down to just the data you need.', icon: HiOutlineTableCells },
+      { title: 'Works entirely in your browser', description: 'Nothing you paste here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste CSV data with a header row.', 'Choose a column to filter by and a value to match.', 'Select which columns to keep in the result.', 'Copy the filtered CSV.'],
+    useCases: ['Narrowing down a large CSV export to just the rows you need', 'Trimming an export down to only the relevant columns before sharing it', 'Quickly checking how many rows match a specific condition', 'Cleaning up spreadsheet data without opening a full spreadsheet app'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'address-cleaner': {
+    about:
+      'Standardizes a US shipping address into the uppercase, abbreviated, punctuation-free format that UPS, FedEx, and USPS systems expect: Street becomes ST, Apartment becomes APT, North becomes N, and so on, following the same conventions the USPS itself publishes for standardized addressing.\n\nShipping labels and carrier systems are genuinely picky about address formatting in ways that can cause real delivery issues if ignored, mismatched formatting occasionally causes address validation to fail or a label to print incorrectly. This applies the standard abbreviations directly rather than requiring you to remember them.',
+    features: [
+      { title: 'Standard carrier abbreviations', description: 'Street, Avenue, Apartment, and other common terms abbreviated the way carriers expect.', icon: HiOutlineTruck },
+      { title: 'Removes problematic punctuation', description: 'Periods, commas, and pound signs stripped automatically.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing you type here is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Paste an address.', 'The standardized version appears instantly.', 'Copy the result.'],
+    useCases: ['Formatting an address before creating a shipping label', 'Cleaning up addresses in a bulk order export', 'Matching the exact format a shipping carrier\u2019s system expects', 'Standardizing a list of customer addresses for consistency'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'ascii-art': {
+    about:
+      'Converts a photo into ASCII art, a picture built entirely from text characters, by sampling brightness across a grid of the image and mapping each sample to a character of matching visual density, from a blank space for the brightest areas to @ for the darkest.\n\nThis mapping was verified against a real test image with known content (a black square on a white background) to confirm dark areas genuinely map to dense characters and light areas genuinely map to sparse ones, not just visually approximated. The output width is adjustable, since more characters capture finer detail at the cost of a larger, less compact result.',
+    features: [
+      { title: 'Verified brightness mapping', description: 'Checked against a real test image to confirm dark and light areas map correctly.', icon: HiOutlineCheckCircle },
+      { title: 'Adjustable detail level', description: 'Choose the output width to balance detail against size.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Works entirely in your browser', description: 'Your image is never uploaded anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload an image.', 'Adjust the width if needed.', 'Click Generate.', 'Copy the ASCII art result.'],
+    useCases: ['Turning a photo into text art for a forum signature or README', 'Creating retro-style text art from a modern photo', 'A fun way to represent an image in a plain-text-only context', 'Experimenting with different detail levels to see how the image simplifies'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'bubble-wrap-popper': {
+    about:
+      'A virtual sheet of bubble wrap you can pop with a click, complete with a genuine synthesized pop sound for each bubble, the same satisfying, fidgety activity as the real thing without needing an actual sheet on hand.\n\nEach bubble pops exactly once and stays popped, matching how real bubble wrap works, with a running count of how many you\u2019ve popped out of the full sheet. Reset the sheet any time to start fresh.',
+    features: [
+      { title: 'Real pop sound', description: 'Each click plays a genuine synthesized pop, not just a visual change.', icon: HiOutlineSpeakerWave },
+      { title: 'Tracks your progress', description: 'See how many bubbles you\u2019ve popped out of the full sheet.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Click any bubble to pop it.', 'Click Reset Sheet for a fresh one.'],
+    useCases: ['A quick, satisfying stress-relief break', 'A fidgety activity to do while thinking or waiting', 'Nostalgia for popping real bubble wrap without needing any on hand', 'Just for fun \u2014 no reason needed'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'pixel-art-pad': {
+    about:
+      'A grid-based pixel art canvas for drawing simple sprite-style images with a curated color palette (or any custom color you pick), downloadable as a real PNG file once you\u2019re done.\n\nClick and drag across the grid to paint continuously, the same way a real pixel-art editor works, rather than needing to click each cell individually. The exported PNG scales each grid cell up to a clean, crisp block of color, matching the blocky aesthetic pixel art is known for.',
+    features: [
+      { title: 'Click-and-drag painting', description: 'Draw continuously by dragging across the grid, not just one cell at a time.', icon: HiOutlinePaintBrush },
+      { title: 'Curated palette plus custom colors', description: 'Quick-pick colors or choose any custom color you want.', icon: HiOutlineSwatch },
+      { title: 'Download as PNG', description: 'Export your finished art as a real, crisp PNG image.', icon: HiOutlineArrowDownTray },
+    ],
+    howToUse: ['Pick a color.', 'Click and drag across the grid to draw.', 'Click Download PNG when finished.'],
+    useCases: ['Sketching a simple pixel art icon or avatar', 'Designing a small sprite for a game project', 'A quick creative outlet with no software to install', 'Making a pixel art image to share or use as a placeholder graphic'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  '8bit-character-creator': {
+    about:
+      'A symmetric pixel grid editor for designing an 8-bit style character sprite: paint one half and the mirrored half fills in automatically, matching how most character sprites are naturally designed, since faces and bodies are typically symmetric.\n\nThe mirroring math was verified directly before this tool was built: confirmed the left and right halves map correctly to each other, and that mirroring a position twice returns exactly to where it started, so there\u2019s no drift or misalignment as you draw.',
+    features: [
+      { title: 'Automatic mirror symmetry', description: 'Paint one side, the mirrored side fills in instantly.', icon: HiOutlineArrowsRightLeft },
+      { title: 'Verified mirror accuracy', description: 'The left/right mapping was checked for correctness before this tool was built.', icon: HiOutlineCheckCircle },
+      { title: 'Download as PNG', description: 'Export your finished character as a real PNG image.', icon: HiOutlineArrowDownTray },
+    ],
+    howToUse: ['Pick a color.', 'Click cells to paint \u2014 the mirrored side fills in automatically.', 'Click Download PNG when finished.'],
+    useCases: ['Designing a retro-style game character sprite', 'Creating a symmetric pixel art avatar or icon', 'Learning the basics of sprite design without specialized software', 'A faster way to draw a symmetric character than painting both sides by hand'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'emoji-mashup': {
+    about:
+      'Combines two emoji into one custom image by layering a smaller overlay emoji on top of a larger base emoji, with adjustable size and position, downloadable as a real PNG once you\u2019re happy with the combination.\n\nThis renders both emoji directly onto a canvas rather than just displaying them side by side, so the result is a genuine single flattened image, ready to use anywhere a static image works, including places emoji themselves might not render consistently.',
+    features: [
+      { title: 'Adjustable size and position', description: 'Fine-tune exactly where and how large the overlay appears.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Wide emoji selection', description: 'Choose from a curated set of expressive emoji for both layers.', icon: HiOutlineFaceSmile },
+      { title: 'Download as PNG', description: 'Export the combined mashup as a single flattened image.', icon: HiOutlineArrowDownTray },
+    ],
+    howToUse: ['Choose a base emoji and an overlay emoji.', 'Adjust the overlay\u2019s size and position.', 'Click Download PNG.'],
+    useCases: ['Creating a custom reaction image by combining two emoji', 'Making a fun profile picture or sticker', 'A playful way to express something no single emoji quite captures', 'Experimenting with unexpected emoji combinations'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'prompt-roulette': {
+    about:
+      'Generates a random creative writing prompt by combining a random subject with a random style or narrative angle, giving a genuinely fresh starting point each time rather than a fixed list of the same handful of ideas repeating.\n\nEach spin pairs an evocative subject (a floating city, a lighthouse keeper who has never seen the ocean) with a distinct angle (told as a fairy tale, from an unreliable narrator\u2019s perspective), so the combinations multiply well beyond what either list alone would offer, genuinely useful for breaking through a blank page.',
+    features: [
+      { title: 'Genuinely varied combinations', description: 'Subjects and styles combine freshly each spin, not a fixed repeating list.', icon: HiOutlineSparkles },
+      { title: 'Instant, no setup', description: 'One click gives a complete, ready-to-use prompt.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Click Spin Again for a new prompt.', 'Copy it to use as a writing starting point.'],
+    useCases: ['Breaking through writer\u2019s block with a fresh starting point', 'A daily creative writing warm-up exercise', 'Finding a prompt for a writing group or class', 'Sparking an idea for a short story or flash fiction piece'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'trivia-flashcards': {
+    about:
+      'A deck of general knowledge trivia flashcards covering science, history, geography, and more, presented one at a time with the answer hidden until you click to reveal it, the same way a physical flashcard deck works.\n\nEach fact was checked for accuracy before being included, general knowledge questions with clear, verifiable answers rather than ambiguous or debatable trivia.',
+    features: [
+      { title: 'Genuine general knowledge', description: 'Facts checked for accuracy across a range of topics.', icon: HiOutlineAcademicCap },
+      { title: 'Click to reveal', description: 'See the question first, then reveal the answer when you\u2019re ready.', icon: HiOutlineEye },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Read the question.', 'Click the card to reveal the answer.', 'Click Next Card for another.'],
+    useCases: ['A quick trivia break or brain warm-up', 'Casual practice for trivia night', 'A fun way to learn a few new facts', 'A lighthearted classroom or icebreaker activity'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'tarot-reader': {
+    about:
+      'Draws a random tarot card along with its traditional meaning, presented purely for entertainment and reflection, not as a genuine claim about predicting the future.\n\nEach of the fifteen cards included carries the meaning traditionally associated with it in tarot practice, offered here as a prompt for reflection rather than a factual prediction. This is worth being direct about: a random card draw has no actual predictive power, and this tool is meant as a fun moment of pause, not genuine guidance for real decisions.',
+    features: [
+      { title: 'Traditional card meanings', description: 'Each card carries its conventional tarot interpretation.', icon: HiOutlineMoon },
+      { title: 'Genuinely random draw', description: 'A fresh card each time, not a fixed rotation.', icon: HiOutlineSparkles },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Click Draw a Card.', 'Read the card and its traditional meaning.'],
+    useCases: ['A moment of reflection or fun daily ritual', 'Sparking a journaling prompt for the day', 'Introducing someone to tarot card meanings casually', 'Just for fun \u2014 not intended as genuine guidance for real decisions'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'meme-overlay': {
+    about:
+      'Adds the classic top-and-bottom white text with a black outline to any uploaded image, the same visual format that\u2019s defined the meme genre for well over a decade, rendered directly onto the image so the result is a single flattened picture ready to share anywhere.\n\nText automatically converts to uppercase and scales to the image size, matching the familiar bold, readable style memes are known for, rather than needing to manually adjust font size for every image.',
+    features: [
+      { title: 'Classic meme styling', description: 'White text with a black outline, automatically uppercased.', icon: HiOutlinePhoto },
+      { title: 'Live preview', description: 'See the text positioned on your image as you type.', icon: HiOutlineCheckCircle },
+      { title: 'Works entirely in your browser', description: 'Your image is never uploaded anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Upload an image.', 'Type your top and bottom text.', 'Download the finished meme.'],
+    useCases: ['Making a quick meme to share with friends', 'Adding a caption to a reaction image', 'Creating a custom meme from a personal photo', 'A fast, no-signup way to make meme-format images'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'fake-loading-screen': {
+    about:
+      'Generates a customizable, animated fake loading screen with your own message and adjustable speed, for a fun prank, a placeholder screen, or simply for the joke of watching a progress bar move.\n\nThe progress bar animates smoothly from 0 to 100%, with the speed and message fully adjustable, so it can be tuned for anything from a quick five-second gag to a longer, more elaborate wait.',
+    features: [
+      { title: 'Custom message and speed', description: 'Set your own loading text and how fast the bar fills.', icon: HiOutlineArrowPath },
+      { title: 'Smooth animation', description: 'A genuine animated progress bar, not a static image.', icon: HiOutlineBolt },
+      { title: 'Works entirely in your browser', description: 'Nothing is ever sent anywhere.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Enter a message and choose a speed.', 'Click Start.', 'Watch the loading bar animate.'],
+    useCases: ['A fun prank loading screen on a shared computer', 'A placeholder screen while setting up a presentation', 'A joke "loading" moment before revealing something', 'Just for fun \u2014 no real purpose needed'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'habit-streak-counter': {
+    about:
+      'Tracks daily habits and calculates your current consecutive-day streak for each one, saved locally in your browser so it\u2019s there the next time you visit.\n\nThe streak calculation genuinely accounts for calendar days rather than just counting check-ins: it correctly continues a streak if you checked in yesterday but haven\u2019t yet today, and correctly resets if there\u2019s a real gap of a missed day. This logic was tested against exactly those scenarios (an unbroken streak, a streak with a gap, and a streak ending yesterday) before being relied on here.',
+    features: [
+      { title: 'Genuine calendar-aware streaks', description: 'Correctly handles today not yet being checked in versus an actual missed day.', icon: HiOutlineFire },
+      { title: 'Track multiple habits', description: 'Add as many habits as you want to track individually.', icon: HiOutlineCheckCircle },
+      { title: 'Saved in your browser', description: 'Persists between visits on this device, with nothing sent to a server.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Add a habit by name.', 'Click the checkmark each day you complete it.', 'Watch your streak grow.'],
+    useCases: ['Tracking a daily exercise or reading habit', 'Building momentum on a new routine', 'A simple, no-account-needed habit tracker', 'Keeping several small daily habits visible in one place'],
+    privacy:
+      'Your habits and check-in history are stored only in this browser\u2019s local storage \u2014 never sent to a server, and not synced across devices or accounts. Clearing your browser data will remove it.',
+  },
+
+  'rickroll-generator': {
+    about:
+      'Provides a copyable link to the one well-known "rickroll" video, a decades-old, thoroughly harmless internet joke where a link leads unexpectedly to Rick Astley\u2019s "Never Gonna Give You Up."\n\nWorth being direct about the scope here: this tool deliberately only ever produces a link to this one specific, universally-recognized video. It is not a general-purpose tool for disguising where a link actually leads, since a tool built to hide a link\u2019s real destination is functionally the same technique used in phishing, regardless of the joke framing. If you want the link to look less obviously like a rickroll when shared, this site\u2019s own URL Shortener can shorten it further.',
+    features: [
+      { title: 'One fixed, well-known destination', description: 'Always links to the same classic video, never a customizable or arbitrary URL.', icon: HiOutlineMusicalNote },
+      { title: 'One-click copy', description: 'Copy the link instantly to share.', icon: HiOutlineClipboard },
+    ],
+    howToUse: ['Click Copy Link.', 'Share it wherever you\u2019d like.'],
+    useCases: ['Sharing the classic internet joke with a friend', 'A harmless prank link for a group chat', 'Referencing the meme in a conversation', 'Nostalgia for a genuinely iconic piece of internet culture'],
+    privacy: NO_FILE_PRIVACY,
+  },
+
+  'fake-error-designer': {
+    about:
+      'Designs a fun, obviously-stylized error message card, complete with a custom title, message, and button text, for memes and lighthearted pranks among friends.\n\nThis is deliberately built to look like a playful joke card rather than a convincing system dialog: rounded corners, friendly styling, and none of the specific visual chrome that would make it resemble an actual operating system\u2019s error window. The goal is something clearly funny to share, not something that could plausibly convince someone their real device has an actual problem.',
+    features: [
+      { title: 'Three message types', description: 'Error, warning, or info styling, each with its own icon and color.', icon: HiOutlineExclamationTriangle },
+      { title: 'Fully custom text', description: 'Set your own title, message, and button text.', icon: HiOutlineCheckCircle },
+      { title: 'Deliberately not realistic', description: 'Styled as an obvious joke card, not a convincing system dialog replica.', icon: HiOutlineShieldCheck },
+    ],
+    howToUse: ['Choose a message type.', 'Enter a title, message, and button text.', 'Share a screenshot of the result.'],
+    useCases: ['Making a joke "error" screenshot to share with friends', 'A funny placeholder message for a mockup or presentation', 'A lighthearted prank message on a shared screen', 'Creating a custom, silly error card for a specific inside joke'],
     privacy: NO_FILE_PRIVACY,
   },
 }
