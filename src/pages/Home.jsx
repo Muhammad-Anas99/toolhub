@@ -9,14 +9,19 @@ import {
   HiOutlineArrowPath,
   HiOutlineUserGroup,
   HiOutlineMagnifyingGlass,
+  HiOutlinePhoto,
+  HiOutlineCodeBracket,
+  HiOutlineLink,
   HiOutlineArrowUpTray,
   HiOutlineCog6Tooth,
   HiOutlineArrowDownTray,
   HiOutlineXMark,
   HiOutlineSquares2X2,
+  HiOutlinePlus,
   HiChevronRight,
   HiArrowRight,
 } from 'react-icons/hi2'
+import { FaFilePdf } from 'react-icons/fa6'
 import Container from '../components/ui/Container.jsx'
 import CategoryCard from '../components/ui/CategoryCard.jsx'
 import StatCounter from '../components/ui/StatCounter.jsx'
@@ -31,8 +36,6 @@ import { testimonials } from '../data/testimonials.js'
 import { faqs } from '../data/faq.js'
 import AbstractIllustration from '../components/ui/AbstractIllustration.jsx'
 import homepageHeroImage from '../assets/homepage-hero.png'
-import heroIllustration from '../assets/toolhub-hero-illustration.png'
-import simpleToolsMockup from '../assets/toolhub-simple-tools-mockup.png'
 import { api } from '../lib/api.js'
 
 const FEATURES = [
@@ -240,19 +243,49 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.15 }}
               className="relative mx-auto w-full max-w-sm lg:max-w-none"
             >
-              <img
-                src={heroIllustration}
-                alt="Illustration of ToolHub's image, PDF, code and link tools"
-                className="mx-auto w-full max-w-md"
-                width="560"
-                height="560"
-                loading="eager"
-              />
+              <div className="relative mx-auto flex h-72 w-72 items-center justify-center sm:h-80 sm:w-80">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-100/60 to-fuchsia-100/40 blur-2xl dark:from-brand-950/40 dark:to-fuchsia-950/20" />
+
+                <motion.div
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+                  className="absolute left-2 top-2 flex h-20 w-20 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-lg sm:h-24 sm:w-24 dark:border-slate-700 dark:bg-slate-800"
+                >
+                  <HiOutlinePhoto className="h-9 w-9 text-brand-500" />
+                </motion.div>
+
+                <motion.div
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+                  className="absolute right-2 top-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-lg sm:h-20 sm:w-20 dark:border-slate-700 dark:bg-slate-800"
+                >
+                  <FaFilePdf className="h-7 w-7 text-rose-500" />
+                </motion.div>
+
+                <motion.div
+                  animate={{ y: [0, 12, 0] }}
+                  transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
+                  className="absolute bottom-4 left-8 flex h-20 w-20 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-lg sm:h-24 sm:w-24 dark:border-slate-700 dark:bg-slate-800"
+                >
+                  <HiOutlineCodeBracket className="h-9 w-9 text-emerald-500" />
+                </motion.div>
+
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 5.2, repeat: Infinity, ease: 'easeInOut', delay: 0.9 }}
+                  className="absolute bottom-2 right-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-lg sm:h-20 sm:w-20 dark:border-slate-700 dark:bg-slate-800"
+                >
+                  <HiOutlineLink className="h-7 w-7 text-violet-500" />
+                </motion.div>
+
+                <span className="absolute right-8 top-0 h-2 w-2 rounded-full bg-brand-400" aria-hidden="true" />
+                <span className="absolute bottom-10 left-2 h-1.5 w-1.5 rounded-full bg-fuchsia-400" aria-hidden="true" />
+                <span className="absolute right-2 top-1/2 h-1.5 w-1.5 rounded-full bg-amber-400" aria-hidden="true" />
+              </div>
             </motion.div>
           </div>
         </Container>
       </section>
-
 
       {/* "Handling something sensitive?" section — the sharper,
           audience-specific version of the privacy story, per the
@@ -409,14 +442,58 @@ export default function Home() {
               transition={{ duration: 0.4, delay: 0.1 }}
               className="mx-auto w-full max-w-md lg:max-w-none"
             >
-              <img
-                src={simpleToolsMockup}
-                alt="ToolHub's image compressor tool shown in a browser window mockup"
-                className="mx-auto w-full max-w-lg"
-                width="1200"
-                height="800"
-                loading="lazy"
-              />
+              <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-brand-900/10 dark:border-slate-800 dark:bg-slate-900">
+                <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50 px-4 py-3 dark:border-slate-800 dark:bg-slate-950/40">
+                  <span className="h-3 w-3 rounded-full bg-rose-400" />
+                  <span className="h-3 w-3 rounded-full bg-amber-400" />
+                  <span className="h-3 w-3 rounded-full bg-emerald-400" />
+                  <div className="ml-3 flex items-center gap-1.5 rounded-md bg-white px-3 py-1 text-xs font-medium text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+                    Image Compressor
+                    <HiOutlinePlus className="h-3 w-3 text-slate-300 dark:text-slate-600" />
+                  </div>
+                </div>
+
+                <div className="flex">
+                  <div className="hidden w-36 flex-shrink-0 border-r border-slate-100 p-3 sm:block dark:border-slate-800">
+                    {[
+                      { label: 'Image Tools', active: true },
+                      { label: 'PDF Tools', active: false },
+                      { label: 'Code Tools', active: false },
+                      { label: 'Text Tools', active: false },
+                    ].map((item) => (
+                      <div
+                        key={item.label}
+                        className={`mb-1.5 rounded-lg px-3 py-2 text-xs font-medium ${
+                          item.active
+                            ? 'bg-brand-50 text-brand-600 dark:bg-brand-950 dark:text-brand-400'
+                            : 'text-slate-500 dark:text-slate-400'
+                        }`}
+                      >
+                        {item.label}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex-1 p-6">
+                    <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Image Compressor</h3>
+                    <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+                      Reduce file size without losing quality.
+                    </p>
+                    <div className="mt-4 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 px-4 py-8 text-center dark:border-slate-700 dark:bg-slate-800/50">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-50 text-brand-600 dark:bg-brand-950 dark:text-brand-400">
+                        <HiOutlinePhoto className="h-5 w-5" />
+                      </div>
+                      <p className="mt-3 text-xs font-medium text-slate-600 dark:text-slate-300">
+                        Drop your image here
+                      </p>
+                      <p className="mt-0.5 text-[11px] text-slate-400 dark:text-slate-500">or click to browse</p>
+                    </div>
+                    <div className="btn-primary mt-4 w-full justify-center py-2 text-xs">
+                      Compress Image
+                    </div>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
         </Container>
