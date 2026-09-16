@@ -1929,6 +1929,16 @@ export const toolFaqs = {
       question: 'How do I add the generated gradient to my website?',
       answer: 'Copy the generated code and paste it directly as the background or background-image value in your CSS \u2014 for example, background: linear-gradient(90deg, #667eea, #764ba2). No image file, build step, or extra HTTP request is needed since the gradient renders natively in the browser.',
     },
+    {
+      id: 'gradient-vs-image-performance',
+      question: 'Is a CSS gradient actually faster than a gradient background image?',
+      answer: 'Yes, genuinely \u2014 a CSS gradient adds zero extra HTTP requests and is calculated directly by the browser\u2019s rendering engine, while an image file needs to be downloaded and decoded. It also scales perfectly at any resolution without needing multiple exported sizes for different screen densities.',
+    },
+    {
+      id: 'gradient-generator-privacy',
+      question: 'Is it safe to use this tool \u2014 is my data sent anywhere?',
+      answer: 'Yes, it\u2019s completely safe. Every gradient is built and rendered entirely in your own browser using standard CSS \u2014 nothing you create here is ever uploaded, stored, or sent to a server. You can close the tab and nothing about what you built is retained anywhere.',
+    },
   ],
 
   'code-minifier': [
@@ -2258,6 +2268,16 @@ export const toolFaqs = {
       id: 'password-vs-passphrase',
       question: 'Should I use a password or a passphrase?',
       answer: 'Both are legitimate. A passphrase (several random, unrelated words strung together) is easier to type and remember; a fully random character-based password maximizes entropy for a given length. This tool generates the character-based kind \u2014 use whichever you\u2019ll actually type correctly and won\u2019t be tempted to reuse.',
+    },
+    {
+      id: 'password-generator-privacy',
+      question: 'Is it safe to generate my password here \u2014 could it be seen or stored anywhere?',
+      answer: 'Yes, it\u2019s safe. Your password is generated entirely on your own device using your browser\u2019s built-in cryptographically secure random function \u2014 it\u2019s never transmitted over the network, logged, or stored anywhere, including by this site. Closing the tab leaves no trace of it here.',
+    },
+    {
+      id: 'password-generator-wifi',
+      question: 'Can I use this to generate a Wi-Fi password?',
+      answer: 'Yes \u2014 a long, fully random password is an excellent choice for a Wi-Fi network, since it\u2019s typically entered once per device and then saved, so its length and randomness matter far more than how easy it is to type or remember.',
     },
   ],
 

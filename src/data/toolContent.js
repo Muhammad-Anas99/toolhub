@@ -832,6 +832,39 @@ export const toolContent = {
       'Getting exact, browser-ready CSS gradient code without hand-writing linear-gradient() or radial-gradient() syntax',
       'Prototyping a gradient direction and color combination quickly before committing to it in code',
     ],
+    guideTitle: 'The Complete Guide to CSS Gradients',
+    guide: [
+      {
+        heading: 'What Is a CSS Gradient Generator, and Why Use One Instead of an Image?',
+        body:
+          'A CSS gradient generator lets you build a smooth color transition visually and get the exact linear-gradient() or radial-gradient() CSS code to use in your project, without hand-writing the syntax or guessing at color-stop percentages. The output is pure CSS, not an image file, which matters more than it might seem: a gradient rendered as CSS adds zero extra HTTP requests to a page, scales perfectly at any resolution, and stays crisp on high-density retina displays where an exported PNG or JPG background would need multiple sizes to avoid looking blurry or pixelated.\n\nThis is exactly why gradients defined in CSS have largely replaced gradient background images in modern web design. A single line of CSS can do what once required exporting, optimizing, and hosting an image file, with the added benefit that the color and angle stay easy to tweak later without re-exporting anything.',
+      },
+      {
+        heading: 'Linear vs. Radial Gradients: Which One Should You Use?',
+        body:
+          'The two gradient types solve different visual problems, and picking the right one is usually obvious once the difference is clear. A linear gradient transitions in a straight line across a chosen direction or exact angle, useful for backgrounds, buttons, and hero sections where the color should shift consistently across the whole element. A radial gradient instead radiates outward from a center point in a circle or ellipse, which works well specifically for spotlight effects, soft glows behind an icon or heading, and vignettes that darken toward the edges of an image.\n\nA practical way to decide: if the effect should look the same no matter where on the element you\u2019re looking (just shifting color left-to-right or top-to-bottom), use linear. If the effect should radiate from a specific point, like light appearing to shine from behind an object, use radial.',
+      },
+      {
+        heading: 'How to Create a CSS Gradient Background Without Writing Code by Hand',
+        body:
+          'Hand-writing gradient CSS means remembering the exact function syntax, calculating color-stop percentages, and converting a visual idea in your head into precise degree values, all before you can actually see whether it looks right. A visual gradient generator flips that order: you build the gradient by eye first, watching it update in real time, and only copy the finished CSS code once it actually looks correct.\n\nThis matters most for angle values specifically, since CSS gradient angles don\u2019t follow the same convention most people expect from a compass or protractor (0deg points bottom-to-top, not left-to-right, and 90deg points left-to-right rather than straight up). Building the gradient visually sidesteps needing to remember this convention at all, since the tool translates your chosen direction into the correct degree value automatically.',
+      },
+      {
+        heading: 'Multi-Color Gradients and Color Stop Positioning Explained',
+        body:
+          'A gradient with just two colors is a simple blend from one to the other, but CSS gradients support any number of color stops, each placed at a specific position from 0% to 100% along the gradient. Adding a third, fourth, or fifth stop lets you build a genuinely multi-color transition, or even control exactly how much of the gradient each color occupies by spacing the stops unevenly rather than at even intervals.\n\nA particularly useful trick: placing two color stops at the exact same position creates a hard, sharp split between two solid colors rather than a smooth blend, useful for a two-tone background or a striped design effect, all still using a single gradient declaration rather than multiple layered elements.\n\nIt\u2019s worth knowing that more color stops mean more rendering work for the browser. Two or three stops render with genuinely negligible cost on any device. Ten or more can introduce a small amount of visible lag specifically on lower-end mobile devices, so it\u2019s worth using only as many stops as the design actually calls for rather than adding extras without a clear visual reason.',
+      },
+      {
+        heading: 'Common Use Cases for Developers and Designers',
+        body:
+          'Gradients show up constantly in real interface work, well beyond decorative backgrounds. A subtle two-color gradient on a button gives it visual depth without needing a separate hover-state image. A radial gradient behind a hero section heading can draw the eye toward the text without a distracting photograph competing for attention. A gradient overlay on top of a background photo (layering a semi-transparent gradient using rgba() color stops) is a common technique for keeping text readable over a busy image, darkening just enough of the photo behind the text without editing the image file itself.\n\nFor data visualization and dashboards, gradients are often used as a fill for charts or progress indicators, giving a single data series visual distinction without needing multiple flat colors. And for quick prototyping, generating a gradient visually and copying the CSS is meaningfully faster than iterating in browser dev tools, since the color-stop sliders here make it possible to try several combinations in the time it would take to hand-edit one.',
+      },
+      {
+        heading: 'Browser Support and Performance Notes',
+        body:
+          'Both linear-gradient() and radial-gradient() have been supported in every major browser without a vendor prefix for many years now, so there\u2019s no compatibility concern for a modern website; a gradient generated here will render identically across Chrome, Firefox, Safari, and Edge. Because the gradient is calculated by the browser\u2019s own rendering engine rather than decoded from an image file, it also tends to be genuinely fast even on modest hardware, provided the color-stop count stays reasonable as mentioned above.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -1896,6 +1929,39 @@ export const toolContent = {
       'Replacing a weak or reused password on an existing account',
       'Getting a random string for an API key, token, or temporary credential',
       'Setting a strong Wi-Fi network password',
+    ],
+    guideTitle: 'The Complete Guide to Strong Passwords',
+    guide: [
+      {
+        heading: 'What Actually Makes a Password Strong (It\u2019s Not What Most Advice Says)',
+        body:
+          'Most password advice focuses on complexity rules, requiring a mix of uppercase, lowercase, numbers, and symbols, but complexity rules alone are a weaker signal of real strength than most people assume. A 10-character password with every character type checked off can still be weaker than a 16-character password using only lowercase letters, because the total number of possible combinations (which is what actually determines how long a brute-force attack takes) grows explosively with length, far faster than it grows with character variety.\n\nThis is why the strength indicator on this tool is based on entropy rather than a checklist of character types. Entropy measures the actual number of possible passwords a given length and character set could produce, expressed in bits, which is a real, calculable number rather than a subjective "good/medium/weak" label. Two passwords with different character mixes but the same entropy value are, mathematically, equally hard to crack.',
+      },
+      {
+        heading: 'How Long Should a Password Be in 2026?',
+        body:
+          'Password length guidance has shifted meaningfully over the past decade as computing power available to attackers has grown. Current guidance from security organizations generally recommends a minimum of 14 to 16 characters for a standard account, with 20 or more characters recommended specifically for high-value accounts: your primary email (since it\u2019s usually the recovery method for everything else), banking, and the master password protecting a password manager itself.\n\nThe reasoning is straightforward: modern password-cracking hardware can attempt billions of combinations per second for weaker hash algorithms. An 8-character password, even a fairly complex one, falls within a range that determined, well-resourced attackers can brute-force in a practical amount of time. Each additional character multiplies the total combination space, which is why length has become the primary lever security guidance now emphasizes over complexity alone.',
+      },
+      {
+        heading: 'Why Cryptographically Secure Randomness Actually Matters',
+        body:
+          'Not all "random" is equally random from a security standpoint. A password generator built on a standard pseudo-random function (the kind used for things like shuffling a playlist or picking a random game outcome) can, in some implementations, be predictable enough for an attacker to narrow down or reproduce if they know or can guess the underlying seed value. A cryptographically secure random number generator is specifically designed so that its output can\u2019t be predicted or reverse-engineered, even by someone who knows the algorithm being used, which is the actual security bar a password generator should meet.\n\nThis distinction is invisible in the output itself, a weak and a strong random password can look equally random to a human, which is exactly why it matters to know which kind of randomness a generator actually uses rather than assuming all "random password generators" are built the same way underneath.',
+      },
+      {
+        heading: 'Password vs. Passphrase: Which Should You Actually Use?',
+        body:
+          'A passphrase, a string of several random, unrelated words like the widely-cited "correct horse battery staple" example, and a traditional random character password are both legitimate approaches to a strong credential, but they make different tradeoffs. A passphrase is generally easier to type accurately and remember without writing down, since it\u2019s built from real words rather than an arbitrary character string. A character-based random password maximizes entropy for a given length, since it draws from a much larger pool of possible characters at each position than a passphrase drawn from a dictionary of words does.\n\nIn practice, the right choice often depends on whether the password needs to be typed manually and remembered (where a passphrase\u2019s memorability is a real advantage) or will live exclusively in a password manager and never be typed by hand (where a fully random character password\u2019s higher entropy per character has no real downside, since you\u2019ll never need to recall or type it).',
+      },
+      {
+        heading: 'Common Password Mistakes That Undermine Even a Strong One',
+        body:
+          'A strong, randomly generated password can still leave an account vulnerable if it\u2019s undermined by a separate habit. Reusing the same password, even a genuinely strong one, across multiple accounts means a single breach at any one of those services exposes every account using it, since credential-stuffing attacks specifically try leaked username/password combinations against other popular sites. A password generated fresh for every single account closes this gap entirely, regardless of how the password itself was created.\n\nSecurity questions are a less obvious but genuinely common weak point: an answer like a mother\u2019s maiden name or first pet is often discoverable through public records or social media, meaning a strong password can be sidestepped entirely through account recovery rather than cracked directly.',
+      },
+      {
+        heading: 'Where to Store a Generated Password Safely',
+        body:
+          'A random, high-entropy password is only as useful as your ability to actually retrieve it later without writing it somewhere insecure. A dedicated password manager (a purpose-built application that stores passwords in an encrypted vault behind a single master password) is the standard, recommended approach, since it means you only need to remember one strong password yourself while every other account can use a fully random, unique one without any memorability tradeoff at all.\n\nStoring passwords in an unencrypted document, a note-taking app without encryption, or a browser\u2019s basic autofill without a master password set are all meaningfully weaker options, since each represents a single point of failure if the device itself is ever compromised.',
+      },
     ],
     privacy:
       'Passwords are generated entirely on your device using your browser\u2019s cryptographically secure random number generator. Nothing about the password generated is ever sent to ToolHub\u2019s servers, and nothing is stored. Closing the tab without copying it means it\u2019s gone.',

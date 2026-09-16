@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { HiOutlineArrowPath, HiOutlineEye } from 'react-icons/hi2'
-import { TRIVIA_CARDS, pickRandom } from '../../../lib/miscToolsUtils.js'
+import { TRIVIA_CARDS } from '../../../lib/miscToolsUtils.js'
+import { pickRandom } from '../../../lib/randomUtils.js'
 import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
 export default function TriviaFlashcardsTool({ toolSlug, toolName, category }) {

@@ -13,6 +13,7 @@ import CommentSection from '../components/blog/CommentSection.jsx'
 import BlogCard from '../components/ui/BlogCard.jsx'
 import { tools } from '../data/tools.js'
 import { categories } from '../data/categories.js'
+import { blogPosts, getBlogPostBySlug } from '../data/blog.js'
 
 function formatDate(dateString) {
   return new Date(dateString).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
@@ -20,17 +21,19 @@ function formatDate(dateString) {
 
 export default function BlogPost() {
   const { slug } = useParams()
-  const [post, setPost] = useState(null)
+  const [post, setPost] = useState(() => getBlogPostBySlug(slug))
   const [error, setError] = useState(null)
-  const [allPosts, setAllPosts] = useState(null)
+  const [allPosts, setAllPosts] = useState(blogPosts)
 
   useEffect(() => {
-    setPost(null)
+    setPost(getBlogPostBySlug(slug))
     setError(null)
     api
       .getBlogPost(slug)
       .then(({ data }) => setPost(data))
-      .catch((err) => setError(err.message || 'This post could not be found.'))
+      .catch((err) => {
+        if (!getBlogPostBySlug(slug)) setError(err.message || 'This post could not be found.')
+      })
   }, [slug])
 
   // Fetched once, independent of which specific post is being viewed -
@@ -41,7 +44,7 @@ export default function BlogPost() {
     api
       .getBlogPosts()
       .then(({ data }) => setAllPosts(data))
-      .catch(() => setAllPosts([]))
+      .catch(() => {})
   }, [])
 
   const blogCategories = allPosts ? [...new Set(allPosts.map((p) => p.category).filter(Boolean))] : []

@@ -134,7 +134,7 @@ export const toolSeed = [
   { name: 'HEX to HSL', slug: 'hex-to-hsl', path: '/tools/hex-to-hsl', category: 'color-tools', description: 'Convert HEX color codes to HSL values instantly.', icon: 'FaSliders', comingSoon: false },
   { name: 'Color Converter', slug: 'color-converter', path: '/tools/color-converter', category: 'color-tools', description: 'Convert between HEX, RGB and HSL color formats in one place.', icon: 'FaPalette', badge: 'new', comingSoon: false },
   { name: 'Color Palette Generator', slug: 'palette-generator', path: '/tools/palette-generator', category: 'color-tools', description: 'Generate complementary, analogous, triadic and shade palettes from any color.', icon: 'FaPalette', badge: 'popular', comingSoon: false },
-  { name: 'Gradient Generator', slug: 'gradient-generator', path: '/tools/gradient-generator', category: 'color-tools', description: 'Create CSS gradient backgrounds with a visual editor, random generation, and ready-made presets.', icon: 'FaPalette', comingSoon: false },
+  { name: 'Gradient Generator', slug: 'gradient-generator', path: '/tools/gradient-generator', category: 'color-tools', description: 'Build linear and radial CSS gradients visually and copy ready-to-use code instantly. Free, no image files, no sign-up required.', icon: 'FaPalette', comingSoon: false },
 
   // ---------- Developer Tools (fully working) ----------
   { name: 'JSON Formatter', slug: 'json-formatter', path: '/tools/json-formatter', category: 'developer-tools', description: 'Format, beautify or minify JSON data instantly.', icon: 'FaCode', badge: 'popular', comingSoon: false },
@@ -195,7 +195,7 @@ export const toolSeed = [
   { name: 'Image Enhancer', slug: 'image-enhancer', path: '/tools/image-enhancer', category: 'image-tools', description: 'Sharpen detail and reduce noise in a photo with adjustable controls.', icon: 'FaWandMagicSparkles', badge: 'new', comingSoon: false },
 
   // ---------- Security Tools ----------
-  { name: 'Password Generator', slug: 'password-generator', path: '/tools/password-generator', category: 'security-tools', description: 'Generate strong, random and secure passwords with adjustable length and character types.', icon: 'FaKey', badge: 'popular', comingSoon: false },
+  { name: 'Password Generator', slug: 'password-generator', path: '/tools/password-generator', category: 'security-tools', description: 'Generate a cryptographically secure random password online free. Adjustable length, character types, and a real entropy-based strength score.', icon: 'FaKey', badge: 'popular', comingSoon: false },
   { name: 'Password Strength Checker', slug: 'password-strength-checker', path: '/tools/password-strength-checker', category: 'security-tools', description: 'Check how strong a password really is, entirely on your device — nothing is ever sent anywhere.', icon: 'FaShieldHalved', badge: 'new', comingSoon: false },
 
   // ---------- Social Media Tools ----------

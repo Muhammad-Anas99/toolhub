@@ -4,6 +4,7 @@ import AboutToolSection from './AboutToolSection.jsx'
 import HowToUseSection from './HowToUseSection.jsx'
 import ToolFeaturesSection from './ToolFeaturesSection.jsx'
 import UseCasesSection from './UseCasesSection.jsx'
+import GuideSection from './GuideSection.jsx'
 import SupportedFormatsSection from './SupportedFormatsSection.jsx'
 import PrivacySection from './PrivacySection.jsx'
 import { toolContent } from '../../../data/toolContent.js'
@@ -25,6 +26,7 @@ export default function ToolInformation({ toolName, toolSlug }) {
       <ToolFeaturesSection features={content.features} />
       <HowToUseSection toolName={toolName} steps={content.howToUse} />
       <UseCasesSection useCases={content.useCases} />
+      <GuideSection title={content.guideTitle || `Complete Guide to ${toolName}`} sections={content.guide} />
       <SupportedFormatsSection formats={content.supportedFormats} />
       <PrivacySection privacy={content.privacy} />
     </div>

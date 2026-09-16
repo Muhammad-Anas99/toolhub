@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { HiOutlineSparkles } from 'react-icons/hi2'
-import { TAROT_CARDS, pickRandom } from '../../../lib/miscToolsUtils.js'
+import { TAROT_CARDS } from '../../../lib/miscToolsUtils.js'
+import { pickRandom } from '../../../lib/randomUtils.js'
 import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
 export default function TarotReaderTool({ toolSlug, toolName, category }) {
