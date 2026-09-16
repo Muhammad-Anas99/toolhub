@@ -106,6 +106,29 @@ export const toolContent = {
       'Getting a format that certain apps or CMS platforms require',
       'Avoiding further generation loss on an image that will be re-saved multiple times',
     ],
+    guideTitle: 'The Complete Guide to JPG and PNG',
+    guide: [
+      {
+        heading: 'Lossy vs. Lossless: The Fundamental Difference Behind the Format Choice',
+        body:
+          'JPG uses lossy compression, meaning it permanently discards some image data, chosen to be least noticeable to human perception, in exchange for a dramatically smaller file size, which is exactly why JPG remains the standard for photographs, where that tradeoff is usually invisible to the eye. PNG uses lossless compression instead, reorganizing data more efficiently without discarding any of it, guaranteeing the decoded image is pixel-for-pixel identical to the original, at the cost of a typically larger file for photographic content specifically.\n\nConverting a JPG to PNG doesn\u2019t reverse this fundamental tradeoff, once JPG compression has discarded data, that data is genuinely gone, and no subsequent conversion to a lossless format can restore detail that no longer exists in the source file. The conversion does stop any further loss going forward, though, which is its real, genuine benefit.',
+      },
+      {
+        heading: 'Why the File Gets Bigger, Not Smaller, After Converting',
+        body:
+          'A common but mistaken expectation is that converting to PNG should shrink a file, when the opposite is typically true for photographic content specifically. PNG\u2019s lossless approach preserves every pixel\u2019s exact value, which simply requires more data to represent than JPEG\u2019s lossy approach, especially for photos with natural, continuous color gradients and fine detail, exactly the kind of content JPEG\u2019s compression was specifically designed to handle efficiently. Seeing a larger file after converting from JPG to PNG is a sign the conversion worked correctly and preserved full quality, not an indication anything went wrong.\n\nThis is exactly why PNG is a poor general-purpose choice for photographs specifically, despite being technically superior in fidelity, the file size cost for photographic content is usually not worth paying unless pixel-perfect preservation is a genuine, specific requirement.',
+      },
+      {
+        heading: 'Why Converting Doesn\u2019t Add Transparency That Wasn\u2019t There',
+        body:
+          'PNG\u2019s support for transparency is one of its most commonly cited advantages over JPG, which has no transparency capability at all. It\u2019s a genuine, common misconception, though, that converting a JPG to PNG format somehow adds transparency to an image that never had it. A JPG file simply never stored any transparency information in the first place, there\u2019s nothing for the conversion process to carry over, so the resulting PNG has a fully solid, opaque background exactly matching what the original JPG displayed, just now saved in a format that\u2019s technically capable of transparency, without actually containing any.\n\nActually adding transparency, making a background genuinely see-through, requires a separate editing step (like a background removal tool) that identifies and removes specific pixels, not just a format conversion, which only changes how existing pixel data is encoded, not what that data represents.',
+      },
+      {
+        heading: 'Why PNG Is the Right Choice for Repeated Editing',
+        body:
+          'Every time a JPG is opened, edited, and re-saved as JPG again, the lossy compression is reapplied on top of whatever quality loss the previous save already introduced, a cumulative effect called generation loss that visibly degrades image quality across repeated edit-and-save cycles, even if each individual edit was minor. Converting to PNG before a round of edits, and continuing to save as PNG throughout, avoids this entirely: since PNG\u2019s compression is lossless, saving the same PNG file ten times in a row produces an identical result each time, with zero cumulative degradation regardless of how many times it\u2019s opened and re-saved.\n\nThis is exactly why PNG (or another lossless format) is the standard recommendation for any image that will go through multiple rounds of editing, converting to JPG remains a fine final step once editing is complete and the image is ready for its smaller final output size.',
+      },
+    ],
     supportedFormats: { input: 'JPG / JPEG', output: 'PNG', maxSize: '25 MB per image, up to 10 images at once' },
     privacy: BROWSER_ONLY_PRIVACY,
   },
@@ -132,6 +155,29 @@ export const toolContent = {
       'Reducing storage space for a large batch of images',
       'Converting a photo saved as PNG down to a realistic file size',
     ],
+    guideTitle: 'The Complete Guide to Converting PNG to JPG',
+    guide: [
+      {
+        heading: 'Why This Conversion Direction Is About Trading Fidelity for Size',
+        body:
+          'Converting PNG to JPG moves in the opposite direction of the fidelity-versus-size tradeoff compared to converting JPG to PNG: rather than preserving every pixel exactly (PNG\u2019s lossless approach), JPG deliberately discards some image detail, chosen to be minimally noticeable, in exchange for a substantially smaller file. This is exactly the right tradeoff for photographic content specifically, where JPG\u2019s compression algorithm was purpose-built to exploit exactly the kind of smooth color gradients and fine detail patterns real photos contain, achieving dramatic size reduction with quality loss that\u2019s often genuinely imperceptible at a reasonable quality setting.\n\nUnderstanding this as a deliberate tradeoff, not simply "worse quality," clarifies when the conversion makes sense: whenever file size matters more than pixel-perfect fidelity, which describes the overwhelming majority of everyday photo-sharing and web-publishing use cases.',
+      },
+      {
+        heading: 'What Happens to Transparency: A One-Way Loss',
+        body:
+          'JPG has no capability to represent transparency at all, it\u2019s simply not part of the format\u2019s design. Converting a PNG that includes transparent or partially transparent areas necessarily fills those areas with a solid color, typically white, since the JPG format has no other way to represent what was previously "nothing" there. This is an unavoidable, one-way loss: once converted, there\u2019s no way to recover which areas were originally transparent just by looking at the resulting JPG, the information is genuinely gone from that point forward.\n\nFor any image where transparency is functionally important, a logo meant to sit over varying backgrounds, an icon with a see-through background, converting to JPG isn\u2019t appropriate at all, PNG (or another format supporting transparency) needs to remain the format for that specific use.',
+      },
+      {
+        heading: 'Why Quality Settings Around 80-85% Are the Common Sweet Spot',
+        body:
+          'JPG\u2019s quality setting controls how aggressively the compression algorithm discards image detail, and the relationship between quality percentage and both file size and visible quality loss isn\u2019t linear, the difference between 95% and 100% quality is usually barely perceptible while adding meaningfully to file size, while dropping much below 70-75% starts introducing visible artifacts, blockiness or blurring, especially in areas of fine detail. The 80-85% range has become a widely-cited sweet spot precisely because it sits past the point of easily noticeable quality loss for most photographic content, while still capturing the bulk of the available size reduction, going higher yields diminishing size savings for increasingly marginal quality gains.\n\nThis isn\u2019t a universal rule for every image, a photo destined for print or close inspection may warrant a higher setting, but it\u2019s a reliable, well-tested default for the common case of web and everyday sharing use.',
+      },
+      {
+        heading: 'Why JPG Compresses Photos Far Better Than Screenshots or Graphics',
+        body:
+          'JPG\u2019s compression algorithm is specifically tuned around how human vision perceives smooth, continuous color variation, exactly the kind of content a photograph is full of, subtle gradients in skin tones, sky, shadows. Content with sharp, high-contrast edges, text in a screenshot, a logo\u2019s crisp boundaries, a line-art graphic, doesn\u2019t compress nearly as efficiently under this same algorithm, and can pick up visible artifacts specifically along those sharp edges, a faint blur or ringing effect around text or hard lines that photos largely avoid because they rarely contain that kind of stark contrast to begin with.\n\nThis is exactly why the same quality setting that looks flawless on a photograph can look noticeably degraded on a screenshot full of text, and why PNG, despite its larger file size, often remains the better choice specifically for screenshots and sharp-edged graphics, where JPG\u2019s compression strengths don\u2019t apply as favorably.',
+      },
+    ],
     supportedFormats: { input: 'PNG', output: 'JPG', maxSize: '25 MB per image, up to 10 images at once' },
     privacy: BROWSER_ONLY_PRIVACY,
   },
@@ -156,6 +202,29 @@ export const toolContent = {
       'Preparing a WEBP asset for a platform that requires PNG uploads',
       'Editing a WEBP image in a tool with better PNG support',
       'Converting a WEBP graphic that needs to keep its transparent background',
+    ],
+    guideTitle: 'The Complete Guide to Converting WebP to PNG',
+    guide: [
+      {
+        heading: 'Why WebP Is Smaller, and Why That\u2019s Not Always the Deciding Factor',
+        body:
+          'WebP, a more modern image format developed specifically for the web, generally achieves smaller file sizes than PNG at comparable visual quality, thanks to more efficient underlying compression techniques built with modern web delivery in mind. This makes WebP the better choice purely on file-size grounds for most web contexts. File size isn\u2019t the only consideration, though, and converting from WebP to PNG remains a genuinely common, sensible need whenever the destination software or platform is the deciding factor rather than size: PNG\u2019s decades-long head start means it\u2019s supported essentially everywhere, while WebP support, while now strong in modern browsers, still has real gaps in some older design software, certain email clients, and specific platforms and tools that haven\u2019t caught up.',
+      },
+      {
+        heading: 'Why the Converted File Is Often Larger, and Why That\u2019s Expected',
+        body:
+          'Since WebP generally compresses more efficiently than PNG for the same visual content, converting a WebP image to PNG typically increases file size, sometimes substantially. This isn\u2019t a sign of a problem with the conversion, it\u2019s the direct, expected consequence of moving from a more space-efficient format to a less space-efficient one, in exchange for PNG\u2019s broader compatibility. The tradeoff being made explicitly is compatibility for size, a completely reasonable choice whenever the destination for the file genuinely requires or strongly prefers PNG specifically.',
+      },
+      {
+        heading: 'Lossy WebP vs. Lossless WebP: Why It Affects the Conversion Outcome',
+        body:
+          'Unlike some formats, WebP actually supports both lossy and lossless compression modes, meaning not all WebP files carry the same quality characteristics going into a conversion. A WebP file created with lossless compression contains the complete, unaltered original pixel data, and converting it to PNG (also lossless) preserves that data exactly, with zero quality change either direction. A WebP file created with lossy compression, however, already discarded some image detail at the point it was originally encoded, and converting that lossy WebP to PNG doesn\u2019t restore any of that already-discarded detail, PNG\u2019s lossless nature only guarantees no further loss happens during the conversion itself, it can\u2019t recover data that was already gone before the conversion started.',
+      },
+      {
+        heading: 'Transparency Survives the Conversion, a Genuine Advantage',
+        body:
+          'WebP supports transparency, much like PNG does, meaning a WebP image with a transparent or partially transparent background carries that transparency data forward correctly when converted to PNG, since both formats are capable of representing an alpha channel. This is a meaningfully better outcome than converting a transparent WebP to a format like JPG, which has no transparency support at all and would be forced to fill any transparent areas with a solid background color. For any WebP graphic, logo, or icon that relies on transparency, PNG is exactly the right conversion target to preserve that transparency intact, while a non-transparency-supporting format would lose it.',
+      },
     ],
     supportedFormats: { input: 'WEBP', output: 'PNG', maxSize: '25 MB per image, up to 10 images at once' },
     privacy: BROWSER_ONLY_PRIVACY,
@@ -283,6 +352,29 @@ export const toolContent = {
       'Preparing a batch of images to the same consistent size',
       'Reducing image dimensions to speed up a website\u2019s page load',
     ],
+    guideTitle: 'The Complete Guide to Resizing Images',
+    guide: [
+      {
+        heading: 'Why Downscaling and Upscaling Are Fundamentally Different Operations',
+        body:
+          'Reducing an image\u2019s dimensions and enlarging them might seem like the same operation in reverse, but they\u2019re fundamentally asymmetric. Downscaling has real pixel data to work with, it needs to intelligently combine and average existing pixels down into a smaller grid, which modern smoothing algorithms do very well, producing a smaller image that stays visually sharp and accurate. Upscaling faces a genuinely harder problem: the extra pixels needed to fill a larger grid simply don\u2019t exist in the original data, so the algorithm has to interpolate, essentially making an educated guess at what those in-between pixels probably look like based on their neighbors, rather than recovering detail that was never captured in the first place.\n\nThis is exactly why enlarging an image tends to look progressively softer or blurrier the more it\u2019s scaled up, it\u2019s not a flaw in any particular resizing tool, it\u2019s an inherent limitation of trying to manufacture detail that genuinely isn\u2019t there in the source.',
+      },
+      {
+        heading: 'Why Locking Aspect Ratio Matters More Than It Seems',
+        body:
+          'An image\u2019s aspect ratio, the proportional relationship between its width and height, is what keeps its content looking geometrically correct, a circle stays a circle, a face stays proportioned normally. Resizing width and height independently, without locking them together, distorts this relationship, stretching or squishing the image in one direction relative to the other, an effect that\u2019s often subtle enough to not immediately register as "wrong" but reads as visually off to anyone looking closely, especially for images containing faces or recognizable geometric shapes.\n\nLocking aspect ratio during resize ensures width and height scale by the identical proportion together, preserving the original geometry exactly, which is why it\u2019s the correct default for nearly every resizing scenario, with intentionally distorting an image being a genuinely rare, specific exception rather than the norm.',
+      },
+      {
+        heading: 'Percentage Scaling vs. Exact Dimensions: Choosing the Right Approach',
+        body:
+          'These two resizing approaches solve different problems. Percentage scaling (reducing an image to, say, 50% of its original size) is the right tool when the goal is simply "make this proportionally smaller" without a specific target size in mind, useful for general size reduction where the exact resulting pixel dimensions don\u2019t matter much. Exact-dimension resizing is the right tool when a specific platform, form, or use case has a hard pixel-dimension requirement, a profile photo needing to be exactly 400×400, a banner needing precisely 1200×300, where hitting the exact number matters more than a proportional scale-down.\n\nUsing the wrong approach for the situation, entering exact dimensions when a rough proportional reduction would have sufficed, or using a percentage scale when an exact dimension was actually required, either adds unnecessary precision work or fails to meet a hard requirement, which is why identifying which of the two the actual goal calls for is worth doing before resizing.',
+      },
+      {
+        heading: 'Resizing vs. Compressing: Two Different Levers for File Size',
+        body:
+          'Reducing an image\u2019s pixel dimensions and compressing it are both ways to shrink a file, but they work through entirely different mechanisms and are often used together rather than as alternatives. Resizing reduces the total number of pixels the image contains, a smaller grid inherently takes less data to store, regardless of compression settings. Compression instead keeps the same pixel dimensions but represents that same pixel data more efficiently (or, for lossy formats, discards some of it), a separate lever entirely. Resizing an image down does typically reduce file size as a side effect, but it\u2019s solving a different problem (physical size) than compression is (storage efficiency at a given size).\n\nFor the smallest possible result, applying both, resizing to the actual dimensions needed, then compressing that resized result, typically achieves a meaningfully smaller final file than either technique applied alone.',
+      },
+    ],
     supportedFormats: { input: 'JPG / PNG / WEBP', output: 'Same format', maxSize: '25 MB per image, up to 10 images at once' },
     privacy: BROWSER_ONLY_PRIVACY,
   },
@@ -307,6 +399,29 @@ export const toolContent = {
       'Removing unwanted edges or borders from a screenshot',
       'Preparing a square or specific-ratio crop for a profile picture',
       'Framing a specific detail from a larger image precisely, with no quality loss',
+    ],
+    guideTitle: 'The Complete Guide to Cropping Images',
+    guide: [
+      {
+        heading: 'Why Cropping Involves Zero Quality Loss, Unlike Resizing',
+        body:
+          'Cropping and resizing are often mentally grouped together as similar operations, but they work in fundamentally different ways with fundamentally different quality implications. Resizing recalculates every pixel in the image to fit a new grid size, a process that inherently involves some degree of smoothing or interpolation. Cropping does something much simpler: it keeps the original pixels within a selected region exactly as they are and discards everything outside that region, with no recalculation of the kept pixels at all. This is exactly why a cropped image retains its full, exact original quality within the kept area, there\u2019s no algorithm estimating or smoothing anything, just a straightforward selection of which original pixels to keep.\n\nUnderstanding this distinction clarifies when each tool is the right one: cropping when the goal is removing unwanted parts of an image while keeping the rest pristine, resizing when the goal is changing the overall dimensions of the entire image.',
+      },
+      {
+        heading: 'Choosing the Right Aspect Ratio for the Destination',
+        body:
+          'Different platforms and contexts expect different width-to-height proportions, and cropping to match the destination\u2019s expected ratio avoids an unwanted, often awkward automatic crop being applied later by whatever platform the image gets uploaded to. A square (1:1) ratio remains the standard for most profile pictures across platforms. A 4:5 ratio (slightly taller than wide) has become common for image feed posts on several social platforms, since it occupies more vertical scrolling space than a square image without becoming a jarring tall crop. A 16:9 ratio (notably wider than tall) suits video thumbnails and website banner images, matching the aspect ratio of most video players and wide banner placements.\n\nThese conventions do shift over time as platforms update their own recommended dimensions, so checking a specific platform\u2019s current guidelines before a final crop is worth doing when precision matters, rather than relying purely on historical convention.',
+      },
+      {
+        heading: 'Why Rotating Before Cropping (Not After) Usually Makes More Sense',
+        body:
+          'When a photo needs both straightening (a slightly tilted horizon, for instance) and cropping, doing the rotation first and the crop second is generally the more practical order. Rotating an already-cropped image can introduce empty corners or force an awkward re-crop to eliminate them, since rotation changes the image\u2019s effective bounding box. Rotating first, then selecting the final crop area with the now-straightened image as the reference, lets the crop selection account for the rotation\u2019s effect on the image\u2019s edges from the start, producing a cleaner result without needing a second corrective pass.',
+      },
+      {
+        heading: 'Why the Crop Box Stays Adjustable Until You Commit',
+        body:
+          'A crop tool that finalizes the moment you first draw a selection box would make it needlessly tedious to fine-tune the exact framing, since even a small, deliberate adjustment would require starting the entire selection over from scratch. Keeping the crop box fully interactive, draggable to reposition, with resizable corner handles, right up until the crop is actually applied lets the selection be refined iteratively: draw a rough initial area, then nudge and resize it while comparing against the actual image content, rather than needing to judge the exact correct position and size in one single attempt.',
+      },
     ],
     supportedFormats: { input: 'JPG / PNG / WEBP', output: 'Same format', maxSize: '25 MB' },
     privacy: BROWSER_ONLY_PRIVACY,
@@ -333,6 +448,29 @@ export const toolContent = {
       'Straightening out a batch of scanned pages',
       'Fixing a photo that displays correctly in one app but sideways in another',
     ],
+    guideTitle: 'The Complete Guide to Image Rotation',
+    guide: [
+      {
+        heading: 'Why Phone Photos Show Up Sideways in the First Place',
+        body:
+          'A camera sensor captures image data in a fixed physical orientation regardless of how the phone was actually held at the moment of capture, rather than physically rotating pixel data to match the phone\u2019s orientation. Instead, the camera records an orientation flag in the photo\u2019s EXIF metadata, essentially a note saying "display this data rotated 90 degrees to appear upright." This is genuinely more efficient than rotating actual pixel data at capture time, but it depends entirely on whatever software later opens the image actually reading and respecting that metadata flag correctly.\n\nThis dependency is exactly the root of the sideways-photo problem: not every application, browser, or platform reads EXIF orientation data consistently, some respect it fully, some ignore it, some respect it inconsistently across different features of the same app, which is why the identical photo file can display correctly in one context and rotated incorrectly in another, purely based on how that specific software handles the metadata.',
+      },
+      {
+        heading: 'Why a Real Pixel Rotation Is More Reliable Than Relying on Metadata',
+        body:
+          'Because EXIF orientation support varies so inconsistently across software, the more universally reliable fix is rotating the actual pixel data itself, physically rewriting which pixel sits where, rather than just relying on the metadata flag to be respected. A file with genuinely rotated pixel data displays correctly everywhere, in any viewer, any platform, any app, regardless of whether that specific piece of software bothers to check EXIF orientation at all, since the fix lives in the actual image content rather than in metadata that might be ignored.\n\nThis is exactly why manually rotating a sideways photo, rather than just trusting the orientation metadata to eventually be respected everywhere it\u2019s viewed, is the dependable, universal solution to the problem.',
+      },
+      {
+        heading: 'Rotation vs. Flipping: Two Genuinely Different Transformations',
+        body:
+          'Rotating an image turns it around a central point, like spinning a photograph on a table, preserving the relationship between all its content, text stays genuinely readable, just at a different angle, and nothing gets mirrored. Flipping instead creates a mirror image, reversing left and right (a horizontal flip) or top and bottom (a vertical flip), which does reverse the reading direction of any text in the image, exactly like looking at a photo in a mirror. These solve genuinely different problems: an image that\u2019s simply oriented the wrong way (sideways or upside down) needs rotation; an image that appears mirror-reversed, backwards text being the clearest sign, needs flipping instead, and using the wrong one of the two won\u2019t fix the actual issue.',
+      },
+      {
+        heading: 'Why 90° Rotation Involves No Quality Loss (And Why That\u2019s Not Always True for Other Angles)',
+        body:
+          'Rotating an image by exactly 90°, 180°, or 270° is a clean geometric operation, every pixel maps directly to a new position with no need to estimate or blend values, since a 90°-increment rotation of a rectangular image produces another perfectly rectangular image with the same total pixel count, just with width and height potentially swapped. This is exactly why these specific rotation angles involve no meaningful quality loss, re-encoding the file (especially if it\u2019s a lossy format like JPG) can introduce very minor compression differences, but the actual rotation operation itself is lossless.\n\nA rotation at an arbitrary angle, straightening a slightly tilted scan by a few degrees, for instance, is a genuinely different, more complex operation: it requires interpolating pixel values at positions that don\u2019t align cleanly with the original pixel grid, and typically also requires cropping or padding to handle the corners that rotation leaves outside the original rectangular bounds, which is why that kind of fine-angle correction calls for a more full-featured image editor rather than a simple 90°-increment rotation tool.',
+      },
+    ],
     supportedFormats: { input: 'JPG / PNG / WEBP', output: 'Same format', maxSize: '25 MB per image, up to 10 images at once' },
     privacy: BROWSER_ONLY_PRIVACY,
   },
@@ -357,6 +495,29 @@ export const toolContent = {
       'Creating a mirrored version of a graphic for design purposes',
       'Fixing the orientation of a scanned image',
       'Reversing an image to face the opposite direction for a layout or composition',
+    ],
+    guideTitle: 'The Complete Guide to Flipping Images',
+    guide: [
+      {
+        heading: 'Why Selfies Often Look "Wrong" Compared to What You Saw While Taking Them',
+        body:
+          'Phone front cameras typically display a mirrored live preview on screen while you\u2019re composing a selfie, matching what you\u2019d see looking in an actual mirror, which feels intuitive and natural while framing the shot. The saved photo file, though, is commonly stored unmirrored, the true, non-reversed orientation, meaning any asymmetric detail, a shirt with text, a part in your hair, ends up flipped relative to what appeared in the live preview you were looking at. This mismatch between the mirrored preview and the unmirrored saved file is exactly why a selfie can look subtly "off" or backwards compared to what you remember seeing while taking it, and flipping the saved image horizontally corrects that discrepancy back to match the mirrored version you actually composed the shot around.',
+      },
+      {
+        heading: 'Flip vs. Rotate: Why They\u2019re Fundamentally Different Operations',
+        body:
+          'Flipping and rotating are both single-click transformations that reposition an image\u2019s content, but they work through entirely different geometric operations with entirely different visual results. Flipping creates a mirror reflection across an axis, horizontal flip reverses left and right, vertical flip reverses top and bottom, which means any text or asymmetric detail in the image comes out reversed, exactly like a mirror image. Rotating instead turns the entire image around a center point without mirroring anything, text and asymmetric details stay perfectly readable, just reoriented at a different angle. The clearest way to tell which transformation an image actually needs: if text appears backwards, it needs flipping; if the image is simply oriented at the wrong angle (sideways, upside down) but text still reads correctly once turned the right way, it needs rotating instead.',
+      },
+      {
+        heading: 'Why Flipping Involves Zero Quality Loss',
+        body:
+          'A horizontal or vertical flip is a pure pixel rearrangement, every pixel moves to a new, precisely mirrored position, with no blending, estimation, or interpolation of any kind involved. This is fundamentally different from an operation like resizing or an arbitrary-angle rotation, both of which genuinely require calculating new pixel values that didn\u2019t exist in the original grid. Flipping simply repositions existing pixels exactly as they were, which is exactly why the flipped result retains the full original sharpness and detail of the source image, with no degradation introduced by the transformation itself.',
+      },
+      {
+        heading: 'Why Flipping Both Directions Equals a 180° Rotation',
+        body:
+          'Applying a horizontal flip and a vertical flip to the same image, one after the other, produces a result that\u2019s visually identical to simply rotating that image 180°, a genuine mathematical equivalence rather than a coincidence. This happens because reflecting across both axes in sequence is geometrically equivalent to rotating the entire image by a half-turn, both transformations end up moving every point to the diagonally opposite position relative to the image\u2019s center. This is a useful thing to know practically: if a tool only offers flip controls but a genuine 180° rotation is needed (or vice versa), applying both flip directions achieves the identical visual result either way.',
+      },
     ],
     supportedFormats: { input: 'JPG / PNG / WEBP', output: 'Same format', maxSize: '25 MB per image, up to 10 images at once' },
     privacy: BROWSER_ONLY_PRIVACY,
@@ -832,6 +993,29 @@ export const toolContent = {
       'Checking what a hex code actually looks like as RGB channels',
       'Getting RGB values to build a semi-transparent rgba() color in CSS',
     ],
+    guideTitle: 'The Complete Guide to Hex and RGB Color Codes',
+    guide: [
+      {
+        heading: 'How Hex Actually Encodes the Same Data RGB Does',
+        body:
+          'A hex color code and its RGB equivalent aren\u2019t two different colors described two different ways, they\u2019re the identical color, with hex simply packing the same three red, green, and blue channel values into a more compact notation. Each pair of hex digits represents one color channel\u2019s value in base-16 (hexadecimal) rather than the base-10 (decimal) numbers RGB uses directly, so #3B6CF6 breaks down into 3B (red), 6C (green), and F6 (blue) in hex, which convert to 59, 108, and 246 respectively in decimal, exactly the numbers RGB notation displays directly. Hex\u2019s only real advantage is compactness, six characters instead of three separate numbers, which is part of why it became the standard for CSS color values.',
+      },
+      {
+        heading: 'Why RGB Becomes Necessary the Moment Transparency Enters the Picture',
+        body:
+          'Standard hex notation (#RRGGBB) has no way to represent transparency at all, it only encodes the three color channels. CSS\u2019s rgba() function extends RGB notation with a fourth value specifically for opacity, a decimal between 0 (fully transparent) and 1 (fully opaque), letting a color blend with whatever sits behind it rather than appearing as a fully solid block. This is exactly why converting from hex to RGB becomes a practical necessity the moment a design calls for any transparency, a semi-transparent overlay, a subtle tinted background, a color that needs to blend, since hex alone simply has no mechanism to express that fourth dimension.\n\n(An 8-digit hex format with an added alpha channel does exist in modern CSS, but rgba() remains the more widely recognized and broadly supported way to express a transparent color.)',
+      },
+      {
+        heading: 'Why RGB Is More Natural for Programmatic Color Manipulation',
+        body:
+          'When color values need to be calculated or adjusted in code, brightening a color by a percentage, blending two colors together, generating a gradient programmatically, working with RGB\u2019s three separate decimal numbers is generally more straightforward than parsing and re-encoding hex\u2019s packed hexadecimal string. Each RGB channel is already a plain number ready for arithmetic, adding, multiplying, clamping to a valid range, while hex requires converting to and from its packed hexadecimal representation before and after any such calculation. This is exactly why color manipulation code, whether in JavaScript, a design tool\u2019s scripting API, or a shader, typically works with RGB (or an even more calculation-friendly format like HSL) internally, converting to hex only at the point where a final, compact color value needs to be stored or displayed.',
+      },
+      {
+        heading: 'Why Case and the # Symbol Don\u2019t Actually Matter',
+        body:
+          'Hex digits A through F represent values above 9 in base-16, and letter case carries no meaning in that context, #3B6CF6 and #3b6cf6 are read identically by any correct hex parser, since uppercase and lowercase letters represent the exact same numeric value. The # symbol itself is a notational convention marking "this is a hex color," but it\u2019s not part of the actual color data, a parser that expects hex input can generally accept the six (or three) digits with or without the leading #. Neither of these is a meaningful choice, they\u2019re purely stylistic conventions, which is why a well-built converter accepts either form without requiring one specific style.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -853,6 +1037,29 @@ export const toolContent = {
       'Getting a hex code from a color picked in an image editor',
       'Translating RGB values from a style guide into CSS-ready hex',
       'Preparing a color value for a brand guide that specifies hex codes',
+    ],
+    guideTitle: 'The Complete Guide to RGB and Hex Conversion',
+    guide: [
+      {
+        heading: 'Why Hex Became the Default Even Though RGB Came First Conceptually',
+        body:
+          'RGB, expressing a color as three separate red, green, and blue channel values, maps directly onto how digital displays actually work, each pixel genuinely is composed of red, green, and blue light sources combined. Hex notation is really just a more compact repackaging of those same three numbers into hexadecimal pairs. Despite RGB being the more conceptually direct representation, hex became the entrenched default in CSS, design tools, and brand style guides largely for practical reasons: it\u2019s shorter to write and read as a single token (#3B6CF6 versus rgb(59, 108, 246)), and that convention, once established early in CSS and design tooling history, has simply persisted as the expected format in most contexts since.\n\nThis is worth knowing specifically because it clarifies that hex\u2019s dominance is a convention, not a technical necessity, RGB is every bit as valid and precise, it\u2019s just less commonly the expected format when a "give me the color code" request comes up in design or branding contexts.',
+      },
+      {
+        heading: 'Understanding Hex Shorthand: Why #FFF Means White',
+        body:
+          'CSS supports a shorthand 3-digit hex format alongside the standard 6-digit one, where each of the three digits represents one color channel and gets doubled to form the full value, #FFF expands to #FFFFFF, #F53 expands to #FF5533. This shorthand only works for colors where each channel\u2019s two hex digits happen to be identical (like FF, 55, or 33), it can\u2019t represent a color like #3B6CF6, where none of the channel pairs repeat a digit. This is exactly why shorthand hex only covers a small subset of possible colors, specifically ones that happen to fall on this "both digits identical" pattern, while the full 6-digit form can represent any of the 16.7 million possible RGB colors without that restriction.',
+      },
+      {
+        heading: 'Why Out-of-Range RGB Values Get Clamped, Not Rejected',
+        body:
+          'Each RGB channel is meant to represent a value from 0 (none of that color) to 255 (maximum intensity of that color), the full range a single byte can represent. A value entered outside this range, a negative number or something above 255, doesn\u2019t have a meaningful color interpretation on its own, but rather than treating this as a hard error, clamping the value to the nearest valid boundary (0 or 255) is the more practical, forgiving approach, since an out-of-range value most likely came from a calculation that slightly overshot rather than being a deliberate, meaningful input. This matches how RGB values are commonly handled across image editing software and color libraries generally, clamping rather than erroring on an out-of-bounds channel value.',
+      },
+      {
+        heading: 'Why rgba()\u2019s Alpha Channel Doesn\u2019t Translate Into Hex',
+        body:
+          'Standard hex notation (#RRGGBB) and HSL as traditionally used in CSS both represent exactly three color channels, with no built-in mechanism for transparency. rgba() extends RGB specifically by adding a fourth value, alpha, representing opacity from 0 to 1, information that simply has no corresponding slot in standard hex or HSL notation. Converting an rgba() value to hex necessarily means converting only the red, green, and blue channels, the color itself, while the transparency information is left behind, since there\u2019s nowhere in standard hex to represent it.\n\n(An extended 8-digit hex format with an alpha channel does exist in modern CSS specifications, functionally similar to rgba(), but it\u2019s a distinct, less universally supported notation from the traditional 6-digit hex format most tools and contexts still expect by default.)',
+      },
     ],
     privacy: NO_FILE_PRIVACY,
   },
@@ -1341,6 +1548,29 @@ export const toolContent = {
       'Blocking a specific IP address or restricting access to your own IP',
       'Adding baseline security headers without hand-writing Apache syntax from scratch',
     ],
+    guideTitle: 'The Complete Guide to .htaccess',
+    guide: [
+      {
+        heading: 'What .htaccess Actually Is, and Why It\u2019s Powerful (and Risky)',
+        body:
+          '.htaccess is a per-directory configuration file that the Apache web server reads and applies live, without needing a server restart, letting it override server-wide settings for just the directory it lives in (and everything below it). This is exactly what makes it so convenient for shared hosting environments, where a site owner typically can\u2019t edit Apache\u2019s main configuration file directly but can edit .htaccess, and exactly what makes a mistake in it so consequential: since it\u2019s read and applied on every single request to that directory, a syntax error or conflicting rule doesn\u2019t just fail quietly, it can produce a server error across the entire site until the mistake is fixed.\n\nThis dual nature, genuinely convenient and genuinely risky if handled carelessly, is why testing changes and keeping a backup of the working version before deploying new rules is standard, sensible practice rather than excessive caution.',
+      },
+      {
+        heading: 'Why HTTPS Redirects Are Usually the First Rule Added',
+        body:
+          'Forcing all traffic to HTTPS via .htaccess ensures every visitor, including anyone who types a URL without "https://" or clicks an old link pointing to the insecure version, ends up on the encrypted version of the site rather than being served the insecure one. This matters for reasons beyond just security: browsers increasingly flag non-HTTPS sites with visible warnings, and search engines have used HTTPS as a ranking signal for years, meaning a site accessible over both HTTP and HTTPS without a forced redirect is both leaking traffic to the insecure version and potentially diluting its own search relevance by allowing two versions of the same content to be indexed separately.\n\nA correctly configured redirect uses a 301 (permanent) status specifically, which both browsers and search engines treat as a firm, cacheable signal that the HTTP version has permanently moved to HTTPS, rather than a temporary redirect that gets re-checked on every visit.',
+      },
+      {
+        heading: 'Why "Require" Replaced the Older Order/Allow/Deny Syntax',
+        body:
+          'Apache 2.4 introduced a new access-control module with substantially different, more capable syntax (Require ip, Require all denied, and related directives), replacing the older Order/Allow/Deny directives that many tutorials, some quite old, still reference. Apache\u2019s own official documentation explicitly deprecates the older syntax and recommends against continuing to use it in new configurations, a genuine, documented change rather than a stylistic preference. Since many tutorials online were written years before this change and never updated, it\u2019s common to find copy-pasted rules using the outdated syntax still circulating.\n\nUsing the current Require-based syntax specifically avoids depending on compatibility behavior that newer Apache versions maintain only for backward compatibility and may not maintain indefinitely.',
+      },
+      {
+        heading: 'Why .htaccess Rules Don\u2019t Work on Nginx (Or Anywhere Else)',
+        body:
+          '.htaccess is not a general web-server standard, it\u2019s a feature specific to Apache\u2019s architecture, and Nginx, a widely used alternative web server, has no equivalent per-directory configuration file mechanism at all, it doesn\u2019t read or recognize .htaccess files in any capacity. A site running on Nginx that needs equivalent behavior, HTTPS redirects, caching headers, access restrictions, needs those rules written directly into Nginx\u2019s own server block configuration using entirely different syntax.\n\nThis is a genuinely common point of confusion for anyone moving a site between hosting environments: an .htaccess file that worked perfectly on Apache-based hosting simply does nothing at all if the new host runs Nginx, since there\u2019s no equivalent file Nginx looks for or interprets.',
+      },
+    ],
     supportedFormats: { output: '.htaccess (plain text)', notes: 'Generated rules depend on your specific Apache configuration and available modules. Always test before deploying to production.' },
     privacy: NO_FILE_PRIVACY,
   },
@@ -1365,6 +1595,29 @@ export const toolContent = {
       'Understanding what an existing, unfamiliar cron expression actually does',
       'Verifying a schedule will run when you expect, before deploying it',
       'Checking a schedule that combines day-of-month and day-of-week behaves the way you actually intend',
+    ],
+    guideTitle: 'The Complete Guide to Cron Expressions',
+    guide: [
+      {
+        heading: 'The Five Fields of a Cron Expression, in Order',
+        body:
+          'A standard cron expression packs an entire recurring schedule into five space-separated fields, read left to right: minute (0-59), hour (0-23), day of month (1-31), month (1-12), and day of week (0-6, where 0 is Sunday). Each field accepts a specific value, a range, a comma-separated list, an asterisk meaning "every possible value," or a step value using a slash (like */15 for "every 15 units"). An expression like 30 14 * * 1-5 breaks down directly once the field order is known: minute 30, hour 14, any day of month, any month, weekdays 1 through 5, meaning 2:30 PM on every weekday.\n\nMost confusion around cron syntax comes not from any individual field being complicated, but from losing track of which position means what, which is exactly why building an expression visually, field by field with an explanation, avoids the classic mistake of swapping the minute and hour fields or miscounting a range.',
+      },
+      {
+        heading: 'The OR, Not AND, Trap: Cron\u2019s Most Misunderstood Behavior',
+        body:
+          'When both the day-of-month and day-of-week fields are restricted to specific values (neither is left as an asterisk), standard cron combines them with OR logic, not AND, a behavior that trips up even experienced developers because it\u2019s genuinely counter-intuitive. An expression like 0 0 1 * 0 doesn\u2019t mean "midnight on the 1st, but only if that happens to be a Sunday," it means "midnight on the 1st of the month, OR every Sunday, whichever comes first," running far more often than someone expecting AND logic would intend.\n\nThis single behavior is responsible for a disproportionate share of real-world "why did my cron job run on a day I didn\u2019t expect" bugs, which is exactly why checking a plain-English explanation of an expression before deploying it, rather than trusting an intuitive read of the raw syntax, catches this specific, easy-to-miss mistake.',
+      },
+      {
+        heading: 'Why "Next Run Time" Verification Matters More Than It Seems',
+        body:
+          'A cron expression that looks correct on paper can still behave unexpectedly once real calendar quirks enter the picture, February\u2019s shorter length, a day-of-month value that doesn\u2019t exist in every month (31st in a 30-day month), or a day-of-week calculation that shifts depending on the year. Calculating genuine next-run times by actually walking forward through real calendar dates, rather than just parsing the syntax and assuming it\u2019s correct, surfaces these edge cases directly: seeing the actual dates a schedule will fire on is a far more reliable check than mentally simulating the cron syntax and hoping the reasoning was right.\n\nThis matters most for schedules meant to run on a specific day of month combined with a month restriction, exactly the kind of expression where an edge case is most likely to hide.',
+      },
+      {
+        heading: 'Why 5-Field Cron Remains the Standard, Despite 6-Field Variants',
+        body:
+          'The original, most widely implemented cron specification uses exactly five fields, minute, hour, day of month, month, and day of week, and this remains the format expected by the classic Unix cron daemon and the vast majority of scheduling tools and CI/CD platforms that use "cron syntax" as their scheduling format. Some specific tools (certain application frameworks, a few cloud scheduling services) extend this to six fields by adding a leading seconds field, but this is a variant of specific tools, not the universal standard.\n\nAssuming a 6-field expression will work wherever standard cron syntax is expected is a common source of confusion, since a 5-field-only system will either reject a 6-field expression outright or misinterpret it entirely, shifting every field by one position.',
+      },
     ],
     supportedFormats: { notes: 'Supports standard 5-field cron syntax only (minute, hour, day-of-month, month, day-of-week), not 6-field dialects with a seconds field.' },
     privacy: NO_FILE_PRIVACY,
@@ -1451,6 +1704,29 @@ export const toolContent = {
       'Making a reaction or highlight clip from a longer video',
       'Creating a looping demo of a UI interaction for a presentation',
       'Sharing a quick moment from a video somewhere GIFs work better than video files',
+    ],
+    guideTitle: 'The Complete Guide to Making GIFs from Video',
+    guide: [
+      {
+        heading: 'Why GIF Exists Alongside Video, Not as a Replacement for It',
+        body:
+          'GIF predates modern video formats by decades and was never designed to compete with them technically, it lacks audio support entirely, supports only 256 colors per frame against video\u2019s millions, and compresses far less efficiently. What GIF offers instead is universal, friction-free playback: it autoplays and loops in almost any context, a chat app, a forum post, a README file, without needing a video player, a click to start, or worrying about codec support. This is exactly the niche GIF still fills today, short, silent, looping clips in contexts where a full video player would be overkill or simply unsupported.\n\nUnderstanding this tradeoff clarifies when a GIF is actually the right choice versus when a short video clip would serve better: GIF wins for quick visual communication in text-based contexts, video wins whenever audio matters or the clip runs longer than a few seconds.',
+      },
+      {
+        heading: 'Why Clip Length Is Capped: The Real Cost of Browser-Based GIF Creation',
+        body:
+          'Converting video into a GIF means extracting individual frames, reducing each one\u2019s color palette to GIF\u2019s 256-color limit, and encoding them all into the GIF format, a genuinely CPU-intensive process. Running entirely in JavaScript inside a browser, without a dedicated video-processing backend, means every additional second of source video adds dozens more frames that all need this same processing, and both processing time and final file size grow quickly as clip length increases.\n\nA roughly 10-second cap keeps this within a range where browser-based processing stays fast and the resulting file size stays reasonable; a dedicated desktop video editor, with access to more processing power and less restrictive memory limits, can reasonably handle much longer clips than a browser-based tool can.',
+      },
+      {
+        heading: 'Color Quantization: Why GIF Colors Never Look Quite Identical to the Source',
+        body:
+          'GIF\u2019s 256-color-per-frame limit means a video frame containing millions of possible colors has to be reduced down to a much smaller palette before it can be stored as a GIF frame at all, a process called quantization. Standard quantization algorithms are genuinely good at selecting the 256 colors that best represent a given frame\u2019s actual color distribution, which is why the result usually looks close to the original despite the dramatic reduction, but "close" isn\u2019t "identical," subtle color banding or slight shifts in smooth gradients are an inherent, unavoidable consequence of the format itself, not a flaw specific to any one conversion tool.\n\nThis matters most for content with smooth color gradients or subtle shading, a sunset, a soft shadow, where the color reduction is most visible; flatter, more graphic content with fewer distinct colors to begin with shows the effect far less.',
+      },
+      {
+        heading: 'Frame Rate Tradeoffs: Smoothness vs. File Size',
+        body:
+          'A higher frame rate captures motion more smoothly but directly multiplies the number of frames that need to be stored, and since GIF compresses each frame close to independently rather than efficiently encoding the similarity between consecutive frames the way video formats do, more frames means a meaningfully larger file, not just a marginally larger one. For fast, detailed motion, a higher frame rate genuinely earns its size cost by avoiding a choppy, stuttering result. For simpler content, a reaction clip, a slow UI interaction, a lower frame rate often looks perfectly smooth to the eye while keeping the file substantially smaller and faster to load wherever it\u2019s shared.',
+      },
     ],
     supportedFormats: { input: 'MP4, WebM, MOV, OGV', output: 'GIF', maxSize: '100 MB (clips limited to 10 seconds)' },
     privacy: BROWSER_ONLY_PRIVACY,
@@ -2381,6 +2657,29 @@ export const toolContent = {
       'Populating a CMS template before real content is written',
       'Demonstrating a typography or font choice without distracting real content',
     ],
+    guideTitle: 'The Complete Guide to Lorem Ipsum',
+    guide: [
+      {
+        heading: 'Why Placeholder Text Needs to Be Meaningless on Purpose',
+        body:
+          'The entire point of placeholder text is to occupy the visual space real content will eventually fill, without the reader\u2019s attention being pulled toward the words themselves rather than the layout, spacing, and typography being evaluated. Readable text in any real language inevitably gets read, a viewer\u2019s eye and attention naturally engages with meaning, which is exactly the distraction a design review doesn\u2019t want at that stage. Lorem ipsum solves this specifically by looking like genuine text, plausible word lengths, natural letter patterns, normal punctuation rhythm, while carrying no actual meaning to engage with, letting a viewer\u2019s attention stay on the design itself rather than drifting into reading comprehension.',
+      },
+      {
+        heading: 'The Genuine, Documented Origin in Cicero\u2019s Latin',
+        body:
+          'Unlike many design myths, lorem ipsum\u2019s origin is real and traceable: it derives from a passage of Cicero\u2019s "de Finibus Bonorum et Malorum" ("On the Ends of Good and Evil"), a genuine work of Latin philosophy written in 45 BC. The standard placeholder text takes words and phrases from this source and scrambles, truncates, and rearranges them to the point of no longer forming coherent, readable Latin, while retaining enough of the original text\u2019s natural letter and word patterns to still look convincingly like real language at a glance.\n\nThis genuine textual origin is part of why lorem ipsum has remained the standard for so long rather than being replaced by purely randomized character strings, it has an authentic linguistic texture (real word roots, plausible letter combinations) that fully artificial random text doesn\u2019t naturally replicate.',
+      },
+      {
+        heading: 'Words, Sentences, and Paragraphs: Choosing the Right Unit',
+        body:
+          'Different design contexts call for placeholder text measured in genuinely different units, and picking the right one matters for how useful the result actually is. A short UI label or button needs just a handful of words to test how the interface handles realistic short text. A body paragraph in an article layout needs full sentences and paragraphs, with natural variation in sentence length, to reveal how the layout handles a realistic mix of line lengths and paragraph breaks. Generating the wrong unit, a huge block of words with no sentence structure when full paragraphs were actually needed, produces placeholder text that doesn\u2019t actually resemble how real content would be structured in that context, undermining the whole point of using it to preview a realistic layout.',
+      },
+      {
+        heading: 'When to Stop Using Placeholder Text and Switch to Real Content',
+        body:
+          'Lorem ipsum is genuinely valuable early in a design process, before real content exists, for evaluating layout, spacing, and typography in isolation from content concerns. Its usefulness has a natural limit, though: real written content rarely has the same length distribution, word patterns, or structural rhythm as generated placeholder text, meaning a layout that looks perfect with lorem ipsum can reveal real problems once actual content is dropped in, a heading that\u2019s too long, a paragraph that breaks awkwardly, an image caption that overflows. Swapping in real (even rough draft) content as early as reasonably possible catches these layout issues while there\u2019s still time to address them, rather than discovering them only after a design has already been finalized around idealized placeholder text.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -2818,6 +3117,29 @@ export const toolContent = {
       'Preparing a slug for a platform that doesn\u2019t auto-generate one',
       'Cleaning up an auto-generated slug that includes unwanted characters',
     ],
+    guideTitle: 'The Complete Guide to URL Slugs',
+    guide: [
+      {
+        heading: 'Why URL Slugs Matter for More Than Just Looking Tidy',
+        body:
+          'A URL slug is the human-readable portion of a web address that identifies a specific page, and a well-formed one serves purposes beyond simple aesthetics. A clean, descriptive slug (/blog/how-to-bake-bread rather than /blog/post?id=4821) is immediately understandable to a visitor glancing at the URL before even clicking, gives search engines readable, relevant words to associate with the page\u2019s topic, and stays stable and memorable enough that someone could plausibly type or recall it correctly.\n\nThis is exactly why slug generation follows a specific, consistent set of rules rather than just "however the title happens to look," the transformation exists to reliably produce a URL-safe, readable, search-friendly identifier from arbitrary human-written text.',
+      },
+      {
+        heading: 'Why Hyphens Are the Standard, Not Underscores or Spaces',
+        body:
+          'A raw title contains characters a URL can\u2019t safely or cleanly represent, spaces most obviously, since a literal space in a URL gets encoded as %20 or a plus sign, both of which look cluttered and unfriendly in an address bar. Hyphens became the standard word separator for slugs specifically because search engines have historically parsed a hyphen as indicating separate words, while an underscore was, for a long stretch of search engine history, treated as joining two words into a single token rather than separating them, a meaningful difference for how a URL\u2019s words get interpreted as relevant keywords.\n\nBeyond the search engine consideration, hyphens are also simply easier to read correctly in a URL bar, an underscore rendered in certain fonts can be visually confused with a space or missed entirely, an ambiguity hyphens don\u2019t share.',
+      },
+      {
+        heading: 'What Happens to Special Characters, Accents, and Punctuation',
+        body:
+          'A proper slug generator needs to handle more than just replacing spaces with hyphens, it needs to strip or transliterate every character that isn\u2019t URL-safe. Punctuation (apostrophes, question marks, colons) is typically removed outright, since it carries no meaning once separated from its original sentence context. Accented characters (é, ñ, ü) are usually converted to their closest unaccented equivalent (e, n, u) rather than dropped entirely, preserving readability rather than leaving a confusing gap. Everything is also converted to lowercase, since URL paths are frequently treated as case-sensitive by web servers, and a consistent, predictable lowercase convention avoids two different-looking URLs accidentally pointing to what was meant to be the same page.',
+      },
+      {
+        heading: 'Keeping Slugs Stable: Why Changing One Later Has Real Consequences',
+        body:
+          'Once a page has been live and indexed by search engines, or linked to from elsewhere, changing its slug breaks every one of those existing links and search listings unless a redirect is set up from the old URL to the new one. This is exactly why getting a slug right at creation time, rather than tweaking it repeatedly after a page has already been published and gained traffic, matters more than it might initially seem, a slug is meant to be a stable, permanent identifier for a piece of content, not a detail to be casually revised later without consequence.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -2903,6 +3225,29 @@ export const toolContent = {
     ],
     howToUse: ['Choose a calculation mode.', 'Enter the two numbers.', 'The result appears instantly.'],
     useCases: ['Calculating a discount or tax amount', 'Figuring out what portion a number represents of a total', 'Tracking a percentage increase or decrease over time', 'Checking a percentage-based calculation by hand'],
+    guideTitle: 'The Complete Guide to Percentage Calculations',
+    guide: [
+      {
+        heading: 'The Three Core Percentage Questions, and Why They\u2019re Easy to Mix Up',
+        body:
+          'Nearly every real-world percentage problem reduces to one of three distinct questions, all using the same two underlying numbers but asking something genuinely different: "what is X% of Y" (finding a portion of a total, like a discount amount), "X is what percent of Y" (finding what share one number represents of another, like a test score), and "what is the percentage change from X to Y" (finding how much a value grew or shrank). Using the wrong formula for the question actually being asked is one of the most common sources of percentage errors, since all three involve the same two input numbers but combine them in different ways.\n\nIdentifying which of these three questions is actually being asked, before reaching for a formula, is the single most useful habit for avoiding percentage mistakes, since the numbers alone don\u2019t indicate which relationship is intended.',
+      },
+      {
+        heading: 'Percentage Point vs. Percent: A Distinction Worth Getting Right',
+        body:
+          'Going from a 20% rate to a 25% rate can be accurately described two different, both-correct ways depending on what\u2019s being measured: as a 5 percentage point increase (the simple arithmetic difference between the two percentages), or as a 25% relative increase (since the 5-point gain represents 25% of the original 20% value). These aren\u2019t interchangeable, and conflating them is a genuinely common source of confusion, especially in contexts like interest rates, tax rates, or statistics reporting, where the difference between "a 5 percentage point increase" and "a 5 percent increase" describes meaningfully different magnitudes of change.\n\nBeing explicit about which one is meant, rather than using "percent" loosely to describe both, avoids a genuine and common source of miscommunication, particularly in financial or statistical contexts where the distinction has real consequences.',
+      },
+      {
+        heading: 'Why Percentage Change Can Show a Negative Number',
+        body:
+          'A percentage change calculation carries directional information, not just magnitude, and a negative result is a completely normal, meaningful outcome, it indicates the value decreased rather than increased. A value dropping from 100 to 80 represents a genuine -20% change, and preserving that negative sign matters: treating it as a plain 20% change without the sign discards the information about which direction the value actually moved, which is often the more important part of the result depending on context.\n\nThis is why a well-built percentage change calculation always preserves the sign of the result rather than reporting only the absolute magnitude of the change.',
+      },
+      {
+        heading: 'Sequential Percentage Changes Don\u2019t Simply Add Together',
+        body:
+          'A value increasing by 10% and then decreasing by 10% does not return to its original value, a common and genuinely counter-intuitive result. Starting from 100, a 10% increase reaches 110; a subsequent 10% decrease is calculated against that new value of 110, not the original 100, resulting in 99, not back to 100. This happens because each percentage change applies to whatever the current value is at that point, not to the original starting value, meaning sequential percentage changes compound rather than simply summing algebraically.\n\nThis matters in any context involving multiple sequential percentage changes, compounding interest, stacked discounts, or successive price adjustments, where naively adding percentages together (assuming +10% then -10% nets to 0%) produces a genuinely incorrect answer.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -2916,6 +3261,29 @@ export const toolContent = {
     ],
     howToUse: ['Enter the principal, annual rate, compounding frequency, and number of years.', 'The final amount and interest earned appear instantly.'],
     useCases: ['Estimating how a savings account or investment will grow over time', 'Comparing outcomes at different compounding frequencies', 'Understanding the real difference a small rate change makes over many years', 'Planning toward a savings goal by testing different time horizons'],
+    guideTitle: 'The Complete Guide to Compound Interest',
+    guide: [
+      {
+        heading: 'Why Compound Interest Is Often Called Growth on Growth',
+        body:
+          'Simple interest calculates a return based solely on the original principal, every period, so a fixed dollar amount is earned each time, growing the total by a constant increment. Compound interest instead calculates each period\u2019s return based on the current total, principal plus every bit of previously earned interest, which means the amount earning interest genuinely grows larger every period, not just the original principal. This is the mechanical reason compound growth accelerates over time in a way simple interest never does, each period\u2019s earnings become part of the base that the next period\u2019s earnings are calculated from.\n\nThe difference is small and easy to underestimate over a short time horizon, but becomes substantial over a long one, which is exactly why compound interest is central to long-term saving and investing specifically, and far less relevant for a short-term calculation where the compounding effect hasn\u2019t had time to meaningfully build.',
+      },
+      {
+        heading: 'Why Growth Looks Slow at First and Then Visibly Accelerates',
+        body:
+          'A compound growth curve has a genuinely recognizable shape: relatively flat and unremarkable in its early years, followed by a visibly steepening climb later on. This isn\u2019t a quirk of any particular calculation, it\u2019s the direct mathematical consequence of compounding needing time to build momentum, in the early periods, accumulated interest is still small relative to the principal, so the interest that interest itself earns is a correspondingly small, almost negligible amount. Only once accumulated interest has grown large enough in its own right does it start contributing a genuinely significant amount to each subsequent period\u2019s growth, which is when the curve\u2019s slope visibly steepens.\n\nThis pattern is exactly why starting to save or invest earlier matters disproportionately, a longer time horizon isn\u2019t just linearly more time to accumulate, it\u2019s more time specifically in the accelerating, later portion of the compounding curve, where the bulk of the total growth actually happens.',
+      },
+      {
+        heading: 'Why Compounding Frequency Genuinely Changes the Outcome',
+        body:
+          'The same nominal annual interest rate produces a different actual final amount depending on how frequently it compounds, annually, monthly, or daily, because more frequent compounding means each smaller portion of interest starts earning its own interest sooner rather than waiting a full year. Monthly compounding at a given annual rate produces a meaningfully larger final total than annual compounding at that identical rate, since interest is being added to the principal, and starting to earn its own interest, twelve times per year instead of once.\n\nThis is a real, calculable difference, not a rounding artifact, which is exactly why comparing two savings or investment options with seemingly identical stated rates but different compounding frequencies is worth doing explicitly rather than assuming they produce equivalent results.',
+      },
+      {
+        heading: 'Why a Small Rate Difference Matters More Than It Seems Over Time',
+        body:
+          'Because compound growth compounds the compounding, a seemingly modest difference in interest rate, one or two percentage points, for instance, produces a disproportionately larger difference in final outcome the longer the time horizon extends, since that rate difference is being applied repeatedly against an ever-growing base. Over a short period, a one-point rate difference might seem barely worth comparing; over several decades, that same one-point difference can separate genuinely different final outcomes, since each year\u2019s slightly larger growth itself compounds in subsequent years.\n\nThis is exactly why comparing rates carefully matters more for long-term savings and retirement planning than it might intuitively seem, the effect of a rate difference isn\u2019t linear over time, it compounds right alongside everything else.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -2929,6 +3297,29 @@ export const toolContent = {
     ],
     howToUse: ['Enter the loan amount, annual interest rate, and term in years.', 'The monthly payment, total paid, and total interest appear instantly.'],
     useCases: ['Estimating a mortgage payment before applying for a loan', 'Comparing monthly payments across different loan terms or rates', 'Understanding how much of a loan\u2019s total cost is interest', 'Checking a lender-provided payment figure independently'],
+    guideTitle: 'The Complete Guide to Loan Payment Calculations',
+    guide: [
+      {
+        heading: 'How Amortization Actually Works: Why Early Payments Are Mostly Interest',
+        body:
+          'A fixed-rate loan is structured so the monthly payment amount stays constant for the entire term, but the split between principal (paying down the actual borrowed amount) and interest within that fixed payment shifts substantially over the loan\u2019s life. Early in the loan, the outstanding balance is at its highest, and interest is calculated on that outstanding balance each period, so a large share of each early payment goes toward interest, with only a small remainder actually reducing the principal. As the balance gradually shrinks, less of each payment is needed to cover interest, and more goes toward principal, a pattern that accelerates noticeably in the loan\u2019s final years.\n\nThis is exactly why making extra principal payments early in a loan has an outsized effect on total interest paid, reducing the balance sooner means every subsequent month\u2019s interest calculation is based on a smaller number, compounding the savings over the remaining term.',
+      },
+      {
+        heading: 'Why Total Interest Can Approach the Loan Amount Itself',
+        body:
+          'For a long-term loan, a 30-year mortgage being the classic example, the cumulative effect of interest compounding on the outstanding balance across 360 monthly payments can result in total interest paid that approaches, or in a high-rate scenario, even exceeds the original loan amount. This isn\u2019t a calculation error or a sign of an unusually bad loan, it\u2019s the mathematical reality of borrowing over a long period, interest is charged repeatedly against a balance that only slowly decreases in the loan\u2019s early years.\n\nSeeing this total laid out clearly is exactly why comparing loan terms matters: a shorter loan term at a similar rate results in meaningfully higher monthly payments but substantially lower total interest paid over the life of the loan, a genuine tradeoff worth calculating explicitly rather than assuming.',
+      },
+      {
+        heading: 'What a Loan Calculator Typically Doesn\u2019t Include',
+        body:
+          'A standard loan payment calculation covers principal and interest, the two components of the core amortization formula, but a real-world mortgage payment usually bundles in additional costs beyond just those two: property taxes, homeowners insurance, and, for a down payment under 20%, private mortgage insurance (PMI), are all commonly collected as part of a monthly mortgage payment even though they aren\u2019t part of the loan\u2019s principal-and-interest calculation at all. A calculated principal-and-interest figure is a genuinely accurate piece of the total picture, but it\u2019s worth being clear it isn\u2019t automatically the complete monthly housing payment a lender would actually quote.\n\nFor an accurate full-payment estimate, these additional costs need to be added on top of the principal-and-interest figure separately, since they vary by location, insurance provider, and loan-to-value ratio in ways a pure amortization formula has no way to account for.',
+      },
+      {
+        heading: 'Why the Interest Rate Matters More Than It First Appears',
+        body:
+          'Because interest compounds against the outstanding balance every single payment period across a loan\u2019s entire term, even a seemingly small difference in interest rate, half a percentage point, for instance, can translate into a genuinely substantial difference in total interest paid over a long loan term, often thousands of dollars for a typical mortgage-sized loan. This is why comparing rates carefully across loan offers, rather than treating a small percentage difference as negligible, is worth the effort: the effect compounds across every payment for the full length of the loan, not just a one-time difference.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -2942,6 +3333,29 @@ export const toolContent = {
     ],
     howToUse: ['Enter the revenue (selling price) and cost.', 'Profit margin and markup appear instantly.'],
     useCases: ['Setting a price that achieves a target profit margin', 'Checking whether a markup percentage delivers the intended margin', 'Comparing margins across different products or services', 'Understanding the real difference between margin and markup'],
+    guideTitle: 'The Complete Guide to Profit Margin and Markup',
+    guide: [
+      {
+        heading: 'Margin vs. Markup: The Same Two Numbers, Two Different Percentages',
+        body:
+          'Both margin and markup describe the relationship between cost and profit, but they use different denominators, which is exactly why they produce different percentages from the same underlying numbers. Markup is profit expressed as a percentage of cost (how much was added on top of what something cost to produce or acquire). Margin is profit expressed as a percentage of the final selling price (what share of revenue is actual profit). A product costing $100 sold for $150 has a 50% markup (the $50 profit is 50% of the $100 cost) but only a 33.3% margin (that same $50 profit is 33.3% of the $150 revenue).\n\nConflating these two is a genuinely common and costly mistake in pricing decisions, setting a price by targeting a "50% margin" using markup math actually produces a meaningfully lower real margin than intended, which is exactly the kind of error that erodes profitability without anyone realizing why.',
+      },
+      {
+        heading: 'Why There\u2019s No Universal "Good" Profit Margin',
+        body:
+          'Typical profit margins vary dramatically across industries, driven by fundamentally different cost structures, competitive dynamics, and business models. A grocery store, operating on high sales volume and thin per-item markup, might run a healthy business on a 2-3% margin. A software company, with minimal per-unit cost to serve an additional customer once the product is built, might see 70-80% margins on the same underlying revenue. Neither figure indicates a better or worse-run business in isolation, they reflect genuinely different economics.\n\nThis is why the meaningful comparison for evaluating a margin isn\u2019t against some universal benchmark, but against other businesses in the same specific industry and business model, where the underlying cost structures are actually comparable.',
+      },
+      {
+        heading: 'Setting a Price to Hit a Target Margin, Not Just a Target Markup',
+        body:
+          'Because margin and markup diverge, pricing to hit a specific target margin requires a genuinely different calculation than simply adding a percentage on top of cost. To achieve a 40% margin specifically (not markup), the correct formula divides cost by (1 minus the target margin as a decimal), rather than simply multiplying cost by 1.4, which would actually produce a lower real margin than 40%. Using markup math when margin was actually the target is a subtle, easy-to-make error that results in underpricing relative to the intended profitability goal.\n\nBeing explicit about which one is actually being targeted, margin or markup, before doing the pricing math avoids ending up with a real margin meaningfully lower than what was actually intended.',
+      },
+      {
+        heading: 'Why Comparing Margins Across Products Reveals More Than Revenue Alone',
+        body:
+          'Two products can generate identical revenue while being dramatically different in actual profitability, a product with a thin margin needs to sell at high volume to generate meaningful profit, while a product with a healthy margin contributes proportionally more profit per sale even at a lower volume. Looking only at revenue or unit sales figures, without checking margin, can make a lower-revenue but higher-margin product look less important than it actually is to overall profitability.\n\nThis is exactly why margin comparison across a product line matters for real business decisions, pricing adjustments, which products to prioritize promoting, or where a cost increase would hurt profitability most, decisions that raw revenue figures alone don\u2019t reveal clearly.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -2955,6 +3369,29 @@ export const toolContent = {
     ],
     howToUse: ['Enter a date of birth.', 'Enter the date to calculate age as of (defaults to today).', 'The exact age appears instantly.'],
     useCases: ['Calculating exact age for an official form or application', 'Finding out how many total days old someone is', 'Calculating age as of a specific past or future date', 'Working out the exact time between any two dates'],
+    guideTitle: 'The Complete Guide to Calculating Age',
+    guide: [
+      {
+        heading: 'Why Simple Year Subtraction Gets Age Wrong',
+        body:
+          'The intuitive shortcut, subtracting a birth year from the current year, only produces the correct age if the birthday has already occurred this year. Someone born in December, calculated in January using this shortcut, comes out a full year older than they actually are, since the subtraction has no way to account for whether the specific month and day have passed yet. A correct age calculation needs to compare the full date, not just the year, checking whether the current month and day have reached or passed the birth month and day before counting the current year as a completed one.\n\nThis is a genuinely common source of small but real errors on forms filled out by hand, especially near someone\u2019s birthday, which is exactly the situation where the shortcut and the correct calculation are most likely to disagree.',
+      },
+      {
+        heading: 'How Leap Years Are Correctly Handled in Date Math',
+        body:
+          'A naive age or date-difference calculation that assumes every year has exactly 365 days will drift out of sync over time, since roughly every fourth year actually has 366. Correct date arithmetic instead works with each specific calendar\u2019s real structure, checking the actual number of days in each specific month of each specific year (including whether that year is a leap year), rather than applying one fixed average day count across all calculations.\n\nThis distinction rarely matters for a single age calculation spanning just a few years, but becomes genuinely significant for calculating total elapsed days across a longer span, or for anyone born in a leap year whose exact day-count age depends on correctly counting every leap day that has occurred since their birth.',
+      },
+      {
+        heading: 'The February 29th Edge Case: How a Leap-Day Birthday Is Handled',
+        body:
+          'Someone born on February 29th presents a genuine edge case, since that exact calendar date only exists once every four years. For age-in-years calculations, the standard, sensible convention treats their birthday as effectively occurring on the last day of February (the 28th, in a non-leap year) for the purpose of determining whether their birthday has "happened yet" in a given year, meaning their age still increments correctly on a predictable annual basis rather than only updating once every four years.\n\nThis convention matches how most legal and administrative systems handle a leap-day birthday for purposes like reaching a particular age threshold, treating it as occurring on February 28th (or sometimes March 1st, depending on the specific jurisdiction\u2019s convention) in non-leap years.',
+      },
+      {
+        heading: 'Age in Years vs. Total Days: Two Different, Both Useful Numbers',
+        body:
+          'Age expressed in years, months, and days answers "how old is this person" in the calendar-based way people naturally think about age. Total elapsed days answers a genuinely different question, exactly how much time has passed, expressed as a single number rather than broken into calendar units. Both are correct, accurate ways to describe the same underlying span of time, they just serve different purposes: years/months/days matches how age is conventionally stated and understood, while a total day count is more directly useful for precise duration comparisons, calculating exact elapsed time for a countdown, or milestone tracking like celebrating someone\u2019s 10,000th day of life.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -3020,6 +3457,29 @@ export const toolContent = {
     ],
     howToUse: ['Paste your CSS.', 'The minified result appears instantly.', 'Copy the result.'],
     useCases: ['Reducing a stylesheet\u2019s file size before deploying', 'Preparing CSS for a context without a build tool to minify it automatically', 'Comparing file size before and after minification', 'Quickly compressing a small CSS snippet for embedding inline'],
+    guideTitle: 'The Complete Guide to CSS Minification',
+    guide: [
+      {
+        heading: 'What Minification Actually Removes',
+        body:
+          'CSS minification strips out everything in a stylesheet that exists purely for human readability and has zero effect on how a browser interprets the styling: indentation, line breaks, comments, and redundant whitespace around selectors, properties, and values. None of this affects the actual rules a browser applies, a browser parses "color: red;" and a minified "color:red" identically, the whitespace exists solely to help a human reading the source code, not for anything the parser needs.\n\nThis is exactly why minification is safe to apply to any valid CSS without changing behavior, it\u2019s a purely cosmetic transformation from the browser\u2019s perspective, even though it makes the result substantially less readable to a person looking at the raw code.',
+      },
+      {
+        heading: 'Why Minified CSS Genuinely Speeds Up Page Loads',
+        body:
+          'A stylesheet is downloaded in full before a browser can apply its rules to render a page, meaning every byte of whitespace, comments, and formatting in an unminified file adds real, if small, download time on top of the actual styling rules a browser needs. For a small stylesheet this effect is negligible, but for a larger, complex CSS file, and especially on a slower connection, the cumulative savings from stripping non-functional bytes becomes meaningful, directly reducing how long a visitor waits before a page\u2019s styling is fully loaded and applied.\n\nThis is exactly why minification is standard practice for any production website, it\u2019s a straightforward, risk-free size reduction with no impact on functionality, unlike more invasive optimizations that carry some risk of changing behavior.',
+      },
+      {
+        heading: 'Why Development and Production Use Different Versions of the Same File',
+        body:
+          'The readable, well-commented, generously-indented version of a stylesheet is genuinely valuable during development, comments explain intent, indentation shows nesting and structure at a glance, and both make debugging and collaborating on the CSS far easier. None of that readability serves any purpose once the CSS reaches a visitor\u2019s browser, though, the browser doesn\u2019t benefit from comments or indentation at all. This is exactly why the standard workflow keeps a readable source version for development and generates a minified version specifically for production deployment, getting the full benefit of readable source code during development without paying its file-size cost in production.\n\nThis pattern, human-readable source plus a machine-optimized build output, is one of the most common and sensible practices across essentially all front-end development, not unique to CSS specifically.',
+      },
+      {
+        heading: 'Minification vs. Compression: Two Separate, Complementary Techniques',
+        body:
+          'Minification and server-level compression (like Gzip or Brotli) both reduce the number of bytes a browser needs to download, but they work through entirely different mechanisms and are commonly used together rather than as alternatives. Minification permanently removes non-functional characters from the source itself, producing a smaller file that stays smaller regardless of how it\u2019s served. Compression instead works at transmission time, encoding the file (whatever its size) more efficiently for the trip across the network, then decompressing it back to its original bytes once it reaches the browser, it doesn\u2019t change the underlying file at all, only how efficiently it travels.\n\nUsing both together compounds the benefit: a minified file is already smaller before compression even applies, and compression then further reduces the actual bytes transmitted over the network on top of that.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -3046,6 +3506,29 @@ export const toolContent = {
     ],
     howToUse: ['Paste your HTML.', 'The minified result appears instantly.', 'Copy the result.'],
     useCases: ['Reducing a static HTML page\u2019s file size before deploying', 'Preparing an HTML email template for smaller size', 'Compressing an HTML snippet for embedding elsewhere', 'Comparing file size before and after minification'],
+    guideTitle: 'The Complete Guide to HTML Minification',
+    guide: [
+      {
+        heading: 'Why HTML Minification Is Trickier Than CSS or JS Minification',
+        body:
+          'Removing whitespace from CSS or JavaScript is relatively low-risk, since whitespace in those languages is almost never semantically meaningful. HTML is a bit more delicate: a small number of elements and CSS properties can treat whitespace as visually significant, most notably text wrapped in a <pre> tag or styled with white-space: pre, where preserving exact spacing and line breaks is the entire point of the element. A minifier that aggressively strips whitespace everywhere without exception risks altering the visual appearance of exactly that small category of content.\n\nThis is exactly why a well-built HTML minifier is deliberately more conservative than a CSS or JS minifier, prioritizing safety by leaving genuinely whitespace-sensitive content untouched, over squeezing out every last possible byte at the risk of altering how a page actually displays.',
+      },
+      {
+        heading: 'Why Comments Are Safe to Remove, With One Real Exception',
+        body:
+          'HTML comments exist purely for developers, explaining a section of markup, leaving a note, temporarily disabling a block of code, and browsers ignore them entirely when rendering a page, making them completely safe to strip during minification in the overwhelming majority of cases. The one genuine exception: HTML has a legacy mechanism called conditional comments (like <!--[if IE]>...<![endif]-->), once used to serve different markup specifically to old versions of Internet Explorer. These look like ordinary comments but actually affected rendering in browsers that supported them. Modern browsers no longer support conditional comments at all, so this is now a legacy concern rather than an active risk for any current website, but it\u2019s the historical reason "just strip all comments" wasn\u2019t always a completely safe blanket rule.',
+      },
+      {
+        heading: 'Minifying Inline Script and Style Tags: A Separate Job',
+        body:
+          'Content inside <script> and <style> tags is technically embedded within the HTML document, but it\u2019s written in an entirely different language, JavaScript or CSS, with its own syntax rules and its own considerations for what can and can\u2019t be safely compressed. An HTML minifier focused specifically on HTML structure, whitespace between tags, comments, redundant attribute quoting, generally leaves the content inside those embedded script and style blocks untouched, treating minification of that inner content as a genuinely separate task better handled by a dedicated JS or CSS minifier built specifically for that language\u2019s syntax.\n\nFor a page with substantial inline scripts or styles, running each language through its own purpose-built minifier, rather than expecting one generic tool to handle all three simultaneously, produces a more thoroughly and safely minified result.',
+      },
+      {
+        heading: 'How Much Minifying HTML Actually Saves',
+        body:
+          'The size reduction from HTML minification depends heavily on how the original was authored, a hand-written page with generous indentation, frequent comments, and consistent line breaks between every element can shrink substantially, often 15-30%, while a page that was already fairly compact to begin with sees a more modest reduction. For most static HTML pages, the practical impact is smaller than minifying an equivalently-sized CSS or JS file, since HTML documents are frequently smaller overall than their associated stylesheets and scripts, but on a page-weight budget where every byte counts, particularly for mobile visitors on slower connections, it remains a genuinely worthwhile, zero-risk optimization to apply.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -3085,6 +3568,29 @@ export const toolContent = {
     ],
     howToUse: ['Paste your JavaScript code.', 'The minified result appears instantly.', 'Copy the result.'],
     useCases: ['Reducing a script\u2019s file size before deploying', 'Stripping comments from code before sharing it externally', 'Preparing a JavaScript snippet for embedding inline', 'Quickly compressing a small script without a full build pipeline'],
+    guideTitle: 'The Complete Guide to JavaScript Minification',
+    guide: [
+      {
+        heading: 'Why JavaScript Minification Is Fundamentally Harder Than CSS or HTML',
+        body:
+          'Stripping whitespace from CSS or HTML is comparatively low-risk, since whitespace in both languages is almost never semantically meaningful to the parser. JavaScript is a different story: whitespace and line breaks can genuinely matter in specific situations (JavaScript\u2019s automatic semicolon insertion behavior, for instance, depends partly on line breaks in certain edge cases), and code contains string literals, template strings, and regular expressions where characters that look like comment syntax or whitespace need to be preserved exactly as written because they\u2019re actual content, not formatting. A naive find-and-replace approach to stripping comments or whitespace risks corrupting a URL inside a string, breaking a regular expression pattern, or altering behavior in a whitespace-sensitive edge case.\n\nThis is exactly why safe JavaScript minification requires tracking context, knowing whether a given character sequence is inside a string, a comment, or actual code, rather than blindly stripping patterns that merely look like comments or whitespace wherever they appear.',
+      },
+      {
+        heading: 'How Safe Minification Tells a Real Comment from a URL',
+        body:
+          'A double-slash inside a JavaScript file can mean two completely different things depending on context: outside a string, // begins a genuine single-line comment that should be stripped; inside a string, like the "//" in "http://example.com", it\u2019s just two literal characters that happen to look similar and must be preserved exactly. Correctly telling these apart requires tracking whether the minifier\u2019s current position in the code is inside an open string literal (and which quote character opened it) as it scans through the file character by character, rather than applying a simple pattern match that can\u2019t distinguish "comment syntax" from "identical-looking characters that happen to be inside a string."\n\nThis string-boundary tracking is exactly what separates a genuinely safe minifier from a naive one that would silently corrupt any URL, file path, or other string content containing what looks like comment syntax.',
+      },
+      {
+        heading: 'What This Type of Minifier Does and Doesn\u2019t Do',
+        body:
+          'A comment-and-whitespace minifier handles exactly what its name suggests: removing comments and collapsing unnecessary whitespace, both changes that have zero effect on how the code actually executes. A full build-tool minifier (like Terser, commonly used in production JavaScript bundlers) goes considerably further, renaming variables to shorter names, removing genuinely dead code paths, and restructuring logic into more compact equivalent forms, transformations that require fully parsing the code into an abstract syntax tree and understanding its structure and semantics, not just tracking string and comment boundaries.\n\nThis is a real, honest scope difference worth understanding: a whitespace-and-comment minifier is a lighter-weight, lower-risk tool appropriate for quick compression without a build pipeline, while variable renaming and dead-code elimination genuinely need the more sophisticated, syntax-aware tooling a production build process typically includes.',
+      },
+      {
+        heading: 'Why Minifying Before Sharing Code Externally Isn\u2019t Just About File Size',
+        body:
+          'Stripping comments before sharing a piece of code externally serves a purpose beyond pure file-size reduction, comments frequently contain internal context, notes to teammates, references to internal ticket numbers or systems, or implementation details never meant for an external audience. Removing them before sharing code publicly, in a bug report, a public repository, or a code sample, avoids inadvertently exposing that internal context alongside the functional code itself, a genuinely practical reason to minify beyond simply making the file smaller.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -3202,6 +3708,29 @@ export const toolContent = {
     ],
     howToUse: ['Paste CSV data, with headers in the first row.', 'The JSON result appears instantly.', 'Copy the result.'],
     useCases: ['Converting an exported spreadsheet into JSON for an API or script', 'Preparing CSV data for a tool or database that expects JSON', 'Inspecting spreadsheet data in a more structured, nested-friendly format', 'Quickly checking CSV data for formatting issues by seeing it as JSON'],
+    guideTitle: 'The Complete Guide to Converting CSV to JSON',
+    guide: [
+      {
+        heading: 'Why a Naive Comma Split Breaks on Real-World CSV Data',
+        body:
+          'CSV looks deceptively simple, comma-separated values, one row per line, but real-world CSV data routinely contains commas inside the data itself: an address ("123 Main St, Apt 4"), a name with a suffix ("Smith, Jr."), or any text field where a comma is legitimately part of the content rather than a field separator. The CSV format handles this with quoting, a field containing a comma gets wrapped in double quotes, signaling that any commas inside those quotes are literal data, not separators. A parser that simply splits every line on every comma has no way to distinguish a separating comma from a quoted, literal one, and will incorrectly split a single quoted field into multiple fields, corrupting the resulting data structure.\n\nThis is exactly why a genuine CSV parser needs to track quote state as it reads through each line, character by character, rather than relying on a naive split, the quote-awareness is what makes the difference between a parser that works on simple test data and one that works on real, messy, real-world CSV exports.',
+      },
+      {
+        heading: 'Why the First Row Becomes JSON Keys, Not Data',
+        body:
+          'Standard CSV convention treats the first row as a header row, containing the field names that describe what each column represents, with actual data starting from the second row onward. Converting to JSON leans directly on this convention: each header value becomes the key name in the resulting JSON objects, and each subsequent row becomes one object with those keys mapped to that row\u2019s corresponding values. This is what transforms a flat, row-and-column spreadsheet structure into JSON\u2019s more expressive key-value object structure, giving every value a named, self-describing field rather than just a positional column index.\n\nThis is also why a CSV file without a proper header row produces an incorrect result when converted, the first row of actual data gets misinterpreted as field names instead, silently corrupting the conversion in a way that isn\u2019t always obvious at a glance.',
+      },
+      {
+        heading: 'What Happens to Data Types During Conversion',
+        body:
+          'CSV, being a plain-text format, stores every value as text, there\u2019s no native way for a CSV file to indicate that "42" should be treated as a number rather than the two characters "4" and "2". JSON, by contrast, has genuine distinct data types, numbers, booleans, and strings are all represented differently. A CSV-to-JSON converter needs to make a decision here: either preserve every value as a string exactly as it appeared in the CSV (safest, since it never guesses wrong), or attempt to infer likely types (converting "42" to a genuine JSON number, "true" to a genuine boolean), which is more convenient for downstream use but risks incorrectly converting a value that was meant to stay textual, like a ZIP code that happens to look numeric but should retain any leading zeros.\n\nUnderstanding which approach a given converter takes matters for anything downstream that depends on the resulting JSON\u2019s exact data types, since a value silently converted from string to number (or vice versa) can cause subtle bugs in code that expects one type but receives the other.',
+      },
+      {
+        heading: 'When JSON Genuinely Suits Data Better Than CSV',
+        body:
+          'CSV\u2019s flat, tabular structure works well for data that\u2019s naturally row-and-column shaped, but it has no native way to represent nested or hierarchical data, a customer record with multiple associated addresses, for instance, doesn\u2019t map cleanly onto CSV\u2019s one-row-per-record structure. JSON\u2019s object and array structure handles nesting naturally, which is exactly why data destined for an API, a NoSQL database, or any system built around structured, potentially nested records is usually a better fit for JSON than CSV, even when the original data started out in a flat spreadsheet.\n\nThis is a genuine, common motivation for CSV-to-JSON conversion beyond simple format compatibility: it\u2019s often a first step toward reshaping flat spreadsheet data into a structure better suited for the system it\u2019s ultimately headed toward.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -3241,6 +3770,29 @@ export const toolContent = {
     ],
     howToUse: ['Paste your YAML.', 'The JSON result appears instantly.', 'Copy the result.'],
     useCases: ['Converting a YAML configuration file into JSON for a script or tool', 'Inspecting a YAML file\u2019s structure in a more familiar format', 'Preparing YAML-based settings for a JSON-only system', 'Learning YAML structure by comparing it against its JSON equivalent'],
+    guideTitle: 'The Complete Guide to YAML and JSON',
+    guide: [
+      {
+        heading: 'Why YAML and JSON Represent the Exact Same Kind of Data Differently',
+        body:
+          'YAML and JSON are both designed to represent structured data, nested objects, lists, key-value pairs, but they take genuinely different approaches to notation. JSON relies on explicit punctuation, braces for objects, brackets for arrays, quotes for strings, commas between items, meaning structure is unambiguous from the punctuation alone regardless of whitespace. YAML instead uses indentation itself to represent nesting, much like Python does for code blocks, trading away explicit punctuation for a format that reads more like plain, human-friendly text once you\u2019re used to it. Both ultimately describe the same underlying data structures; converting between them changes the notation, not the actual information represented.\n\nThis is exactly why YAML has become the preferred format for configuration files meant to be hand-edited by humans (Docker Compose, Kubernetes manifests, CI/CD pipeline definitions), while JSON remains dominant for data interchange between programs, where unambiguous, strictly-punctuated structure matters more than human readability.',
+      },
+      {
+        heading: 'Why YAML\u2019s Indentation Sensitivity Is a Real Source of Errors',
+        body:
+          'Because YAML relies on indentation level itself to represent nesting depth, rather than explicit bracket or brace punctuation, an indentation mistake in YAML isn\u2019t merely a cosmetic issue the way inconsistent JSON formatting would be, it\u2019s a genuine structural error that changes what the data actually means, or breaks parsing outright. Mixing tabs and spaces, or misaligning a nested item by even one column, can shift an item into the wrong nesting level entirely, silently producing a different data structure than intended rather than an obvious error.\n\nThis sensitivity is exactly why YAML editors and linters that highlight indentation issues are genuinely useful rather than a nice-to-have, and why converting a suspect YAML file to JSON and inspecting the resulting structure is a practical way to verify the indentation was actually interpreted the way it was intended.',
+      },
+      {
+        heading: 'What "Common Subset" Means, and Why It\u2019s the Right Scope',
+        body:
+          'The full YAML specification includes several advanced features rarely seen outside specialized use, anchors and references (letting one part of a YAML document reference and reuse another part), multiple document markers within a single file, and compact inline flow syntax that looks more like JSON embedded within YAML. The overwhelming majority of real-world YAML, configuration files for Docker, Kubernetes, CI/CD pipelines, application settings, uses a much narrower, more straightforward subset: nested mappings (objects), lists, and basic scalar values (strings, numbers, booleans).\n\nA converter built around this practical common subset handles the YAML that actually shows up in real projects reliably, while being upfront that the full specification\u2019s more exotic, rarely-used features aren\u2019t covered, a reasonable and honest scope decision rather than a limitation to work around.',
+      },
+      {
+        heading: 'Comparing Formats Side by Side: A Genuine Way to Learn YAML',
+        body:
+          'For anyone more comfortable reading JSON\u2019s explicit, punctuation-heavy structure, converting an unfamiliar YAML file to its JSON equivalent and comparing them side by side is a genuinely effective way to build an intuitive understanding of how YAML\u2019s indentation-based nesting maps onto the more familiar brace-and-bracket structure. Seeing the same underlying data represented both ways makes YAML\u2019s conventions, what indentation level means what nesting depth, how a list is denoted, how key-value pairs are written, concrete and visual rather than abstract rules to memorize from documentation alone.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -3451,6 +4003,29 @@ export const toolContent = {
     ],
     howToUse: ['Enter an IP address.', 'Enter the CIDR prefix length (0\u201332).', 'The full subnet breakdown appears instantly.'],
     useCases: ['Planning IP address assignments for a home or office network', 'Verifying a subnet\u2019s valid host range before configuring a device', 'Learning how CIDR notation and subnetting actually work', 'Double-checking a network configuration during troubleshooting'],
+    guideTitle: 'The Complete Guide to Subnetting',
+    guide: [
+      {
+        heading: 'What CIDR Notation Actually Encodes',
+        body:
+          'An address like 192.168.1.0/24 packs two pieces of information into one compact notation: the IP address itself, and after the slash, how many of that address\u2019s 32 bits are dedicated to identifying the network versus how many remain for identifying individual hosts within it. A /24 means the first 24 bits are the fixed network portion, leaving the remaining 8 bits free to represent individual host addresses within that network, exactly 2^8, or 256, possible combinations. A smaller prefix number (like /16) reserves fewer bits for the network and more for hosts, meaning a much larger subnet with far more possible host addresses; a larger prefix number (like /28) does the reverse, a smaller subnet with fewer hosts.\n\nUnderstanding this bit-based split is what makes CIDR notation\u2019s prefix number meaningful at a glance, rather than an arbitrary number, it directly determines both the subnet\u2019s total size and where its boundaries fall.',
+      },
+      {
+        heading: 'Why Two Addresses in Every Subnet Are Always Off-Limits',
+        body:
+          'Within any subnet, exactly two addresses are structurally reserved and can never be assigned to an individual device, regardless of subnet size. The lowest address in the range (all host bits set to 0) identifies the network itself, used to refer to the subnet as a whole rather than any specific device within it. The highest address (all host bits set to 1) is the broadcast address, a special address that, when used as a destination, reaches every device on that subnet simultaneously. This is exactly why a /24 subnet, with 256 total possible addresses, has only 254 genuinely usable ones, not 256, the two reserved addresses at the very bottom and top of the range are structurally unavailable no matter how the subnet is configured.\n\nThis reservation isn\u2019t a configurable choice, it\u2019s a fundamental part of how IP networking itself is structured, which is why every subnet calculation needs to account for it rather than treating the full address count as available for host assignment.',
+      },
+      {
+        heading: 'Why Smaller Prefix Numbers Mean Bigger Networks (Not Smaller)',
+        body:
+          'The relationship between a CIDR prefix number and subnet size trips up a lot of people learning subnetting for the first time, since it runs opposite to intuition: a smaller prefix number produces a larger subnet, and a larger prefix number produces a smaller one. This makes sense once traced back to the underlying bit math, a smaller prefix number means fewer bits are locked to the network portion, leaving more bits free for host addresses, and more available host bits means exponentially more possible host addresses (each additional host bit doubles the count). A /8 network has 24 host bits available, over 16 million possible addresses; a /30 network has just 2 host bits, only 4 total addresses.\n\nKeeping this inverse relationship straight, smaller prefix number equals bigger network, is one of the most useful mental anchors for reasoning about subnetting without needing to recalculate from scratch every time.',
+      },
+      {
+        heading: 'Why Subnetting a Network Matters for Real Network Design',
+        body:
+          'Dividing a larger network into smaller subnets serves genuinely practical purposes beyond just organizing IP addresses: it contains broadcast traffic to a smaller group of devices rather than an entire organization (since a broadcast sent to one subnet doesn\u2019t reach devices on a different subnet), it allows different physical locations or departments to be logically separated and independently managed, and it enables more granular security policies, firewall rules and access restrictions applied to a specific subnet rather than uniformly across an entire address space.\n\nThis is exactly why subnet planning is a genuine, deliberate network design decision rather than an arbitrary technical detail, the choice of how a larger address block gets divided has real, lasting consequences for network performance, manageability, and security as an organization grows.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 

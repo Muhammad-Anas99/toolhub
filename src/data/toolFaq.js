@@ -22,6 +22,11 @@ export const toolFaqs = {
       question: 'When should I actually use PNG instead of JPG?',
       answer: 'When you need transparency, when the image will be edited and re-saved multiple times (to avoid generation loss), or when exact pixel accuracy matters \u2014 logos, screenshots with text, and graphics with sharp edges.',
     },
+    {
+      id: 'jpg-to-png-privacy',
+      question: 'Is my photo uploaded to a server during conversion?',
+      answer: 'No \u2014 the conversion happens entirely in your browser using the Canvas API. Your image is never uploaded anywhere.',
+    },
   ],
   'png-to-jpg': [
     {
@@ -51,6 +56,11 @@ export const toolFaqs = {
       question: 'Should I still use JPG if my PNG isn\u2019t a photo, like a screenshot with text?',
       answer: 'JPG can still shrink it, but the savings are usually smaller and sharp edges (like text) can pick up faint compression artifacts that photos hide much better. For a screenshot or graphic full of sharp lines, a higher quality setting or staying with PNG often gives a cleaner result.',
     },
+    {
+      id: 'png-to-jpg-privacy',
+      question: 'Is my image uploaded to a server during conversion?',
+      answer: 'No \u2014 the conversion happens entirely in your browser using the Canvas API. Your image is never uploaded anywhere.',
+    },
   ],
   'webp-to-png': [
     {
@@ -78,6 +88,11 @@ export const toolFaqs = {
       id: 'why-not-webp',
       question: 'If WEBP is smaller, why would I ever convert away from it?',
       answer: 'Compatibility, not quality \u2014 some older design software, certain email clients, and specific platforms still don\u2019t handle WEBP reliably, even though modern browsers support it well. PNG remains the safer bet when you genuinely don\u2019t control what opens the file next.',
+    },
+    {
+      id: 'webp-to-png-privacy',
+      question: 'Is my image uploaded to a server during conversion?',
+      answer: 'No \u2014 the conversion happens entirely in your browser using the Canvas API. Your image is never uploaded anywhere.',
     },
   ],
   'webp-to-jpg': [
@@ -194,6 +209,11 @@ export const toolFaqs = {
       question: 'Does resizing an image also reduce its file size?',
       answer: 'Usually, yes, since a smaller image has fewer pixels to store, but resizing and compressing are different tools for different jobs. If file size matters more than exact dimensions, running the result through the Image Compressor afterward will typically shrink it further.',
     },
+    {
+      id: 'image-resizer-privacy',
+      question: 'Is my image uploaded to a server to be resized?',
+      answer: 'No \u2014 resizing happens entirely in your browser using the Canvas API. Your images are never uploaded anywhere.',
+    },
   ],
   'image-crop': [
     {
@@ -228,6 +248,11 @@ export const toolFaqs = {
       question: 'Should I crop or resize to change an image\u2019s dimensions?',
       answer: 'Crop when you want to remove part of the image and keep the rest at full quality. Resize when you want the entire image smaller or larger, with nothing cut out \u2014 the two solve genuinely different problems.',
     },
+    {
+      id: 'image-crop-privacy',
+      question: 'Is my photo uploaded to a server to be cropped?',
+      answer: 'No \u2014 cropping happens entirely in your browser using the Canvas API. Your image is never uploaded anywhere.',
+    },
   ],
   'image-rotate': [
     {
@@ -261,6 +286,11 @@ export const toolFaqs = {
       question: 'I rotated my image but the text still looks backwards. What happened?',
       answer: 'Rotating turns an image around a point; it never mirrors it, so text stays readable, just at a different angle. Backwards text specifically means the image needs flipping instead, which reverses left and right the way a mirror does.',
     },
+    {
+      id: 'image-rotate-privacy',
+      question: 'Is my photo uploaded to a server to be rotated?',
+      answer: 'No \u2014 rotation happens entirely in your browser using the Canvas API. Your images are never uploaded anywhere.',
+    },
   ],
   'flip-image': [
     {
@@ -283,6 +313,11 @@ export const toolFaqs = {
       id: 'both-flips',
       question: 'Can I flip both horizontally and vertically at the same time?',
       answer: 'Yes \u2014 both directions can be applied together, which produces the same visual result as rotating the image 180\u00b0.',
+    },
+    {
+      id: 'flip-image-privacy',
+      question: 'Is my photo uploaded to a server to be flipped?',
+      answer: 'No \u2014 flipping happens entirely in your browser using the Canvas API. Your images are never uploaded anywhere.',
     },
   ],
 
@@ -533,6 +568,11 @@ export const toolFaqs = {
       question: 'Do I need to include the # symbol?',
       answer: 'No \u2014 both #3B6CF6 and 3B6CF6 work the same way. The # is optional here, though it\u2019s standard practice to include it when writing hex codes in actual CSS.',
     },
+    {
+      id: 'hex-to-rgb-privacy',
+      question: 'Does this tool need an internet connection to convert colors?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math in your browser. Nothing you enter is ever sent to a server.',
+    },
   ],
   'rgb-to-hex': [
     {
@@ -564,6 +604,11 @@ export const toolFaqs = {
       id: 'rgba-support',
       question: 'Does this handle rgba() with a transparency value too?',
       answer: 'The tool reads the red, green, and blue channels from an rgba() value \u2014 the alpha (transparency) component doesn\u2019t translate into a hex or HSL color value on its own, since hex and HSL don\u2019t carry transparency information the same way rgba() does.',
+    },
+    {
+      id: 'rgb-to-hex-privacy',
+      question: 'Does this tool need an internet connection to convert colors?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math in your browser. Nothing you enter is ever sent to a server.',
     },
   ],
   'hex-to-hsl': [
@@ -919,6 +964,11 @@ export const toolFaqs = {
       question: 'Can a bad .htaccess rule break my whole website?',
       answer: 'Yes \u2014 a malformed or conflicting rule can cause a server error across your entire site, not just the specific page you were trying to change. Always keep a backup of your original .htaccess file and test changes before relying on them in production.',
     },
+    {
+      id: 'htaccess-generator-privacy',
+      question: 'Is anything about my site or server sent anywhere when I use this?',
+      answer: 'No \u2014 the rules are assembled entirely in your browser from your selections. Nothing about your site, domain, or server is ever sent to or stored on a server here.',
+    },
   ],
 
   'cron-expression-generator': [
@@ -946,6 +996,11 @@ export const toolFaqs = {
       id: 'why-not-just-trust-comment',
       question: 'The cron job I inherited has a comment explaining it, why not just trust that?',
       answer: 'Comments can be wrong or outdated in ways the actual expression isn\u2019t \u2014 someone may have changed the schedule without updating the comment next to it. Checking the real expression directly is the more reliable way to know what a cron job genuinely does.',
+    },
+    {
+      id: 'cron-generator-privacy',
+      question: 'Is the schedule I build here sent anywhere?',
+      answer: 'No \u2014 every expression is built and explained entirely in your browser. Nothing you enter here is ever sent to a server.',
     },
   ],
 
@@ -1063,6 +1118,11 @@ export const toolFaqs = {
       id: 'gif-file-size-expectation',
       question: 'Why is the GIF file bigger than I expected?',
       answer: 'GIF is genuinely not an efficient format for anything with a lot of visual detail or movement \u2014 every frame is stored close to independently, unlike video formats built specifically to compress motion over time. A short, simple clip stays reasonably small; a longer or busier one can add up quickly.',
+    },
+    {
+      id: 'video-to-gif-privacy',
+      question: 'Is my video uploaded to a server to make the GIF?',
+      answer: 'No \u2014 every frame is extracted and converted entirely in your browser. Your video is never uploaded anywhere.',
     },
   ],
 
@@ -2346,6 +2406,11 @@ export const toolFaqs = {
       question: 'When should I use placeholder text versus real draft content?',
       answer: 'Lorem ipsum is genuinely useful early on, when you\u2019re testing layout and typography before real content exists. Once real content is available, swapping it in is worthwhile \u2014 actual text often has different natural lengths than placeholder text, which can reveal layout issues placeholder text hides.',
     },
+    {
+      id: 'lorem-ipsum-privacy',
+      question: 'Does this tool need an internet connection to generate text?',
+      answer: 'No \u2014 the text is generated instantly in your browser from a built-in word list. Nothing is sent to or stored on a server.',
+    },
   ],
 
   'password-generator': [
@@ -2718,6 +2783,9 @@ export const toolFaqs = {
   ],
   'slug-generator': [
     { id: 'what-is-a-slug', question: 'What exactly is a "slug"?', answer: 'The readable part of a URL, like "my-post-title" in example.com/blog/my-post-title \u2014 lowercase, hyphenated, no special characters.' },
+    { id: 'why-hyphens-not-underscores', question: 'Why hyphens instead of underscores?', answer: 'Search engines have historically treated a hyphen as a word separator, while an underscore was, for a long period, treated as joining two words into one. Hyphens are also easier to read at a glance in a URL bar.' },
+    { id: 'numbers-and-slugs', question: 'What happens to numbers and existing hyphens in my title?', answer: 'Numbers are kept as-is, and any existing hyphens are preserved rather than duplicated \u2014 only spaces and special characters get converted, and everything is lowercased for consistency.' },
+    { id: 'slug-generator-privacy', question: 'Is the title I enter here sent anywhere?', answer: 'No \u2014 the slug is generated instantly in your browser. Nothing you type here is ever sent to a server.' },
   ],
   'line-counter': [
     { id: 'why-two-counts', question: 'Why show two different line counts?', answer: 'Total lines and non-empty lines tell different stories \u2014 a document that\u2019s mostly blank lines looks very different from one that\u2019s mostly content, even with the same total count.' },
@@ -2735,21 +2803,31 @@ export const toolFaqs = {
   'percentage-calculator': [
     { id: 'mode-difference', question: 'What\u2019s the difference between "20% of 50" and "20 is what % of 50"?', answer: 'They answer different questions using the same two numbers \u2014 the first finds a portion of a value, the second finds what portion one value is of another. Mixing them up is a common source of errors.' },
     { id: 'negative-change', question: 'Why does percentage change show a negative number sometimes?', answer: 'A negative result means the value decreased \u2014 the sign carries real information about direction, not just magnitude.' },
+    { id: 'percentage-point-vs-percent', question: 'Is a "percentage point" different from a "percent"?', answer: 'Yes, and mixing them up is a common source of confusion. Going from 20% to 25% is a 5 percentage point increase, but it\u2019s actually a 25% relative increase (5 is 25% of the original 20). Both are correct, they\u2019re just answering different questions.' },
+    { id: 'percentage-calculator-privacy', question: 'Are the numbers I enter here saved or sent anywhere?', answer: 'No \u2014 every calculation happens instantly in your browser. Nothing you enter is ever sent to a server.' },
   ],
   'compound-interest-calculator': [
     { id: 'compounding-frequency-matters', question: 'Does compounding frequency really make a meaningful difference?', answer: 'Yes \u2014 the same rate compounded monthly produces a genuinely larger final amount than compounded annually, since each period\u2019s interest starts earning its own interest sooner.' },
     { id: 'simple-vs-compound', question: 'How is this different from simple interest?', answer: 'Simple interest is calculated only on the original principal. Compound interest is calculated on the principal plus all previously earned interest, which is why it grows faster over time.' },
+    { id: 'why-early-years-slow', question: 'Why does growth look slow at first and then accelerate?', answer: 'Compounding needs time to build momentum \u2014 early on, the accumulated interest is still small relative to the principal, so its own contribution is modest. As earned interest itself grows large enough to generate meaningful additional interest, the growth curve visibly steepens.' },
+    { id: 'compound-interest-privacy', question: 'Are my financial figures, like my savings amount, sent anywhere?', answer: 'No \u2014 every calculation happens instantly in your browser. The numbers you enter are never sent to or stored on a server.' },
   ],
   'loan-calculator': [
     { id: 'why-total-interest-so-high', question: 'Why is the total interest sometimes close to the loan amount itself?', answer: 'Over a long term like 30 years, interest accumulates on the remaining balance every month, and early payments go mostly toward interest rather than principal, which is why the total can add up to a substantial share of the original loan.' },
     { id: 'matches-bank-calculator', question: 'Will this match what my bank quotes me?', answer: 'It uses the same standard amortization formula lenders use for a fixed-rate loan, so the numbers should match closely, though a real quote may include fees this calculator doesn\u2019t account for.' },
+    { id: 'what-not-included', question: 'What does this calculator not include?', answer: 'It calculates principal and interest only \u2014 it doesn\u2019t include property taxes, homeowners insurance, PMI, or loan origination fees, all of which a real mortgage payment typically includes on top of principal and interest.' },
+    { id: 'loan-calculator-privacy', question: 'Are my loan details, like the amount or rate, sent anywhere?', answer: 'No \u2014 every calculation happens instantly in your browser. The numbers you enter, including your loan amount and rate, are never sent to or stored on a server.' },
   ],
   'profit-margin-calculator': [
     { id: 'margin-vs-markup', question: 'Is a 50% markup the same as a 50% profit margin?', answer: 'No \u2014 a 50% markup on cost actually works out to a 33.3% profit margin, since margin is calculated against revenue while markup is calculated against cost. They\u2019re genuinely different numbers.' },
+    { id: 'what-is-good-margin', question: 'What\u2019s considered a "good" profit margin?', answer: 'It varies enormously by industry \u2014 a grocery store might operate on a 2-3% margin, while a software company might see 70-80%. There\u2019s no universal target; comparing your margin against others in your specific industry is more meaningful than a general benchmark.' },
+    { id: 'profit-margin-privacy', question: 'Are my revenue and cost figures sent anywhere?', answer: 'No \u2014 every calculation happens instantly in your browser. Your business figures are never sent to or stored on a server.' },
   ],
   'age-calculator': [
     { id: 'why-not-just-subtract-years', question: 'Why not just subtract the birth year from the current year?', answer: 'That ignores whether the birthday has happened yet this year, which can be off by one. This calculator checks the actual month and day too, matching what a calendar would show.' },
     { id: 'leap-year-handling', question: 'Does this account for leap years correctly?', answer: 'Yes, it uses each specific month and year\u2019s actual number of days rather than a fixed 365-day assumption, so leap years don\u2019t cause any drift in the result.' },
+    { id: 'born-feb-29', question: 'What happens if someone was born on February 29th (a leap day)?', answer: 'Their age still counts correctly in years \u2014 the calculator checks whether their birth month and day have occurred yet in the current year, and February 29th is treated as occurring on the last day of February in non-leap years for that comparison.' },
+    { id: 'age-calculator-privacy', question: 'Are the dates I enter stored anywhere?', answer: 'No \u2014 the calculation happens instantly in your browser. The dates you enter are never sent to or stored on a server.' },
   ],
 
   'color-contrast-checker': [
@@ -2769,12 +2847,16 @@ export const toolFaqs = {
   ],
   'css-minifier': [
     { id: 'reversible', question: 'Can I get the original formatting back after minifying?', answer: 'Not automatically \u2014 minification removes whitespace and comments permanently, though running the result through a CSS Formatter will make it readable again, just without the original comments.' },
+    { id: 'how-much-smaller', question: 'How much smaller does minifying actually make a file?', answer: 'It varies by how the original was written, but a 20-40% reduction is typical for CSS with generous indentation and comments. Files that were already compact see a smaller gain.' },
+    { id: 'css-minifier-privacy', question: 'Is my CSS code sent to a server to be minified?', answer: 'No \u2014 minification happens entirely in your browser. Your code is never sent to or stored on a server.' },
   ],
   'html-formatter': [
     { id: 'void-elements', question: 'How does this handle tags like <img> and <br> that don\u2019t have a closing tag?', answer: 'They\u2019re recognized as void elements and formatted correctly without expecting or adding an unnecessary closing tag.' },
   ],
   'html-minifier': [
     { id: 'html-minify-safe', question: 'Is it safe to minify HTML that has inline JavaScript or CSS?', answer: 'This tool focuses on whitespace and comments in the HTML structure itself; content inside <script> and <style> tags should generally be minified separately with the dedicated JS or CSS tools for the safest result.' },
+    { id: 'html-whitespace-matters', question: 'Can removing whitespace ever break how a page displays?', answer: 'In rare cases \u2014 CSS\u2019s white-space: pre or similar properties can make whitespace inside specific elements visually significant. For ordinary HTML content this is very uncommon, but it\u2019s worth previewing the minified result if a page relies on preserved whitespace anywhere.' },
+    { id: 'html-minifier-privacy', question: 'Is my HTML code sent to a server?', answer: 'No \u2014 minification happens entirely in your browser. Your code is never sent to or stored on a server.' },
   ],
   'xml-formatter': [
     { id: 'xml-vs-html-formatting', question: 'Why use this instead of the HTML Formatter for XML?', answer: 'XML doesn\u2019t have HTML\u2019s built-in list of self-closing tags, so this formatter only treats an element as self-closing when the source explicitly writes it that way, matching XML\u2019s stricter rules.' },
@@ -2785,6 +2867,7 @@ export const toolFaqs = {
   'javascript-minifier': [
     { id: 'js-minify-url-safe', question: 'Will this break a URL or string that contains //?', answer: 'No \u2014 this tool tracks whether it\u2019s currently inside a string before deciding whether // starts a real comment, so a URL like http://example.com inside a string is always preserved intact.' },
     { id: 'js-minify-vs-terser', question: 'Does this rename variables or restructure code like a full build-tool minifier?', answer: 'No, this handles comment and whitespace removal safely, but doesn\u2019t rename variables or restructure logic, since that requires fully parsing the code\u2019s syntax tree rather than just tracking string boundaries.' },
+    { id: 'js-minifier-privacy', question: 'Is my JavaScript code sent to a server?', answer: 'No \u2014 minification happens entirely in your browser. Your code, including anything proprietary, is never sent to or stored on a server.' },
   ],
 
   'html-entities-encoder': [
@@ -2815,6 +2898,8 @@ export const toolFaqs = {
   ],
   'csv-to-json': [
     { id: 'why-not-split-comma', question: 'Why not just split each line on commas?', answer: 'Because a field can legitimately contain a comma inside quotes, like an address or "Smith, Jr." A naive split would break on that comma; this tool uses a real, quote-aware parser instead.' },
+    { id: 'first-row-headers', question: 'Does the first row have to be column headers?', answer: 'Yes \u2014 the first row is treated as field names, which become the keys in each resulting JSON object. If your CSV doesn\u2019t have a header row, add one before converting.' },
+    { id: 'csv-to-json-privacy', question: 'Is my CSV data uploaded anywhere?', answer: 'No \u2014 parsing and conversion happen entirely in your browser. Your data is never sent to or stored on a server.' },
   ],
   'xml-to-json': [
     { id: 'how-arrays-detected', question: 'How does this decide what becomes a JSON array?', answer: 'Any XML element that appears more than once at the same level under its parent becomes an array in the JSON output; a single occurrence stays a plain object.' },
@@ -2824,6 +2909,8 @@ export const toolFaqs = {
   ],
   'yaml-to-json': [
     { id: 'yaml-scope-limit', question: 'Does this handle every YAML feature?', answer: 'It covers the common subset used by most real config files \u2014 nested mappings, numbers, booleans, and strings \u2014 but not the full spec\u2019s more advanced features like anchors, references, or inline flow sequences.' },
+    { id: 'yaml-indentation-sensitive', question: 'Why does indentation matter so much in YAML?', answer: 'YAML uses indentation itself to represent nesting, rather than braces or brackets like JSON does \u2014 so inconsistent indentation (mixing tabs and spaces, or misaligned levels) is a genuine structural error, not just a style issue, and will produce an incorrect conversion.' },
+    { id: 'yaml-to-json-privacy', question: 'Is my YAML data uploaded anywhere?', answer: 'No \u2014 parsing and conversion happen entirely in your browser. Your data, including config files that may contain sensitive settings, is never sent to a server.' },
   ],
   'json-to-yaml': [
     { id: 'why-yaml-over-json', question: 'Why would I want YAML instead of JSON?', answer: 'YAML is often considered more readable for configuration files specifically, since it uses indentation instead of brackets and quotes for structure.' },
@@ -2878,6 +2965,8 @@ export const toolFaqs = {
   'subnet-calculator': [
     { id: 'network-vs-broadcast', question: 'Can I assign a device the network or broadcast address?', answer: 'No, both are reserved \u2014 the network address identifies the subnet itself, and the broadcast address is used to reach every device on it at once. Neither should be assigned to an individual device.' },
     { id: 'cidr-explained', question: 'What does the /24 in an address like 192.168.1.0/24 mean?', answer: 'It means the first 24 bits of the address are the network portion, leaving 8 bits for host addresses \u2014 256 total addresses, 254 of them usable.' },
+    { id: 'why-254-not-256', question: 'Why does a /24 subnet have 254 usable hosts instead of 256?', answer: 'Out of the 256 total addresses, one is reserved as the network address and one as the broadcast address, neither of which can be assigned to a device \u2014 leaving 254 genuinely usable addresses.' },
+    { id: 'subnet-calculator-privacy', question: 'Is the IP address I enter sent anywhere?', answer: 'No \u2014 every calculation happens instantly in your browser using plain binary math. Nothing you enter is ever sent to a server.' },
   ],
   'my-ip-address': [
     { id: 'public-vs-local-ip', question: 'Is this the same as the IP address shown in my computer\u2019s network settings?', answer: 'No, your computer\u2019s network settings usually show a private, local address only visible on your own network. This tool shows your public IP, the address visible to the outside internet.' },
