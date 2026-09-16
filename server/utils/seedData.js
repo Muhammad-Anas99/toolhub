@@ -120,7 +120,7 @@ export const toolSeed = [
   { name: 'Split PDF', slug: 'split-pdf', path: '/tools/split-pdf', category: 'pdf-tools', description: 'Extract specific pages or page ranges from a PDF into a new document.', icon: 'FaObjectUngroup', comingSoon: false },
   { name: 'PDF to JPG', slug: 'pdf-to-jpg', path: '/tools/pdf-to-jpg', category: 'pdf-tools', description: 'Convert PDF pages into JPG images, one page at a time.', icon: 'FaFileArrowDown', badge: 'new', comingSoon: false },
   { name: 'PDF to PNG', slug: 'pdf-to-png', path: '/tools/pdf-to-png', category: 'pdf-tools', description: 'Convert PDF pages into PNG images, one page at a time.', icon: 'FaFileArrowDown', comingSoon: false },
-  { name: 'Compress PDF', slug: 'compress-pdf', path: '/tools/compress-pdf', category: 'pdf-tools', description: 'Shrink PDF file size while keeping it readable.', icon: 'FaFilePdf', comingSoon: false },
+  { name: 'Compress PDF', slug: 'compress-pdf', path: '/tools/compress-pdf', category: 'pdf-tools', description: 'Shrink a scanned or image-heavy PDF file size significantly while keeping it readable, free and right in your browser.', icon: 'FaFilePdf', comingSoon: false },
   { name: 'PDF to Word', slug: 'pdf-to-word', path: '/tools/pdf-to-word', category: 'pdf-tools', description: 'Extract text from a PDF into an editable Word document.', icon: 'FaFileWord', comingSoon: false },
   { name: 'PDF to PowerPoint', slug: 'pdf-to-powerpoint', path: '/tools/pdf-to-powerpoint', category: 'pdf-tools', description: 'Turn every page of a PDF into a slide in a PowerPoint presentation.', icon: 'FaFilePowerpoint', comingSoon: false },
   { name: 'PowerPoint to PDF', slug: 'powerpoint-to-pdf', path: '/tools/powerpoint-to-pdf', category: 'pdf-tools', description: 'Extract the text and images from a PowerPoint file into a PDF.', icon: 'FaFilePowerpoint', badge: 'new', comingSoon: false },
@@ -137,7 +137,7 @@ export const toolSeed = [
   { name: 'Gradient Generator', slug: 'gradient-generator', path: '/tools/gradient-generator', category: 'color-tools', description: 'Build linear and radial CSS gradients visually and copy ready-to-use code instantly. Free, no image files, no sign-up required.', icon: 'FaPalette', comingSoon: false },
 
   // ---------- Developer Tools (fully working) ----------
-  { name: 'JSON Formatter', slug: 'json-formatter', path: '/tools/json-formatter', category: 'developer-tools', description: 'Format, beautify or minify JSON data instantly.', icon: 'FaCode', badge: 'popular', comingSoon: false },
+  { name: 'JSON Formatter', slug: 'json-formatter', path: '/tools/json-formatter', category: 'developer-tools', description: 'Format, validate, and beautify messy JSON instantly. Minify for production or pretty-print for readability, free, right in your browser.', icon: 'FaCode', badge: 'popular', comingSoon: false },
   { name: 'JSON Validator', slug: 'json-validator', path: '/tools/json-validator', category: 'developer-tools', description: 'Check whether your JSON is valid, with the exact line and column of any error.', icon: 'FaCircleCheck', comingSoon: false },
   { name: 'Base64 Encoder / Decoder', slug: 'base64-encoder', path: '/tools/base64-encoder', category: 'developer-tools', description: 'Encode or decode Base64 strings, with full Unicode support.', icon: 'FaLock', comingSoon: false },
   { name: 'URL Encoder / Decoder', slug: 'url-encoder', path: '/tools/url-encoder', category: 'developer-tools', description: 'Encode or decode URLs and query string components.', icon: 'FaLink', comingSoon: false },

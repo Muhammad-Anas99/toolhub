@@ -155,6 +155,11 @@ export const toolFaqs = {
       question: 'How much smaller will my image get?',
       answer: 'It depends heavily on the image and the quality setting you choose \u2014 a detailed photo compressed to JPG at a moderate quality setting can often shrink by 70\u201390%, while a PNG re-encoded losslessly might only shrink by a small percentage. The live before/after size shown as you adjust the slider is the most reliable way to know for your specific image.',
     },
+    {
+      id: 'image-compressor-privacy',
+      question: 'Are my photos uploaded to a server to be compressed?',
+      answer: 'No \u2014 compression happens entirely on your device using your browser\u2019s built-in Canvas API. Your images are never uploaded anywhere, which also means there\u2019s no upload wait time, compression starts immediately.',
+    },
   ],
   'image-resizer': [
     {
@@ -308,6 +313,11 @@ export const toolFaqs = {
       question: 'Can I upload an SVG as the source image?',
       answer: 'Yes \u2014 the SVG is rendered at each target size, which works well for simple, clean vector logos. Very complex SVGs with fine detail may look better starting from a high-resolution PNG instead, since favicon sizes are small enough that intricate detail gets lost either way.',
     },
+    {
+      id: 'favicon-generator-privacy',
+      question: 'Is my logo or source image uploaded anywhere?',
+      answer: 'No \u2014 every size is generated entirely in your browser using the Canvas API. Your source image is never uploaded to a server.',
+    },
   ],
 
 
@@ -416,6 +426,11 @@ export const toolFaqs = {
       question: 'Can I merge a password-protected PDF?',
       answer: 'A PDF that requires a password to open can\u2019t be read and merged without first removing that protection, since the file\u2019s content is encrypted until unlocked.',
     },
+    {
+      id: 'merge-pdf-privacy',
+      question: 'Are my PDF files uploaded to a server to be merged?',
+      answer: 'No \u2014 merging happens entirely in your browser using a PDF-processing library that runs locally. Your files, including anything confidential in them, are never uploaded anywhere.',
+    },
   ],
   'split-pdf': [
     {
@@ -480,6 +495,11 @@ export const toolFaqs = {
       id: 'supported-formats',
       question: 'What image formats can I sample colors from?',
       answer: 'JPG, PNG, WEBP, and GIF all work \u2014 the tool reads the actual decoded pixel data regardless of the original file format, so the sampled color is accurate no matter which of these you upload.',
+    },
+    {
+      id: 'color-picker-privacy',
+      question: 'Is my uploaded image safe \u2014 does it get sent anywhere?',
+      answer: 'Yes, it\u2019s safe \u2014 your image is read and sampled entirely in your browser using the Canvas API, and it\u2019s never uploaded to a server. Closing the tab leaves no trace of the image here.',
     },
   ],
   'hex-to-rgb': [
@@ -621,6 +641,11 @@ export const toolFaqs = {
       question: 'How many colors does each scheme generate?',
       answer: 'Complementary generates 2 colors, analogous and triadic generate 3, and shades generates a range of lightness variations on your single base color \u2014 enough for most UI or brand palette needs without being overwhelming to choose from.',
     },
+    {
+      id: 'palette-generator-privacy',
+      question: 'Is this tool safe to use \u2014 does it store my color choices anywhere?',
+      answer: 'Yes, it\u2019s safe \u2014 every palette is calculated instantly in your browser using standard color math. Nothing you generate here is sent to or stored on a server.',
+    },
   ],
 
   'json-formatter': [
@@ -653,6 +678,11 @@ export const toolFaqs = {
       id: 'json-vs-js-object',
       question: 'Can I format a JavaScript object literal, or only valid JSON?',
       answer: 'Only valid JSON. Since a JavaScript object literal can include unquoted keys, single quotes, or trailing commas, none of which are valid JSON, pasting one in will report an error at the specific point it violates JSON\u2019s stricter syntax, rather than silently accepting it.',
+    },
+    {
+      id: 'json-formatter-privacy',
+      question: 'Is it safe to paste sensitive JSON data here, like API keys or config files?',
+      answer: 'Yes \u2014 all parsing, formatting, and minifying happens entirely in your own browser. Your JSON is never uploaded or sent to a server, so it\u2019s safe to use with real config files, API responses, or other sensitive data.',
     },
   ],
   'json-validator': [
@@ -708,6 +738,11 @@ export const toolFaqs = {
       question: 'Why does my Base64 output sometimes end with one or two = signs?',
       answer: 'Base64 processes input in groups of 3 bytes at a time. When the total length isn\u2019t a clean multiple of 3, one or two = characters are added at the end as padding so the output still forms complete 4-character groups. It\u2019s a normal part of the format, not an error.',
     },
+    {
+      id: 'base64-encoder-privacy',
+      question: 'Is it safe to encode or decode sensitive data here, like a token or API key?',
+      answer: 'Yes \u2014 all encoding and decoding happens entirely in your browser. Nothing you paste here, including tokens, keys, or any other sensitive text, is ever sent to a server.',
+    },
   ],
   'url-encoder': [
     {
@@ -757,6 +792,11 @@ export const toolFaqs = {
       question: 'Why is bulk generation capped at 50?',
       answer: 'It\u2019s a practical limit to keep the results easy to scan and copy \u2014 if you need more than 50, you can simply generate multiple batches.',
     },
+    {
+      id: 'uuid-generator-privacy',
+      question: 'Are the UUIDs I generate stored or logged anywhere?',
+      answer: 'No \u2014 every UUID is generated entirely in your browser using its built-in cryptographically secure random function. Nothing is sent to or stored on a server.',
+    },
   ],
 
   'qr-code-generator': [
@@ -789,6 +829,11 @@ export const toolFaqs = {
       id: 'why-phone-email-sms-types',
       question: 'Why does it matter which type (Link, Email, Phone, SMS) I pick?',
       answer: 'Each type encodes its content in the specific format phones actually recognize \u2014 a phone number becomes a "tel:" link, an email becomes a "mailto:" link, and so on \u2014 so scanning the code opens the right app (the dialer, a text message, an email draft) instead of just showing plain text you\u2019d have to copy and act on manually.',
+    },
+    {
+      id: 'qr-generator-privacy',
+      question: 'Is the content I put into my QR code private?',
+      answer: 'Yes \u2014 the QR code is generated entirely in your browser, and since it\u2019s a static code with the data baked directly in, no external server ever sees, logs, or stores what you encoded, not during generation and not later when it\u2019s scanned.',
     },
   ],
 
@@ -1075,6 +1120,11 @@ export const toolFaqs = {
       question: 'Why does the weight category say "metric tons" instead of just "tons"?',
       answer: 'Because plain "ton" is ambiguous \u2014 a US (short) ton, a UK (long) ton, and a metric ton are three genuinely different weights. This tool specifically uses the metric ton (1,000 kg) to avoid that ambiguity.',
     },
+    {
+      id: 'unit-converter-privacy',
+      question: 'Does this tool need an internet connection or send my data anywhere?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math directly in your browser. Nothing you type or convert here is ever sent to a server.',
+    },
   ],
 
   'meta-tag-generator': [
@@ -1097,6 +1147,11 @@ export const toolFaqs = {
       id: 'title-vs-og-title',
       question: 'Does the og:title need to match the page\u2019s actual title?',
       answer: 'Not necessarily \u2014 they can genuinely differ. The page title is what shows in a browser tab and search results; the Open Graph title is what shows when the link is shared socially, where a slightly more attention-grabbing phrasing often performs better.',
+    },
+    {
+      id: 'meta-tag-generator-privacy',
+      question: 'Is the information I enter here saved or sent anywhere?',
+      answer: 'No \u2014 the tags are generated instantly in your browser from what you type. Nothing is sent to a server or stored, so it\u2019s safe to draft tags for a page that isn\u2019t live yet.',
     },
   ],
 
@@ -1416,6 +1471,11 @@ export const toolFaqs = {
       question: 'Does the audio track get compressed too, or just the video?',
       answer: 'The video resolution reduction is what primarily drives the size savings here. The audio track is carried through the same single recording process alongside the resized video, rather than being separately re-compressed as its own distinct step.',
     },
+    {
+      id: 'video-compressor-privacy',
+      question: 'Is my video uploaded to a server to be compressed?',
+      answer: 'No \u2014 compression happens entirely on your device using your browser\u2019s own built-in video encoder. Your video file is never uploaded anywhere.',
+    },
   ],
 
   'background-remover': [
@@ -1443,6 +1503,11 @@ export const toolFaqs = {
       id: 'why-png-only',
       question: 'Why does this only output PNG?',
       answer: 'PNG is the common image format that supports transparency. JPG has no way to represent a transparent background at all, so PNG is the only option that can actually preserve the removed background as transparent rather than filling it with a solid color.',
+    },
+    {
+      id: 'background-remover-privacy',
+      question: 'Is my photo uploaded to a server to remove the background?',
+      answer: 'No \u2014 the entire process runs in your browser using the Canvas API. Your photo is never uploaded anywhere, which matters especially for personal photos or product images you don\u2019t want leaving your device.',
     },
   ],
 
@@ -1570,6 +1635,11 @@ export const toolFaqs = {
       id: 'who-uses-fahrenheit',
       question: 'Why does the US still use Fahrenheit when most of the world uses Celsius?',
       answer: 'Largely historical: the US adopted Fahrenheit widely before the international push toward metric standardization, and everyday infrastructure (weather reporting, home thermostats, cooking) never fully switched over, unlike most other English-speaking countries.',
+    },
+    {
+      id: 'temperature-converter-privacy',
+      question: 'Does this tool need an internet connection to convert?',
+      answer: 'No \u2014 every conversion is calculated instantly with a formula directly in your browser. Nothing you enter here is ever sent to a server.',
     },
   ],
 
@@ -1793,6 +1863,11 @@ export const toolFaqs = {
       question: 'Will the same text always produce the same hash?',
       answer: 'Yes \u2014 a given input always produces the same hash with the same algorithm, which is what makes hashes useful for verifying content hasn\u2019t changed. Even a single-character difference in the input produces a completely different, unrelated-looking hash.',
     },
+    {
+      id: 'hash-generator-privacy',
+      question: 'Is the text I hash here sent to a server?',
+      answer: 'No \u2014 every hash is computed entirely in your browser using the Web Crypto API. Nothing you type here, including sensitive text you\u2019re checking or comparing, is ever transmitted anywhere.',
+    },
   ],
   'timestamp-converter': [
     {
@@ -1815,6 +1890,11 @@ export const toolFaqs = {
       question: 'What is the Year 2038 problem?',
       answer: 'Many older systems store Unix time as a signed 32-bit integer, which runs out of room on January 19, 2038. It doesn\u2019t affect this converter, but it\u2019s a real, still-relevant limitation in some legacy systems and embedded devices that haven\u2019t moved to 64-bit timestamps.',
     },
+    {
+      id: 'timestamp-converter-privacy',
+      question: 'Does this tool need to know my actual timezone or location?',
+      answer: 'It reads your browser\u2019s local timezone setting to display conversions in your local time, entirely on your device \u2014 nothing about your location or timezone is ever sent to a server.',
+    },
   ],
   'regex-tester': [
     {
@@ -1836,6 +1916,11 @@ export const toolFaqs = {
       id: 'greedy-vs-lazy',
       question: 'Why does my pattern match more text than I expected?',
       answer: 'Quantifiers like * and + are greedy by default \u2014 they match as much as possible. Adding a ? after them (like *? or +?) makes them lazy instead, matching as little as possible, which often fixes patterns that grab too much text.',
+    },
+    {
+      id: 'regex-tester-privacy',
+      question: 'Is my test text and pattern sent anywhere?',
+      answer: 'No \u2014 matching happens entirely in your browser using JavaScript\u2019s native regex engine. Neither your pattern nor your test text is ever sent to a server, so it\u2019s safe to test against real, sensitive sample data.',
     },
   ],
 
@@ -1989,6 +2074,11 @@ export const toolFaqs = {
       id: 'multiple-passes',
       question: 'Can I compress an already-compressed PDF again for an even smaller file?',
       answer: 'Yes, but each additional pass re-compresses images that are already lossy, so quality degrades further each time. One careful pass at a reasonable quality setting usually gives a better result than compressing the same file repeatedly.',
+    },
+    {
+      id: 'compress-pdf-privacy',
+      question: 'Is my PDF uploaded to a server to be compressed?',
+      answer: 'No \u2014 compression happens entirely in your browser. Your PDF, including anything sensitive in it, is never uploaded anywhere.',
     },
   ],
 
@@ -2182,6 +2272,11 @@ export const toolFaqs = {
       question: 'What does it count if I paste text that\u2019s mostly whitespace or blank lines?',
       answer: 'Blank lines don\u2019t count as words or sentences, but they do factor into the paragraph count if they\u2019re being used to separate blocks of text. A block of pure whitespace with no actual words shows a word count of zero.',
     },
+    {
+      id: 'word-counter-privacy',
+      question: 'Is the text I paste here private?',
+      answer: 'Yes \u2014 all counting happens instantly in your own browser as you type or paste. Your text is never sent to a server or stored anywhere, including drafts, essays, or anything else you check here.',
+    },
   ],
   'case-converter': [
     {
@@ -2218,6 +2313,11 @@ export const toolFaqs = {
       id: 'undo',
       question: 'Can I convert text back to its original form?',
       answer: 'Your original input stays visible in the input box the whole time, unchanged \u2014 the seven converted versions appear alongside it as separate results, so you never lose the original.',
+    },
+    {
+      id: 'case-converter-privacy',
+      question: 'Is my text sent anywhere when I convert it?',
+      answer: 'No \u2014 every conversion happens instantly in your browser. Nothing you paste here, including drafts or code, is ever sent to a server.',
     },
   ],
   'lorem-ipsum-generator': [

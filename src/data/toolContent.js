@@ -235,6 +235,29 @@ export const toolContent = {
       'Making an email attachment small enough to send',
       'Compressing product photos for an online store without visible quality loss',
     ],
+    guideTitle: 'The Complete Guide to Image Compression',
+    guide: [
+      {
+        heading: 'Lossy vs. Lossless Compression: The Core Tradeoff',
+        body:
+          'Image compression falls into two fundamentally different categories. Lossy compression, used by JPG and, optionally, WEBP, permanently discards some image data judged least noticeable to human perception in exchange for a dramatically smaller file, typically 70-90% smaller for a detailed photo at a moderate quality setting. Lossless compression, used by PNG, reorganizes the same data more efficiently without discarding anything at all, guaranteeing pixel-perfect output at the cost of a much smaller size reduction, often just a modest percentage.\n\nThe right choice depends entirely on the image and its purpose: a photo destined for a web page rarely needs pixel-perfect fidelity and benefits enormously from lossy compression\u2019s size savings, while a screenshot with sharp text edges, a logo, or an image requiring transparency generally needs PNG\u2019s lossless approach to avoid visible artifacts around hard edges.',
+      },
+      {
+        heading: 'Why Page Load Speed Depends So Heavily on Image Size',
+        body:
+          'Images are typically the single largest contributor to a web page\u2019s total download size, often accounting for the majority of bytes transferred on a typical content-heavy page. Every additional megabyte of image weight directly translates to additional load time, particularly on mobile connections where bandwidth is more constrained, and page speed itself is both a genuine user-experience factor and a documented search ranking signal.\n\nThis is why compressing images before publishing isn\u2019t just a storage-saving nicety, on a page with several product photos or a photo-heavy article, the cumulative effect of compressing every image meaningfully can be the difference between a fast, responsive page and one that visibly stalls while loading.',
+      },
+      {
+        heading: 'JPG vs. WEBP: Which Format Actually Compresses Better?',
+        body:
+          'WEBP, a more modern image format, generally achieves a smaller file size than JPG at an equivalent visual quality, often 25-35% smaller for comparable photos, thanks to a more efficient underlying compression algorithm developed specifically for the web. Browser support for WEBP is now effectively universal across modern browsers, which has made it the increasingly preferred choice for web images where maximum compatibility with very old software isn\u2019t a hard requirement.\n\nJPG remains the safer default specifically for maximum compatibility, any system, however old, that handles images at all can open a JPG, which matters for contexts outside a modern web browser, like an email attachment or a file shared with software of unknown vintage.',
+      },
+      {
+        heading: 'Finding the Right Quality Setting Without Guessing',
+        body:
+          'Lossy compression quality exists on a continuous scale, and the "right" setting is really a judgment call balancing file size against acceptable visual quality loss, one that depends on the specific image and how it will be viewed. A highly detailed photo with fine texture shows compression artifacts more readily than a simple graphic with large flat color areas, meaning the same quality percentage can look noticeably different depending on image content.\n\nThis is exactly why adjusting the quality setting with a live before-and-after preview, rather than picking a number blind and hoping it looks right, is the reliable way to find the actual sweet spot for a specific image: the highest compression that still looks acceptable for its intended use, rather than a one-size-fits-all percentage applied without checking the result.',
+      },
+    ],
     supportedFormats: { input: 'JPG / PNG / WEBP', output: 'Same or JPG/PNG/WEBP', maxSize: '25 MB per image, up to 10 images at once' },
     privacy: BROWSER_ONLY_PRIVACY,
   },
@@ -360,6 +383,29 @@ export const toolContent = {
       'Getting the exact Apple Touch Icon and Android/PWA sizes for a web app',
       'Generating a site.webmanifest alongside the icon files it references',
     ],
+    guideTitle: 'The Complete Guide to Favicons',
+    guide: [
+      {
+        heading: 'Why One Favicon Size Was Never Actually Enough',
+        body:
+          'A favicon isn\u2019t displayed at just one size, it appears in a browser tab at a tiny 16×16 pixels, in a browser bookmark list at a slightly larger size, as an app icon when a user adds a site to their phone\u2019s home screen at up to 512×512 pixels, and in several sizes in between for various platform-specific contexts. A single image, stretched or shrunk to fit whatever size each context needs, tends to look genuinely poor at the extremes, a detailed logo shrunk to 16×16 often becomes an illegible blur, while a small source image stretched up to 512×512 looks visibly pixelated.\n\nGenerating each size independently from the original source, rather than scaling one fixed-size image up or down, is what keeps a favicon looking sharp and correct across every context it actually appears in.',
+      },
+      {
+        heading: 'Is favicon.ico Still Necessary in 2026?',
+        body:
+          'Modern browsers, Chrome, Firefox, Safari, and Edge, all support PNG favicons directly and will generally use one if a page\u2019s HTML links to it, making the older ICO format technically optional for a modern-browser-only audience. In practice, favicon.ico remains worth including for two real reasons: it\u2019s still the default file some browsers and non-browser software look for automatically at a site\u2019s root even without an explicit link tag, and it provides a fallback for any older software still in use that doesn\u2019t support PNG favicons at all.\n\nThe practical answer is to include both: PNG files referenced explicitly for modern browsers and the full range of platform sizes, plus a genuine favicon.ico at the root as a compatibility fallback that costs nothing to include.',
+      },
+      {
+        heading: 'Apple Touch Icons and Android/PWA Icons: Not the Same Thing as a Favicon',
+        body:
+          'When a website is added to a phone\u2019s home screen, the icon displayed there isn\u2019t pulled from the regular browser-tab favicon, it comes from separate, specifically-sized icon files: an Apple Touch Icon (180×180) for iOS, and typically 192×192 and 512×512 icons referenced in a web app manifest for Android and installable progressive web apps. These serve a genuinely different purpose than a tab favicon, they represent the site as a full-screen app icon, which is why they\u2019re expected at larger sizes with more visual detail preserved than a tiny browser tab icon needs.\n\nA site that only generates a traditional favicon.ico and skips these larger platform-specific icons will often show a blurry, upscaled version of the small favicon instead, or no icon at all, when added to a phone\u2019s home screen, a common and avoidable gap.',
+      },
+      {
+        heading: 'What a site.webmanifest File Actually Does',
+        body:
+          'A web app manifest is a small JSON file that tells a browser how a website should behave if added to a device\u2019s home screen or installed as a progressive web app, its name, which icon files to use at which sizes, its theme color, and its display mode (whether it should open in a full browser window or a more app-like standalone view). Without a manifest referencing the correct icon files, a browser has no structured way to know which of the generated icon sizes to actually use when a user chooses to install or add the site, even if all the correctly-sized image files exist.\n\nGenerating the manifest alongside the icon set it references, rather than as a separate manual step, is what makes the full favicon and home-screen-icon setup actually functional end-to-end rather than just a folder of correctly-sized but disconnected image files.',
+      },
+    ],
     supportedFormats: { input: 'PNG / JPG / SVG', output: 'PNG (6 sizes) + ICO + webmanifest', maxSize: '10 MB' },
     privacy: BROWSER_ONLY_PRIVACY,
   },
@@ -424,6 +470,29 @@ export const toolContent = {
       'Compressing a photo-heavy PDF portfolio or report for easier sharing',
       'Getting a large PDF under a specific website\u2019s upload size cap',
     ],
+    guideTitle: 'The Complete Guide to PDF Compression',
+    guide: [
+      {
+        heading: 'What Actually Makes a PDF Large in the First Place',
+        body:
+          'Not all PDFs are large for the same reason, and understanding which kind you have determines whether compression will help much at all. A PDF that\u2019s mostly text, even a long one, is typically quite small, since text characters take up minimal space when encoded efficiently. A scanned document or an image-heavy PDF is a different story entirely, each page is essentially a full-resolution photograph, and photographs are what consume the overwhelming majority of a file\u2019s size. This is why compression tools built around image recompression, this one included, deliver dramatic results on scanned documents but comparatively little on a PDF that was already mostly text.\n\nChecking which category a specific PDF falls into before compressing sets the right expectation: a 40MB scanned report might shrink to a few megabytes, while a 2MB text-only report might barely shrink at all, and that\u2019s expected, not a sign anything went wrong.',
+      },
+      {
+        heading: 'The Real Tradeoff: Why This Approach Sacrifices Selectable Text',
+        body:
+          'This compression method works by rendering each page as an image and recompressing that image at a chosen quality level, the same underlying technique used for compressing a standalone photo. This is genuinely effective at reducing file size specifically because it\u2019s targeting exactly what makes these PDFs large, but it comes with an honest, worth-knowing tradeoff: once a page becomes an image, any text that was previously selectable, searchable, or copyable in the original PDF is no longer any of those things in the compressed version, since it\u2019s now just pixels rather than actual text data.\n\nFor a PDF where preserving selectable, searchable text matters, a signed contract someone might need to search later, a document being archived for full-text search, this approach isn\u2019t the right fit, and a different compression strategy (one that preserves the underlying text layer) would be needed instead.',
+      },
+      {
+        heading: 'Choosing a Compression Level: Balancing Size Against Readability',
+        body:
+          'Compression quality exists on a sliding scale, and the right setting depends on how the compressed PDF will actually be used. Around 65% quality is a reasonable general-purpose starting point for most scanned documents, noticeably smaller than the original with only minor, usually unnoticeable visual quality loss. Pushing quality lower yields a smaller file still, appropriate when the PDF is purely for reference and maximum size reduction matters more than visual fidelity, while a higher setting preserves more visual detail at the cost of a more modest size reduction, better suited when the document needs to remain crisp, a portfolio of design work, for instance, where visual quality is the whole point.\n\nThere isn\u2019t one universally correct setting, the right choice depends entirely on what the compressed PDF needs to still look good enough for.',
+      },
+      {
+        heading: 'Why Compressing the Same File Repeatedly Makes Things Worse, Not Better',
+        body:
+          'Because this compression method is lossy, each compression pass discards some image data to achieve its size reduction, running the same already-compressed PDF through compression again doesn\u2019t compress the original data further, it recompresses data that\u2019s already been through one round of quality loss, compounding the degradation each additional time. This is the same phenomenon as repeatedly re-saving a JPEG photo, each pass introduces new artifacts on top of the previous pass\u2019s artifacts, with diminishing size benefit and accumulating visible quality loss.\n\nThe better approach when a first attempt didn\u2019t compress enough: go back to the original, uncompressed source PDF and compress it once more aggressively, rather than repeatedly compressing an already-compressed result.',
+      },
+    ],
     privacy: BROWSER_ONLY_PRIVACY,
   },
 
@@ -447,6 +516,29 @@ export const toolContent = {
       'Assembling a report from several separate PDF sections',
       'Merging an invoice and its supporting attachments into one file',
       'Combining several single-page PDFs (like ones made with JPG to PDF) into one multi-page document',
+    ],
+    guideTitle: 'The Complete Guide to Merging PDFs',
+    guide: [
+      {
+        heading: 'Why Merging Copies Pages Rather Than Rendering Them as Images',
+        body:
+          'A well-built PDF merge tool works by directly copying each source PDF\u2019s internal page objects into a new combined document, rather than rendering each page as a flat image and reassembling those images into a new PDF. This distinction matters enormously for quality: copying preserves everything that made the original page a real PDF page, selectable and searchable text, vector graphics that stay sharp at any zoom level, and embedded fonts, exactly as they were. Rendering to images instead would flatten all of that into static pixels, permanently losing text selectability and searchability, and typically increasing file size in the process.\n\nThis is why a properly merged PDF has zero quality loss and zero re-compression involved, the pages themselves are the same underlying data as the originals, just reassembled into a new combined document rather than recreated from a lower-fidelity intermediate step.',
+      },
+      {
+        heading: 'Merging PDFs With Different Page Sizes: What Actually Happens',
+        body:
+          'When combining PDFs that were created at different page dimensions, a letter-size document and an A4 document, for instance, each page keeps its own original size in the merged result rather than being force-scaled to match the others. This means the final combined PDF can genuinely contain pages of varying physical dimensions, which is completely normal and causes no functional problem for viewing or printing, most PDF viewers and printers handle mixed page sizes within one document without issue.\n\nThe alternative, forcibly scaling every page to a uniform size during merge, would distort content on any page whose original proportions didn\u2019t match the target size, which is why preserving each page\u2019s original dimensions is the more correct approach even though it can produce a visually inconsistent document.',
+      },
+      {
+        heading: 'What Doesn\u2019t Carry Over When Merging: Bookmarks and Document Metadata',
+        body:
+          'While the actual page content, text, images, formatting, transfers faithfully during a merge, document-level features that exist outside individual pages, like a PDF\u2019s internal bookmark/outline structure (the clickable table-of-contents-style navigation some PDFs have) or document properties like author and creation date metadata, generally aren\u2019t automatically reconstructed in the merged output. This is a genuine, worth-knowing limitation: the merged document is complete and correct as far as visible page content goes, but any navigation aids or metadata that lived at the document level in the original files typically need to be rebuilt manually if they\u2019re needed in the combined result.\n\nFor most everyday merging, combining scanned pages, assembling a report from sections, this limitation rarely matters, since those source files usually didn\u2019t have elaborate bookmark structures to begin with.',
+      },
+      {
+        heading: 'Why a Password-Protected PDF Can\u2019t Be Merged Directly',
+        body:
+          'A PDF secured with an open password has its actual content encrypted, meaning no PDF-processing tool, this one included, can read the page data to copy it into a merged document without first supplying the correct password to decrypt it. This isn\u2019t a limitation specific to any one merge tool, it\u2019s the fundamental nature of PDF password protection working as intended: the content is genuinely inaccessible without the password, by design.\n\nFor a protected PDF that needs to be part of a merge, the password protection needs to be removed first (using the correct password to unlock it), after which the now-unprotected file can be merged normally like any other PDF.',
+      },
     ],
     supportedFormats: { input: 'PDF (multiple files)', output: 'PDF', maxSize: '25 MB per file' },
     privacy: BROWSER_ONLY_PRIVACY,
@@ -695,6 +787,29 @@ export const toolContent = {
       'Identifying the exact shade used somewhere in an image',
       'Extracting a color from a screenshot to match in a new design',
     ],
+    guideTitle: 'The Complete Guide to Picking Colors from Images',
+    guide: [
+      {
+        heading: 'Hex, RGB, and HSL: Why the Same Color Has Three Different Codes',
+        body:
+          'A single color can be represented several equivalent ways, and each format exists because it\u2019s easier to work with in a specific context. Hex (like #3B82F6) packs red, green, and blue values into a compact six-character code, which is why it\u2019s the most common format in CSS and design tools, short, and easy to copy-paste as a single token. RGB (like rgb(59, 130, 246)) expresses the same three color channels as separate numbers from 0-255, which is more readable when reasoning about a color\u2019s individual channel values, or when a tool needs channels as separate numeric inputs. HSL (hue, saturation, lightness) describes color in terms closer to how people actually think about it, a hue on the color wheel, how vivid it is, and how light or dark, making it the easiest format for manually adjusting a color while keeping the same base hue.\n\nAll three represent the exact same color; converting between them changes nothing about the color itself, only which numbers describe it.',
+      },
+      {
+        heading: 'Matching a Brand Color Exactly, Not Approximately',
+        body:
+          'When a specific brand color needs to be reproduced exactly, in a new design, a slide deck, or a piece of marketing material, eyeballing it against a reference image is unreliable, human color perception shifts based on surrounding colors, screen brightness, and even fatigue. Sampling the actual pixel value from a reference image removes that guesswork entirely, the hex code returned is the literal stored color value at that pixel, not a human approximation of what it looked like.\n\nThis matters especially for logos and brand guidelines, where even a visually subtle color mismatch (a slightly warmer or cooler shade of the same base color) can look noticeably off once placed next to the original, especially to anyone already familiar with the correct brand color.',
+      },
+      {
+        heading: 'Why Clicking the "Same" Area Sometimes Gives Different Colors',
+        body:
+          'An area of an image that looks like one uniform, solid color often isn\u2019t, at the pixel level, entirely uniform. JPEG compression in particular introduces small artifacts, tiny variations in color values introduced during the compression process, that are invisible to casual viewing but genuinely present in the pixel data. Subtle lighting gradients, slight camera sensor noise, and anti-aliasing near edges all contribute the same kind of small, real variation.\n\nFor a reliable color match, sample from the flattest, most uniform part of the color area, away from edges, shadows, or anywhere the color visually transitions into something else, since that\u2019s where pixel-level variation is smallest.',
+      },
+      {
+        heading: 'Working With Transparency: What Happens on a Transparent Pixel',
+        body:
+          'A PNG or WEBP image can include an alpha (transparency) channel alongside its color data, meaning a given pixel has both a color value and a separate opacity value. Sampling a color reads only the RGB values at that point, it doesn\u2019t factor in how transparent that pixel is, which means clicking a partially transparent area can return a color that doesn\u2019t match what was visually displayed on screen, since what you saw was that color blended with whatever was behind it, not the pixel\u2019s stored color value in isolation.\n\nFor a color that reliably matches what you saw, sample from a fully opaque part of the image rather than an area with any visible transparency or blending.',
+      },
+    ],
     privacy: BROWSER_ONLY_PRIVACY,
   },
 
@@ -807,6 +922,29 @@ export const toolContent = {
       'Generating a range of shades from one base color for UI hover/active states',
       'Exploring triadic color combinations for a design that needs several distinct colors',
     ],
+    guideTitle: 'The Complete Guide to Color Palettes',
+    guide: [
+      {
+        heading: 'How Color Harmony Actually Works: The Color Wheel Explained',
+        body:
+          'Color harmony schemes, complementary, analogous, triadic, are all built on the same underlying idea: hues positioned at specific angular relationships around the color wheel tend to look visually pleasing together, a pattern observed and formalized by artists and designers long before it was ever encoded into software. A complementary pair sits at exactly opposite points on the wheel, 180° apart, producing maximum contrast. Analogous colors sit close together, within a narrow arc, producing a naturally harmonious, low-contrast feel. Triadic colors sit at three evenly-spaced points, 120° apart, producing a vibrant combination that still feels balanced rather than random.\n\nGenerating a palette this way, by rotating a starting hue by a fixed, mathematically consistent angle, is exactly what turns "pick colors that go together" from subjective guesswork into a repeatable, explainable process.',
+      },
+      {
+        heading: 'Complementary Colors: Maximum Contrast, Used Sparingly',
+        body:
+          'A complementary color sits at the exact opposite hue on the color wheel from a starting color, producing the strongest possible visual contrast between two hues. This makes complementary pairs excellent for drawing attention, a call-to-action button that needs to visually pop against its surroundings, or any single element that specifically needs to stand out from an otherwise coordinated palette. It\u2019s generally not the right choice for an entire interface or brand palette, though, since that much contrast applied broadly tends to feel visually aggressive rather than polished.\n\nThe common, effective pattern: build the majority of a design around one dominant color and its shades, then use its complement sparingly, for the one or two elements that genuinely need to grab attention.',
+      },
+      {
+        heading: 'Analogous Colors: The Safe Choice for a Cohesive Palette',
+        body:
+          'Analogous colors sit close together on the color wheel, within a relatively narrow arc of hues, which is exactly why they tend to look naturally harmonious rather than jarring, they share enough underlying similarity in hue that the eye reads them as belonging to the same visual family, like the range of colors in a sunset. This makes analogous schemes a reliably safe choice for a cohesive brand palette, a website\u2019s primary color range, or any design context where the goal is a unified, calm visual feel rather than high contrast or vibrancy.\n\nThe tradeoff is exactly the flip side of complementary\u2019s strength: an analogous palette alone rarely provides enough contrast for something that genuinely needs to stand out, like an important button or alert, which is why analogous palettes are often paired with one deliberately contrasting accent color pulled from elsewhere on the wheel.',
+      },
+      {
+        heading: 'Shades: When You Need Variation Without Changing the Hue',
+        body:
+          'A shades palette takes a single hue and varies only its lightness, from very dark to very light, while keeping the underlying color identity constant. This solves a genuinely different problem than the harmony-based schemes above: rather than finding colors that go well together, it provides a coordinated range of one color for interface states that need visual distinction without introducing a second hue, a button\u2019s default, hover, and active states, or a chart\u2019s data series using different intensities of one brand color rather than several unrelated ones.\n\nThis is often the most practically useful palette type for UI work specifically, since interface design frequently calls for "the same color, but slightly different" far more often than it calls for an entirely new hue.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -888,6 +1026,34 @@ export const toolContent = {
       'Finding exactly where a syntax error is in malformed JSON',
       'Cleaning up JSON copied from an inconsistent or badly-formatted source',
     ],
+    guideTitle: 'The Complete Guide to JSON Formatting',
+    guide: [
+      {
+        heading: 'What Does "Formatting" JSON Actually Mean?',
+        body:
+          'JSON, as a data format, doesn\u2019t require any particular whitespace at all, a JSON object can be valid whether it\u2019s spread across fifty lines with careful indentation or crammed onto a single line with no spaces. Formatting (also called pretty-printing) adds structure purely for human readability: consistent indentation per nesting level, line breaks after each key-value pair, and spacing around colons and commas. None of this changes what the data actually represents, it only changes how easy it is for a person to read and navigate.\n\nThis distinction matters because it explains why a formatter and a validator often live in the same tool: checking whether JSON is syntactically valid and making it readable are two separate, complementary operations, and doing the first is much easier once the second has already happened, a syntax error is far easier to spot in cleanly indented data than in a dense single-line blob.',
+      },
+      {
+        heading: 'Why Minified JSON Matters for Production',
+        body:
+          'Minifying strips every character that exists purely for human readability, indentation, line breaks, and extra spacing, leaving the smallest possible representation of the exact same data. For an API response or a configuration file bundled into a production build, this isn\u2019t just tidiness: every byte transferred over a network has a real cost, multiplied across every request a busy API handles or every user downloading a bundled JS file. This is exactly why APIs typically return minified JSON by default rather than pretty-printed, there\u2019s no reason to spend bandwidth on formatting a machine doesn\u2019t need to parse it correctly.\n\nThe practical workflow this creates: developers write and edit JSON in a readable, formatted state, then minify it as a final step before deployment, getting the readability benefit during development and the size benefit in production without maintaining two separate files by hand.',
+      },
+      {
+        heading: 'How to Read a JSON Syntax Error (Line and Column Numbers Explained)',
+        body:
+          'A JSON parsing error reported as "line 14, column 22" is pointing to the exact character position where the parser could no longer make sense of what it was reading, not necessarily where the actual mistake was made. This distinction trips up a lot of people: if you forget to close a quote on line 10, the parser might not detect a problem until it hits an unexpected character several lines later, since everything after the missing quote gets swallowed into what the parser thinks is still one long string value.\n\nA practical debugging habit: when an error points to a line, check that line first, but if nothing looks wrong there, work backward toward the nearest string, object, or array boundary above it, since that\u2019s usually where the actual mistake happened.',
+      },
+      {
+        heading: 'Common JSON Mistakes That Break Valid Syntax',
+        body:
+          'A handful of mistakes account for the overwhelming majority of invalid JSON. Trailing commas, a comma after the last item in an array or object, are valid in JavaScript object literals but explicitly invalid in JSON, which trips up anyone copying data directly from JavaScript source code. Using single quotes instead of double quotes is another JavaScript habit that doesn\u2019t carry over, JSON strings and keys require double quotes specifically, with no exception. Unescaped special characters inside a string, particularly a literal double quote or backslash, will also break parsing unless properly escaped.\n\nComments are a less obvious one: JSON has no comment syntax at all, unlike JavaScript or most config file formats, so a // or /* */ comment copied in from somewhere else will always produce a syntax error, not a warning.',
+      },
+      {
+        heading: 'JSON Formatter vs. JSON Validator: Is There a Difference?',
+        body:
+          'In practice, the line between these two tool categories is thinner than the separate names suggest. Formatting JSON requires successfully parsing it first, which means a formatter has already validated the syntax by the time it produces readable output, and a validator that reports a clean result could just as easily pretty-print that same data on request. The meaningful difference is really about what the tool emphasizes in its interface: a validator typically foregrounds the pass/fail result and error details, while a formatter foregrounds the readable output itself, with error reporting as a secondary feature for when something goes wrong.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -933,6 +1099,29 @@ export const toolContent = {
       'Preparing binary-safe text for embedding in JSON or XML',
       'Inspecting the contents of a Base64-encoded token during debugging',
     ],
+    guideTitle: 'The Complete Guide to Base64 Encoding',
+    guide: [
+      {
+        heading: 'What Base64 Actually Solves',
+        body:
+          'Base64 exists to solve a specific, narrow problem: representing binary data (or text with special characters) using only a safe, limited set of printable ASCII characters that virtually every text-based system, email, JSON, URLs, XML, can handle without corruption. Many older or stricter systems were never designed to reliably transmit arbitrary binary bytes, but they can all handle plain letters, numbers, and a handful of punctuation marks, which is exactly the character set Base64 output is built from.\n\nThis is why Base64 shows up constantly in contexts like embedding a small image directly in CSS or HTML (a data URI), encoding the payload of a JWT authentication token, or attaching binary files within an email, all systems that expect text, not raw binary.',
+      },
+      {
+        heading: 'Why Base64 Output Is Always Larger Than the Input',
+        body:
+          'Base64 encodes every 3 bytes of input as 4 output characters, which means encoded data is reliably about 33% larger than the original. This isn\u2019t inefficiency or a flaw, it\u2019s the direct, unavoidable cost of representing 256 possible byte values using a restricted alphabet of just 64 characters; fewer possible symbols per character means more characters are needed to represent the same information.\n\nThis size increase matters when deciding whether Base64 is the right choice for something like embedding an image: a small icon can make sense as inline Base64, but a large image saved this way costs noticeably more bytes than referencing the original binary file directly.',
+      },
+      {
+        heading: 'Base64 Is Not Encryption \u2014 A Distinction Worth Being Precise About',
+        body:
+          'A surprisingly common misconception treats Base64 as a form of security or privacy protection, but it provides neither. Base64 is a reversible encoding with no key, password, or secret involved at any step, meaning anyone who encounters Base64-encoded text can decode it back to the original content instantly using any standard decoder, including this one. It makes binary-safe data representable as text; it does nothing to keep that data confidential from anyone who looks.\n\nSeeing Base64 text used to store or transmit something (a password, a token, a piece of personal data) is not, by itself, any indication that the underlying data is protected \u2014 genuine protection requires actual encryption, a fundamentally different technique with a real secret key involved.',
+      },
+      {
+        heading: 'Standard vs. URL-Safe Base64: Why Two Variants Exist',
+        body:
+          'Standard Base64 output can include the + and / characters, both of which carry special meaning inside a URL (they can be interpreted as part of the URL\u2019s structure rather than literal data), which causes problems when Base64-encoded data needs to be embedded directly in a web address. The URL-safe variant solves this by substituting - for + and _ for /, along with typically dropping the trailing = padding characters, producing an equivalent encoding that survives being placed directly in a URL without needing further escaping.\n\nThis is exactly why JWTs (JSON Web Tokens), which are frequently passed around as part of a URL or HTTP header, use the URL-safe variant rather than standard Base64 \u2014 it\u2019s functionally the same encoding, just with a character set chosen to avoid colliding with URL syntax.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -974,6 +1163,29 @@ export const toolContent = {
       'Getting a quick unique token for a one-off use',
       'Assigning a unique identifier to a resource, session, or object in code',
     ],
+    guideTitle: 'The Complete Guide to UUIDs',
+    guide: [
+      {
+        heading: 'Why UUIDs Exist: The Problem of Generating IDs Without Coordination',
+        body:
+          'A traditional auto-incrementing database ID (1, 2, 3...) works well within a single database, but breaks down the moment multiple independent systems need to generate IDs that are guaranteed not to collide, two separate servers, offline and online systems syncing later, or services owned by different teams entirely. A UUID (Universally Unique Identifier) solves this by being generated from enough randomness that any two UUIDs created anywhere, by anyone, at any time, are effectively guaranteed never to collide, with no central coordinating authority or shared counter required at all.\n\nThis is exactly why UUIDs show up so often in distributed systems, APIs, and any context where an ID needs to be assigned independently rather than handed out sequentially by one authoritative source.',
+      },
+      {
+        heading: 'How "Astronomically Unlikely" a UUID Collision Actually Is',
+        body:
+          'A version 4 UUID has 122 bits of actual randomness (the remaining 6 bits are fixed to identify the UUID version and variant), which produces a number of possible unique values large enough that the odds of two randomly generated UUIDs colliding are meaningfully smaller than the odds of a meteor destroying the data center storing them. This isn\u2019t hand-waving, it\u2019s a real, calculable probability: generating a billion UUIDs per second for a hundred years still leaves the chance of any collision at all vanishingly small.\n\nIn practice, this is why treating UUIDs as guaranteed-unique is standard, accepted engineering practice rather than an approximation, the actual collision risk is far below other risks (hardware failure, cosmic ray bit-flips) that engineering already implicitly accepts as negligible.',
+      },
+      {
+        heading: 'UUID v4 vs. v7: Random vs. Time-Ordered',
+        body:
+          'Version 4 UUIDs are entirely random, every bit (aside from the fixed version/variant bits) comes from a random number generator, with no inherent ordering between UUIDs generated moments apart. Version 7, a newer standard, embeds an actual timestamp into the UUID\u2019s leading bits, which means UUIDs generated later sort after ones generated earlier, roughly matching creation order. This ordering property has a real, practical benefit for database indexing specifically: sequential-ish IDs insert into a B-tree index far more efficiently than fully random ones, since random IDs scatter insertions across the entire index rather than appending near the end.\n\nFor most general-purpose uses, plain random v4 remains the more common and simpler choice; v7 is specifically worth considering when UUIDs are being used as a primary database key and insertion performance at scale is a real concern.',
+      },
+      {
+        heading: 'Reading a UUID: What the Hyphens and Format Mean',
+        body:
+          'A UUID is fundamentally just a 128-bit number, but it\u2019s conventionally displayed as 32 hexadecimal characters split into five groups by hyphens, following an 8-4-4-4-12 pattern (like 123e4567-e89b-12d3-a456-426614174000). The hyphens themselves carry no information, they exist purely to make a long string of characters easier for a human to read, scan, and copy correctly without losing track of position, the same reason a phone number is grouped rather than written as one unbroken string of digits.\n\nWithin that structure, specific bit positions do carry real meaning (which version of UUID it is, and which variant), which is how a UUID-aware system can tell a v4 UUID apart from a v7 one just by examining a few specific characters.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -999,6 +1211,34 @@ export const toolContent = {
       'Putting a permanent, non-expiring code on product packaging',
       'Generating a QR code for a presentation slide or event signage',
     ],
+    guideTitle: 'The Complete Guide to QR Codes',
+    guide: [
+      {
+        heading: 'Why So Many "Free" QR Code Generators Aren\u2019t Actually Free Long-Term',
+        body:
+          'A QR code generator that seems free upfront often reveals its real business model only after the code is already printed and in use. The most common pattern: the generator creates a dynamic code by default, one that redirects through the company\u2019s own server, then caps how many scans that redirect will honor before demanding a paid upgrade, sometimes just a few hundred scans total. Since the cap isn\u2019t obvious at generation time, it\u2019s usually discovered only when a customer scans a code on packaging or signage and gets an error instead of the intended destination.\n\nA genuinely static code sidesteps this entire category of problem, since there\u2019s no redirect server involved in scanning at all, the destination data is encoded directly into the pattern itself, and there\u2019s nothing external whose pricing or uptime can change later.',
+      },
+      {
+        heading: 'How Much Data Can a QR Code Actually Hold?',
+        body:
+          'A QR code\u2019s capacity depends on its version (a measure of grid size, from a small 21x21 grid up to a much larger 177x177 one) and which type of data is encoded, since numbers, letters, and raw bytes each take a different amount of space per character. In practical terms, a typical URL or short piece of text fits comfortably in a small, easy-to-scan code, while a large block of text pushes the code toward a denser, larger grid that becomes harder to scan reliably at small print sizes.\n\nThis is why keeping the encoded content concise matters for anything meant to be scanned from a distance or printed small, a long, unshortened URL produces a visibly denser code than the same content run through a URL shortener first.',
+      },
+      {
+        heading: 'QR Codes for Wi-Fi, Contact Info, and More: Beyond Just URLs',
+        body:
+          'While linking to a website is the most common use, QR codes support several standardized data formats that phones recognize and act on automatically. A phone number encoded as a QR code opens the phone\u2019s dialer pre-filled with that number when scanned, rather than just displaying digits to copy manually. An email address similarly opens a pre-addressed draft in the phone\u2019s mail app. This only works correctly when the QR generator encodes the data in the exact format phones expect for each type (like a "tel:" prefix for phone numbers), rather than just embedding plain text that happens to look like a phone number.\n\nChoosing the matching content type when generating a code, rather than defaulting to plain text for everything, is what makes the resulting code actually convenient to use instead of just technically scannable.',
+      },
+      {
+        heading: 'Choosing the Right Error Correction Level for Your Use Case',
+        body:
+          'Error correction lets a QR code keep scanning correctly even when part of it is damaged, dirty, or intentionally covered, most commonly by a logo placed in the center. Four standard levels exist, each tolerating a different amount of damage: roughly 7% at the lowest level, up to roughly 30% at the highest. The tradeoff is visual density: a higher error correction level embeds more redundant data into the same code, making the pattern denser for an identical amount of source content.\n\nFor a code that will be printed cleanly with nothing overlaid on it, a lower level keeps the pattern simpler and easier to scan from a distance. For a code with a logo in the middle, or one expected to be printed on a surface likely to get scuffed or dirty (like outdoor signage), a higher level is worth the added visual density.',
+      },
+      {
+        heading: 'PNG or SVG: Which Format Should You Download?',
+        body:
+          'The right file format depends entirely on how large the code will ultimately be displayed. PNG is a raster format, made of a fixed grid of pixels, which works fine for typical digital use (a website, a slide, a social post) where the display size is known and modest. SVG is a vector format instead, defined mathematically rather than as a pixel grid, meaning it scales to any size, a business card or a building-sized banner, with no pixelation or blurriness at all.\n\nA simple rule that covers most cases: if the code is going on a screen or a normal printed page, PNG works fine. If it\u2019s going on anything printed large, packaging, a poster, an outdoor sign, SVG is the safer choice specifically because it avoids the blurry, pixelated look a stretched PNG would have at that size.',
+      },
+    ],
     supportedFormats: { output: 'PNG or SVG', notes: 'A static code — the data is permanent and doesn\u2019t depend on any external service to keep working.' },
     privacy: NO_FILE_PRIVACY,
   },
@@ -1022,6 +1262,34 @@ export const toolContent = {
       'Cleaning up a long URL with tracking parameters before sharing it',
       'Fitting a link into a space with a character limit',
       'Sharing a cleaner-looking link on social media or in a message',
+    ],
+    guideTitle: 'The Complete Guide to URL Shorteners',
+    guide: [
+      {
+        heading: '301 vs. 302 Redirects: Why the Difference Actually Matters',
+        body:
+          'Every URL shortener works by redirecting a short link to its real destination, but not all redirects are created equal. A 301 redirect tells browsers and search engines "this has permanently moved here," which is the correct signal for a short link that\u2019s meant to work indefinitely, and it\u2019s also what properly passes SEO ranking value through to the destination page. A 302 redirect instead signals "this is temporary," which search engines treat differently, sometimes indexing the short link itself rather than passing full value to the real destination.\n\nThis distinction is invisible to someone just clicking the link, both redirect types land you on the same page, but it matters a great deal for anyone sharing a link where search visibility or link equity is a real concern, which is why a properly built shortener uses 301s specifically rather than whichever redirect type happens to be easiest to implement.',
+      },
+      {
+        heading: 'Does Shortening a Link Actually Hurt SEO?',
+        body:
+          'This is one of the most common worries about URL shorteners, and the honest answer is: it depends entirely on the redirect type and whether the shortening service stays online. A correctly implemented 301 redirect passes ranking signals through to the destination page essentially intact, meaning a shortened link doesn\u2019t meaningfully dilute the destination\u2019s search performance. The real risk isn\u2019t the redirect itself, it\u2019s a shortening service shutting down or the link expiring, which turns every previously-shared short link into a dead end, taking any accumulated value with it.\n\nThis is why permanence matters as much as the redirect type: a technically correct 301 redirect still fails its purpose if the underlying short link stops resolving a year later.',
+      },
+      {
+        heading: 'Why Many "Free" Shorteners Aren\u2019t Actually Permanent',
+        body:
+          'A common, often undisclosed pattern among URL shorteners: free tier links expire after a fixed period, or the service caps how many clicks a free link will honor before requiring an upgrade. Neither limitation is usually obvious at the moment of creating the link, it\u2019s discovered later, often after the link has already been printed, shared widely, or embedded somewhere it can\u2019t easily be replaced.\n\nA genuinely permanent short link has no default expiration and no account requirement gating that permanence, since the moment a paid plan becomes necessary to keep an existing link working, it was never really the "free" offering it was presented as.',
+      },
+      {
+        heading: 'When a Custom Alias Beats a Random Short Code',
+        body:
+          'Most URL shorteners generate a random string of characters for each new short link, which works fine for casual sharing but offers no readability or memorability. A custom alias, choosing the specific text that appears after the domain, trades some of that randomness for a link a person could plausibly remember or guess correctly, useful specifically for something meant to be said aloud, printed on physical material, or reused across multiple contexts where typing it from memory might happen.\n\nThe tradeoff is availability, a popular alias might already be taken, and predictability, an easily-guessed custom alias is also easier for someone else to guess or tamper with if the link is meant to stay somewhat private.',
+      },
+      {
+        heading: 'What a Simple Shortener Doesn\u2019t Do (And When You Need More)',
+        body:
+          'A straightforward URL shortener solves one problem well: turning a long link into a short one that keeps working. It deliberately doesn\u2019t include features like click analytics, branded custom domains, QR code generation tied to the same link, or the ability to edit a link\u2019s destination after creation, capabilities that turn a simple utility into a full link-management platform. For occasional sharing, a clean shortened link is often all that\u2019s actually needed. For a business tracking campaign performance across many links, a dedicated platform built specifically around those analytics and management features is the better fit, rather than expecting a simple shortener to grow into that role.',
+      },
     ],
     supportedFormats: { notes: 'Accepts any valid http:// or https:// URL. The destination URL is stored on ToolHub\u2019s server so the short link keeps working for anyone who clicks it. This is the one tool on the site that isn\u2019t purely browser-based.' },
     privacy:
@@ -1225,6 +1493,29 @@ export const toolContent = {
       'Working out fuel or liquid volumes between US and UK gallons',
       'Converting a body weight or height between metric and imperial units',
     ],
+    guideTitle: 'The Complete Guide to Unit Conversion',
+    guide: [
+      {
+        heading: 'Why the World Uses Two Different Measurement Systems',
+        body:
+          'The metric system (meters, kilograms, liters) is built entirely around powers of ten, making conversion within it as simple as shifting a decimal point, while the imperial/US customary system (feet, pounds, gallons) evolved historically from a patchwork of practical, everyday reference units rather than a single unified design. Nearly every country has standardized on metric for both everyday and scientific use; the United States remains the largest holdout still using customary units for most everyday purposes, which is exactly why conversion between the two comes up so often for travel, cooking, and international communication.\n\nNeither system is inherently more "correct," but metric\u2019s decimal structure makes it genuinely easier to do arithmetic with, which is part of why it became the standard for scientific and international use.',
+      },
+      {
+        heading: 'Why Temperature Conversion Needs a Formula, Not Just Multiplication',
+        body:
+          'Length, weight, and volume conversions between systems are simple multiplication, doubling a value in one unit doubles it in the other, because both scales start counting from the same zero point. Temperature is different: Celsius and Fahrenheit don\u2019t share a zero point (0°C is 32°F, not 0°F), which means converting between them requires an actual linear formula, multiplying by 9/5 and adding 32 to go from Celsius to Fahrenheit, rather than a single conversion factor.\n\nInterestingly, the two scales do cross at exactly one point: -40°C and -40°F are the same temperature, the one place the two scales genuinely agree, purely as a mathematical consequence of the formula rather than anything meaningful about that specific temperature.',
+      },
+      {
+        heading: 'Cooking Measurement Conversion: Where Small Errors Actually Matter',
+        body:
+          'Converting a recipe between metric and US measurements is one of the most common practical uses for a unit converter, and it\u2019s also a place where rounding errors compound more than people expect. Baking in particular is sensitive to precise ratios between ingredients, since it relies on real chemical reactions (gluten formation, leavening) that respond to proportions, unlike cooking a stew where "close enough" rarely matters. A recipe converted using rounded, approximate factors can shift those ratios just enough to noticeably affect texture, especially in a recipe with a small number of ingredients where each one represents a larger share of the total.\n\nUsing precise, standard conversion factors rather than rounded rules of thumb matters most for baking specifically, where volume-to-weight relationships (a cup of flour weighing a genuinely different amount than a cup of sugar) also come into play.',
+      },
+      {
+        heading: 'US vs. UK Units: Same Name, Different Size',
+        body:
+          'A subtle trap in unit conversion: some unit names are shared between the US and UK systems but represent genuinely different quantities. A US gallon (about 3.785 liters) and a UK/Imperial gallon (about 4.546 liters) differ by roughly 20%, not a rounding difference but a real, meaningful gap that matters for anything from fuel economy figures to recipe volumes. The same trap applies to "tons": a US (short) ton, a UK (long) ton, and a metric ton are three distinct weights, close enough to cause confusion but different enough to matter for anything beyond casual estimation.\n\nWhen precision matters, checking which specific variant of a unit applies, rather than assuming "gallon" or "ton" means the same thing everywhere, avoids an error that a plain multiplication wouldn\u2019t catch on its own.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -1243,6 +1534,29 @@ export const toolContent = {
       'Making sure a link looks right when shared on social media',
       'Checking whether a title or description is too long before it goes live',
       'Adding Open Graph and Twitter Card tags to a page that only has a basic title so far',
+    ],
+    guideTitle: 'The Complete Guide to Meta Tags',
+    guide: [
+      {
+        heading: 'Three Different Jobs, Three Different Tag Sets',
+        body:
+          'It\u2019s easy to assume "meta tags" is one single thing, but a page actually needs several distinct sets of tags, each read by a different audience. The standard title and meta description tags are what search engines read and display in search results. Open Graph tags (og:title, og:description, og:image, and others) are a separate specification read specifically by Facebook, LinkedIn, and most other platforms when generating a link preview. Twitter Card tags are yet another separate set, read specifically by X when generating its own preview format. A page missing any one of these sets doesn\u2019t automatically fall back to another, it simply displays a plain, image-less preview (or nothing at all) on whichever platform reads the missing tag set.\n\nThis is exactly why a genuinely complete page needs all three sets present, each one serves an audience the others don\u2019t reach.',
+      },
+      {
+        heading: 'Why a Cached Preview Doesn\u2019t Update Immediately',
+        body:
+          'Social platforms fetch and cache a link\u2019s preview data the first time that link is shared anywhere on their platform, then continue showing that cached version for hours or sometimes days, rather than re-fetching the page\u2019s meta tags on every single share. This means updating a page\u2019s Open Graph tags doesn\u2019t immediately change how it looks when shared, if the link was ever shared before with the old tags, the platform is likely still showing its cached snapshot rather than the current page.\n\nMost major platforms provide a dedicated debugging or sharing-preview tool (Facebook\u2019s Sharing Debugger, LinkedIn\u2019s Post Inspector, and similar tools for other platforms) specifically to force an immediate re-crawl and clear that cached preview, which is the reliable way to see updated tags reflected without waiting for the cache to naturally expire.',
+      },
+      {
+        heading: 'Choosing the Right Open Graph Image Size',
+        body:
+          '1200×630 pixels has become the de facto standard size for a social share image, specifically because it renders well across the large-image card formats used by Facebook, LinkedIn, and X alike, without being cropped awkwardly or displayed too small on any of them. Using a meaningfully different aspect ratio risks the image being cropped in an unintended way by whichever platform\u2019s layout expects the standard proportions, cutting off important content like text or a logo positioned near the edges.\n\nKeeping the actual file size reasonable (well under the roughly 8MB ceiling most platforms enforce) also matters, since an oversized image file can cause some platforms to simply fail to load the preview image at all rather than displaying a slow-loading one.',
+      },
+      {
+        heading: 'Why the Social Preview Title Doesn\u2019t Have to Match the Page Title',
+        body:
+          'The page\u2019s actual <title> tag and its Open Graph og:title are read by different audiences in different contexts, and treating them as necessarily identical overlooks a real opportunity. The page title needs to work well as a search result headline and browser tab label, often benefiting from including a target keyword or brand name clearly. The Open Graph title is read only when someone is deciding whether to click a link already shared in a social feed, a context where a slightly more curiosity-inducing or benefit-focused phrasing frequently earns a better click-through rate than a keyword-optimized page title would in that same social context.\n\nWriting these as two deliberately distinct, purpose-built pieces of text, rather than one title reused everywhere, is a genuine, underused opportunity most pages leave on the table by default.',
+      },
     ],
     privacy: NO_FILE_PRIVACY,
   },
@@ -1464,6 +1778,29 @@ export const toolContent = {
       'Preparing a lighter video file for a slower internet connection',
       'Compressing a screen recording that came out larger than expected',
     ],
+    guideTitle: 'The Complete Guide to Video Compression',
+    guide: [
+      {
+        heading: 'Why Video Files Get So Large in the First Place',
+        body:
+          'A video is, at its core, a sequence of many individual frames played in rapid succession, typically 24 to 60 per second, each one essentially a full image. Even with the sophisticated compression already built into video formats (which avoid storing every frame as a completely independent image, instead encoding mostly just what changes between frames), the sheer volume of image data involved makes video reliably one of the largest common file types, especially at high resolution or frame rate. A single minute of high-resolution screen recording, for instance, can easily outweigh dozens of photos combined.\n\nThis is exactly why resolution has such an outsized effect on file size: reducing resolution directly reduces the pixel count in every single frame, and that reduction compounds across every frame in the video, unlike a single image where a resolution change only affects that one file.',
+      },
+      {
+        heading: 'Why Resolution, Not Bitrate, Is the Reliable Lever in a Browser',
+        body:
+          'Professional video compression tools often work primarily by adjusting bitrate, the amount of data allocated per second of video, giving fine-grained control over the size-versus-quality tradeoff. In a browser environment specifically, requesting a particular bitrate from the browser\u2019s built-in video encoder isn\u2019t consistently honored the same way across every browser and platform, making it an unreliable lever to build a tool around. Resolution reduction, by contrast, has a direct, predictable, and consistent effect: fewer pixels per frame reliably means less data to encode, regardless of which browser or device is doing the encoding.\n\nThis is a genuine engineering tradeoff worth being upfront about: a dedicated desktop video compression tool offers more precise control, while a browser-based tool trades some of that precision for something that works reliably and requires no software installation at all.',
+      },
+      {
+        heading: 'Why the Output Is WebM Even When You Uploaded MP4',
+        body:
+          'Browsers include a built-in video encoder as part of their media recording capabilities, and that encoder\u2019s native output format is WebM, a modern, open, well-supported video format. Rather than attempting to build a custom encoder capable of writing back to MP4 or other formats from scratch, a genuinely complex undertaking prone to its own bugs and compatibility issues, using the browser\u2019s own already-tested, reliable encoder is the more trustworthy approach, even though it means the output format differs from the input.\n\nWebM plays natively in every major modern browser and most current video players and platforms, so this format change rarely causes a practical problem, though it\u2019s worth knowing about upfront if the destination for the compressed video specifically requires MP4.',
+      },
+      {
+        heading: 'Choosing a Compression Level for Your Actual Use Case',
+        body:
+          'The right compression level depends on what the video is actually for. Light compression suits a video where visual quality still matters noticeably, a portfolio piece or something meant to look polished, while still getting some worthwhile size reduction. Medium is the reasonable general-purpose default, meaningful size savings without visual quality dropping enough to be distracting for most content. Aggressive compression prioritizes file size above all else, appropriate for something purely functional, a reference recording, a quick screen capture meant to demonstrate a bug, where being small and shareable matters far more than looking pristine.',
+      },
+    ],
     supportedFormats: { input: 'MP4, WebM, MOV, OGV', output: 'WebM', maxSize: '200 MB' },
     privacy: BROWSER_ONLY_PRIVACY,
   },
@@ -1488,6 +1825,29 @@ export const toolContent = {
       'Removing a plain wall or backdrop from a portrait',
       'Preparing a subject to place onto a different background',
       'Cutting out a logo or graphic shot against a flat color',
+    ],
+    guideTitle: 'The Complete Guide to Background Removal',
+    guide: [
+      {
+        heading: 'How Flood-Fill Background Removal Actually Works',
+        body:
+          'This tool removes a background using a classical image-processing technique called flood-fill: starting from the outer edges of the image, it identifies the background color there, then spreads inward, marking any connected pixel of a similar color as background too, stopping wherever it hits a meaningfully different color, which it treats as the edge of the subject. This is fundamentally a color-similarity technique, not an understanding of what a "person" or "product" actually is, which is precisely why it\u2019s labeled honestly as a color-detection method rather than AI.\n\nUnderstanding this mechanism explains both its strengths and its real limits: it works reliably and instantly for exactly the case it was built for (a uniform background), and struggles specifically where that uniformity breaks down.',
+      },
+      {
+        heading: 'Why AI-Based Background Removal and This Technique Are Genuinely Different Tools',
+        body:
+          'True AI-based background removal uses a trained segmentation model that has learned, from a very large number of example images, to recognize what a "subject" (a person, an object) generally looks like, regardless of background complexity, texture, or how similar the subject\u2019s colors are to what\u2019s behind it. This is a meaningfully more capable and more computationally expensive approach, and it\u2019s why AI-based tools can handle a complex, busy, multi-colored background that a color-detection technique like this one simply can\u2019t reliably parse.\n\nThis tool is deliberately the simpler category, fast, works entirely in the browser with no server processing, and handles its intended case (a plain, uniform background) well, but it\u2019s worth being honest about which category a specific photo actually needs before expecting a result that only true AI segmentation can reliably deliver.',
+      },
+      {
+        heading: 'Getting the Best Result: What Makes a Photo Work Well With This Technique',
+        body:
+          'The single biggest factor in how well this works is background uniformity: a subject photographed against one consistent, solid color (a plain wall, a seamless studio backdrop, a product on a single-color surface) gives the flood-fill algorithm a clean, unambiguous background to detect and remove. A background with texture, gradients, shadows, or multiple colors introduces exactly the kind of inconsistency that confuses a color-similarity approach, parts of a genuinely uniform-looking background might register as several different regions rather than one.\n\nA second, easily overlooked factor: if any part of the actual subject touches the outer edge of the photo frame, that part gets swept into the background detection too, since the algorithm starts from the image\u2019s literal border. Recomposing or lightly cropping a photo so the subject has a small margin from every edge avoids this specific failure mode entirely.',
+      },
+      {
+        heading: 'Adjusting Sensitivity: Finding the Right Balance',
+        body:
+          'The sensitivity setting controls how similar a pixel\u2019s color needs to be to the detected background color before it also gets classified as background. Too low a sensitivity leaves visible fragments of background behind, particularly at soft-edged transitions like shadows or slight lighting gradients near the subject\u2019s outline. Too high a sensitivity starts consuming parts of the subject itself, especially where the subject shares some color similarity with the background, a white shirt against a light gray wall, for instance.\n\nThere\u2019s no single correct sensitivity value across all photos, since it depends entirely on how visually distinct the subject\u2019s colors are from the background\u2019s, which is why adjusting it and reviewing the result is the reliable approach rather than expecting one default setting to work universally.',
+      },
     ],
     supportedFormats: { input: 'JPG / PNG / WEBP', output: 'PNG (with transparency)', maxSize: '25 MB' },
     privacy: BROWSER_ONLY_PRIVACY,
@@ -1611,6 +1971,29 @@ export const toolContent = {
       'Checking a recipe\u2019s oven temperature in the right scale',
       'Converting a scientific measurement to or from Kelvin',
       'Double-checking a thermostat or lab reading in a different scale',
+    ],
+    guideTitle: 'The Complete Guide to Temperature Scales',
+    guide: [
+      {
+        heading: 'Absolute Zero: The One Universal Reference Point',
+        body:
+          'Of the three common temperature scales, only Kelvin is anchored to an actual physical limit rather than an arbitrary reference point. Absolute zero, 0 Kelvin (equal to -273.15°C or -459.67°F), represents the theoretical point at which atomic motion reaches its minimum possible energy state, a genuine physical floor rather than a human-chosen benchmark like water\u2019s freezing point (Celsius\u2019s zero) or a historical brine mixture\u2019s freezing point (Fahrenheit\u2019s original zero reference). This is precisely why Kelvin can never meaningfully go negative, a negative Kelvin reading indicates an error, not an unusually cold measurement, since there\u2019s no physical temperature colder than absolute zero to represent.\n\nCelsius and Fahrenheit, by contrast, both extend into negative numbers routinely and without any special physical significance, since their zero points were chosen for human convenience rather than marking any genuine physical limit.',
+      },
+      {
+        heading: 'Why Science Standardized on Kelvin',
+        body:
+          'Physics and chemistry calculations frequently involve temperature as a direct variable in an equation, gas law calculations, thermodynamic formulas, reaction rate equations, and for those equations to produce physically meaningful results, the temperature scale used needs to start at an actual zero rather than an arbitrary reference point. Using Celsius or Fahrenheit directly in many such formulas would produce nonsensical results, since dividing by a Celsius temperature near its arbitrary zero doesn\u2019t correspond to anything physically meaningful the way dividing by a Kelvin temperature does.\n\nThis is the practical, non-arbitrary reason Kelvin became the standard scientific unit: it\u2019s not merely convention, calculations that treat temperature as a proportional physical quantity genuinely require a scale that starts at a real zero.',
+      },
+      {
+        heading: 'The Size of a Degree: Why It Matters Beyond Just the Zero Point',
+        body:
+          'Beyond where each scale starts counting, the actual size of one degree differs between scales too. A one-degree change in Celsius equals exactly a 1.8-degree change in Fahrenheit (the source of the 9/5 multiplier in the conversion formula), while a one-degree change in Kelvin equals exactly a one-degree change in Celsius, the two scales share an identical degree size, differing only in where zero falls. This is why converting between Celsius and Kelvin is pure addition or subtraction (add 273.15), while converting between Celsius and Fahrenheit requires both a scaling factor and an offset.\n\nUnderstanding this distinction, degree size versus zero-point offset, as two genuinely separate things that can each differ between scales, makes the different conversion formulas make intuitive sense rather than needing to be memorized as arbitrary rules.',
+      },
+      {
+        heading: 'Practical Reference Points Worth Knowing',
+        body:
+          'A handful of memorable reference points make sanity-checking a conversion easy without needing a calculator. Water freezes at 0°C, 32°F, and 273.15K. Water boils at 100°C, 212°F, and 373.15K (at standard atmospheric pressure). Normal human body temperature sits around 37°C, roughly 98.6°F. And the genuinely curious crossing point: -40°C and -40°F represent the exact same temperature, the one point where the two scales agree, a useful quick check that a Celsius-to-Fahrenheit conversion calculation is working correctly.',
+      },
     ],
     privacy: NO_FILE_PRIVACY,
   },
@@ -1778,6 +2161,29 @@ export const toolContent = {
       'Comparing two pieces of text for exact equality without displaying either in full',
       'Checking that a piece of text or data hasn\u2019t been altered since a hash was first recorded',
     ],
+    guideTitle: 'The Complete Guide to Cryptographic Hashing',
+    guide: [
+      {
+        heading: 'What a Hash Function Actually Does',
+        body:
+          'A hash function takes an input of any size, a word, a password, an entire file, and produces a fixed-length string of characters that acts as a kind of digital fingerprint for that exact input. The same input always produces the identical hash every time, but changing even a single character anywhere in the input produces a completely different, seemingly unrelated hash, a property called the avalanche effect. Critically, a good hash function is one-way: computing a hash from an input is fast and straightforward, but there\u2019s no way to reverse the process and recover the original input just by looking at the hash.\n\nThis combination of properties, deterministic, sensitive to any change, and effectively irreversible, is what makes hashes useful for verifying that data hasn\u2019t been altered, without needing to store or compare the original data itself.',
+      },
+      {
+        heading: 'Verifying a File Checksum: What It Actually Proves',
+        body:
+          'When a software publisher posts a SHA-256 checksum alongside a download, hashing your downloaded copy and comparing it against that published value proves the file you received is byte-for-byte identical to what the publisher actually uploaded, catching corruption from an interrupted download, a compromised mirror, or a file tampered with in transit. It does not prove the publisher\u2019s original file itself is safe or trustworthy, only that what you have matches what they said they published.\n\nThis distinction matters: checksum verification is about integrity (did the file change in transit), not about vouching for the publisher\u2019s intentions or the file\u2019s actual safety.',
+      },
+      {
+        heading: 'Why MD5 and SHA-1 Are Called "Broken"',
+        body:
+          'A hash algorithm is considered cryptographically broken once researchers demonstrate a practical way to find a "collision," two different inputs that produce the identical hash, faster than pure brute-force guessing should allow. Both MD5 and SHA-1 have had practical collision attacks demonstrated, meaning a sufficiently motivated attacker can, in principle, construct a malicious file that shares a target file\u2019s hash, defeating the entire point of using that hash to verify authenticity. For genuinely security-sensitive use, this means they\u2019re no longer appropriate.\n\nThey remain perfectly fine for non-adversarial uses like deduplication, cache keys, or casual checksums, exactly the situations where no one is deliberately trying to engineer a matching hash on purpose.',
+      },
+      {
+        heading: 'Why You Should Never Hash Passwords With SHA-256 Directly',
+        body:
+          'General-purpose hash algorithms like SHA-256 are deliberately designed to be fast, which is exactly the wrong property for password storage. An attacker who obtains a database of SHA-256-hashed passwords can attempt billions of guesses per second on modern hardware, checking each guess\u2019s hash against the stolen list, since the algorithm was never designed to resist that kind of brute-force attack. Password-specific algorithms like bcrypt, scrypt, and Argon2 are deliberately slow and computationally expensive instead, by design, which directly limits how many guesses an attacker can try in a given amount of time, even with significant computing resources.\n\nThis is a genuinely common and understandable mistake, general-purpose hashing tools like this one are useful for checksums and integrity verification specifically, but password storage needs a purpose-built algorithm, not a fast general-purpose hash.',
+      },
+    ],
     supportedFormats: { notes: 'SHA-256 or higher is recommended for anything security-relevant; MD5 and SHA-1 are best treated as checksums only, not for security purposes. None of these algorithms are appropriate for storing passwords, use bcrypt, scrypt, or Argon2 for that instead.' },
     privacy: NO_FILE_PRIVACY,
   },
@@ -1802,6 +2208,29 @@ export const toolContent = {
       'Comparing two events stored as timestamps to see which happened first',
       'Understanding a raw timestamp value returned by a third-party API',
     ],
+    guideTitle: 'The Complete Guide to Unix Timestamps',
+    guide: [
+      {
+        heading: 'Why Computers Store Time as a Single Number',
+        body:
+          'A Unix timestamp represents a specific point in time as one number, the count of seconds elapsed since midnight UTC on January 1, 1970 (a fixed reference point called the Unix epoch), rather than as a calendar date and time with separate year, month, day, and timezone fields. This matters enormously for how software handles time internally: comparing whether one event happened before another becomes simple numeric comparison, and storing a moment in time takes a single compact number rather than a more complex structured value with its own timezone ambiguity baked in.\n\nHuman-readable dates only get formatted from the underlying timestamp at the moment of display, which is also why the same stored timestamp can be shown correctly in any timezone without changing the underlying stored value at all.',
+      },
+      {
+        heading: 'Why a Timestamp Is the Same Number Everywhere in the World',
+        body:
+          'Because a Unix timestamp counts seconds from a fixed UTC reference point rather than describing a local calendar date, the number itself never changes based on where in the world you are, 1700000000 refers to the exact same instant whether read in New York, London, or Tokyo. What changes is only how that instant gets displayed as a human-readable date and time, since 2pm in New York is a different clock time than the same instant shown in Tokyo, even though both are describing the identical moment.\n\nThis is precisely why Unix timestamps are the standard choice for storing time in databases and APIs meant to work across multiple timezones: the ambiguity of "which timezone was this date recorded in" simply doesn\u2019t exist for a timestamp, since it was never tied to any particular timezone to begin with.',
+      },
+      {
+        heading: 'Seconds vs. Milliseconds: The Most Common Timestamp Mix-Up',
+        body:
+          'Unix timestamps are traditionally expressed in seconds, producing a 10-digit number for any current date. JavaScript\u2019s Date.now() and several modern APIs instead return timestamps in milliseconds, producing a 13-digit number for the same moment in time, a thousand times larger than the seconds-based equivalent. Pasting a millisecond-based timestamp into a tool or system expecting seconds (or vice versa) produces a wildly wrong date, often decades off, rather than an obvious error, since both are technically valid numbers, just representing different units.\n\nA quick way to tell which you\u2019re looking at: a current-day timestamp in seconds has 10 digits; the same moment in milliseconds has 13. Dividing a 13-digit value by 1000 converts it to the seconds-based equivalent.',
+      },
+      {
+        heading: 'The Year 2038 Problem: Why It Still Matters',
+        body:
+          'Many older systems, and some embedded devices and legacy software still in use today, store Unix time as a signed 32-bit integer, which can only represent values up to a specific maximum before overflowing. That maximum is reached on January 19, 2038, at which point affected systems can wrap around to an invalid or incorrect date, similar in spirit to the Y2K problem decades earlier, though generally less widely publicized. Modern systems using 64-bit timestamps have effectively no equivalent limit for any practical timeframe, but the 32-bit limitation remains a genuine, documented concern for older infrastructure, embedded systems, and legacy databases that haven\u2019t been migrated.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -1825,6 +2254,29 @@ export const toolContent = {
       'Learning how a specific regex feature behaves against real text',
       'Checking a pattern correctly rejects invalid input, not just accepts valid input',
     ],
+    guideTitle: 'The Complete Guide to Regular Expressions',
+    guide: [
+      {
+        heading: 'Why Testing a Regex Live Beats Writing It Blind',
+        body:
+          'Regular expressions are notoriously easy to write incorrectly in ways that aren\u2019t obvious just from reading the pattern, a quantifier being one character too greedy, a character class missing an edge case, or an anchor placed in a position that doesn\u2019t do what it looks like it should. Testing a pattern against real sample text immediately surfaces these problems as actual highlighted matches (or a conspicuous absence of them), rather than discovering the bug only after the pattern is already deployed in real code and failing on a real user\u2019s input.\n\nThis matters especially for validation patterns (checking an email format, a phone number, a password requirement), where testing against both inputs that should pass and inputs that should specifically fail is the only reliable way to confirm a pattern is neither too strict nor too permissive.',
+      },
+      {
+        heading: 'Greedy vs. Lazy Matching: The Source of Most "Matches Too Much" Bugs',
+        body:
+          'Quantifiers like * (zero or more) and + (one or more) are greedy by default, meaning they consume as much matching text as possible before backing off only if required for the rest of the pattern to succeed. Against text like "<b>bold</b> and <i>italic</i>", a pattern like <.*> intended to match one HTML tag will greedily match from the very first < all the way to the very last >, swallowing everything in between rather than matching just one tag as likely intended.\n\nAdding a ? immediately after the quantifier (*? or +?) makes it lazy instead, matching as little as possible before allowing the rest of the pattern to succeed, which is the standard fix for exactly this class of "matched way more than expected" problem.',
+      },
+      {
+        heading: 'Understanding Regex Flags: g, i, m, and s',
+        body:
+          'Flags modify how a pattern behaves without changing the pattern itself. The g (global) flag makes a pattern find every match in the text rather than stopping after the first one, essential for anything meant to process multiple occurrences. The i (case-insensitive) flag makes letter matching ignore case entirely, so a pattern written for lowercase also matches uppercase and mixed case. The m (multiline) flag changes what ^ and $ anchor to, matching the start and end of each individual line rather than only the very start and end of the entire input string. The s (dotAll) flag changes what . matches, allowing it to also match newline characters, which it excludes by default.\n\nForgetting the g flag when multiple matches were expected, or forgetting i when case shouldn\u2019t matter, are two of the most common reasons a pattern that looks correct still doesn\u2019t behave as expected.',
+      },
+      {
+        heading: 'Why an "Invalid Pattern" Error Is Different From a "No Matches" Result',
+        body:
+          'These are two genuinely different problems that produce different signals. An invalid pattern error means the regex itself failed to compile at all, an unclosed bracket, a mismatched parenthesis, or an invalid escape sequence, a syntax problem with the pattern independent of whatever text it\u2019s being tested against. A valid pattern that simply finds no matches is a different situation entirely, the regex is syntactically fine, it just doesn\u2019t describe anything present in the current test text.\n\nDistinguishing between these two when debugging matters: a syntax error needs the pattern itself fixed, while a valid-but-non-matching pattern usually needs either the pattern\u2019s logic reconsidered or the test text checked for something like unexpected case sensitivity or a special character being interpreted as regex syntax rather than a literal character.',
+      },
+    ],
     privacy: NO_FILE_PRIVACY,
   },
 
@@ -1842,6 +2294,29 @@ export const toolContent = {
       'Estimating how long a piece of writing will take to read aloud or silently',
       'Getting a quick character count for a form field or social post with a strict limit',
       'Checking a document\u2019s paragraph count for a formatting requirement',
+    ],
+    guideTitle: 'The Complete Guide to Word Counting',
+    guide: [
+      {
+        heading: 'Why Word Count Requirements Exist in the First Place',
+        body:
+          'A word count target attached to an essay, article, or assignment is rarely arbitrary, it\u2019s usually a rough proxy for depth: enough length to actually develop an argument, cover a topic\u2019s necessary sub-points, or provide sufficient evidence, without padding the piece unnecessarily. A 500-word minimum implicitly signals that the topic can\u2019t be meaningfully addressed in three sentences, while a 500-word maximum signals the opposite, that concision itself is part of what\u2019s being evaluated.\n\nChecking word count while writing, rather than only after finishing a draft, helps gauge whether a piece is naturally trending short or long relative to its target, making it easier to adjust pacing or scope partway through rather than discovering a major length mismatch only at the end.',
+      },
+      {
+        heading: 'How Reading Time Estimates Actually Work',
+        body:
+          'A reading time estimate is calculated from an average reading speed, commonly around 200 words per minute for adult silent reading of straightforward text, applied to the piece\u2019s total word count. This is a genuinely useful ballpark for gauging how long an article or document will take someone to read, but it\u2019s worth understanding what it doesn\u2019t account for: technical or dense material reads slower than casual prose, a reader skimming reads faster than one reading carefully, and reading aloud runs meaningfully slower than silent reading, often closer to 130-150 words per minute.\n\nTreating the estimate as a rough guide rather than a precise figure is the right approach, it\u2019s genuinely useful for comparing the relative length of two pieces or setting expectations, less useful as an exact prediction for any specific reader.',
+      },
+      {
+        heading: 'Character Limits: Why "With Spaces" vs. "Without Spaces" Matters',
+        body:
+          'Different platforms and systems count characters differently, and the gap between the two counts can be substantial for longer text, since spaces make up a meaningful percentage of most written content. A form field, social media platform, or messaging system\u2019s stated character limit might include spaces in that count or might not, and getting this wrong means either submitting text that gets silently truncated or leaving unused room because the actual limit was more generous than assumed.\n\nChecking both counts side by side removes the guesswork entirely, whichever number matches how the target platform counts characters is the one that actually matters for that specific limit.',
+      },
+      {
+        heading: 'Word Count vs. Page Count: Why They Don\u2019t Convert Cleanly',
+        body:
+          'A common but imprecise shortcut treats word count and page count as directly interchangeable, using a rule like "250 words per page." In reality, how many words fit on a page depends heavily on font size, line spacing, margins, and formatting choices like headings or bullet points, meaning the same word count can span meaningfully different numbers of pages depending entirely on how it\u2019s formatted.\n\nFor an assignment or submission with a stated page requirement rather than a word requirement, it\u2019s worth checking whether a specific word count equivalent was given alongside it, since relying on a generic words-per-page estimate can produce a page count that doesn\u2019t match the actual formatted document at all.',
+      },
     ],
     privacy: NO_FILE_PRIVACY,
   },
@@ -1864,6 +2339,29 @@ export const toolContent = {
       'Getting a variable name in camelCase or snake_case for code',
       'Turning a URL slug into kebab-case',
       'Matching a codebase\u2019s existing naming convention when adding new code',
+    ],
+    guideTitle: 'The Complete Guide to Text Case Styles',
+    guide: [
+      {
+        heading: 'Why Programming Languages Care So Much About Case Style',
+        body:
+          'Unlike everyday writing, where case is mostly a stylistic choice, programming naming conventions are often semi-enforced by community convention or even tooling, and mixing styles within one codebase reads as genuinely inconsistent to anyone familiar with that language\u2019s norms. JavaScript and Java favor camelCase for variables and functions; Python and Ruby favor snake_case; many CSS and URL conventions favor kebab-case specifically because underscores and case sensitivity behave inconsistently across browsers and older systems in ways hyphens don\u2019t.\n\nMatching whichever convention a specific codebase or context already uses, rather than defaulting to a personal preference, is what keeps new code from immediately standing out as written by someone unfamiliar with the project\u2019s norms.',
+      },
+      {
+        heading: 'Title Case vs. Sentence Case: A Distinction Style Guides Actually Disagree On',
+        body:
+          'Sentence case, capitalizing only the first letter of a piece of text (and proper nouns), is the default form of ordinary prose and generally uncontroversial. Title Case, capitalizing most words in a heading or title, is where genuine disagreement exists: different style guides (AP, Chicago, APA) disagree on which short words, articles, conjunctions, prepositions under a certain length, should stay lowercase even in a Title Case heading. A tool applying a single consistent rule handles the common case well, but for publication under a specific style guide\u2019s exact rules, it\u2019s worth checking the result against that guide\u2019s specific exceptions.\n\nIn practice, most web and app UI headings use a simpler, more permissive version of Title Case than formal print publishing does, capitalizing every word for visual consistency rather than following a style guide\u2019s nuanced exception list.',
+      },
+      {
+        heading: 'kebab-case for URLs: Why Hyphens Specifically',
+        body:
+          'URL slugs overwhelmingly use kebab-case (words-separated-by-hyphens) rather than snake_case or camelCase, for reasons that are more practical than aesthetic. Search engines have historically treated a hyphen as a word separator when parsing a URL for relevant keywords, while an underscore was, for a long period, treated as joining two words into one token instead, a meaningful difference for how a URL\u2019s words get interpreted for search purposes. Hyphens are also simply easier to read at a glance in a URL bar and don\u2019t risk being visually confused with a space the way an underscore rendered in certain fonts sometimes can.\n\nThis is why converting a heading or title into a URL-friendly slug almost always means kebab-case specifically, not just "any word separator will do."',
+      },
+      {
+        heading: 'What Case Conversion Doesn\u2019t Change (And Why That Matters)',
+        body:
+          'Case conversion is deliberately narrow in scope: it changes the capitalization pattern of letters and, for programming case styles, the separators between words, but it doesn\u2019t touch numbers, symbols, or punctuation, since those characters have no uppercase or lowercase form to convert between in the first place. This matters when converting something like a mixed identifier ("user_id_2") into a different style, the conversion correctly handles the letter portions while leaving the numeral untouched exactly as it should, rather than attempting to force a transformation onto a character where the concept of "case" simply doesn\u2019t apply.',
+      },
     ],
     privacy: NO_FILE_PRIVACY,
   },
