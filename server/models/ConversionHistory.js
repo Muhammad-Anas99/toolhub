@@ -54,6 +54,15 @@ const conversionHistorySchema = new mongoose.Schema(
       trim: true,
       default: 'Unknown',
     },
+    // Stored specifically for admin-facing usage analytics (distinguishing
+    // real visitor traffic from the site owner's own testing) — not shown
+    // anywhere in the public-facing UI. Disclosed in the Privacy Policy's
+    // analytics section.
+    ipAddress: {
+      type: String,
+      trim: true,
+      default: 'Unknown',
+    },
     device: {
       type: String,
       enum: ['desktop', 'mobile', 'tablet', 'unknown'],

@@ -5,7 +5,7 @@ export function removeDuplicateLines(text) {
 }
 
 export function reverseText(text) {
-  return text.split('').reverse().join('')
+  return Array.from(text).reverse().join('')
 }
 
 const UPSIDE_DOWN_MAP = {

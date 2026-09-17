@@ -114,12 +114,15 @@ export default function PrivacyPolicy() {
                 Usage analytics
               </h2>
               <p className="mt-2 leading-relaxed">
-                We keep basic, aggregate statistics about how the site is used: which tools get
-                used and how often, a general country-level location derived from your network
-                connection (not your precise location, and not stored as a raw IP address), and
-                a general device category such as desktop or mobile. This data is used to
-                understand which tools are useful and where to focus development, not to build a
-                profile of any individual visitor.
+                We keep basic statistics about how the site is used: which tools get used and how
+                often, a general country-level location derived from your network connection (not
+                your precise location), a general device category such as desktop or mobile, and
+                the IP address your request came from. The IP address is retained for internal
+                administrative purposes only, such as distinguishing genuine visitor traffic from
+                our own testing and spotting abusive or automated use, is never displayed publicly
+                anywhere on the site, and is never sold or shared with third parties. This data as
+                a whole is used to understand which tools are useful and where to focus
+                development, not to build a marketing profile of any individual visitor.
               </p>
             </section>
 

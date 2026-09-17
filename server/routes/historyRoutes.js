@@ -14,5 +14,6 @@ router.delete('/:id', protect, historyController.deleteHistoryEntry)
 
 // Admin-only: every user's conversions, with who-did-it attached.
 router.get('/admin/all', protect, authorize('admin'), historyController.getAllHistoryAdmin)
+router.delete('/admin/:id', protect, authorize('admin'), historyController.deleteHistoryEntryAdmin)
 
 export default router

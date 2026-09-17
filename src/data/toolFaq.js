@@ -387,6 +387,11 @@ export const toolFaqs = {
       question: 'Will the PDF be larger than the original JPG?',
       answer: 'Slightly. A PDF wrapper adds a small amount of overhead beyond the raw image data, but the difference is minor since the image itself isn\u2019t re-compressed.',
     },
+    {
+      id: 'jpg-to-pdf-privacy',
+      question: 'Is my image uploaded to a server during conversion?',
+      answer: 'No \u2014 the PDF is built entirely in your browser. Your image is never uploaded anywhere.',
+    },
   ],
   'png-to-pdf': [
     {
@@ -423,6 +428,11 @@ export const toolFaqs = {
       id: 'edit-after-conversion',
       question: 'Can I edit the PNG image after it\u2019s embedded in the PDF?',
       answer: 'Not through this tool. The PDF holds the image as a single embedded picture, not editable layers or objects. To make changes, edit the original PNG first and then convert the updated version.',
+    },
+    {
+      id: 'png-to-pdf-privacy',
+      question: 'Is my image uploaded to a server during conversion?',
+      answer: 'No \u2014 the PDF is built entirely in your browser. Your image is never uploaded anywhere.',
     },
   ],
   'merge-pdf': [
@@ -502,6 +512,11 @@ export const toolFaqs = {
       id: 'password-protected-split',
       question: 'Can I split a password-protected PDF?',
       answer: 'A PDF that requires a password to open can\u2019t be read and split without first removing that protection, since the file\u2019s content is encrypted until unlocked.',
+    },
+    {
+      id: 'split-pdf-privacy',
+      question: 'Is my PDF uploaded to a server to be split?',
+      answer: 'No \u2014 splitting happens entirely in your browser. Your PDF, including anything confidential in it, is never uploaded anywhere.',
     },
   ],
 
@@ -756,6 +771,11 @@ export const toolFaqs = {
       question: 'Should I use this or the JSON Formatter tool?',
       answer: 'Use this when you only need a quick yes/no on whether JSON is valid. Use the Formatter if you also want the result pretty-printed or minified \u2014 it validates too, and gives you a usable, reformatted output on top of that.',
     },
+    {
+      id: 'json-validator-privacy',
+      question: 'Is my JSON data sent anywhere?',
+      answer: 'No \u2014 validation happens instantly in your browser. Nothing you paste here is ever sent to a server.',
+    },
   ],
   'base64-encoder': [
     {
@@ -809,6 +829,11 @@ export const toolFaqs = {
       id: 'decode-safety',
       question: 'Is it safe to decode a URL I don\u2019t fully trust?',
       answer: 'Decoding itself just reveals the original text and doesn\u2019t execute anything \u2014 it\u2019s safe to decode and inspect a suspicious-looking encoded URL to see what it actually contains before deciding whether to visit it.',
+    },
+    {
+      id: 'url-encoder-privacy',
+      question: 'Is my text sent anywhere?',
+      answer: 'No \u2014 encoding and decoding both happen instantly in your browser. Nothing you paste here is ever sent to a server.',
     },
   ],
   'uuid-generator': [
@@ -1602,6 +1627,11 @@ export const toolFaqs = {
       question: 'Why is the base unit meters instead of, say, centimeters?',
       answer: 'The meter is the standard SI base unit for length, and using it here keeps every other unit\u2019s conversion factor as a single, direct multiplication in either direction, rather than needing an intermediate conversion step in between.',
     },
+    {
+      id: 'length-converter-privacy',
+      question: 'Does this tool need an internet connection to convert?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math in your browser. Nothing you enter is ever sent to a server.',
+    },
   ],
 
   'weight-converter': [
@@ -1635,6 +1665,11 @@ export const toolFaqs = {
       question: 'Is the ounce here the same as a troy ounce used for precious metals?',
       answer: 'No, different units. This converter uses the standard avoirdupois ounce (the everyday one, about 28.35 grams). A troy ounce, used for gold, silver, and other precious metals, is heavier, about 31.1 grams, a separate historical measurement system.',
     },
+    {
+      id: 'weight-converter-privacy',
+      question: 'Does this tool need an internet connection to convert?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math in your browser. Nothing you enter is ever sent to a server.',
+    },
   ],
 
   'volume-converter': [
@@ -1667,6 +1702,11 @@ export const toolFaqs = {
       id: 'liquid-vs-dry-volume',
       question: 'Does this account for the difference between liquid and dry measurements?',
       answer: 'No, this converter handles liquid (fluid) volume units specifically. US dry measure (used historically for produce like grain) uses a separate, differently-sized gallon and quart, a distinction this tool doesn\u2019t cover.',
+    },
+    {
+      id: 'volume-converter-privacy',
+      question: 'Does this tool need an internet connection to convert?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math in your browser. Nothing you enter is ever sent to a server.',
     },
   ],
 
@@ -1729,6 +1769,11 @@ export const toolFaqs = {
       question: 'Why is the base unit square meters instead of hectares?',
       answer: 'Square meters give the smallest common reference point across both the metric units here (square millimeters through square kilometers) and the imperial ones (square feet, acres, square miles), keeping every conversion factor a single multiplication rather than a chain of unit changes.',
     },
+    {
+      id: 'area-converter-privacy',
+      question: 'Does this tool need an internet connection to convert?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math in your browser. Nothing you enter is ever sent to a server.',
+    },
   ],
 
   'speed-converter': [
@@ -1762,6 +1807,11 @@ export const toolFaqs = {
       question: 'Is this the same as converting velocity?',
       answer: 'For the numeric magnitude, yes. Velocity technically also includes direction, which this tool doesn\u2019t track, so it converts speed (how fast) rather than full velocity (how fast, in which direction).',
     },
+    {
+      id: 'speed-converter-privacy',
+      question: 'Does this tool need an internet connection to convert?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math in your browser. Nothing you enter is ever sent to a server.',
+    },
   ],
 
   'time-converter': [
@@ -1790,6 +1840,11 @@ export const toolFaqs = {
       question: 'Why is the base unit seconds instead of minutes or hours?',
       answer: 'The second is the standard SI base unit for time, and using it here keeps every other unit\u2019s conversion factor as a single, direct multiplication, milliseconds down, minutes and hours up, without needing an intermediate conversion step.',
     },
+    {
+      id: 'time-converter-privacy',
+      question: 'Does this tool need an internet connection to convert?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math in your browser. Nothing you enter is ever sent to a server.',
+    },
   ],
 
   'data-converter': [
@@ -1812,6 +1867,11 @@ export const toolFaqs = {
       id: 'why-binary-default',
       question: 'Why do operating systems still use binary (1024-based) units if the "correct" IEC name is different?',
       answer: 'Mostly historical inertia. Computers work naturally in powers of two, so early systems adopted 1024-based counting and labeled it with the familiar decimal prefixes (KB, MB) rather than the newer IEC names (KiB, MiB), which weren\u2019t standardized until 1998, long after the convention was already widespread.',
+    },
+    {
+      id: 'data-converter-privacy',
+      question: 'Does this tool need an internet connection to convert?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math in your browser. Nothing you enter is ever sent to a server.',
     },
   ],
 
@@ -1836,6 +1896,11 @@ export const toolFaqs = {
       question: 'Why does the Pascal feel like such a small, impractical unit?',
       answer: 'Because it\u2019s defined as just one newton of force per square meter, a genuinely small amount of pressure. Everyday atmospheric pressure works out to over 100,000 Pascals, which is exactly why kilopascals and bar exist as more convenient everyday sizes.',
     },
+    {
+      id: 'pressure-converter-privacy',
+      question: 'Does this tool need an internet connection to convert?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math in your browser. Nothing you enter is ever sent to a server.',
+    },
   ],
 
   'energy-converter': [
@@ -1853,6 +1918,11 @@ export const toolFaqs = {
       id: 'btu-rate-or-amount',
       question: 'Is BTU an amount of energy or a rate?',
       answer: 'BTU by itself is an amount of energy. BTU per hour, commonly seen on air conditioner specs, is a rate describing how quickly that unit can move heat, which is why converting a BTU/hour rating meaningfully involves thinking about it alongside time, not as a standalone energy amount.',
+    },
+    {
+      id: 'energy-converter-privacy',
+      question: 'Does this tool need an internet connection to convert?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math in your browser. Nothing you enter is ever sent to a server.',
     },
   ],
 
@@ -1877,6 +1947,11 @@ export const toolFaqs = {
       question: 'Why do some things get rated in watts and others in horsepower?',
       answer: 'Largely tradition specific to each industry: automotive and engine-related power tends to stay in horsepower for historical reasons, while electrical devices and modern engineering contexts default to watts, the actual SI unit. Both genuinely describe the exact same physical quantity.',
     },
+    {
+      id: 'power-converter-privacy',
+      question: 'Does this tool need an internet connection to convert?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math in your browser. Nothing you enter is ever sent to a server.',
+    },
   ],
 
   'angle-converter': [
@@ -1899,6 +1974,11 @@ export const toolFaqs = {
       id: 'what-is-a-turn',
       question: 'What is a "turn" used for as an angle unit?',
       answer: 'It expresses a full 360-degree rotation as simply "1," which is a natural way to describe rotational quantities like how many complete turns a wheel, motor shaft, or gear makes, rather than tracking degrees that keep climbing past 360.',
+    },
+    {
+      id: 'angle-converter-privacy',
+      question: 'Does this tool need an internet connection to convert?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math in your browser. Nothing you enter is ever sent to a server.',
     },
   ],
 
@@ -2163,6 +2243,11 @@ export const toolFaqs = {
       question: 'Why don\u2019t any tools, even paid ones, do a perfect PDF-to-Word conversion?',
       answer: 'Because a PDF doesn\u2019t actually store a document the way Word does. It stores drawing instructions for where each character should appear on the page. Rebuilding real paragraphs, tables and headings from that means making educated guesses, and those guesses break down on anything visually complex, regardless of how good the tool is.',
     },
+    {
+      id: 'pdf-to-word-privacy',
+      question: 'Is my PDF uploaded to a server to be converted?',
+      answer: 'No \u2014 text extraction and the DOCX file are both built entirely in your browser. Your PDF is never uploaded anywhere.',
+    },
   ],
 
   'pdf-to-powerpoint': [
@@ -2265,6 +2350,11 @@ export const toolFaqs = {
       question: 'Does the PDF paginate the same way as the original Word document?',
       answer: 'Text reflows and paginates naturally based on the PDF\u2019s own page size, similar to how a document flows in Word \u2014 but exact page breaks may land in slightly different places than the original, since layout-affecting elements like tables and images aren\u2019t part of the conversion.',
     },
+    {
+      id: 'word-to-pdf-privacy',
+      question: 'Is my document uploaded to a server to be converted?',
+      answer: 'No \u2014 the conversion happens entirely in your browser. Your document is never uploaded anywhere.',
+    },
   ],
 
 
@@ -2293,6 +2383,11 @@ export const toolFaqs = {
       id: 'thumbnail-changes-later',
       question: 'What if the video owner changes the thumbnail after I download it?',
       answer: 'The downloaded file stays exactly as it was at the moment it was saved. Re-checking the same video later would show the updated thumbnail, since this tool always fetches whatever YouTube is currently serving, not a cached copy.',
+    },
+    {
+      id: 'youtube-thumbnail-privacy',
+      question: 'Does this tool need my YouTube account or send anything besides the video ID?',
+      answer: 'No account or login is needed at all. This tool fetches thumbnail images directly from YouTube\u2019s own public image servers using just the video ID, the same publicly accessible thumbnails YouTube already serves for embedding anywhere.',
     },
   ],
 
@@ -2488,6 +2583,11 @@ export const toolFaqs = {
       id: 'quality-loss-resize',
       question: 'Will resizing to these dimensions reduce image quality?',
       answer: 'Resizing down to a smaller size stays sharp using high-quality smoothing. If your original photo is smaller than the target dimensions, it will need to be enlarged, which can look softer since no new detail can be added.',
+    },
+    {
+      id: 'instagram-resizer-privacy',
+      question: 'Is my photo uploaded to a server to be resized?',
+      answer: 'No \u2014 resizing happens entirely in your browser using the Canvas API. Your photo is never uploaded anywhere.',
     },
   ],
 
@@ -2770,16 +2870,24 @@ export const toolFaqs = {
   'remove-duplicate-lines': [
     { id: 'case-sensitive-dupes', question: 'Is duplicate detection case-sensitive?', answer: 'Yes, "Apple" and "apple" are treated as different lines, since a case-insensitive match risks discarding genuinely different data.' },
     { id: 'which-copy-kept', question: 'Which copy of a duplicate line gets kept?', answer: 'The first occurrence is kept; every later repeat of that exact line is removed.' },
+    { id: 'trailing-whitespace-dupes', question: 'Will "example.com" and "example.com " (with a trailing space) count as duplicates?', answer: 'No, they\u2019re treated as different lines since the comparison is exact, character for character. If your data has inconsistent trailing whitespace, trimming it first with a text editor\u2019s find-and-replace will make deduplication catch those as true duplicates.' },
+    { id: 'remove-duplicate-lines-privacy', question: 'Is my list uploaded anywhere?', answer: 'No \u2014 deduplication happens instantly in your browser. Your data is never sent to or stored on a server.' },
   ],
   'text-reverser': [
     { id: 'reverses-words-or-chars', question: 'Does this reverse word order or character order?', answer: 'Character order \u2014 the entire string is reversed as a mirror image, not just the order of the words within it.' },
+    { id: 'emoji-reversal', question: 'Does reversing text with emoji or accented characters work correctly?', answer: 'Yes \u2014 the reversal is built to handle full Unicode characters correctly, including emoji and accented letters, rather than potentially splitting a multi-part character in the wrong place.' },
+    { id: 'text-reverser-privacy', question: 'Is my text sent anywhere?', answer: 'No \u2014 reversal happens instantly in your browser. Nothing you type here is ever sent to a server.' },
   ],
   'upside-down-text-generator': [
     { id: 'is-it-an-image', question: 'Is this an image or a font trick?', answer: 'Neither \u2014 it uses real Unicode characters that happen to resemble upside-down letters, so it works as plain text anywhere, not just in one specific app.' },
     { id: 'why-not-perfect', question: 'Why do some letters look slightly different upside down?', answer: 'Unicode doesn\u2019t have a true upside-down version of every letter, so the closest visual lookalike is used instead.' },
+    { id: 'numbers-and-punctuation', question: 'Do numbers and punctuation flip too?', answer: 'Many do \u2014 several digits and common punctuation marks have reasonable upside-down lookalikes in Unicode, though the visual match varies by character just like with letters.' },
+    { id: 'upside-down-text-privacy', question: 'Is my text sent anywhere?', answer: 'No \u2014 the conversion happens instantly in your browser by swapping each character for its lookalike. Nothing you type here is ever sent to a server.' },
   ],
   'trim-whitespace': [
     { id: 'does-it-change-words', question: 'Does this change any of the actual words?', answer: 'No, only whitespace (spaces and blank lines) is affected; the words themselves are untouched.' },
+    { id: 'tabs-vs-spaces', question: 'Does this handle tabs the same way as spaces?', answer: 'Yes for leading and trailing whitespace \u2014 a tab at the start or end of a line is trimmed exactly like a space. Whitespace in the middle of a line, including tabs, is left untouched, since that\u2019s intentional spacing rather than the kind of accidental extra whitespace this tool targets.' },
+    { id: 'trim-whitespace-privacy', question: 'Is my text sent anywhere?', answer: 'No \u2014 cleanup happens instantly in your browser. Nothing you paste here is ever sent to a server.' },
   ],
   'slug-generator': [
     { id: 'what-is-a-slug', question: 'What exactly is a "slug"?', answer: 'The readable part of a URL, like "my-post-title" in example.com/blog/my-post-title \u2014 lowercase, hyphenated, no special characters.' },
@@ -2789,15 +2897,25 @@ export const toolFaqs = {
   ],
   'line-counter': [
     { id: 'why-two-counts', question: 'Why show two different line counts?', answer: 'Total lines and non-empty lines tell different stories \u2014 a document that\u2019s mostly blank lines looks very different from one that\u2019s mostly content, even with the same total count.' },
+    { id: 'what-counts-as-a-line', question: 'What exactly counts as one line?', answer: 'Any text between line breaks, including a genuinely empty line with nothing on it \u2014 a file with 10 line breaks has 11 lines by this definition, matching how most text editors and version control tools count lines.' },
+    { id: 'line-counter-privacy', question: 'Is my text sent anywhere?', answer: 'No \u2014 counting happens instantly in your browser as you type or paste. Your text is never sent to or stored on a server.' },
   ],
   'text-to-binary': [
     { id: 'binary-encoding-used', question: 'What encoding does this use?', answer: 'Standard 8-bit character codes, the same ASCII-compatible encoding used throughout plain text and programming.' },
+    { id: 'why-8-bits-per-char', question: 'Why does each character need exactly 8 binary digits?', answer: '8 bits (one byte) can represent 256 different values, more than enough to cover every standard ASCII character. It\u2019s the standard unit computers use to store a single character.' },
+    { id: 'special-characters-binary', question: 'Does this handle accented letters or emoji?', answer: 'Standard ASCII covers the basic English alphabet, numbers, and common punctuation. Characters outside that range use a different, wider encoding, so results for accented letters or emoji may not match a simple 8-bit-per-character pattern.' },
+    { id: 'text-to-binary-privacy', question: 'Is my text sent anywhere?', answer: 'No \u2014 the conversion happens instantly in your browser. Nothing you type here is ever sent to a server.' },
   ],
   'binary-to-text': [
     { id: 'binary-format-expected', question: 'What format should the binary input be in?', answer: '8-digit groups separated by spaces, matching the output of this site\u2019s Text to Binary tool.' },
+    { id: 'invalid-binary-input', question: 'What happens if I paste binary that isn\u2019t in valid 8-digit groups?', answer: 'The conversion may produce unexpected or garbled characters, since each group is interpreted as one character\u2019s code. Double-checking the input is cleanly space-separated 8-digit groups before converting gives the most reliable result.' },
+    { id: 'binary-to-text-privacy', question: 'Is the binary I paste here sent anywhere?', answer: 'No \u2014 decoding happens instantly in your browser. Nothing you paste here is ever sent to a server.' },
   ],
   'find-and-replace': [
     { id: 'whole-word-explained', question: 'What does "whole word only" actually do?', answer: 'It prevents a short search term from matching inside a longer word \u2014 searching "cat" won\u2019t also change "catalog" when this is enabled.' },
+    { id: 'case-sensitivity-option', question: 'Does search match case by default?', answer: 'This depends on your case-sensitivity setting \u2014 with it off, "Apple" and "apple" both match a search for "apple"; with it on, only exact case matches are replaced.' },
+    { id: 'replace-all-vs-first', question: 'Does this replace every match, or just the first one?', answer: 'Every match in the text gets replaced in one pass, not just the first occurrence \u2014 that\u2019s the entire point of a bulk find-and-replace over manually editing one instance at a time.' },
+    { id: 'find-and-replace-privacy', question: 'Is my text sent anywhere when I use this?', answer: 'No \u2014 all searching and replacing happens instantly in your browser. Your text is never sent to or stored on a server.' },
   ],
 
   'percentage-calculator': [
@@ -2833,12 +2951,16 @@ export const toolFaqs = {
   'color-contrast-checker': [
     { id: 'aa-vs-aaa', question: 'What\u2019s the difference between AA and AAA compliance?', answer: 'AAA is a stricter standard requiring higher contrast (7:1 for normal text versus AA\u2019s 4.5:1). AA is the more commonly targeted baseline; AAA is recommended where possible but not always required.' },
     { id: 'large-text-different', question: 'Why does large text have a lower contrast requirement?', answer: 'Larger text is inherently easier to read at lower contrast, so WCAG sets a more lenient threshold (3:1 for AA) for text above a certain size and weight.' },
+    { id: 'contrast-checker-privacy', question: 'Are the colors I check sent anywhere?', answer: 'No \u2014 the contrast ratio is calculated instantly in your browser using the real WCAG formula. Nothing you enter is ever sent to a server.' },
   ],
   'darken-lighten-color': [
     { id: 'how-shades-calculated', question: 'How are the shades actually calculated?', answer: 'Darker shades scale each RGB channel toward zero by the given percentage; lighter shades scale each channel toward 255 (white) by the same percentage.' },
+    { id: 'darken-lighten-privacy', question: 'Is my color sent anywhere?', answer: 'No \u2014 every shade is calculated instantly in your browser using plain math. Nothing you enter is ever sent to a server.' },
   ],
   'random-color-generator': [
     { id: 'truly-random', question: 'Are the colors genuinely random, or biased toward certain hues?', answer: 'Each color is generated as a uniform random value across the full color space, so no particular hue or brightness range is favored over another.' },
+    { id: 'why-sometimes-hard-to-read', question: 'Why do some generated colors look hard to read as text?', answer: 'A genuinely random color has an equal chance of landing anywhere in the color space, including light, low-contrast colors that would read poorly as text on a white background. For a color specifically meant for text, checking it against a contrast checker before using it is worth doing.' },
+    { id: 'random-color-generator-privacy', question: 'Is anything sent anywhere when I generate a color?', answer: 'No \u2014 every color is generated instantly in your browser. Nothing is sent to or stored on a server.' },
   ],
 
   'css-formatter': [
@@ -2872,13 +2994,19 @@ export const toolFaqs = {
 
   'html-entities-encoder': [
     { id: 'why-encode-needed', question: 'Why can\u2019t I just type < directly into HTML?', answer: 'Because HTML interprets < as the start of a tag, not as a visible character. Encoding it as &lt; tells the browser to display the literal character instead of trying to parse it as markup.' },
+    { id: 'encoding-vs-sanitization', question: 'Is encoding the same thing as sanitizing user input for security?', answer: 'They\u2019re related but not identical \u2014 encoding is one important piece of preventing injection attacks like XSS, but full input sanitization for a real application typically needs additional server-side validation and context-aware escaping beyond basic entity encoding.' },
+    { id: 'html-entities-encoder-privacy', question: 'Is my text sent anywhere?', answer: 'No \u2014 encoding happens instantly in your browser. Nothing you paste here is ever sent to a server.' },
   ],
   'html-entities-decoder': [
     { id: 'which-entities-supported', question: 'Which entities does this decode?', answer: '&amp;, &lt;, &gt;, &quot;, &#39;, and &apos; \u2014 the common entities corresponding to the characters HTML treats as meaningful.' },
+    { id: 'numeric-entities', question: 'Does this handle numeric entities like &#65; too?', answer: 'Not general numeric entities \u2014 this decodes the standard named entities (&amp;, &lt;, &gt;, &quot;, &apos;) plus the specific numeric form &#39; for an apostrophe, covering the entities you\u2019d actually get from encoding text for safe HTML display. Arbitrary numeric character references beyond that aren\u2019t currently converted.' },
+    { id: 'html-entities-decoder-privacy', question: 'Is my text sent anywhere?', answer: 'No \u2014 decoding happens instantly in your browser. Nothing you paste here is ever sent to a server.' },
   ],
   'jwt-decoder': [
     { id: 'is-jwt-encrypted', question: 'Is the information inside a JWT encrypted?', answer: 'No, by default it\u2019s only encoded (base64url), not encrypted. Anyone holding the token can read its header and payload without any secret key, which is exactly why this tool can decode it without needing one.' },
     { id: 'why-no-verify', question: 'Why doesn\u2019t this verify the signature?', answer: 'Verifying requires the issuer\u2019s secret or public key, which this tool never has. A decoder answers what the token claims; verifying whether those claims are trustworthy is a genuinely different task requiring information only the issuer has.' },
+    { id: 'jwt-safe-to-store', question: 'Since anyone can decode a JWT, is it safe to put sensitive data in the payload?', answer: 'No \u2014 because the payload is only encoded, not encrypted, anything placed in it (a name, an email, a role) is readable by anyone who has the token. JWTs are meant to carry claims for verification, not to keep information confidential.' },
+    { id: 'jwt-decoder-privacy', question: 'Is the token I paste here sent anywhere?', answer: 'No \u2014 decoding happens entirely in your browser. Even though a JWT\u2019s contents are already readable to anyone holding it, your token is still never sent to or stored on a server here.' },
   ],
   'md5-hash-generator': [
     { id: 'md5-safe-for-passwords', question: 'Is MD5 safe to use for storing passwords?', answer: 'No \u2014 MD5 has been cryptographically broken since 2004 and should never be used for passwords or anything security-sensitive. It remains fine for non-security uses like file integrity checks or cache-busting identifiers.' },
@@ -2903,9 +3031,13 @@ export const toolFaqs = {
   ],
   'xml-to-json': [
     { id: 'how-arrays-detected', question: 'How does this decide what becomes a JSON array?', answer: 'Any XML element that appears more than once at the same level under its parent becomes an array in the JSON output; a single occurrence stays a plain object.' },
+    { id: 'xml-attributes-handling', question: 'What happens to XML attributes during conversion?', answer: 'This converter focuses on element structure and text content \u2014 attributes on XML elements are not currently captured in the JSON output. For XML that relies heavily on attributes to carry data, that specific information won\u2019t appear in the converted result.' },
+    { id: 'xml-to-json-privacy', question: 'Is my XML data uploaded anywhere?', answer: 'No \u2014 parsing and conversion happen entirely in your browser. Your data is never sent to or stored on a server.' },
   ],
   'json-to-xml': [
     { id: 'special-chars-xml', question: 'What happens to characters like < or & in my data?', answer: 'They\u2019re automatically escaped (as &lt; and &amp;) so the resulting XML stays well-formed and doesn\u2019t break on a value that happens to contain a markup-like character.' },
+    { id: 'json-arrays-to-xml', question: 'How does a JSON array get represented in XML?', answer: 'Since XML has no native array concept, each array item becomes its own repeated sibling element with the same tag name, the standard XML way of representing a list of similar items.' },
+    { id: 'json-to-xml-privacy', question: 'Is my JSON data uploaded anywhere?', answer: 'No \u2014 conversion happens entirely in your browser. Your data is never sent to or stored on a server.' },
   ],
   'yaml-to-json': [
     { id: 'yaml-scope-limit', question: 'Does this handle every YAML feature?', answer: 'It covers the common subset used by most real config files \u2014 nested mappings, numbers, booleans, and strings \u2014 but not the full spec\u2019s more advanced features like anchors, references, or inline flow sequences.' },
@@ -2917,12 +3049,19 @@ export const toolFaqs = {
   ],
   'csv-to-xml': [
     { id: 'csv-xml-row-structure', question: 'How is each CSV row represented in the XML output?', answer: 'Each row becomes its own XML element, with the column values as that element\u2019s child elements, named after the CSV headers.' },
+    { id: 'csv-header-required-xml', question: 'Does my CSV need a header row for this conversion to work?', answer: 'Yes \u2014 the header row provides the names used for each row\u2019s child elements. Without it, the first row of actual data would be misread as column names.' },
+    { id: 'csv-to-xml-privacy', question: 'Is my CSV data uploaded anywhere?', answer: 'No \u2014 conversion happens entirely in your browser. Your data is never sent to or stored on a server.' },
   ],
   'xml-to-csv': [
     { id: 'xml-csv-best-input', question: 'What kind of XML works best with this tool?', answer: 'XML that already represents a list of similar records, like multiple <row> or <item> elements, since CSV can only represent flat, tabular data.' },
+    { id: 'deeply-nested-xml-csv', question: 'What happens to deeply nested XML that doesn\u2019t look like a simple table?', answer: 'Since CSV has no way to represent nested structure, deeply nested or hierarchical XML doesn\u2019t flatten cleanly into rows and columns \u2014 this conversion works best on XML that\u2019s already fundamentally list-like, one level of repeated records.' },
+    { id: 'xml-to-csv-privacy', question: 'Is my XML data uploaded anywhere?', answer: 'No \u2014 parsing and conversion happen entirely in your browser. Your data is never sent to or stored on a server.' },
   ],
   'excel-to-json': [
     { id: 'which-sheet-used', question: 'Which sheet does this convert if my file has multiple sheets?', answer: 'The first sheet in the workbook. If you need a different sheet, reordering it to be first in Excel before uploading will get it converted instead.' },
+    { id: 'header-row-required', question: 'Does my spreadsheet need a header row?', answer: 'Yes \u2014 the first row is treated as column names, which become the keys in each resulting JSON object. Without a proper header row, the first row of actual data gets misread as field names instead.' },
+    { id: 'formulas-vs-values', question: 'If a cell has a formula, does the JSON get the formula or the calculated value?', answer: 'The calculated value \u2014 the conversion reads what a cell displays, not its underlying formula, since JSON has no concept of a spreadsheet formula.' },
+    { id: 'excel-to-json-privacy', question: 'Is my spreadsheet uploaded to a server?', answer: 'No \u2014 the file is read and converted entirely in your browser. Your spreadsheet, including anything sensitive in it, is never uploaded anywhere.' },
   ],
   'csv-to-excel': [
     { id: 'is-this-a-real-xlsx', question: 'Is the downloaded file a genuine Excel file, not just a renamed CSV?', answer: 'Yes, it\u2019s a real .xlsx file built with proper spreadsheet formatting, not a CSV file that\u2019s simply been renamed with an Excel extension.' },
@@ -2936,12 +3075,18 @@ export const toolFaqs = {
   ],
   'random-number-generator': [
     { id: 'bounds-inclusive', question: 'Are the minimum and maximum values included as possible results?', answer: 'Yes, both bounds are inclusive \u2014 setting a range of 1 to 10 means both 1 and 10 can genuinely appear as results.' },
+    { id: 'true-random-vs-pseudo', question: 'Is this truly random, or just "random-looking"?', answer: 'It uses your browser\u2019s standard random number function, which is genuinely unpredictable enough for everyday use like games, raffles, and settling decisions. It\u2019s not the cryptographically secure kind used for something like generating a password, but that stronger guarantee isn\u2019t needed for picking a random number in a game.' },
+    { id: 'random-number-generator-privacy', question: 'Is the number I generate sent anywhere?', answer: 'No \u2014 every number is generated instantly in your browser. Nothing is sent to or stored on a server.' },
   ],
   'coin-flipper': [
     { id: 'genuinely-random-coin', question: 'Is this actually 50/50, or is it biased somehow?', answer: 'It\u2019s a genuine, independent 50/50 chance on every flip, verified across thousands of simulated flips to land in an unbiased distribution.' },
+    { id: 'does-previous-flip-matter', question: 'Does the previous result affect the next flip?', answer: 'No \u2014 each flip is a completely independent event with no memory of past results, exactly like a real coin. Getting heads five times in a row doesn\u2019t make tails any more or less likely on the next flip.' },
+    { id: 'coin-flipper-privacy', question: 'Is anything about my flip sent anywhere?', answer: 'No \u2014 every flip is generated instantly in your browser. Nothing is sent to or stored on a server.' },
   ],
   'dice-roller': [
     { id: 'dice-independent', question: 'If I roll multiple dice, does one result affect the others?', answer: 'No, each die is rolled completely independently, exactly like rolling separate physical dice.' },
+    { id: 'unusual-dice-support', question: 'Does this support dice other than the standard 6-sided kind?', answer: 'This tool rolls standard 6-sided dice, up to six at once \u2014 it doesn\u2019t currently support other die types like a d20 or d10 used in some tabletop games.' },
+    { id: 'dice-roller-privacy', question: 'Is anything about my roll sent anywhere?', answer: 'No \u2014 every roll is generated instantly in your browser. Nothing is sent to or stored on a server.' },
   ],
   'choice-wheel-spinner': [
     { id: 'wheel-winner-accuracy', question: 'How do you know the declared winner actually matches where the wheel stopped?', answer: 'The winning segment is calculated directly from the wheel\u2019s final rotation angle, tested against several rotation scenarios including landing exactly on a boundary and completing multiple full spins, to confirm the math always matches the visual result.' },
@@ -2953,13 +3098,19 @@ export const toolFaqs = {
   'aes-encryption': [
     { id: 'passphrase-vs-key', question: 'Why isn\u2019t my passphrase used directly as the encryption key?', answer: 'It\u2019s run through PBKDF2 100,000 times with a random salt first, which makes brute-forcing a weak passphrase meaningfully harder than using it directly as the key.' },
     { id: 'same-text-different-output', question: 'Why does encrypting the same text twice give different results?', answer: 'Each encryption uses a fresh random salt and initialization vector, a genuine security property that prevents patterns from showing up across multiple encryptions of similar data.' },
+    { id: 'forgot-passphrase', question: 'What happens if I forget my passphrase?', answer: 'The encrypted text becomes permanently unrecoverable. There\u2019s no backdoor, master key, or recovery mechanism \u2014 that\u2019s the entire point of real encryption, which is exactly why it\u2019s worth keeping the passphrase somewhere safe.' },
+    { id: 'aes-encryption-privacy', question: 'Is my text or passphrase sent to a server?', answer: 'No \u2014 both encryption and decryption happen entirely in your browser using the Web Crypto API. Neither your plaintext nor your passphrase is ever transmitted anywhere.' },
   ],
   'htpasswd-generator': [
     { id: 'sha-vs-bcrypt', question: 'Is the SHA format the strongest option for htpasswd?', answer: 'No, Apache also supports bcrypt, which is considered stronger for new setups. The SHA format here remains useful for simplicity and legacy compatibility.' },
+    { id: 'multiple-users-file', question: 'Can one .htpasswd file have multiple users?', answer: 'Yes \u2014 each line is one independent username:hash entry. Adding a new user means generating their entry here and appending it as a new line to the existing file.' },
+    { id: 'htpasswd-generator-privacy', question: 'Is my password sent anywhere when I generate a hash?', answer: 'No \u2014 hashing happens entirely in your browser. Your plaintext password is never sent to or stored on a server, only the resulting hash ever leaves your device, which is exactly what you\u2019d copy into your .htpasswd file.' },
   ],
   'rsa-key-pair-generator': [
     { id: 'key-pair-persistence', question: 'Will my key pair still be here if I refresh the page?', answer: 'No, it exists only in this page\u2019s memory. Refreshing or closing the tab loses it permanently unless you\u2019ve already copied and saved both keys somewhere secure.' },
     { id: 'why-2048-bits', question: 'Why 2048 bits specifically?', answer: 'It\u2019s the current, genuinely recommended minimum key size for RSA \u2014 shorter keys are considered breakable with enough computing resources.' },
+    { id: 'public-vs-private-key-use', question: 'Which key do I actually share with someone else?', answer: 'Only the public key \u2014 it\u2019s meant to be shared freely and is used to encrypt data or verify a signature. The private key must never be shared with anyone; it\u2019s what decrypts data or creates a signature.' },
+    { id: 'rsa-generator-privacy', question: 'Is my private key ever sent to a server?', answer: 'No \u2014 the entire key pair is generated locally using your browser\u2019s Web Crypto API. Neither key ever leaves your device, which matters enormously for a private key specifically.' },
   ],
 
   'subnet-calculator': [
@@ -2970,20 +3121,30 @@ export const toolFaqs = {
   ],
   'my-ip-address': [
     { id: 'public-vs-local-ip', question: 'Is this the same as the IP address shown in my computer\u2019s network settings?', answer: 'No, your computer\u2019s network settings usually show a private, local address only visible on your own network. This tool shows your public IP, the address visible to the outside internet.' },
+    { id: 'ip-changes', question: 'Why does my IP address change sometimes?', answer: 'Most home internet connections use a "dynamic" IP that your provider can reassign periodically, especially after a router restart or reconnection. A "static" IP, which stays fixed, is typically a paid add-on from an internet provider.' },
+    { id: 'my-ip-address-privacy', question: 'Does checking my IP address here require sending anything to a server?', answer: 'Yes, and it\u2019s worth being upfront about this since it\u2019s different from most tools on this site \u2014 seeing your public IP inherently requires a server to observe the address your connection is coming from, the same way any website you visit sees it. Nothing beyond that address itself is logged or stored by this tool.' },
   ],
   'dns-lookup': [
     { id: 'why-some-types-empty', question: 'Why do some record types show nothing?', answer: 'Not every domain has every record type \u2014 a domain without email, for instance, simply won\u2019t have MX records. An empty result for one type isn\u2019t an error, just a genuinely accurate reflection of what that domain has configured.' },
+    { id: 'dns-propagation-delay', question: 'I just changed a DNS record but this tool still shows the old value. Why?', answer: 'DNS changes take time to propagate across the internet\u2019s many caching layers, often anywhere from a few minutes to 48 hours depending on the record\u2019s TTL (time-to-live) setting. Seeing an old value shortly after a change is expected, not a sign the change failed.' },
+    { id: 'dns-lookup-privacy', question: 'Is this tool fully private like the others on this site?', answer: 'Mostly, with one honest exception: a browser can\u2019t perform a raw DNS query directly, so the domain name you enter is sent to this site\u2019s server to perform the lookup on your behalf. Nothing beyond that domain name is sent or stored.' },
   ],
   'http-header-checker': [
     { id: 'head-vs-get', question: 'Why does this sometimes use a GET request instead of HEAD?', answer: 'A HEAD request is tried first since it\u2019s lighter, but some servers don\u2019t handle HEAD requests correctly, so this falls back to a full GET request automatically in that case.' },
+    { id: 'why-cant-browser-fetch-directly', question: 'Why can\u2019t my browser just fetch the headers itself?', answer: 'Browsers enforce a security restriction called CORS that blocks a webpage from reading another site\u2019s response headers directly, specifically to stop malicious sites from silently probing other websites through a visitor\u2019s browser. A server-side request sidesteps this restriction legitimately.' },
+    { id: 'http-header-checker-privacy', question: 'Is this tool fully private like others on this site?', answer: 'Mostly, with one honest exception: checking another site\u2019s headers requires this site\u2019s server to fetch that URL on your behalf, since your browser\u2019s own CORS restrictions block reading them directly. Only the URL you enter is involved in that request.' },
   ],
   'url-redirect-checker': [
     { id: 'max-hops', question: 'Is there a limit to how many redirects this will follow?', answer: 'Yes, up to 10 hops, which comfortably covers virtually any real-world redirect chain while still protecting against a genuinely broken, infinitely-looping redirect.' },
+    { id: 'why-check-before-clicking', question: 'Why check a link before clicking it instead of just clicking and seeing?', answer: 'Checking first reveals the actual destination without your browser ever visiting it, which is safer for a suspicious or unfamiliar shortened link, and also shows the full chain of intermediate hops a single click would hide.' },
+    { id: 'url-redirect-checker-privacy', question: 'Is this tool fully private like others on this site?', answer: 'Mostly, with one honest exception: tracing a redirect chain requires this site\u2019s server to follow it on your behalf, since a browser\u2019s own security restrictions block reading intermediate redirect details directly. Only the URL you enter is involved in that request.' },
   ],
 
   'barcode-generator': [
     { id: 'will-it-actually-scan', question: 'Will this barcode actually scan with a real scanner?', answer: 'Yes, it follows the real EAN-13/UPC-A bar-width specification exactly, verified against genuine reference barcodes, not just a striped image that looks like a barcode.' },
     { id: 'why-checksum-automatic', question: 'Why do I only enter 11 or 12 digits instead of the full code?', answer: 'The final digit is a checksum calculated from the others using each format\u2019s defined formula, the same way it would be assigned when a real barcode is issued, so it\u2019s calculated for you rather than needing to be supplied.' },
+    { id: 'ean-vs-upc', question: 'What\u2019s the actual difference between EAN-13 and UPC-A?', answer: 'UPC-A (12 digits) is the standard mainly used in the US and Canada; EAN-13 (13 digits) is the international standard used in most of the rest of the world. A UPC-A code can be represented as EAN-13 by simply prefixing it with a 0.' },
+    { id: 'barcode-generator-privacy', question: 'Is the number I enter sent anywhere?', answer: 'No \u2014 the barcode is generated entirely in your browser as an SVG image. Nothing you enter is ever sent to a server.' },
   ],
 
   'barcode-scanner': [

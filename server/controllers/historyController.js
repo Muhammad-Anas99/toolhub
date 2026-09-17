@@ -2,7 +2,7 @@ import { asyncHandler } from '../utils/asyncHandler.js'
 import { sendSuccess } from '../utils/ApiResponse.js'
 import { ApiError } from '../utils/ApiError.js'
 import * as historyService from '../services/historyService.js'
-import { getCountry, getDeviceType } from '../utils/requestMeta.js'
+import { getCountry, getDeviceType, getClientIp } from '../utils/requestMeta.js'
 
 /**
  * Logs a completed conversion. Works for both logged-in and anonymous
@@ -25,6 +25,7 @@ export const logConversion = asyncHandler(async (req, res) => {
     originalFileName,
     country: getCountry(req),
     device: getDeviceType(req),
+    ipAddress: getClientIp(req),
   })
 
   sendSuccess(res, { statusCode: 201, message: 'Conversion logged', data: entry })
@@ -65,6 +66,10 @@ export const getAllHistoryAdmin = asyncHandler(async (req, res) => {
     toolSlug: entry.toolSlug,
     toolName: entry.toolName,
     category: entry.category,
+    action: entry.action,
+    ipAddress: entry.ipAddress,
+    country: entry.country,
+    device: entry.device,
     createdAt: entry.createdAt,
     user: entry.user ? { id: entry.user._id, name: entry.user.name, email: entry.user.email } : { name: 'Anonymous', email: null },
   }))
@@ -73,4 +78,15 @@ export const getAllHistoryAdmin = asyncHandler(async (req, res) => {
     data: items,
     meta: { total: result.total, page: result.page, pages: result.pages },
   })
+})
+
+/**
+ * Admin-only: deletes any single conversion record by ID, regardless of
+ * which user it belongs to (or none, for anonymous traffic) — see
+ * historyService.deleteHistoryEntryAdmin for why this is deliberately
+ * separate from the user-scoped deleteHistoryEntry above.
+ */
+export const deleteHistoryEntryAdmin = asyncHandler(async (req, res) => {
+  await historyService.deleteHistoryEntryAdmin(req.params.id)
+  sendSuccess(res, { message: 'Conversion record deleted' })
 })

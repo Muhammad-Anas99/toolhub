@@ -1886,7 +1886,7 @@ export const tools = [
     slug: 'my-ip-address',
     path: '/tools/my-ip-address',
     category: 'security-tools',
-    description: 'Find out your public IP address.',
+    description: 'Instantly see your public IPv4 or IPv6 address, the one websites and servers see when you connect.',
     icon: FaGlobe,
     badge: 'new',
     comingSoon: false,
