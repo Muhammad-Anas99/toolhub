@@ -122,6 +122,11 @@ export const toolFaqs = {
       question: 'When does JPG actually make more sense than keeping WEBP?',
       answer: 'When the image is heading somewhere you don\u2019t control \u2014 an old device, print software, or a platform with uncertain WEBP support. JPG\u2019s decades-long universal compatibility is the real reason to convert, even though it typically means a larger file than the original WEBP.',
     },
+    {
+      id: 'webp-to-jpg-privacy',
+      question: 'Is my image uploaded to a server during conversion?',
+      answer: 'No \u2014 the conversion happens entirely in your browser using the Canvas API. Your image is never uploaded anywhere.',
+    },
   ],
   'convert-to-webp': [
     {
@@ -145,6 +150,11 @@ export const toolFaqs = {
       id: 'lossy-or-lossless',
       question: 'Does this create lossy or lossless WEBP?',
       answer: 'This uses WebP\u2019s lossy encoding, controlled by the quality slider \u2014 higher settings mean less compression and higher visual fidelity, similar in spirit to a JPG quality slider. It doesn\u2019t use WebP\u2019s separate dedicated lossless mode.',
+    },
+    {
+      id: 'convert-to-webp-privacy',
+      question: 'Is my image uploaded to a server during conversion?',
+      answer: 'No \u2014 the conversion happens entirely in your browser using the Canvas API. Your image is never uploaded anywhere.',
     },
   ],
   'image-compressor': [
@@ -652,6 +662,11 @@ export const toolFaqs = {
       question: 'Why does hue go up to 360 and not 255 like RGB?',
       answer: 'Hue represents a position around a circular color wheel, measured in degrees \u2014 0 and 360 both point to the same red, since a circle wraps back to its start. It\u2019s a completely different kind of measurement from RGB\u2019s 0\u2013255 channel intensities, which is why the ranges don\u2019t match.',
     },
+    {
+      id: 'hex-to-hsl-privacy',
+      question: 'Does this tool need an internet connection to convert colors?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math in your browser. Nothing you enter is ever sent to a server.',
+    },
   ],
   'color-converter': [
     {
@@ -678,6 +693,11 @@ export const toolFaqs = {
       id: 'real-time',
       question: 'Do I need to click a button to see the conversion?',
       answer: 'No \u2014 the conversion happens instantly as you type a recognized color value, with no separate convert button to click.',
+    },
+    {
+      id: 'color-converter-privacy',
+      question: 'Does this tool need an internet connection to convert colors?',
+      answer: 'No \u2014 every conversion is calculated instantly with plain math in your browser. Nothing you enter is ever sent to a server.',
     },
   ],
   'palette-generator': [
@@ -1055,6 +1075,11 @@ export const toolFaqs = {
       question: 'Why does this generate JSON-LD instead of microdata?',
       answer: 'JSON-LD is the format Google explicitly recommends, and it keeps the structured data in one self-contained script block rather than scattered across HTML attributes \u2014 easier to generate correctly, and easier to update later without touching your page\u2019s actual markup.',
     },
+    {
+      id: 'schema-markup-generator-privacy',
+      question: 'Is the information I enter here sent anywhere?',
+      answer: 'No \u2014 the JSON-LD is generated instantly in your browser from what you type. Nothing is sent to or stored on a server, so it\u2019s safe to draft schema for a page that isn\u2019t live yet.',
+    },
   ],
 
   'audio-to-wav-converter': [
@@ -1082,6 +1107,11 @@ export const toolFaqs = {
       id: 'why-wav-bigger',
       question: 'Why is the WAV file so much bigger than my original MP3?',
       answer: 'That\u2019s expected, not a bug. MP3 is compressed and throws away audio data to save space; WAV stores every sample uncompressed. A 4-minute MP3 at a typical bitrate might be 4 MB, while the same audio as WAV is usually closer to 40 MB.',
+    },
+    {
+      id: 'audio-to-wav-converter-privacy',
+      question: 'Is my audio uploaded to a server during conversion?',
+      answer: 'No \u2014 decoding and conversion both happen entirely in your browser. Your audio file is never uploaded anywhere.',
     },
   ],
 
@@ -1115,6 +1145,11 @@ export const toolFaqs = {
       id: 'preview-before-download',
       question: 'Can I hear the trimmed clip before downloading it?',
       answer: 'Not currently \u2014 the sliders show you the exact start and end times as you adjust them, but there\u2019s no built-in playback preview yet. Downloading and checking the file is the way to confirm the result right now.',
+    },
+    {
+      id: 'audio-trimmer-privacy',
+      question: 'Is my audio uploaded to a server to be trimmed?',
+      answer: 'No \u2014 trimming happens entirely in your browser. Your audio file is never uploaded anywhere.',
     },
   ],
 
@@ -1176,6 +1211,11 @@ export const toolFaqs = {
       id: 'keep-tab-open',
       question: 'Do I need to keep the browser tab open while it trims?',
       answer: 'Yes \u2014 the video is genuinely playing in the background to be captured, so switching away or closing the tab partway through will interrupt the recording. Keep the tab active until the progress bar reaches 100%.',
+    },
+    {
+      id: 'video-trimmer-privacy',
+      question: 'Is my video uploaded to a server to be trimmed?',
+      answer: 'No \u2014 the entire process happens on your device using your browser\u2019s own video encoder. Your video is never uploaded anywhere.',
     },
   ],
 
@@ -1266,6 +1306,11 @@ export const toolFaqs = {
       question: 'What happens if a line just moved to a different position, with no other changes?',
       answer: 'It typically shows up as removed from its old position and added at its new one, similar to how a genuine edit is shown. The comparison looks for lines that stay in the same relative order across both texts, so moving a line past other content usually breaks that match rather than being recognized as \u201cno real change.\u201d',
     },
+    {
+      id: 'text-diff-checker-privacy',
+      question: 'Is my text sent anywhere to be compared?',
+      answer: 'No \u2014 the comparison happens entirely in your browser. Neither piece of text is ever sent to a server, which matters especially when comparing something sensitive like a contract draft or private code.',
+    },
   ],
 
   'audio-merger': [
@@ -1299,6 +1344,11 @@ export const toolFaqs = {
       question: 'What if my files have different sample rates?',
       answer: 'Every file decoded in the same browser session goes through the browser\u2019s own default audio decoder, which naturally resamples to a consistent rate, so files with different original sample rates typically merge correctly without any manual adjustment.',
     },
+    {
+      id: 'audio-merger-privacy',
+      question: 'Is my audio uploaded to a server to be merged?',
+      answer: 'No \u2014 decoding and merging both happen entirely in your browser. Your audio files are never uploaded anywhere.',
+    },
   ],
 
   'audio-volume-changer': [
@@ -1326,6 +1376,11 @@ export const toolFaqs = {
       id: 'can-i-mute',
       question: 'Can I use this to completely mute a file?',
       answer: 'Setting the volume to 10% (the minimum this tool allows) makes the audio very quiet but not completely silent. For fully removing sound from a video specifically, a dedicated mute tool that drops the audio track entirely is the more direct option.',
+    },
+    {
+      id: 'audio-volume-changer-privacy',
+      question: 'Is my audio uploaded to a server to adjust its volume?',
+      answer: 'No \u2014 the volume adjustment happens entirely in your browser. Your audio file is never uploaded anywhere.',
     },
   ],
 
@@ -1360,6 +1415,11 @@ export const toolFaqs = {
       question: 'Does reversing keep left and right channels in sync on a stereo file?',
       answer: 'Yes. Each channel is reversed independently but by the exact same amount, so the stereo image and timing between the two channels stay correctly aligned throughout.',
     },
+    {
+      id: 'audio-reverser-privacy',
+      question: 'Is my audio uploaded to a server to be reversed?',
+      answer: 'No \u2014 reversing happens entirely in your browser. Your audio file is never uploaded anywhere.',
+    },
   ],
 
   'audio-fade': [
@@ -1387,6 +1447,11 @@ export const toolFaqs = {
       id: 'fade-output-format',
       question: 'What format does the faded file download as?',
       answer: 'WAV, the only format this tool can reliably encode. The fade itself doesn\u2019t affect quality; only the file format changes from your original.',
+    },
+    {
+      id: 'audio-fade-privacy',
+      question: 'Is my audio uploaded to a server to apply the fade?',
+      answer: 'No \u2014 the fade is applied entirely in your browser. Your audio file is never uploaded anywhere.',
     },
   ],
 
@@ -1416,6 +1481,11 @@ export const toolFaqs = {
       question: 'What format does the trimmed file download as?',
       answer: 'WAV, the only format this tool can reliably encode. The trim itself is lossless; only the file format changes from your original.',
     },
+    {
+      id: 'silence-trimmer-privacy',
+      question: 'Is my audio uploaded to a server to detect and trim silence?',
+      answer: 'No \u2014 detection and trimming both happen entirely in your browser. Your audio file is never uploaded anywhere.',
+    },
   ],
 
   'video-to-audio': [
@@ -1443,6 +1513,11 @@ export const toolFaqs = {
       id: 'processing-time-extract',
       question: 'How long does extracting the audio take?',
       answer: 'This one is genuinely fast, since it decodes the audio directly rather than playing through the whole video in real time the way trimming or resizing does. Most files finish in well under the length of the video itself.',
+    },
+    {
+      id: 'video-to-audio-privacy',
+      question: 'Is my video uploaded to a server to extract the audio?',
+      answer: 'No \u2014 the extraction happens entirely in your browser. Your video is never uploaded anywhere.',
     },
   ],
 
@@ -1472,6 +1547,11 @@ export const toolFaqs = {
       question: 'Is this different from just turning the volume down to zero when playing the video?',
       answer: 'Yes, genuinely different. Turning volume down only affects how the video sounds during playback on your device; the file itself still has its audio track. This tool actually produces a new file with no audio track at all.',
     },
+    {
+      id: 'video-muter-privacy',
+      question: 'Is my video uploaded to a server to be muted?',
+      answer: 'No \u2014 the entire process happens on your device using your browser\u2019s own video encoder. Your video is never uploaded anywhere.',
+    },
   ],
 
   'video-speed-changer': [
@@ -1500,6 +1580,11 @@ export const toolFaqs = {
       question: 'Can I apply the speed change more than once to stack the effect?',
       answer: 'Yes, running the sped-up or slowed-down result back through this tool applies a second speed change on top of the first, though visible and audible quality can degrade slightly with each additional re-encoding pass applied.',
     },
+    {
+      id: 'video-speed-changer-privacy',
+      question: 'Is my video uploaded to a server to change its speed?',
+      answer: 'No \u2014 the entire process happens on your device using your browser\u2019s own video encoder. Your video is never uploaded anywhere.',
+    },
   ],
 
   'video-resizer': [
@@ -1527,6 +1612,11 @@ export const toolFaqs = {
       id: 'resize-vs-compress-difference',
       question: 'How is this different from the Video Compressor tool?',
       answer: 'Video Resizer is specifically about changing dimensions, with three simple, straightforward percentage options. Video Compressor is built around reducing overall file size, using resolution reduction as its main technique but also requesting a lower bitrate from the encoder alongside it.',
+    },
+    {
+      id: 'video-resizer-privacy',
+      question: 'Is my video uploaded to a server to be resized?',
+      answer: 'No \u2014 the entire process happens on your device using your browser\u2019s own video encoder. Your video is never uploaded anywhere.',
     },
   ],
 
@@ -2095,6 +2185,11 @@ export const toolFaqs = {
       question: 'Can I convert a page from a password-protected PDF?',
       answer: 'A PDF that requires a password to open can\u2019t be rendered without first removing that protection, since the file\u2019s content is encrypted until unlocked.',
     },
+    {
+      id: 'pdf-to-jpg-privacy',
+      question: 'Is my PDF uploaded to a server to be converted?',
+      answer: 'No \u2014 rendering happens entirely in your browser. Your PDF is never uploaded anywhere.',
+    },
   ],
   'pdf-to-png': [
     {
@@ -2131,6 +2226,11 @@ export const toolFaqs = {
       id: 'png-vs-jpg-choice',
       question: 'How do I decide between the PNG and JPG converters for the same page?',
       answer: 'If the page is mostly text, a diagram, or line art, PNG keeps every edge crisp. If the page is a photo or has a lot of gradients and continuous color, JPG usually produces a noticeably smaller file with no visible quality difference for that kind of content.',
+    },
+    {
+      id: 'pdf-to-png-privacy',
+      question: 'Is my PDF uploaded to a server to be converted?',
+      answer: 'No \u2014 rendering happens entirely in your browser. Your PDF is never uploaded anywhere.',
     },
   ],
   'gradient-generator': [
@@ -2186,6 +2286,11 @@ export const toolFaqs = {
       id: 'which-language',
       question: 'How do I minify HTML that contains inline JavaScript or CSS?',
       answer: 'Use the HTML option \u2014 it correctly leaves the contents of <script> and <style> tags untouched rather than applying HTML whitespace rules to code that follows entirely different syntax.',
+    },
+    {
+      id: 'code-minifier-privacy',
+      question: 'Is my code sent to a server?',
+      answer: 'No \u2014 minification happens entirely in your browser. Your code is never sent to or stored on a server.',
     },
   ],
 
@@ -2271,6 +2376,11 @@ export const toolFaqs = {
       question: 'Will the .pptx file actually open correctly in PowerPoint?',
       answer: 'Yes \u2014 this generates the real OOXML structure a valid PowerPoint file requires (not just a renamed zip of images), and the output has been verified to open and read correctly, not just assumed to work because the conversion completed without an error.',
     },
+    {
+      id: 'pdf-to-powerpoint-privacy',
+      question: 'Is my PDF uploaded to a server to be converted?',
+      answer: 'No \u2014 the entire conversion happens in your browser. Your PDF is never uploaded anywhere.',
+    },
   ],
 
   'powerpoint-to-pdf': [
@@ -2293,6 +2403,11 @@ export const toolFaqs = {
       id: 'formatted-text',
       question: 'What happens to bold or italic text?',
       answer: 'The words themselves come through correctly even when part of a sentence has different formatting, since PowerPoint stores that as separate text runs internally that get joined back into the full sentence. The bold or italic styling itself isn\u2019t preserved in the PDF text.',
+    },
+    {
+      id: 'powerpoint-to-pdf-privacy',
+      question: 'Is my presentation uploaded to a server to be converted?',
+      answer: 'No \u2014 text and image extraction both happen entirely in your browser. Your presentation is never uploaded anywhere.',
     },
   ],
 
@@ -2321,6 +2436,11 @@ export const toolFaqs = {
       id: 'empty-cells-and-rows',
       question: 'What happens with empty rows or columns in my spreadsheet?',
       answer: 'They\u2019re included as blank space in the table, matching the actual layout of the sheet, rather than being automatically removed. If a sheet has a lot of unused empty space, it\u2019s worth trimming that in Excel first for a cleaner-looking result.',
+    },
+    {
+      id: 'excel-to-pdf-privacy',
+      question: 'Is my spreadsheet uploaded to a server to be converted?',
+      answer: 'No \u2014 the conversion happens entirely in your browser. Your spreadsheet, including anything sensitive in it, is never uploaded anywhere.',
     },
   ],
 
@@ -2612,6 +2732,11 @@ export const toolFaqs = {
       question: 'Why does this only output PNG?',
       answer: 'PNG is lossless, so the upscaled result isn\u2019t immediately degraded by a second round of compression on top of the enlargement itself.',
     },
+    {
+      id: 'image-upscaler-privacy',
+      question: 'Is my photo uploaded to a server to be upscaled?',
+      answer: 'No \u2014 upscaling happens entirely in your browser using the Canvas API. Your photo is never uploaded anywhere.',
+    },
   ],
 
   'image-enhancer': [
@@ -2634,6 +2759,11 @@ export const toolFaqs = {
       id: 'order-of-operations-enhance',
       question: 'Does it matter whether I apply denoise or sharpen first?',
       answer: 'This tool denoises first, then sharpens, since sharpening a noisy image tends to amplify the noise itself along with real detail. Denoising first gives the sharpening step cleaner information to work with.',
+    },
+    {
+      id: 'image-enhancer-privacy',
+      question: 'Is my photo uploaded to a server to be enhanced?',
+      answer: 'No \u2014 sharpening and noise reduction both happen entirely in your browser. Your photo is never uploaded anywhere.',
     },
   ],
 
@@ -2658,6 +2788,11 @@ export const toolFaqs = {
       question: 'What\u2019s the actual difference between Fill and Fit?',
       answer: 'Fill crops your image to exactly match the target dimensions, cutting off whatever doesn\u2019t fit. Fit resizes the whole image to stay visible, adding padding around the edges if the proportions don\u2019t match exactly. Fill usually looks more polished; Fit guarantees nothing important gets cropped out.',
     },
+    {
+      id: 'twitter-resizer-privacy',
+      question: 'Is my photo uploaded to a server to be resized?',
+      answer: 'No \u2014 resizing happens entirely in your browser using the Canvas API. Your photo is never uploaded anywhere.',
+    },
   ],
 
   'facebook-image-resizer': [
@@ -2680,6 +2815,11 @@ export const toolFaqs = {
       id: 'fill-vs-fit-explained-fb',
       question: 'What\u2019s the actual difference between Fill and Fit?',
       answer: 'Fill crops your image to exactly match the target dimensions, cutting off whatever doesn\u2019t fit. Fit resizes the whole image to stay visible, adding padding around the edges if the proportions don\u2019t match exactly. Fill tends to look more polished for social posts; Fit guarantees nothing important gets cut off.',
+    },
+    {
+      id: 'facebook-resizer-privacy',
+      question: 'Is my photo uploaded to a server to be resized?',
+      answer: 'No \u2014 resizing happens entirely in your browser using the Canvas API. Your photo is never uploaded anywhere.',
     },
   ],
 
@@ -2704,6 +2844,11 @@ export const toolFaqs = {
       question: 'Why offer a square post size at all if LinkedIn\u2019s standard is landscape?',
       answer: 'Because square images genuinely perform differently in the feed, often taking up more vertical mobile screen space than a landscape image with identical content, which is worth having as a deliberate option rather than only supporting the traditional shape.',
     },
+    {
+      id: 'linkedin-resizer-privacy',
+      question: 'Is my photo uploaded to a server to be resized?',
+      answer: 'No \u2014 resizing happens entirely in your browser using the Canvas API. Your photo is never uploaded anywhere.',
+    },
   ],
 
   'pinterest-pin-resizer': [
@@ -2726,6 +2871,11 @@ export const toolFaqs = {
       id: 'pinterest-vs-others',
       question: 'Can I reuse an image sized for Instagram or Facebook as a Pinterest Pin?',
       answer: 'Not directly without recropping first. Most other platforms default to square or landscape shapes, while Pinterest\u2019s grid is built around tall, vertical images specifically, so a square or landscape original will need genuine recropping, not just a plain resize, to actually use the space well.',
+    },
+    {
+      id: 'pinterest-resizer-privacy',
+      question: 'Is my image uploaded to a server to be resized?',
+      answer: 'No \u2014 resizing happens entirely in your browser using the Canvas API. Your image is never uploaded anywhere.',
     },
   ],
 
@@ -2750,6 +2900,11 @@ export const toolFaqs = {
       question: 'Does the audio track survive the conversion?',
       answer: 'Yes, the original audio track is captured and re-recorded along with the video, staying in sync with the newly converted output rather than being dropped or requiring a separate step.',
     },
+    {
+      id: 'video-converter-privacy',
+      question: 'Is my video uploaded to a server to be converted?',
+      answer: 'No \u2014 the entire process happens on your device using your browser\u2019s own video encoder. Your video is never uploaded anywhere.',
+    },
   ],
 
   'audio-speed-changer': [
@@ -2772,6 +2927,11 @@ export const toolFaqs = {
       id: 'why-wav-output',
       question: 'Why does this download as a WAV file?',
       answer: 'WAV is an uncompressed format that every browser, phone, and audio program can open reliably without extra plugins, avoiding any additional quality loss from a second layer of lossy compression stacked on top of the speed change itself.',
+    },
+    {
+      id: 'audio-speed-changer-privacy',
+      question: 'Is my audio uploaded to a server to change its speed?',
+      answer: 'No \u2014 the speed change happens entirely in your browser. Your audio file is never uploaded anywhere.',
     },
   ],
 
@@ -2796,6 +2956,11 @@ export const toolFaqs = {
       question: 'Does this work on both phones and desktop computers?',
       answer: 'Yes, on a phone with WhatsApp installed it opens the app directly, while on a desktop computer it opens WhatsApp Web instead, using whichever setup the visitor\u2019s own device already has in place.',
     },
+    {
+      id: 'whatsapp-link-generator-privacy',
+      question: 'Is the phone number I enter sent anywhere?',
+      answer: 'No \u2014 the link is built entirely in your browser. The number is only ever included as part of the generated link itself, never sent to or stored on a server here.',
+    },
   ],
 
   'whatsapp-text-formatter': [
@@ -2818,6 +2983,11 @@ export const toolFaqs = {
       id: 'works-on-mobile-whatsapp',
       question: 'Does this formatting work the same way on WhatsApp mobile and desktop?',
       answer: 'Yes, the markup characters are interpreted identically everywhere WhatsApp itself runs, whether that\u2019s a phone, WhatsApp Web, or the desktop app, since it\u2019s the same underlying formatting system across all of them.',
+    },
+    {
+      id: 'whatsapp-text-formatter-privacy',
+      question: 'Is my message text sent anywhere?',
+      answer: 'No \u2014 formatting happens instantly in your browser. Nothing you type here is ever sent to a server.',
     },
   ],
 
@@ -2842,6 +3012,11 @@ export const toolFaqs = {
       question: 'Does the QR code expire or stop working after a while?',
       answer: 'No, it encodes a fixed wa.me link tied to the phone number and message provided, so it keeps working indefinitely unless that number itself stops using WhatsApp.',
     },
+    {
+      id: 'whatsapp-qr-generator-privacy',
+      question: 'Is the phone number I enter sent anywhere?',
+      answer: 'No \u2014 the QR code is generated entirely in your browser. The number is only ever encoded into the QR image itself, never sent to or stored on a server here.',
+    },
   ],
 
   'whatsapp-status-resizer': [
@@ -2864,6 +3039,11 @@ export const toolFaqs = {
       id: 'video-status-dimensions',
       question: 'Do WhatsApp Status videos use the same dimensions as images?',
       answer: 'Yes, video Status updates use that same 1080\u00d71920 vertical frame as well, though this particular tool specifically handles image resizing rather than video files.',
+    },
+    {
+      id: 'whatsapp-status-resizer-privacy',
+      question: 'Is my photo uploaded to a server to be resized?',
+      answer: 'No \u2014 resizing happens entirely in your browser using the Canvas API. Your photo is never uploaded anywhere.',
     },
   ],
 
@@ -2966,6 +3146,7 @@ export const toolFaqs = {
   'css-formatter': [
     { id: 'changes-behavior', question: 'Does formatting change how the CSS actually works?', answer: 'No, only whitespace and indentation change. The selectors, properties, and values are completely untouched.' },
     { id: 'handles-media-queries', question: 'Does this handle nested rules like media queries correctly?', answer: 'Yes, nested blocks are indented one level deeper than their parent, matching standard formatting conventions.' },
+    { id: 'css-formatter-privacy', question: 'Is my CSS code sent to a server?', answer: 'No \u2014 formatting happens entirely in your browser. Your code is never sent to or stored on a server.' },
   ],
   'css-minifier': [
     { id: 'reversible', question: 'Can I get the original formatting back after minifying?', answer: 'Not automatically \u2014 minification removes whitespace and comments permanently, though running the result through a CSS Formatter will make it readable again, just without the original comments.' },
@@ -2974,6 +3155,7 @@ export const toolFaqs = {
   ],
   'html-formatter': [
     { id: 'void-elements', question: 'How does this handle tags like <img> and <br> that don\u2019t have a closing tag?', answer: 'They\u2019re recognized as void elements and formatted correctly without expecting or adding an unnecessary closing tag.' },
+    { id: 'html-formatter-privacy', question: 'Is my HTML code sent to a server?', answer: 'No \u2014 formatting happens entirely in your browser. Your code is never sent to or stored on a server.' },
   ],
   'html-minifier': [
     { id: 'html-minify-safe', question: 'Is it safe to minify HTML that has inline JavaScript or CSS?', answer: 'This tool focuses on whitespace and comments in the HTML structure itself; content inside <script> and <style> tags should generally be minified separately with the dedicated JS or CSS tools for the safest result.' },
@@ -2982,9 +3164,11 @@ export const toolFaqs = {
   ],
   'xml-formatter': [
     { id: 'xml-vs-html-formatting', question: 'Why use this instead of the HTML Formatter for XML?', answer: 'XML doesn\u2019t have HTML\u2019s built-in list of self-closing tags, so this formatter only treats an element as self-closing when the source explicitly writes it that way, matching XML\u2019s stricter rules.' },
+    { id: 'xml-formatter-privacy', question: 'Is my XML data sent anywhere?', answer: 'No \u2014 formatting happens entirely in your browser. Your data is never sent to or stored on a server.' },
   ],
   'xml-minifier': [
     { id: 'xml-minify-data-safe', question: 'Will minifying change any of my actual data values?', answer: 'No, only whitespace between elements and comments are removed. Every element and value parses identically to the original.' },
+    { id: 'xml-minifier-privacy', question: 'Is my XML data sent anywhere?', answer: 'No \u2014 minification happens entirely in your browser. Your data is never sent to or stored on a server.' },
   ],
   'javascript-minifier': [
     { id: 'js-minify-url-safe', question: 'Will this break a URL or string that contains //?', answer: 'No \u2014 this tool tracks whether it\u2019s currently inside a string before deciding whether // starts a real comment, so a URL like http://example.com inside a string is always preserved intact.' },
@@ -3010,19 +3194,24 @@ export const toolFaqs = {
   ],
   'md5-hash-generator': [
     { id: 'md5-safe-for-passwords', question: 'Is MD5 safe to use for storing passwords?', answer: 'No \u2014 MD5 has been cryptographically broken since 2004 and should never be used for passwords or anything security-sensitive. It remains fine for non-security uses like file integrity checks or cache-busting identifiers.' },
+    { id: 'md5-hash-generator-privacy', question: 'Is my text sent to a server to be hashed?', answer: 'No \u2014 every hash is computed entirely in your browser. Nothing you type here is ever sent anywhere.' },
   ],
   'sha1-hash-generator': [
     { id: 'sha1-still-used', question: 'Is SHA-1 still safe to use?', answer: 'Not for security-critical purposes \u2014 a practical collision attack was demonstrated in 2017. It still appears in legacy systems and older Git repositories, which is the realistic context this tool is most useful for today.' },
+    { id: 'sha1-hash-generator-privacy', question: 'Is my text sent to a server to be hashed?', answer: 'No \u2014 every hash is computed entirely in your browser. Nothing you type here is ever sent anywhere.' },
   ],
   'sha256-hash-generator': [
     { id: 'sha256-vs-md5', question: 'Why use SHA-256 instead of MD5?', answer: 'SHA-256 is currently considered cryptographically secure with no known practical collision attack, unlike MD5, which has been broken since 2004. SHA-256 is the standard choice whenever a genuinely secure hash is needed.' },
+    { id: 'sha256-hash-generator-privacy', question: 'Is my text sent to a server to be hashed?', answer: 'No \u2014 every hash is computed entirely in your browser using the Web Crypto API. Nothing you type here is ever sent anywhere.' },
   ],
   'sha512-hash-generator': [
     { id: 'sha512-vs-sha256', question: 'Should I use SHA-512 or SHA-256?', answer: 'Both are currently secure. SHA-512 is often faster on modern 64-bit hardware and produces a longer hash; SHA-256 is more commonly expected by existing systems. Either is a safe choice unless something specific requires one over the other.' },
+    { id: 'sha512-hash-generator-privacy', question: 'Is my text sent to a server to be hashed?', answer: 'No \u2014 every hash is computed entirely in your browser using the Web Crypto API. Nothing you type here is ever sent anywhere.' },
   ],
 
   'json-to-csv': [
     { id: 'nested-objects-csv', question: 'What happens to nested objects when converting to CSV?', answer: 'Since CSV can\u2019t represent nested structure, a nested object or array within a field is converted to its JSON text representation inside that cell, rather than being flattened into separate columns.' },
+    { id: 'json-to-csv-privacy', question: 'Is my JSON data uploaded anywhere?', answer: 'No \u2014 conversion happens entirely in your browser. Your data is never sent to or stored on a server.' },
   ],
   'csv-to-json': [
     { id: 'why-not-split-comma', question: 'Why not just split each line on commas?', answer: 'Because a field can legitimately contain a comma inside quotes, like an address or "Smith, Jr." A naive split would break on that comma; this tool uses a real, quote-aware parser instead.' },
@@ -3046,6 +3235,7 @@ export const toolFaqs = {
   ],
   'json-to-yaml': [
     { id: 'why-yaml-over-json', question: 'Why would I want YAML instead of JSON?', answer: 'YAML is often considered more readable for configuration files specifically, since it uses indentation instead of brackets and quotes for structure.' },
+    { id: 'json-to-yaml-privacy', question: 'Is my JSON data sent anywhere?', answer: 'No \u2014 conversion happens entirely in your browser. Your data is never sent to or stored on a server.' },
   ],
   'csv-to-xml': [
     { id: 'csv-xml-row-structure', question: 'How is each CSV row represented in the XML output?', answer: 'Each row becomes its own XML element, with the column values as that element\u2019s child elements, named after the CSV headers.' },
@@ -3065,13 +3255,18 @@ export const toolFaqs = {
   ],
   'csv-to-excel': [
     { id: 'is-this-a-real-xlsx', question: 'Is the downloaded file a genuine Excel file, not just a renamed CSV?', answer: 'Yes, it\u2019s a real .xlsx file built with proper spreadsheet formatting, not a CSV file that\u2019s simply been renamed with an Excel extension.' },
+    { id: 'csv-to-excel-privacy', question: 'Is my CSV data uploaded to a server?', answer: 'No \u2014 the Excel file is built entirely in your browser. Your data is never uploaded anywhere.' },
   ],
 
   'random-name-picker': [
     { id: 'is-selection-fair', question: 'Does the order I type names in affect the odds?', answer: 'No, every name has an equal chance of being picked regardless of where it appears in the list.' },
+    { id: 'duplicate-names', question: 'What happens if I accidentally enter the same name twice?', answer: 'Each entry is treated as a separate, independent chance to be picked, so a duplicated name effectively gets double the odds compared to a name entered once \u2014 worth double-checking your list if you want strictly equal odds per person.' },
+    { id: 'random-name-picker-privacy', question: 'Are the names I enter sent anywhere?', answer: 'No \u2014 the selection happens instantly in your browser. Nothing you enter is ever sent to a server.' },
   ],
   'random-word-generator': [
     { id: 'word-source', question: 'Where do the words come from?', answer: 'A curated set of everyday and evocative vocabulary, giving varied results rather than the same handful of words repeating constantly.' },
+    { id: 'repeat-words-possible', question: 'Can the same word come up twice in a row?', answer: 'Yes \u2014 each generation is an independent, random pick from the full word list, so there\u2019s no rule against a repeat, exactly like rolling the same number twice in a row on a die.' },
+    { id: 'random-word-generator-privacy', question: 'Does this tool need an internet connection?', answer: 'No \u2014 words are picked instantly from a built-in list in your browser. Nothing is sent to or stored on a server.' },
   ],
   'random-number-generator': [
     { id: 'bounds-inclusive', question: 'Are the minimum and maximum values included as possible results?', answer: 'Yes, both bounds are inclusive \u2014 setting a range of 1 to 10 means both 1 and 10 can genuinely appear as results.' },
@@ -3090,9 +3285,12 @@ export const toolFaqs = {
   ],
   'choice-wheel-spinner': [
     { id: 'wheel-winner-accuracy', question: 'How do you know the declared winner actually matches where the wheel stopped?', answer: 'The winning segment is calculated directly from the wheel\u2019s final rotation angle, tested against several rotation scenarios including landing exactly on a boundary and completing multiple full spins, to confirm the math always matches the visual result.' },
+    { id: 'choice-wheel-spinner-privacy', question: 'Are my wheel options sent anywhere?', answer: 'No \u2014 the spin and result are calculated entirely in your browser. Nothing you enter is ever sent to a server.' },
   ],
   'digital-signature-generator': [
     { id: 'works-on-mobile', question: 'Can I draw a signature on my phone?', answer: 'Yes, the drawing area supports touch input directly, so it works the same way on a phone or tablet screen as it does with a mouse.' },
+    { id: 'legally-binding', question: 'Is a signature made here legally binding, like DocuSign?', answer: 'Not on its own \u2014 this creates a visual signature image, not a legally verified e-signature with an audit trail, identity verification, or tamper-evident record the way a dedicated e-signature platform provides. For a contract or legal document requiring that kind of verifiable signing, a proper e-signature service is the appropriate tool, not an image file.' },
+    { id: 'digital-signature-generator-privacy', question: 'Is my signature drawing sent anywhere?', answer: 'No \u2014 the image is created and exported entirely in your browser. Nothing you draw here is ever sent to a server.' },
   ],
 
   'aes-encryption': [
@@ -3154,123 +3352,192 @@ export const toolFaqs = {
   'qr-code-scanner': [
     { id: 'what-can-qr-contain', question: 'What kinds of content can a QR code contain?', answer: 'Far more than a typical barcode \u2014 URLs, plain text, contact details, WiFi credentials, and more. This tool decodes whatever is actually encoded and shows it as plain text.' },
     { id: 'qr-browser-support', question: 'Does this work on all browsers?', answer: 'It relies on the BarcodeDetector API, currently available in Chrome, Edge, and other Chromium-based browsers, but not yet in Firefox or Safari.' },
+    { id: 'qr-code-scanner-privacy', question: 'Is my camera video sent anywhere?', answer: 'No \u2014 detection happens entirely on your device using your browser\u2019s own capability. No video or image is ever uploaded.' },
   ],
 
   'svg-converter': [
     { id: 'why-choose-size', question: 'Why do I need to pick a size instead of it just using the SVG\u2019s own size?', answer: 'An SVG is scalable by design and often doesn\u2019t have a meaningful fixed size of its own \u2014 choosing the size explicitly gives a predictable, correct result instead of guessing.' },
     { id: 'ico-real-multi-res', question: 'Is the ICO file a real multi-resolution icon, or just one image renamed?', answer: 'It\u2019s a genuine multi-resolution .ico file bundling 16\u00d716, 32\u00d732, and 48\u00d748 versions together, the standard structure browsers and Windows actually expect.' },
     { id: 'svg-conversion-fails', question: 'Why did my SVG fail to convert?', answer: 'Some SVG files need explicit width and height attributes on the root <svg> element (not just a viewBox) to render reliably \u2014 adding those to the file usually resolves it.' },
+    { id: 'svg-converter-privacy', question: 'Is my SVG file uploaded to a server to be converted?', answer: 'No \u2014 rendering happens entirely in your browser using the Canvas API. Your file is never uploaded anywhere.' },
   ],
 
   'srt-to-vtt': [
     { id: 'why-comma-vs-period', question: 'Why does the timestamp format matter?', answer: 'VTT requires a period before milliseconds (00:00:01.000); SRT uses a comma. A browser won\u2019t recognize a file with the wrong separator as valid VTT.' },
+    { id: 'webvtt-header-required', question: 'Does a VTT file need anything besides the converted timestamps?', answer: 'Yes \u2014 a valid VTT file must start with the literal line WEBVTT as its very first line. Without it, browsers won\u2019t recognize the file as valid VTT even if every timestamp and caption line is otherwise correct.' },
+    { id: 'srt-to-vtt-privacy', question: 'Is my subtitle file uploaded anywhere?', answer: 'No \u2014 conversion happens entirely in your browser. Your file is never uploaded anywhere.' },
   ],
   'sql-to-markdown-table': [
     { id: 'multiple-values-rows', question: 'Does this handle an INSERT with multiple rows?', answer: 'Yes, every VALUES (...) group in the statement becomes its own row in the resulting table.' },
+    { id: 'which-sql-statement', question: 'What kind of SQL statement does this expect?', answer: 'An INSERT INTO statement with explicit column names and one or more VALUES groups \u2014 the column list becomes the table header, and each VALUES group becomes a row.' },
+    { id: 'sql-to-markdown-table-privacy', question: 'Is my SQL sent anywhere?', answer: 'No \u2014 parsing and conversion happen entirely in your browser. Your SQL, including any real data it contains, is never sent to a server.' },
   ],
   'json-to-html-table': [
     { id: 'missing-keys-html-table', question: 'What happens if some objects are missing a key others have?', answer: 'That cell is simply left empty in the table \u2014 every unique key across all objects still gets its own column.' },
+    { id: 'nested-json-html-table', question: 'What happens to nested objects or arrays inside the JSON?', answer: 'Since an HTML table cell can\u2019t represent nested structure the way JSON can, a nested value is typically shown as its JSON text representation inside that cell rather than expanded into additional columns.' },
+    { id: 'json-to-html-table-privacy', question: 'Is my JSON data sent anywhere?', answer: 'No \u2014 conversion happens entirely in your browser. Your data is never sent to or stored on a server.' },
   ],
   'yaml-to-toml': [
     { id: 'toml-scope-limit', question: 'Does this handle every TOML feature?', answer: 'It covers the common config-file case \u2014 flat keys and nested tables \u2014 not the full spec\u2019s more advanced features like arrays of tables or inline tables.' },
+    { id: 'why-toml-exists', question: 'Why does TOML exist when YAML and JSON already do the job?', answer: 'TOML was designed specifically to be an unambiguous, minimal config-file format \u2014 it avoids some of YAML\u2019s trickier edge cases (like implicit type conversion surprises) while staying easier to hand-write than JSON, which is exactly the niche it aims to fill.' },
+    { id: 'yaml-to-toml-privacy', question: 'Is my YAML data uploaded anywhere?', answer: 'No \u2014 parsing and conversion happen entirely in your browser. Your data is never sent to or stored on a server.' },
   ],
   'robots-txt-validator': [
     { id: 'silent-failures', question: 'Why does a robots.txt mistake matter if there\u2019s no error message?', answer: 'Search engines interpret the file literally and don\u2019t report errors back to you \u2014 a malformed rule is often just silently ignored, which can mean a page you meant to block or allow quietly does the opposite with no warning anywhere.' },
+    { id: 'robots-not-security', question: 'Does disallowing a page in robots.txt actually keep it private?', answer: 'No \u2014 robots.txt is a request that well-behaved crawlers voluntarily follow, not an access restriction. A disallowed URL can still be directly visited by anyone with the link, and a page can even still appear in search results (without a preview) if other sites link to it.' },
+    { id: 'robots-txt-validator-privacy', question: 'Is my robots.txt content sent anywhere?', answer: 'No \u2014 validation happens entirely in your browser. Nothing you paste here is ever sent to a server.' },
   ],
   'json-string-escape': [
     { id: 'which-characters-escaped', question: 'Which characters actually get escaped?', answer: 'The standard JSON escape set: quotes, backslashes, newlines, tabs, and other control characters that aren\u2019t allowed literally inside a JSON string.' },
+    { id: 'why-cant-newline-appear-raw', question: 'Why can\u2019t a JSON string just contain a real line break?', answer: 'The JSON specification explicitly disallows an unescaped literal newline inside a string value, since it would make the string\u2019s exact boundaries ambiguous to a parser. \\n represents the line break instead, keeping the string a single, unambiguous line in the raw JSON text.' },
+    { id: 'json-string-escape-privacy', question: 'Is my text sent anywhere?', answer: 'No \u2014 escaping and unescaping both happen instantly in your browser. Nothing you paste here is ever sent to a server.' },
   ],
   'anagram-name-shuffler': [
     { id: 'spaces-in-shuffle', question: 'What happens to spaces in a full name?', answer: 'They\u2019re removed before shuffling, so a full name scrambles as one continuous set of letters rather than shuffling separately within each word.' },
+    { id: 'same-shuffle-twice', question: 'Will I get the same scrambled result if I shuffle the same name twice?', answer: 'Not necessarily \u2014 each shuffle is a fresh random rearrangement, so running the same name through again can produce a genuinely different scramble.' },
+    { id: 'anagram-name-shuffler-privacy', question: 'Is the name I enter sent anywhere?', answer: 'No \u2014 shuffling happens instantly in your browser. Nothing you type here is ever sent to a server.' },
   ],
   'sarcastic-text-alternator': [
     { id: 'why-called-sarcastic', question: 'Why is this called "sarcastic" text?', answer: 'aLtErNaTiNg CaPs is a widely recognized meme format (popularized by the "mocking SpongeBob" meme) used specifically to convey sarcasm or mockery in text.' },
+    { id: 'how-alternation-decided', question: 'Does the alternation follow a strict pattern, like every other letter?', answer: 'It alternates by letter position, skipping over spaces and punctuation so the capitalization pattern continues smoothly across word boundaries rather than resetting at each new word.' },
+    { id: 'sarcastic-text-alternator-privacy', question: 'Is my text sent anywhere?', answer: 'No \u2014 the conversion happens instantly in your browser. Nothing you type here is ever sent to a server.' },
   ],
 
   'tailwind-grid-generator': [
     { id: 'live-preview-accuracy', question: 'Does the live preview match what I\u2019ll actually get with the copied classes?', answer: 'Yes \u2014 the copied classes are real, standard Tailwind utilities that produce the same layout shown in the preview once pasted into a project where Tailwind can detect them.' },
+    { id: 'why-classes-not-detected', question: 'Why might the copied classes not work when I paste them into my project?', answer: 'Tailwind scans your actual source files at build time to know which utility classes to generate \u2014 if a class is only ever built dynamically (like concatenating a string at runtime) rather than appearing literally in your code, Tailwind\u2019s scanner won\u2019t find it and won\u2019t generate the corresponding CSS.' },
+    { id: 'tailwind-grid-generator-privacy', question: 'Is my grid configuration sent anywhere?', answer: 'No \u2014 the preview and generated classes are built entirely in your browser. Nothing is sent to or stored on a server.' },
   ],
   'glassmorphism-builder': [
     { id: 'safari-support', question: 'Will this work in Safari?', answer: 'Yes \u2014 the generated CSS includes the -webkit-backdrop-filter prefix Safari still requires alongside the standard backdrop-filter property.' },
+    { id: 'why-needs-background', question: 'Why doesn\u2019t the glass effect show up against a plain white background?', answer: 'backdrop-filter blurs whatever is genuinely behind the element, so it needs actual visual content, an image, a gradient, or other elements, behind it to blur. Against a flat, single-color background there\u2019s nothing with enough variation for the blur to visibly affect.' },
+    { id: 'glassmorphism-builder-privacy', question: 'Is my design configuration sent anywhere?', answer: 'No \u2014 the preview and generated CSS are built entirely in your browser. Nothing is sent to or stored on a server.' },
   ],
   'data-uri-encoder': [
     { id: 'when-to-use-data-uri', question: 'When does it actually make sense to use a data URI instead of a normal image file?', answer: 'Mainly for small, frequently-reused images like icons, where avoiding an extra HTTP request outweighs the downside of a larger file and losing independent browser caching for that image.' },
+    { id: 'why-bigger-than-original', question: 'Why is the data URI text noticeably bigger than the original image file?', answer: 'Base64 encoding, which data URIs use to represent binary image data as text, inflates the size by roughly 33% \u2014 a genuine, unavoidable cost of representing binary data safely as plain text characters.' },
+    { id: 'data-uri-encoder-privacy', question: 'Is my image uploaded to a server to be encoded?', answer: 'No \u2014 encoding happens entirely in your browser. Your image is never uploaded anywhere.' },
   ],
   'base64-to-image': [
     { id: 'bare-string-format', question: 'What format does this assume if I paste a bare base64 string without a data URI prefix?', answer: 'PNG. If your data is a different format, pasting the full data URI (starting with data:image/...) ensures it\u2019s decoded correctly.' },
+    { id: 'invalid-base64-error', question: 'What happens if the base64 text is corrupted or incomplete?', answer: 'The decode fails with an error rather than producing a broken or partial image, since invalid or truncated base64 data can\u2019t be reliably reconstructed into valid image bytes.' },
+    { id: 'base64-to-image-privacy', question: 'Is the base64 data I paste sent anywhere?', answer: 'No \u2014 decoding happens entirely in your browser. Nothing you paste here is ever sent to a server.' },
   ],
   'buzzword-bingo': [
     { id: 'unique-cards', question: 'Can two people get the same card?', answer: 'It\u2019s extremely unlikely \u2014 each card draws 24 unique buzzwords at random from the word bank, so the odds of an identical card are very low.' },
+    { id: 'free-space-included', question: 'Is there a free space in the middle like traditional bingo?', answer: 'Yes \u2014 the center square is a free space, matching the classic 5x5 bingo layout with 24 buzzwords filling the remaining squares.' },
+    { id: 'buzzword-bingo-privacy', question: 'Is anything sent anywhere when I generate a card?', answer: 'No \u2014 each card is generated instantly in your browser. Nothing is sent to or stored on a server.' },
   ],
   'hex-code-scroller': [
     { id: 'scroller-vs-generator', question: 'How is this different from the Color Palette Generator?', answer: 'This is an open-ended scrolling feed of unrelated random colors; the Color Palette Generator builds a coordinated set of colors from one base color you choose.' },
+    { id: 'copy-hex-value', question: 'Can I copy a specific color\u2019s hex code as I scroll past it?', answer: 'Yes \u2014 each color shown includes its hex code, ready to copy the moment something catches your eye, without needing to stop scrolling and hunt for it.' },
+    { id: 'hex-code-scroller-privacy', question: 'Does this tool need an internet connection?', answer: 'No \u2014 colors are generated instantly in your browser as you scroll. Nothing is sent to or stored on a server.' },
   ],
   'lorem-ipsum-fantasy': [
     { id: 'fantasy-vs-classic-lorem', question: 'How is this different from regular Lorem Ipsum?', answer: 'It works the same way structurally (random filler text for length, not meaning) but draws from fantasy-genre vocabulary instead of pseudo-Latin, which fits a fantasy-themed design better.' },
+    { id: 'does-text-mean-anything', question: 'Does the generated text mean anything, or is it pure nonsense?', answer: 'It\u2019s meaningless by design, the words are drawn from a fantasy-themed vocabulary and combined without any real grammar or narrative logic, purely to occupy space with a thematically fitting texture, the same underlying purpose as classic Lorem Ipsum.' },
+    { id: 'lorem-ipsum-fantasy-privacy', question: 'Does this tool need an internet connection to generate text?', answer: 'No \u2014 the text is generated instantly in your browser from a built-in word list. Nothing is sent to or stored on a server.' },
   ],
   'dumb-phone-formatter': [
     { id: 'why-strip-accents', question: 'Why does this remove accented characters?', answer: 'Many older feature phones can\u2019t display accented characters or emoji correctly in a contact name, so they\u2019re converted to their closest plain-ASCII equivalent to display reliably.' },
+    { id: 'phone-number-formatting', question: 'What happens to phone number formatting like dashes and parentheses?', answer: 'They\u2019re stripped out, keeping only the digits and a leading + if the number is in international format, since some older devices and import systems expect a number without punctuation like dashes or parentheses in the way.' },
+    { id: 'dumb-phone-formatter-privacy', question: 'Is my contact list uploaded anywhere?', answer: 'No \u2014 formatting happens entirely in your browser. Your contacts are never uploaded anywhere.' },
   ],
 
   'morse-audio-player': [
     { id: 'why-timing-matters', question: 'Why does the exact timing matter?', answer: 'Morse code\u2019s standard timing ratios (a dash is 3\u00d7 a dot\u2019s length, with specific gaps between letters and words) are what make it genuinely decodable by ear \u2014 an approximate rhythm wouldn\u2019t actually read as real Morse code.' },
+    { id: 'unsupported-characters-morse', question: 'What happens to characters that don\u2019t have a Morse code equivalent?', answer: 'They\u2019re skipped, since standard International Morse Code only defines patterns for letters, digits, and a handful of common punctuation marks, not every possible character.' },
+    { id: 'morse-audio-player-privacy', question: 'Does this tool need an internet connection to play the audio?', answer: 'No \u2014 the tones are generated instantly in your browser using the Web Audio API. Nothing you type here is ever sent to a server.' },
   ],
   'morse-tap-transmitter': [
     { id: 'tap-timing-threshold', question: 'How does it decide if a tap is a dot or a dash?', answer: 'By how long you hold it \u2014 a quick tap under about a quarter second registers as a dot, anything held longer registers as a dash.' },
+    { id: 'gap-between-letters-tap', question: 'How does it know when one letter ends and the next begins?', answer: 'By the pause between taps \u2014 a longer gap between tap sequences is interpreted as a letter boundary, mirroring the same gap-based timing logic real Morse code uses.' },
+    { id: 'morse-tap-transmitter-privacy', question: 'Is anything I tap out sent anywhere?', answer: 'No \u2014 everything is decoded instantly in your browser. Nothing is ever sent to a server.' },
   ],
   'drum-pad': [
     { id: 'why-no-samples', question: 'Why doesn\u2019t this use real drum samples?', answer: 'Every sound is synthesized directly with the Web Audio API using standard techniques (a pitch-dropping oscillator for the kick, filtered noise for the snare and hi-hat), so there\u2019s nothing to download before you can start playing.' },
+    { id: 'drum-pad-privacy', question: 'Is anything recorded or sent anywhere while I play?', answer: 'No \u2014 every sound is generated instantly in your browser. Nothing is recorded or sent to a server.' },
   ],
   'soundboard': [
     { id: 'soundboard-vs-drumpad', question: 'How is this different from the Drum Pad?', answer: 'The Drum Pad focuses on four core percussion sounds for rhythm; this Soundboard has six broader sound effects (buzzer, bell, whoosh, victory chime, and more) for reactions and cues.' },
+    { id: 'soundboard-synthesized', question: 'Are these real sound effect recordings?', answer: 'No \u2014 like the Drum Pad, every sound here is synthesized directly with the Web Audio API rather than played back from a recorded audio file, so there\u2019s nothing to download before the sounds are ready to use.' },
+    { id: 'soundboard-privacy', question: 'Is anything recorded or sent anywhere while I use this?', answer: 'No \u2014 every sound is generated instantly in your browser. Nothing is recorded or sent to a server.' },
   ],
   'white-noise-mixer': [
     { id: 'noise-colors-really-different', question: 'Are white, pink, and brown noise actually different, or just relabeled?', answer: 'Genuinely different \u2014 they\u2019re generated with different algorithms and verified to have measurably different statistical characteristics, not the same static under three names.' },
+    { id: 'why-called-colors', question: 'Why are these called "colors" of noise?', answer: 'The naming borrows from how light color relates to wavelength \u2014 white noise has equal energy across all frequencies (like white light containing all colors), while pink and brown noise shift that energy balance toward lower frequencies, giving each a genuinely different sound character.' },
+    { id: 'white-noise-mixer-privacy', question: 'Does this tool need an internet connection to play?', answer: 'No \u2014 every noise type is generated instantly in your browser using the Web Audio API. Nothing is sent to or stored on a server.' },
   ],
   'tts-pitcher': [
     { id: 'voice-varies-by-browser', question: 'Why does the voice sound different than I expected?', answer: 'This uses your browser\u2019s own built-in text-to-speech engine, so the available voice and its baseline sound depend on your browser and operating system \u2014 the pitch and rate controls adjust on top of whichever voice that is.' },
+    { id: 'why-proofreading-works', question: 'Why does listening to text actually help catch writing mistakes?', answer: 'Reading silently lets your brain autocorrect small errors without you noticing, since you already know what you meant to write. Hearing it read aloud forces you to process the words as they actually are, which is why awkward phrasing, missing words, and typos often become obvious that weren\u2019t while reading the same text silently.' },
+    { id: 'tts-pitcher-privacy', question: 'Is my text sent to a server to be read aloud?', answer: 'No \u2014 speech generation happens entirely on your device using your browser\u2019s built-in text-to-speech engine. Nothing you type here is ever sent to a server.' },
   ],
 
   'exif-scrubber': [
     { id: 'how-verified-removal', question: 'How do you know the metadata is actually removed, not just hidden?', answer: 'This was tested end-to-end with a real photo containing genuine EXIF data \u2014 confirmed the metadata was completely absent from the output file, not just invisible in a preview.' },
+    { id: 'visible-quality-change', question: 'Does removing metadata change how the photo looks?', answer: 'No \u2014 EXIF data is separate from the actual pixel data, so removing it has zero effect on the image\u2019s visible appearance or quality.' },
+    { id: 'exif-scrubber-privacy', question: 'Is my photo uploaded to a server to strip its metadata?', answer: 'No \u2014 the entire process happens locally in your browser. Your photo, and the location and camera data it may contain, is never uploaded anywhere.' },
   ],
   'csv-filter': [
     { id: 'filter-case-sensitive', question: 'Is the filter match case-sensitive?', answer: 'No, it matches regardless of case, so filtering for "nyc" will match "NYC", "Nyc", or "nyc" in the data.' },
+    { id: 'partial-vs-exact-match', question: 'Does the filter need an exact match, or does it catch partial matches too?', answer: 'It matches on partial text, so filtering for "york" catches "New York" as well as any other cell containing that substring anywhere within it, not just a cell equal to "york" exactly.' },
+    { id: 'csv-filter-privacy', question: 'Is my CSV data uploaded anywhere?', answer: 'No \u2014 filtering happens entirely in your browser. Your data is never uploaded anywhere.' },
   ],
   'address-cleaner': [
     { id: 'international-addresses', question: 'Does this work for international addresses?', answer: 'It\u2019s built around US shipping conventions and USPS-style abbreviations, so it\u2019s most accurate for US addresses specifically.' },
+    { id: 'why-abbreviate-street-types', question: 'Why abbreviate "Street" to "ST" instead of leaving it spelled out?', answer: 'USPS-style abbreviations are the standard format shipping carriers and mailing systems are built to expect, so matching that convention reduces the chance of an address being misread or flagged during processing.' },
+    { id: 'address-cleaner-privacy', question: 'Are the addresses I enter sent anywhere?', answer: 'No \u2014 cleanup happens entirely in your browser. Addresses, including customer data, are never sent to or stored on a server.' },
   ],
   'ascii-art': [
     { id: 'how-brightness-verified', question: 'How do you know the brightness mapping is actually correct?', answer: 'It was checked against a real test image with known content \u2014 confirmed dark areas genuinely map to dense characters like @ and light areas map to sparse characters or blank space, not just visually estimated.' },
+    { id: 'why-monospace-font', question: 'Why does the ASCII art look wrong when I paste it somewhere?', answer: 'ASCII art relies on every character occupying the exact same width, which only holds true in a monospace font. Pasting it somewhere using a regular, variable-width font will distort the alignment and break the image.' },
+    { id: 'ascii-art-privacy', question: 'Is my photo uploaded to a server to be converted?', answer: 'No \u2014 the conversion happens entirely in your browser. Your photo is never uploaded anywhere.' },
   ],
 
   'bubble-wrap-popper': [
     { id: 'can-bubbles-repop', question: 'Can I pop the same bubble twice?', answer: 'No, once a bubble is popped it stays popped, just like real bubble wrap \u2014 click Reset Sheet to start over with a fresh one.' },
+    { id: 'bubble-wrap-popper-privacy', question: 'Is anything about my session saved or sent anywhere?', answer: 'No \u2014 everything happens locally in your browser. Nothing is sent to or stored on a server.' },
   ],
   'pixel-art-pad': [
     { id: 'grid-size', question: 'How big is the drawing grid?', answer: '16\u00d716 pixels, exported at a larger scale so each pixel becomes a clean, crisp block of color in the downloaded PNG.' },
+    { id: 'why-scale-up-export', question: 'Why is the exported PNG bigger than 16\u00d716 pixels?', answer: 'A literal 16\u00d716 image would be nearly invisible at normal viewing size. Scaling each pixel up into a larger solid block on export keeps every edge crisp and blocky, exactly how pixel art is meant to look, rather than a tiny image that gets blurred when a browser or app displays it larger.' },
+    { id: 'pixel-art-pad-privacy', question: 'Is my drawing sent anywhere?', answer: 'No \u2014 drawing and exporting both happen entirely in your browser. Nothing you create here is ever sent to a server.' },
   ],
   '8bit-character-creator': [
     { id: 'why-symmetric', question: 'Why does this only draw symmetric characters?', answer: 'Most character sprites are naturally symmetric (faces, bodies), so mirroring lets you draw a full character by only painting half of it \u2014 for a fully asymmetric design, the free-draw Pixel Art Pad is the better fit.' },
+    { id: '8bit-character-creator-privacy', question: 'Is my character design sent anywhere?', answer: 'No \u2014 drawing and exporting both happen entirely in your browser. Nothing you create here is ever sent to a server.' },
   ],
   'emoji-mashup': [
     { id: 'is-result-a-real-image', question: 'Is the downloaded result a real image, or just two emoji displayed together?', answer: 'A genuine flattened PNG image \u2014 both emoji are drawn directly onto a canvas and combined into one file, not just positioned next to each other as text.' },
+    { id: 'emoji-look-different-platforms', question: 'Will the mashup look the same on every device?', answer: 'The exported image locks in exactly how the emoji rendered on your device at the moment you created it, since different platforms (iOS, Android, Windows) each draw emoji with their own distinct visual style. Once exported as a PNG, though, it displays identically everywhere from that point on, since it\u2019s now a fixed image rather than live emoji characters.' },
+    { id: 'emoji-mashup-privacy', question: 'Is anything sent anywhere when I create a mashup?', answer: 'No \u2014 the image is created and exported entirely in your browser. Nothing is sent to a server.' },
   ],
 
   'prompt-roulette': [
     { id: 'how-many-combinations', question: 'How many different prompts can this generate?', answer: 'Subjects and styles combine independently, so the number of genuinely distinct combinations is well beyond either list\u2019s size on its own.' },
+    { id: 'no-prompt-repeats-immediately', question: 'Will I see the same prompt twice in a row?', answer: 'It\u2019s possible, since each generation is an independent random draw with no memory of the previous result, exactly like rolling dice \u2014 though with many possible combinations available, an immediate repeat is genuinely uncommon.' },
+    { id: 'prompt-roulette-privacy', question: 'Does this tool need an internet connection to generate a prompt?', answer: 'No \u2014 prompts are generated instantly from a built-in list in your browser. Nothing is sent to or stored on a server.' },
   ],
   'trivia-flashcards': [
     { id: 'trivia-accuracy', question: 'Are the trivia facts actually accurate?', answer: 'Each one was checked before being included \u2014 these are general knowledge questions with clear, verifiable answers, not ambiguous or debatable trivia.' },
+    { id: 'card-order-random', question: 'Do the cards always appear in the same order?', answer: 'No \u2014 each card is picked independently at random, so going through several cards gives a genuinely varied sequence rather than a fixed order. Like any independent random pick, it\u2019s possible (if uncommon) to see the same card again fairly soon.' },
+    { id: 'trivia-flashcards-privacy', question: 'Does this tool need an internet connection?', answer: 'No \u2014 all the questions and answers are built into the page and load instantly. Nothing is sent to or stored on a server.' },
   ],
   'tarot-reader': [
     { id: 'is-tarot-real-prediction', question: 'Does this actually predict anything?', answer: 'No \u2014 a random card draw has no genuine predictive power. This is offered purely for entertainment and reflection, not as real guidance for decisions.' },
+    { id: 'tarot-card-meanings-history', question: 'Where do the card meanings shown here come from?', answer: 'They\u2019re drawn from traditional tarot symbolism and interpretations that have developed over the deck\u2019s long history, presented here as a starting point for reflection, not as an authoritative or singular correct interpretation.' },
+    { id: 'tarot-reader-privacy', question: 'Is anything about my reading sent anywhere?', answer: 'No \u2014 the card draw happens entirely in your browser. Nothing is sent to or stored on a server.' },
   ],
   'meme-overlay': [
     { id: 'text-auto-uppercase', question: 'Why does my text automatically become uppercase?', answer: 'That\u2019s the classic meme text convention this tool matches \u2014 bold, uppercase text with a black outline is the recognizable format the genre is known for.' },
+    { id: 'why-outlined-text', question: 'Why does the text have a black outline instead of just a solid color?', answer: 'The outline keeps the text readable regardless of what\u2019s behind it \u2014 white text alone can disappear against a light part of the image, but the black outline maintains contrast against both light and dark backgrounds at once.' },
+    { id: 'meme-overlay-privacy', question: 'Is my photo uploaded to a server to add the text?', answer: 'No \u2014 the text is drawn directly onto your image entirely in your browser. Your photo is never uploaded anywhere.' },
   ],
   'fake-loading-screen': [
     { id: 'does-it-actually-load-anything', question: 'Does this actually load or install anything?', answer: 'No, it\u2019s purely a visual animation for fun or as a prank \u2014 nothing real happens in the background.' },
+    { id: 'progress-bar-realistic-pace', question: 'Does the progress bar move at a realistic, uneven pace like a real loading screen?', answer: 'No \u2014 it advances at a steady, constant rate controlled by the speed setting, rather than mimicking the unpredictable speed-ups and stalls a genuine loading process often shows.' },
+    { id: 'fake-loading-screen-privacy', question: 'Is anything sent anywhere while this runs?', answer: 'No \u2014 it\u2019s a purely visual animation running entirely in your browser. Nothing is sent to or stored on a server.' },
   ],
   'habit-streak-counter': [
     { id: 'streak-logic-accuracy', question: 'How does the streak count handle today not being checked in yet?', answer: 'It correctly continues your streak from yesterday if today simply hasn\u2019t been checked in yet, but resets if there\u2019s a genuine gap of a missed day \u2014 tested against exactly these scenarios before being relied on.' },
@@ -3278,8 +3545,11 @@ export const toolFaqs = {
   ],
   'rickroll-generator': [
     { id: 'can-i-change-destination', question: 'Can I make this link to something else instead?', answer: 'No, and that\u2019s intentional \u2014 this tool only ever produces a link to the one well-known video, since a tool that could disguise a link as going anywhere else would be functionally a phishing technique.' },
+    { id: 'does-link-look-suspicious', question: 'Does the generated link look different from a normal YouTube link?', answer: 'No \u2014 it\u2019s a genuine, standard YouTube URL. The only "trick" is that the person clicking doesn\u2019t know in advance which specific video it leads to, not anything unusual about the link\u2019s actual structure or destination.' },
+    { id: 'rickroll-generator-privacy', question: 'Is anything sent anywhere when I generate a link?', answer: 'No \u2014 the link is generated instantly in your browser. Nothing is sent to or stored on a server.' },
   ],
   'fake-error-designer': [
     { id: 'could-this-fool-someone', question: 'Could this be used to convince someone their computer is actually broken?', answer: 'It\u2019s deliberately styled as an obvious joke card rather than a realistic system dialog, specifically to avoid that \u2014 it\u2019s meant to look clearly funny, not convincingly real.' },
+    { id: 'fake-error-designer-privacy', question: 'Is my message text sent anywhere?', answer: 'No \u2014 the card is created entirely in your browser. Nothing you type here is ever sent to a server.' },
   ],
 }
