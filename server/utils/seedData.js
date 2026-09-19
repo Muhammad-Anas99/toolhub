@@ -135,6 +135,7 @@ export const toolSeed = [
   { name: 'Color Converter', slug: 'color-converter', path: '/tools/color-converter', category: 'color-tools', description: 'Convert between HEX, RGB and HSL color formats in one place.', icon: 'FaPalette', badge: 'new', comingSoon: false },
   { name: 'Color Palette Generator', slug: 'palette-generator', path: '/tools/palette-generator', category: 'color-tools', description: 'Generate complementary, analogous, triadic and shade palettes from any color.', icon: 'FaPalette', badge: 'popular', comingSoon: false },
   { name: 'Gradient Generator', slug: 'gradient-generator', path: '/tools/gradient-generator', category: 'color-tools', description: 'Build linear and radial CSS gradients visually and copy ready-to-use code instantly. Free, no image files, no sign-up required.', icon: 'FaPalette', comingSoon: false },
+  { name: 'Power BI Theme Generator', slug: 'power-bi-theme-generator', path: '/tools/power-bi-theme-generator', category: 'color-tools', description: 'Build a custom Power BI report theme visually and export a ready-to-import theme.json file. Free, no sign-up, runs entirely in your browser.', icon: 'FaChartBar', comingSoon: false },
 
   // ---------- Developer Tools (fully working) ----------
   { name: 'JSON Formatter', slug: 'json-formatter', path: '/tools/json-formatter', category: 'developer-tools', description: 'Format, validate, and beautify messy JSON instantly. Minify for production or pretty-print for readability, free, right in your browser.', icon: 'FaCode', badge: 'popular', comingSoon: false },

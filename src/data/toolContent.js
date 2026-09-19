@@ -1520,6 +1520,58 @@ export const toolContent = {
     privacy: NO_FILE_PRIVACY,
   },
 
+  'power-bi-theme-generator': {
+    about:
+      'Builds a valid Power BI report theme visually, letting you set a data color palette, structural colors (background, foreground, table accent), and KPI colors (good/neutral/bad), then exports a ready-to-import theme.json file with no need to hand-write the JSON structure yourself.\n\nA Power BI theme is a JSON file that sets the default appearance of an entire report, colors, and structural styling, applied automatically to every page and visual unless individually overridden. Rather than formatting each chart by hand, a theme lets you set these choices once and apply them consistently across a whole report or organization.\n\nThis tool covers the theme properties every theme actually needs and that Microsoft\u2019s own documentation and real-world example themes consistently use: the name, the dataColors array used for chart series, the structural colors, and the KPI colors used in conditional formatting. It deliberately does not attempt the full visualStyles specification\u2019s much larger surface, granular per-visual-type formatting like borders, shadows, and padding for every individual chart type, which is a considerably more complex, error-prone area better suited to Power BI Desktop\u2019s own Format pane or a specialized tool for that specific purpose.',
+    features: [
+      { title: 'Data color palette', description: 'Add, remove, or randomize the colors used for chart series and categories, up to 20.', icon: HiOutlineSwatch },
+      { title: 'Structural & KPI colors', description: 'Set background, foreground, table accent, and good/neutral/bad conditional-formatting colors.', icon: HiOutlineAdjustmentsHorizontal },
+      { title: 'Live JSON preview', description: 'See the exact theme.json output update as you adjust colors, not just a visual mockup.', icon: HiOutlineEyeDropper },
+      { title: 'Ready-to-import file', description: 'Download a genuine theme.json file, or copy the JSON directly, ready for Power BI Desktop.', icon: HiOutlineArrowDownTray },
+    ],
+    howToUse: [
+      'Name your theme and set the data color palette used for chart series.',
+      'Set structural colors: background, foreground, and table accent.',
+      'Set KPI colors for good, neutral, and bad conditional formatting.',
+      'Copy the JSON or download theme.json, then import it in Power BI Desktop via View → Themes → Browse for themes.',
+    ],
+    useCases: [
+      'Building a brand-consistent theme for a company\u2019s Power BI reports',
+      'Quickly generating a starting theme.json to customize further in Power BI Desktop',
+      'Creating a shared theme file so every report in a team starts from the same baseline',
+      'Learning the core structure of a Power BI theme JSON file by seeing it generated live',
+      'Getting a valid dataColors palette without manually typing out a hex array',
+    ],
+    guideTitle: 'The Complete Guide to Power BI Report Themes',
+    guide: [
+      {
+        heading: 'What a Power BI Theme Actually Controls',
+        body:
+          'A Power BI theme is a single JSON file that sets the default visual appearance of an entire report. Once applied, Power BI uses the theme\u2019s settings for every page and visual unless a specific element is manually formatted to override it. A theme genuinely controls three layers: the data color palette (the ordered set of colors used for series, categories, and slices across every chart), the structural colors (background, foreground, and table accent, which govern the report\u2019s general canvas and text appearance), and, optionally, detailed per-visual-type formatting for things like borders and backgrounds. Setting these once in a theme, rather than formatting every visual by hand across every report, is exactly what keeps an organization\u2019s reports looking consistent without repetitive manual work.',
+      },
+      {
+        heading: 'Why the dataColors Array Order Genuinely Matters',
+        body:
+          'The dataColors array isn\u2019t just a palette to choose from, its order directly determines which color a chart assigns to its first category, second category, and so on, in the sequence categories are encountered. This means two reports using the identical theme will consistently color the same category the same way, provided the categories appear in a matching order, a real, practical benefit for anyone comparing charts across multiple reports or pages, the color assigned to "Product A" stays visually consistent rather than shifting depending on which specific chart or page it appears on. Once a report\u2019s data has more distinct categories than the theme has colors defined, Power BI cycles back to reusing colors from the start of the array, which is exactly why a longer palette (8-12 colors is a common, practical range) reduces how often two genuinely different categories end up sharing an identical color.',
+      },
+      {
+        heading: 'Structural Colors vs. Data Colors: A Distinction Worth Keeping Straight',
+        body:
+          'It\u2019s easy to conflate "theme colors" as one single concept, but a theme genuinely separates two different color roles. Data colors are assigned to the actual data being visualized, bars, slices, lines, and change automatically as data changes. Structural colors, background, foreground, and table accent, instead style the report\u2019s fixed canvas elements, the page background, general text color, and default table styling, elements that don\u2019t represent data at all. Setting a report\u2019s brand color as a data color would apply it to a chart series (and get reused cyclically across the dataColors array), while setting the identical brand color as the table accent applies it consistently to structural table styling instead, two genuinely different, non-interchangeable uses for what might otherwise look like "the same" color choice.',
+      },
+      {
+        heading: 'Why Good, Neutral, and Bad Colors Exist as Their Own Dedicated Category',
+        body:
+          'Beyond the general dataColors palette, a theme separately defines good, neutral, and bad colors, specifically used by KPI visuals and conditional formatting to represent performance against a target, green-ish for good, amber for neutral, red-ish for bad, following a widely recognized traffic-light convention. These are deliberately kept separate from the main data color palette because they carry semantic meaning tied to performance evaluation, not arbitrary category identity, a KPI visual needs to consistently represent "good" as good and "bad" as bad regardless of which colors happen to be cycling through the general dataColors array for other charts on the same page.',
+      },
+      {
+        heading: 'Why This Tool Deliberately Doesn\u2019t Attempt Full visualStyles Customization',
+        body:
+          'Power BI\u2019s complete theme specification supports an extensive visualStyles section, allowing highly granular, per-visual-type formatting, specific border widths and radii, shadow settings, padding, and dozens of other properties, independently for every different chart and visual type Power BI supports. Replicating this full surface correctly would mean matching an extensive, evolving schema Microsoft documents and updates directly, a considerably larger and more error-prone undertaking than the core theme properties this tool focuses on. Covering the properties every theme genuinely needs, name, data colors, structural colors, and KPI colors, while leaving granular per-visual formatting to Power BI Desktop\u2019s own Format pane (which can still be manually adjusted and saved back into an exported theme afterward) is a considered, honest scope decision, not a missing feature to work around.',
+      },
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
   'json-formatter': {
     about:
       'Beautifies or minifies JSON data instantly, with clear error messages, including the exact line and column, if something isn\u2019t valid.\n\nFormatting (also called pretty-printing) adds consistent indentation and line breaks to JSON data, turning a dense, single-line blob into a structure that\u2019s actually readable and navigable. Nested objects and arrays become visually clear, and it\u2019s far easier to spot where one object ends and another begins. Minifying does the opposite: it strips all unnecessary whitespace to produce the smallest possible representation of the same data, which matters for production use, where every byte transferred over the network has a real, if usually small, cost.\n\nAPIs commonly return minified JSON by default, since there\u2019s no reason to waste bandwidth on formatting whitespace a machine doesn\u2019t need, which is exactly why a formatter tool is useful for a human trying to actually read that response while debugging. The reverse direction matters too: a formatted, human-edited JSON config file is often minified before being bundled into production, shaving a small amount of size off the final build.',

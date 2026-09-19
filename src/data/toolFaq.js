@@ -2266,6 +2266,39 @@ export const toolFaqs = {
     },
   ],
 
+  'power-bi-theme-generator': [
+    {
+      id: 'how-to-import-theme',
+      question: 'How do I actually apply the downloaded theme.json in Power BI?',
+      answer: 'In Power BI Desktop, go to the View tab, open the Themes dropdown, and select "Browse for themes." Pick your downloaded theme.json file, and Power BI applies it to the whole report immediately.',
+    },
+    {
+      id: 'how-many-data-colors',
+      question: 'How many data colors should I actually set?',
+      answer: 'Somewhere around 8-12 is a practical range for most reports \u2014 enough to cover typical category counts without colors repeating too often. If a chart has more categories than colors defined, Power BI cycles back to the start of the array and reuses colors.',
+    },
+    {
+      id: 'does-this-cover-fonts',
+      question: 'Does this tool let me set custom fonts too?',
+      answer: 'No, this focuses specifically on color \u2014 data colors, structural colors, and KPI colors. Font settings live in a theme\u2019s textClasses section, which this tool doesn\u2019t currently generate.',
+    },
+    {
+      id: 'invalid-theme-json',
+      question: 'What happens if I import a theme with invalid JSON?',
+      answer: 'Power BI shows an error like "This isn\u2019t a valid theme file" \u2014 usually caused by a syntax mistake such as a misplaced comma. Since this tool generates the JSON programmatically rather than by hand-editing, that specific class of error isn\u2019t something you need to worry about with the output here.',
+    },
+    {
+      id: 'good-neutral-bad-usage',
+      question: 'Where do the good/neutral/bad colors actually show up in a report?',
+      answer: 'They\u2019re used by KPI visuals and conditional formatting rules specifically, following the traffic-light convention (green-ish for good, amber for neutral, red-ish for bad) \u2014 not by ordinary charts, which draw from the dataColors array instead.',
+    },
+    {
+      id: 'power-bi-theme-generator-privacy',
+      question: 'Is my theme data sent anywhere?',
+      answer: 'No \u2014 the entire theme is built and the JSON generated directly in your browser. Nothing you set here is ever uploaded, stored, or sent to a server.',
+    },
+  ],
+
   'code-minifier': [
     {
       id: 'what-it-does',

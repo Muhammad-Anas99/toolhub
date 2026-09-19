@@ -1,32 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+  Generated automatically by scripts/generate-sitemap.mjs from
+  scripts/routeList.mjs — do not hand-edit; add or change tools in
+  src/data/tools.js and re-run `npm run build` instead.
+
   Excluded on purpose:
     - /dashboard/* (requires login, marked noindex in-page too)
     - /verify-email, /reset-password, /check-email (token-based/transactional,
       marked noindex in-page)
-    - /login, /register: included below (see note there)
 
-  Blog posts (/blog/:slug) come from the backend Blog collection, not a
-  static file — this sitemap is static, so new posts published via the
-  Admin Blog CMS need their <url> entry added here by hand until a
-  dynamic sitemap route exists. The four posts already in the seed data
-  are listed below.
+  /login and /register are included deliberately: the forms themselves
+  are fine to index (someone searching "toolhub login" should find this
+  page); it's only the token-based pages above that are excluded.
+
+  Known gap: blog posts published live through the Admin Blog CMS
+  (stored in MongoDB) aren't included here yet, since this reads the
+  static src/data/blog.js file, not the live database. See the comment
+  at the top of generate-sitemap.mjs.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
     <loc>https://trytoolhub.net/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
+  <url>
+    <loc>https://trytoolhub.net/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/contact</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/privacy-policy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
   <url>
     <loc>https://trytoolhub.net/tools</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-
-  <!-- Image tools -->
   <url>
     <loc>https://trytoolhub.net/tools/jpg-to-png</loc>
     <changefreq>monthly</changefreq>
@@ -82,8 +109,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- PDF tools -->
   <url>
     <loc>https://trytoolhub.net/tools/jpg-to-pdf</loc>
     <changefreq>monthly</changefreq>
@@ -100,41 +125,10 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/tools/compress-pdf</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://trytoolhub.net/tools/split-pdf</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://trytoolhub.net/tools/pdf-to-word</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://trytoolhub.net/tools/pdf-to-powerpoint</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://trytoolhub.net/tools/powerpoint-to-pdf</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://trytoolhub.net/tools/excel-to-pdf</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://trytoolhub.net/tools/word-to-pdf</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
   <url>
     <loc>https://trytoolhub.net/tools/pdf-to-jpg</loc>
     <changefreq>monthly</changefreq>
@@ -145,891 +139,885 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- Color tools -->
+  <url>
+    <loc>https://trytoolhub.net/tools/compress-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/pdf-to-word</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/pdf-to-powerpoint</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/powerpoint-to-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/excel-to-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/word-to-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <url>
     <loc>https://trytoolhub.net/tools/color-picker</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/hex-to-rgb</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/rgb-to-hex</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/hex-to-hsl</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/color-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/palette-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://trytoolhub.net/tools/gradient-generator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Developer tools -->
   <url>
     <loc>https://trytoolhub.net/tools/json-formatter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://trytoolhub.net/tools/code-minifier</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/json-validator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/base64-encoder</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/url-encoder</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/uuid-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/qr-code-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/url-shortener</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/user-agent-parser</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/htaccess-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/cron-expression-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/schema-markup-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/audio-to-wav-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/audio-trimmer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/video-to-gif</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/video-trimmer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/unit-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/meta-tag-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/text-diff-checker</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/audio-merger</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/audio-volume-changer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/audio-reverser</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/audio-fade</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/audio-speed-changer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/silence-trimmer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/video-to-audio</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/video-muter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/video-speed-changer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/video-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/video-resizer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/video-compressor</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/background-remover</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/length-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/weight-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/volume-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/temperature-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/area-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/speed-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/time-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/data-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/pressure-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/energy-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/power-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/angle-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/hash-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/timestamp-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/regex-tester</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Category views (each has its own canonical URL and unique SEO
-       metadata - see src/pages/Tools.jsx) -->
-  <url>
-    <loc>https://trytoolhub.net/tools?category=image-tools</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/tools?category=pdf-tools</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://trytoolhub.net/tools/code-minifier</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://trytoolhub.net/tools?category=color-tools</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://trytoolhub.net/tools?category=developer-tools</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Text tools -->
   <url>
     <loc>https://trytoolhub.net/tools/word-counter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/case-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/lorem-ipsum-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Security tools -->
-  <url>
-    <loc>https://trytoolhub.net/tools/password-generator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://trytoolhub.net/tools/password-strength-checker</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
   <url>
     <loc>https://trytoolhub.net/tools/image-upscaler</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/image-enhancer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Social media tools -->
+  <url>
+    <loc>https://trytoolhub.net/tools/password-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/password-strength-checker</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <url>
     <loc>https://trytoolhub.net/tools/instagram-post-resizer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/youtube-thumbnail-downloader</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/twitter-image-resizer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/facebook-image-resizer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/linkedin-image-resizer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/pinterest-pin-resizer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/whatsapp-link-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/whatsapp-text-formatter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/whatsapp-qr-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/whatsapp-status-resizer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/remove-duplicate-lines</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/text-reverser</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/upside-down-text-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/trim-whitespace</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/slug-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/line-counter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/text-to-binary</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/binary-to-text</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/find-and-replace</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/percentage-calculator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/compound-interest-calculator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/loan-calculator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/profit-margin-calculator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/age-calculator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/color-contrast-checker</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/darken-lighten-color</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/random-color-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/gradient-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/tools/power-bi-theme-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/css-formatter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/css-minifier</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/html-formatter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/html-minifier</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/xml-formatter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/xml-minifier</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/javascript-minifier</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/html-entities-encoder</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/html-entities-decoder</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/jwt-decoder</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/md5-hash-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/sha1-hash-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/sha256-hash-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/sha512-hash-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/json-to-csv</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/csv-to-json</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/xml-to-json</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/json-to-xml</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/yaml-to-json</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/json-to-yaml</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/csv-to-xml</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/xml-to-csv</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/excel-to-json</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/csv-to-excel</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/random-name-picker</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/random-word-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/random-number-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/coin-flipper</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/dice-roller</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/choice-wheel-spinner</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/digital-signature-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/aes-encryption</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/htpasswd-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/rsa-key-pair-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/subnet-calculator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/my-ip-address</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/dns-lookup</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/http-header-checker</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/url-redirect-checker</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/barcode-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/barcode-scanner</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/qr-code-scanner</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/svg-converter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/srt-to-vtt</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/sql-to-markdown-table</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/json-to-html-table</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/yaml-to-toml</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/robots-txt-validator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/json-string-escape</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/anagram-name-shuffler</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/sarcastic-text-alternator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/tailwind-grid-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/glassmorphism-builder</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/data-uri-encoder</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/base64-to-image</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/buzzword-bingo</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/hex-code-scroller</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/lorem-ipsum-fantasy</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/dumb-phone-formatter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/morse-audio-player</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/morse-tap-transmitter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/drum-pad</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/soundboard</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/white-noise-mixer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/tts-pitcher</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/exif-scrubber</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/csv-filter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/address-cleaner</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/ascii-art</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/bubble-wrap-popper</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/pixel-art-pad</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/8bit-character-creator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/emoji-mashup</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/prompt-roulette</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/trivia-flashcards</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/tarot-reader</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/meme-overlay</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/fake-loading-screen</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/habit-streak-counter</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/rickroll-generator</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/fake-error-designer</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Content pages -->
-  <url>
-    <loc>https://trytoolhub.net/blog</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/blog/jpg-vs-png-vs-webp</loc>
@@ -1057,21 +1045,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://trytoolhub.net/contact</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-
-  <!-- Auth entry points — the forms themselves are fine to index (someone
-       searching "toolhub login" should find this page); it's only the
-       token-based pages (verify-email, reset-password) that are excluded,
-       via noindex in-page rather than from this sitemap. -->
-  <url>
     <loc>https://trytoolhub.net/login</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
@@ -1081,17 +1054,4 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-
-  <!-- Legal -->
-  <url>
-    <loc>https://trytoolhub.net/privacy-policy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  <url>
-    <loc>https://trytoolhub.net/terms</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-
 </urlset>

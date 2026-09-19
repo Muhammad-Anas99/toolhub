@@ -7,6 +7,7 @@ import {
   FaRotate,
   FaObjectGroup,
   FaObjectUngroup,
+  FaChartBar,
   FaFilePdf,
   FaFileWord,
   FaFileExcel,
@@ -474,17 +475,7 @@ export const tools = [
     badge: 'popular',
     comingSoon: false,
   },
-  {
-    id: 'gradient-generator',
-    name: 'Gradient Generator',
-    seoTitle: 'Free CSS Gradient Generator — Linear & Radial, No Image',
-    slug: 'gradient-generator',
-    path: '/tools/gradient-generator',
-    category: 'color-tools',
-    description: 'Build linear and radial CSS gradients visually and copy ready-to-use code instantly. Free, no image files, no sign-up required.',
-    icon: FaPalette,
-    comingSoon: false,
-  },
+
 
   // ---------- Developer Tools (fully working, browser-based) ----------
   {
@@ -1457,6 +1448,28 @@ export const tools = [
     description: 'Generate random hex colors for design inspiration.',
     icon: FaShuffle,
     badge: 'new',
+    comingSoon: false,
+  },
+  {
+    id: 'gradient-generator',
+    name: 'Gradient Generator',
+    seoTitle: 'Free CSS Gradient Generator — Linear & Radial, No Image',
+    slug: 'gradient-generator',
+    path: '/tools/gradient-generator',
+    category: 'color-tools',
+    description: 'Build linear and radial CSS gradients visually and copy ready-to-use code instantly. Free, no image files, no sign-up required.',
+    icon: FaPalette,
+    comingSoon: false,
+  },
+  {
+    id: 'power-bi-theme-generator',
+    name: 'Power BI Theme Generator',
+    seoTitle: 'Power BI Theme Generator — Free JSON Theme Builder',
+    slug: 'power-bi-theme-generator',
+    path: '/tools/power-bi-theme-generator',
+    category: 'color-tools',
+    description: 'Build a custom Power BI report theme visually and export a ready-to-import theme.json file. Free, no sign-up, runs entirely in your browser.',
+    icon: FaChartBar,
     comingSoon: false,
   },
   {

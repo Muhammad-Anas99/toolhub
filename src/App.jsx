@@ -93,6 +93,7 @@ const RegexTester = lazy(() => import('./pages/tools/RegexTester.jsx'))
 const PdfToJpg = lazy(() => import('./pages/tools/PdfToJpg.jsx'))
 const PdfToPng = lazy(() => import('./pages/tools/PdfToPng.jsx'))
 const GradientGenerator = lazy(() => import('./pages/tools/GradientGenerator.jsx'))
+const PowerBiThemeGenerator = lazy(() => import('./pages/tools/PowerBiThemeGenerator.jsx'))
 const PdfToWord = lazy(() => import('./pages/tools/PdfToWord.jsx'))
 const CompressPdf = lazy(() => import('./pages/tools/CompressPdf.jsx'))
 const PdfToPowerpoint = lazy(() => import('./pages/tools/PdfToPowerpoint.jsx'))
@@ -326,6 +327,7 @@ export default function App() {
           <Route path="/tools/pdf-to-jpg" element={<PdfToJpg />} />
           <Route path="/tools/pdf-to-png" element={<PdfToPng />} />
           <Route path="/tools/gradient-generator" element={<GradientGenerator />} />
+          <Route path="/tools/power-bi-theme-generator" element={<PowerBiThemeGenerator />} />
           <Route path="/tools/pdf-to-word" element={<PdfToWord />} />
           <Route path="/tools/compress-pdf" element={<CompressPdf />} />
           <Route path="/tools/pdf-to-powerpoint" element={<PdfToPowerpoint />} />
