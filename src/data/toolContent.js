@@ -1522,7 +1522,7 @@ export const toolContent = {
 
   'power-bi-theme-generator': {
     about:
-      'Builds a valid Power BI report theme visually, letting you set a data color palette, structural colors (background, foreground, table accent), and KPI colors (good/neutral/bad), then exports a ready-to-import theme.json file with no need to hand-write the JSON structure yourself.\n\nA Power BI theme is a JSON file that sets the default appearance of an entire report, colors, and structural styling, applied automatically to every page and visual unless individually overridden. Rather than formatting each chart by hand, a theme lets you set these choices once and apply them consistently across a whole report or organization.\n\nThis tool covers the theme properties every theme actually needs and that Microsoft\u2019s own documentation and real-world example themes consistently use: the name, the dataColors array used for chart series, the structural colors, and the KPI colors used in conditional formatting. It deliberately does not attempt the full visualStyles specification\u2019s much larger surface, granular per-visual-type formatting like borders, shadows, and padding for every individual chart type, which is a considerably more complex, error-prone area better suited to Power BI Desktop\u2019s own Format pane or a specialized tool for that specific purpose.',
+      'Builds a valid Power BI report theme visually, letting you set a data color palette, structural colors (background, foreground, table accent), and KPI colors (good/neutral/bad), then exports a ready-to-import theme.json file with no need to hand-write the JSON structure yourself. Free to use in full, with no subscription required to actually download or copy the finished theme.\n\nA Power BI theme is a JSON file that sets the default appearance of an entire report, colors, and structural styling, applied automatically to every page and visual unless individually overridden. Rather than formatting each chart by hand, a theme lets you set these choices once and apply them consistently across a whole report or organization.\n\nThis tool covers the theme properties every theme actually needs and that Microsoft\u2019s own documentation and real-world example themes consistently use: the name, the dataColors array used for chart series, the structural colors, and the KPI colors used in conditional formatting. It deliberately does not attempt the full visualStyles specification\u2019s much larger surface, granular per-visual-type formatting like borders, shadows, and padding for every individual chart type, which is a considerably more complex, error-prone area better suited to Power BI Desktop\u2019s own Format pane or a specialized tool for that specific purpose.',
     features: [
       { title: 'Data color palette', description: 'Add, remove, or randomize the colors used for chart series and categories, up to 20.', icon: HiOutlineSwatch },
       { title: 'Structural & KPI colors', description: 'Set background, foreground, table accent, and good/neutral/bad conditional-formatting colors.', icon: HiOutlineAdjustmentsHorizontal },
@@ -1541,6 +1541,7 @@ export const toolContent = {
       'Creating a shared theme file so every report in a team starts from the same baseline',
       'Learning the core structure of a Power BI theme JSON file by seeing it generated live',
       'Getting a valid dataColors palette without manually typing out a hex array',
+      'Finding a genuinely free option after running into a paywall on another theme generator',
     ],
     guideTitle: 'The Complete Guide to Power BI Report Themes',
     guide: [
@@ -1568,6 +1569,11 @@ export const toolContent = {
         heading: 'Why This Tool Deliberately Doesn\u2019t Attempt Full visualStyles Customization',
         body:
           'Power BI\u2019s complete theme specification supports an extensive visualStyles section, allowing highly granular, per-visual-type formatting, specific border widths and radii, shadow settings, padding, and dozens of other properties, independently for every different chart and visual type Power BI supports. Replicating this full surface correctly would mean matching an extensive, evolving schema Microsoft documents and updates directly, a considerably larger and more error-prone undertaking than the core theme properties this tool focuses on. Covering the properties every theme genuinely needs, name, data colors, structural colors, and KPI colors, while leaving granular per-visual formatting to Power BI Desktop\u2019s own Format pane (which can still be manually adjusted and saved back into an exported theme afterward) is a considered, honest scope decision, not a missing feature to work around.',
+      },
+      {
+        heading: 'How This Compares to Other Free Power BI Theme Tools',
+        body:
+          'The Power BI community has a handful of go-to theme generators, and it\u2019s worth knowing honestly where each stands. PowerBI.tips built what was widely considered the best free option, a genuinely capable interface, but creating and downloading a finished theme there now requires a paid subscription. Some other long-standing free generators produce a theme.json compressed onto a single unbroken line, technically valid but genuinely painful to read or hand-edit afterward if you ever need to tweak a value directly. This tool exists in that specific gap: no subscription required to actually get your finished theme, and the output is properly indented, human-readable JSON you could open and edit yourself if needed, not a single dense line.',
       },
     ],
     privacy: NO_FILE_PRIVACY,

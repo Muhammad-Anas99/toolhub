@@ -15,7 +15,7 @@ function ColorField({ label, value, onChange }) {
   return (
     <label className="block">
       <span className="mb-1.5 block text-xs font-medium text-slate-500 dark:text-slate-400">{label}</span>
-      <div className="flex items-center gap-2">
+      <div className="flex min-w-0 items-center gap-2">
         <input
           type="color"
           value={isValidHex(value) ? value : '#ffffff'}
@@ -86,9 +86,9 @@ export default function PowerBiThemeGeneratorTool({ toolSlug, toolName, category
           </label>
 
           <div>
-            <div className="mb-2 flex items-center justify-between">
+            <div className="mb-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
               <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Data colors ({dataColors.length})</span>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <button type="button" onClick={randomizeColors} className="btn-secondary px-2 py-1 text-xs">
                   <HiOutlineArrowPath className="h-3.5 w-3.5" /> Randomize
                 </button>
@@ -142,9 +142,9 @@ export default function PowerBiThemeGeneratorTool({ toolSlug, toolName, category
       </div>
 
       <div className="card flex flex-col p-6">
-        <div className="mb-3 flex items-center justify-between">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
           <span className="text-xs font-medium text-slate-500 dark:text-slate-400">theme.json</span>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <CopyButton value={json} label="Copy JSON" />
             <button type="button" onClick={handleDownload} className="btn-primary text-xs">
               <HiOutlineArrowDownTray className="h-3.5 w-3.5" /> Download

@@ -2293,6 +2293,16 @@ export const toolFaqs = {
       answer: 'They\u2019re used by KPI visuals and conditional formatting rules specifically, following the traffic-light convention (green-ish for good, amber for neutral, red-ish for bad) \u2014 not by ordinary charts, which draw from the dataColors array instead.',
     },
     {
+      id: 'is-this-actually-free',
+      question: 'Is this actually free, or will I hit a paywall when I try to download?',
+      answer: 'Fully free, no subscription or account needed at any step \u2014 copy the JSON or download the file as many times as you want.',
+    },
+    {
+      id: 'json-formatting-quality',
+      question: 'Is the output a single unreadable line, or properly formatted?',
+      answer: 'Properly indented and formatted, the same way you\u2019d write it by hand \u2014 genuinely readable if you ever want to open the file and tweak a value directly, not one dense unbroken line.',
+    },
+    {
       id: 'power-bi-theme-generator-privacy',
       question: 'Is my theme data sent anywhere?',
       answer: 'No \u2014 the entire theme is built and the JSON generated directly in your browser. Nothing you set here is ever uploaded, stored, or sent to a server.',
