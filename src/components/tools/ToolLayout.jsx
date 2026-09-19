@@ -11,6 +11,7 @@ import CategorySidebar from './CategorySidebar.jsx'
 import SuggestToolBanner from './SuggestToolBanner.jsx'
 import RelatedTools from './RelatedTools.jsx'
 import ToolFAQSection from './ToolFAQSection.jsx'
+import AdUnit from '../ui/AdUnit.jsx'
 import StarRating from './StarRating.jsx'
 import { useToolRating } from '../../hooks/useToolRating.js'
 import ToolInformation from './info/ToolInformation.jsx'
@@ -245,6 +246,13 @@ export default function ToolLayout({ tool, children, faqItems }) {
                 <ToolInformation toolName={tool.name} toolSlug={tool.slug} />
               </div>
             )}
+
+            {/* Placed after the guide content, well clear of the tool's own
+                buttons/inputs above — AdSense policy disallows placement
+                that risks accidental clicks near interactive elements. */}
+            <div className="mx-auto mt-16 max-w-3xl">
+              <AdUnit slot={import.meta.env.VITE_ADSENSE_SLOT_TOOL_PAGE} />
+            </div>
 
             <div className="mx-auto mt-20 max-w-3xl space-y-16">
               <RelatedTools currentToolId={tool.id} category={tool.category} />

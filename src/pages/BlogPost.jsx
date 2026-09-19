@@ -8,6 +8,7 @@ import Breadcrumb from '../components/tools/Breadcrumb.jsx'
 import ErrorMessage from '../components/tools/ErrorMessage.jsx'
 import { api } from '../lib/api.js'
 import { parseBlogContent } from '../lib/blogContentParser.js'
+import AdUnit from '../components/ui/AdUnit.jsx'
 import LikeDislikeButtons from '../components/blog/LikeDislikeButtons.jsx'
 import CommentSection from '../components/blog/CommentSection.jsx'
 import BlogCard from '../components/ui/BlogCard.jsx'
@@ -166,6 +167,10 @@ export default function BlogPost() {
                 <h2 key={block.key} className="mt-10 text-2xl font-extrabold tracking-tight text-slate-900 first:mt-0 dark:text-white">
                   {block.text}
                 </h2>
+              ) : block.type === 'code' ? (
+                <pre key={block.key} className="overflow-x-auto rounded-xl bg-slate-900 p-4 text-sm text-slate-100">
+                  <code>{block.text}</code>
+                </pre>
               ) : (
                 <p key={block.key} className="leading-relaxed text-slate-600 dark:text-slate-300">
                   {block.segments.map((segment) => {
@@ -203,6 +208,13 @@ export default function BlogPost() {
                 </p>
               )
             )}
+          </div>
+
+          {/* Placed right after the article content, a standard, policy-safe
+              spot for a content page — not near any navigational/interactive
+              element the reader might accidentally click near. */}
+          <div className="mt-10">
+            <AdUnit slot={import.meta.env.VITE_ADSENSE_SLOT_BLOG_POST} />
           </div>
 
           {relatedTools.length > 0 && (

@@ -503,4 +503,46 @@ For everyday, non-sensitive files, the distinction genuinely doesn't matter much
     readTime: '5 min read',
     published: true,
   },
+  {
+    title: 'Power BI Theme JSON Explained: What It Controls and How to Build One',
+    slug: 'power-bi-theme-json-explained',
+    excerpt: 'A practical breakdown of what a Power BI theme.json file actually controls, why the dataColors order matters, and how to build one without hand-writing the structure yourself.',
+    content: `Every Power BI report either uses the default theme or a custom one, and the difference shows immediately: a report styled with intention versus one where every chart is fighting a slightly different shade of blue. The custom option is a single JSON file, and once you understand what it actually controls, building one stops being a hand-editing exercise and becomes a fairly mechanical process.
+
+## What a theme file actually is
+
+A Power BI theme is a JSON file that sets the default appearance of an entire report. Apply it once, and Power BI uses its settings for every page and every visual, unless you manually override a specific element afterward. That's the entire point: set your colors once instead of formatting each chart by hand across every report your team builds.
+
+The elementary version of a theme file needs only one field:
+
+\`\`\`json
+{ "name": "My Theme" }
+\`\`\`
+
+Everything past that is optional, and Power BI falls back to its own defaults for anything you don't specify.
+
+## The three things a theme genuinely controls
+
+**Data colors.** The \`dataColors\` array is an ordered list of hex colors assigned to chart series and categories in the sequence they're encountered. This is the part people usually mean when they say "our brand colors." Order matters here in a way that's easy to miss: the first category a chart encounters gets the first color in the array, the second gets the second, and so on. Once a report has more categories than the array has colors, Power BI cycles back to the start and reuses them — which is exactly why a palette of only three or four colors starts producing repeated colors on any chart with five or more categories. Eight to twelve colors is a practical range for most real reports.
+
+**Structural colors.** \`background\`, \`foreground\`, and \`tableAccent\` style the report's canvas itself — general text color, page background, and default table styling — none of which represents data. It's a genuinely different role from dataColors, and conflating the two is a common mistake: setting your brand color as a data color applies it to a chart series (and gets reused cyclically); setting the same color as \`tableAccent\` applies it consistently to table styling instead.
+
+**KPI colors.** \`good\`, \`neutral\`, and \`bad\` are used specifically by KPI visuals and conditional formatting, following the widely recognized traffic-light convention. These stay separate from the general data palette on purpose — a KPI needs to consistently mean "good" regardless of which colors happen to be cycling through unrelated charts on the same page.
+
+## Why hand-writing the JSON is where most mistakes happen
+
+The properties above are genuinely simple. The mistakes come from three predictable places: an invalid hex value slipped into the array, a missing comma somewhere in a long JSON file (which invalidates the *entire* file, not just that line), or accidentally setting a brand color as a data color when it was meant to be the table accent. Microsoft's own guidance for a "This isn't a valid theme file" error is to run the JSON through a validator and find the exact line the syntax breaks on — our [JSON Formatter](/tools/json-formatter) does exactly that, pinpointing the error instead of leaving you to scan the whole file by eye.
+
+## Building one without hand-writing any of it
+
+This is exactly the gap our [Power BI Theme Generator](/tools/power-bi-theme-generator) is built around: set your data colors, structural colors, and KPI colors visually, watch the JSON update live, then copy it or download a ready-to-import \`theme.json\`. It deliberately covers the properties every theme actually needs — name, dataColors, structural colors, KPI colors — rather than attempting Power BI's full \`visualStyles\` specification, which handles granular per-visual-type formatting (borders, shadows, padding, independently for every chart type Power BI supports). That fuller specification is a considerably larger, more error-prone surface, and it's genuinely better handled through Power BI Desktop's own Format pane, which can still be saved back into your theme file afterward.
+
+## Applying the finished file
+
+Once you have a \`theme.json\`, open Power BI Desktop, go to the View tab, open the Themes dropdown, and choose "Browse for themes." Select your file, and it applies to the whole report immediately. Keep the file itself somewhere your team can find it — a shared drive, a repo, wherever your other report assets live — so every new report starts from the same baseline instead of someone recreating the colors from memory six months later.`,
+    category: 'Design',
+    author: 'ToolHub Team',
+    readTime: '7 min read',
+    published: true,
+  },
 ]

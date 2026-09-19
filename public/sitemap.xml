@@ -1045,6 +1045,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://trytoolhub.net/blog/power-bi-theme-json-explained</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://trytoolhub.net/login</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
