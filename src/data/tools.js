@@ -1005,11 +1005,11 @@ export const tools = [
   {
     id: 'timestamp-converter',
     name: 'Timestamp Converter',
-    seoTitle: 'Unix Timestamp Converter — Convert Timestamps to Dates',
+    seoTitle: 'Timestamp Converter — Unix Epoch to Date, Free & Online',
     slug: 'timestamp-converter',
     path: '/tools/timestamp-converter',
     category: 'developer-tools',
-    description: 'Convert between Unix timestamps and human-readable dates.',
+    description: 'Free timestamp converter — convert Unix epoch time to a human-readable date and back, instantly. Runs entirely in your browser, no sign-up.',
     icon: FaClock,
     comingSoon: false,
   },

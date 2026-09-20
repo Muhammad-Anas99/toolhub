@@ -6,7 +6,7 @@
  * with both a bold segment and a link together, and plain text with
  * neither - before being ported here.
  */
-function parseInlineSegments(text) {
+export function parseInlineSegments(text) {
   const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g).filter(Boolean)
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {

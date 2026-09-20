@@ -2118,7 +2118,42 @@ export const toolFaqs = {
     {
       id: 'year-2038-problem',
       question: 'What is the Year 2038 problem?',
-      answer: 'Many older systems store Unix time as a signed 32-bit integer, which runs out of room on January 19, 2038. It doesn\u2019t affect this converter, but it\u2019s a real, still-relevant limitation in some legacy systems and embedded devices that haven\u2019t moved to 64-bit timestamps.',
+      answer: 'Many older systems store Unix time as a signed 32-bit integer, which runs out of room at exactly 03:14:07 UTC on January 19, 2038. It doesn\u2019t affect this converter, but it\u2019s a real, still-relevant limitation in some legacy systems and embedded devices that haven\u2019t moved to 64-bit timestamps.',
+    },
+    {
+      id: 'is-2038-problem-real',
+      question: 'Is the Year 2038 problem actually real, or just internet folklore?',
+      answer: 'Genuinely real and well-documented, not a myth. It\u2019s a direct mathematical consequence of a signed 32-bit integer maxing out at 2,147,483,647, the exact number of seconds between the Unix epoch and 03:14:07 UTC on January 19, 2038. Systems still running 32-bit time representations, some embedded devices and older software among them, are genuinely affected; systems already on 64-bit timestamps are not, since the same limit wouldn\u2019t be reached again for roughly 292 billion years.',
+    },
+    {
+      id: 'discord-timestamp-styles',
+      question: 'Which Discord timestamp style should I use?',
+      answer: 'For announcing an event start time, Relative (\u201cin 2 hours\u201d) is usually the most useful, since it stays accurate no matter when someone reads the message. For a fixed record of when something happened, Long Date/Time or Short Date/Time reads more naturally. Pick whichever fits the sentence you\u2019re writing \u2014 the same underlying timestamp works with every style.',
+    },
+    {
+      id: 'discord-timestamp-timezone',
+      question: 'Does a Discord timestamp show in my timezone or the reader\u2019s?',
+      answer: 'The reader\u2019s. Discord timestamps are dynamic \u2014 the same tag pasted into a message displays correctly converted to each individual reader\u2019s own local timezone, which is exactly why they\u2019re useful for coordinating across a timezone-mixed group.',
+    },
+    {
+      id: 'iso-8601-vs-unix',
+      question: 'Should I use ISO 8601 or a Unix timestamp?',
+      answer: 'Unix timestamps are simpler for a computer to store and compare (a single number), while ISO 8601 is easier for a human to read directly and is what most modern APIs expect in JSON. This tool shows both, so you can copy whichever one the system you\u2019re working with actually needs.',
+    },
+    {
+      id: 'how-to-use-discord-timestamp',
+      question: 'How do I actually use the Discord timestamp this generates?',
+      answer: 'Copy it and paste it directly into a Discord message exactly as shown, including the angle brackets. Discord renders it as a live, auto-localized date or time to each reader, correctly converted to their own timezone, not the one you were in when you sent it.',
+    },
+    {
+      id: 'discord-timestamp-styles',
+      question: 'Can I change how the Discord timestamp displays?',
+      answer: 'Yes \u2014 swap the F at the end for a different style letter: t or T for time only (short or long), d or D for date only, f for a shorter combined date and time, or R for a live relative time like "in 3 hours" that keeps updating as time passes.',
+    },
+    {
+      id: 'why-iso-8601-shown',
+      question: 'Why is ISO 8601 shown alongside the other formats?',
+      answer: 'Many APIs and config files expect a timestamp specifically in ISO 8601 format (like 2024-01-15T14:30:00Z) rather than a raw Unix number. Having both available here means converting between the two conventions doesn\u2019t need a separate tool or lookup.',
     },
     {
       id: 'timestamp-converter-privacy',
