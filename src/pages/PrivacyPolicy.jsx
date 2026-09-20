@@ -2,7 +2,7 @@ import React from 'react'
 import Container from '../components/ui/Container.jsx'
 import SEO from '../components/ui/SEO.jsx'
 
-const LAST_UPDATED = 'September 11, 2026'
+const LAST_UPDATED = 'September 20, 2026'
 
 export default function PrivacyPolicy() {
   return (
@@ -165,13 +165,44 @@ export default function PrivacyPolicy() {
 
             <section>
               <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+                Advertising
+              </h2>
+              <p className="mt-2 leading-relaxed">
+                ToolHub uses Google AdSense to display ads. Google, as a third-party vendor, uses
+                cookies to serve ads based on your prior visits to this and other websites. You
+                can opt out of personalized advertising by visiting{' '}
+                <a
+                  href="https://adssettings.google.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-600 underline hover:text-brand-700 dark:text-brand-400"
+                >
+                  Google&apos;s Ads Settings
+                </a>
+                , or by visiting{' '}
+                <a
+                  href="https://www.aboutads.info/choices/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-600 underline hover:text-brand-700 dark:text-brand-400"
+                >
+                  www.aboutads.info
+                </a>{' '}
+                to opt out of participating vendors&apos; use of cookies for personalized
+                advertising generally. Ad partners may also use web beacons and similar
+                technologies alongside cookies to measure ad performance.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
                 Future changes
               </h2>
               <p className="mt-2 leading-relaxed">
                 As ToolHub grows, we may introduce additional features that involve further data
-                handling, such as advertising. If that happens, this policy will be updated in
-                advance to describe those changes clearly, and the date at the top of this page
-                will reflect when it was last revised.
+                handling. If that happens, this policy will be updated in advance to describe
+                those changes clearly, and the date at the top of this page will reflect when it
+                was last revised.
               </p>
             </section>
 
