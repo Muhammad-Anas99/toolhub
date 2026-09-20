@@ -24,6 +24,7 @@ export default function TimestampConverterTool({ toolSlug, toolName, category })
   const [discordStyle, setDiscordStyle] = useState('F')
   const { logDebounced: logUnixToDate } = useHistoryLogger({ toolSlug, toolName, category })
   const { logDebounced: logDateToUnix } = useHistoryLogger({ toolSlug, toolName, category })
+  const { logDebounced: logDiscordTag } = useHistoryLogger({ toolSlug, toolName, category })
 
   const date = unixInput.trim() !== '' ? unixToDate(unixInput) : null
   const display = date ? formatDateForDisplay(date) : null
@@ -39,6 +40,16 @@ export default function TimestampConverterTool({ toolSlug, toolName, category })
     if (unixFromDate !== null) logDateToUnix('Date converted to timestamp', dateInput)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unixFromDate])
+
+  // Watches discordStyle explicitly, not just unixInput — the generated
+  // tag depends on both, and changing only the style (leaving the
+  // timestamp untouched) is exactly the case that was previously never
+  // logged at all, since neither existing effect above watches this
+  // value.
+  useEffect(() => {
+    if (display) logDiscordTag('Discord timestamp generated', `${unixInput.trim()}:${discordStyle}`)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [display, discordStyle])
 
   return (
     <div className="space-y-6">

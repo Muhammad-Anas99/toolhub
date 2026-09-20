@@ -28,7 +28,7 @@ export default function CsvFilterTool({ toolSlug, toolName, category }) {
   const extracted = extractColumns(filtered, selectedColumns)
   const resultCsv = extracted.length ? jsonToCsv(extracted) : ''
 
-  if (csv.trim()) logDebounced('CSV filtered', csv)
+  if (resultCsv) logDebounced('CSV filtered', resultCsv)
 
   function toggleColumn(col) {
     setSelectedColumns((prev) => (prev.includes(col) ? prev.filter((c) => c !== col) : [...prev, col]))

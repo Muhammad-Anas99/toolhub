@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import CopyButton from '../CopyButton.jsx'
 import { findAndReplace } from '../../../lib/textTransformUtils.js'
@@ -15,16 +15,23 @@ export default function FindAndReplaceTool({ toolSlug, toolName, category }) {
   const output = findAndReplace(text, find, replace, { caseSensitive, wholeWord })
   const matchCount = find ? (text.match(new RegExp(find.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), caseSensitive ? 'g' : 'gi')) || []).length : 0
 
-  function handleTextChange(value) {
-    setText(value)
-    if (value.trim() && find) logDebounced('Find and replace applied', value)
-  }
+  // Watches the actual output, derived from every input that genuinely
+  // affects it (text, find, replace, caseSensitive, wholeWord) — the
+  // previous approach only logged on the textarea's own onChange with
+  // the raw typed text as the logged value, meaning changing find,
+  // replace, or either checkbox after the first paste never triggered
+  // a log at all, even though each of those changes produces a
+  // genuinely different, copyable result.
+  useEffect(() => {
+    if (text.trim() && find) logDebounced('Find and replace applied', output)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [output])
 
   return (
     <div className="space-y-5">
       <textarea
         value={text}
-        onChange={(e) => handleTextChange(e.target.value)}
+        onChange={(e) => setText(e.target.value)}
         rows={6}
         placeholder="Paste or type your text here..."
         className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
