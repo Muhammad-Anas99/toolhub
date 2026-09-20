@@ -151,6 +151,13 @@ export default function Footer() {
                 {link.label}
               </Link>
             ))}
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event('toolhub:open-cookie-preferences'))}
+              className="text-sm text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white"
+            >
+              Cookie Preferences
+            </button>
           </div>
         </div>
       </Container>

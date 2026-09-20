@@ -1,8 +1,10 @@
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/layout/Layout.jsx'
 import ScrollToTop from './components/layout/ScrollToTop.jsx'
 import PageLoader from './components/ui/PageLoader.jsx'
+import CookieConsentBanner from './components/ui/CookieConsentBanner.jsx'
+import { initConsent } from './lib/cookieConsent.js'
 import ProtectedRoute from './components/auth/ProtectedRoute.jsx'
 import DashboardLayout from './components/dashboard/DashboardLayout.jsx'
 import AdminLayout from './components/admin/AdminLayout.jsx'
@@ -246,9 +248,14 @@ const Settings = lazy(() => import('./pages/dashboard/Settings.jsx'))
 const Subscription = lazy(() => import('./pages/dashboard/Subscription.jsx'))
 
 export default function App() {
+  useEffect(() => {
+    initConsent()
+  }, [])
+
   return (
     <>
       <ScrollToTop />
+      <CookieConsentBanner />
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route element={<Layout />}>

@@ -168,7 +168,11 @@ export default function PrivacyPolicy() {
                 Advertising
               </h2>
               <p className="mt-2 leading-relaxed">
-                ToolHub uses Google AdSense to display ads. Google, as a third-party vendor, uses
+                ToolHub uses Google AdSense to display ads and Google Analytics to understand site
+                usage, both of which use cookies. Neither loads until you make a choice in the
+                cookie banner shown on your first visit; if you reject, these cookies are never
+                set. You can change your choice at any time using the &ldquo;Cookie
+                Preferences&rdquo; link in the footer. Google, as a third-party vendor, uses
                 cookies to serve ads based on your prior visits to this and other websites. You
                 can opt out of personalized advertising by visiting{' '}
                 <a
