@@ -98,8 +98,25 @@ async function authorizedRequest(path, options = {}) {
   }
 }
 
+/**
+ * Builds a query string from a params object, omitting any key whose
+ * value is undefined, null, or an empty string — this is NOT
+ * URLSearchParams' default behavior. Passed directly to
+ * `new URLSearchParams({ ipAddress: undefined })`, it stringifies that
+ * as the literal text "ipAddress=undefined" rather than omitting the
+ * key, a genuine, confirmed bug that reached production: the admin
+ * Usage page always sent `ipAddress=undefined` when no filter was
+ * actually set, and the backend then filtered for records where the
+ * ipAddress field literally equals the string "undefined" — matching
+ * zero real records, always, regardless of how much real data existed.
+ * Filtering these out here, once, before ever reaching URLSearchParams,
+ * fixes this for every current and future caller of toQuery.
+ */
 function toQuery(params = {}) {
-  const query = new URLSearchParams(params).toString()
+  const cleaned = Object.fromEntries(
+    Object.entries(params).filter(([, value]) => value !== undefined && value !== null && value !== '')
+  )
+  const query = new URLSearchParams(cleaned).toString()
   return query ? `?${query}` : ''
 }
 

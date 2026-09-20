@@ -47,3 +47,32 @@ export function getDeviceType(req) {
   if (ua) return 'desktop'
   return 'unknown'
 }
+
+/**
+ * Matches User-Agent strings against well-known search engine crawlers,
+ * social-media link-preview fetchers, SEO/monitoring bots, and common
+ * scripting-library default User-Agents — used to exclude this traffic
+ * from being logged as a genuine tool "use" at all. A crawler rendering
+ * a tool page (which Google's indexer genuinely does, to see the same
+ * content a visitor would) looks identical to a real visitor at the
+ * page-load level; the only reliable signal available server-side to
+ * tell them apart is the User-Agent string itself declaring what it is,
+ * which every well-behaved crawler does honestly, precisely so sites
+ * can identify and, when appropriate, treat it differently from real
+ * visitor traffic. This can't catch a crawler that deliberately spoofs
+ * a real browser's User-Agent (a minority, and mostly the kind of bad
+ * actor no User-Agent check would stop anyway), but it correctly
+ * excludes the overwhelming majority of legitimate, honestly-identified
+ * crawler and bot traffic that would otherwise inflate usage numbers.
+ */
+const BOT_USER_AGENT_PATTERN =
+  /bot|crawler|spider|slurp|googlebot|bingbot|yandexbot|duckduckbot|baiduspider|sogou|exabot|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegrambot|discordbot|slackbot|ahrefsbot|semrushbot|mj12bot|dotbot|petalbot|applebot|pinterest|redditbot|headlesschrome|phantomjs|puppeteer|playwright|python-requests|python-urllib|curl\/|wget\/|go-http-client|okhttp|java\/|libwww-perl|scrapy|node-fetch|axios\/|postmanruntime/i
+
+export function isLikelyBot(req) {
+  const ua = req.headers['user-agent'] || ''
+  // No User-Agent at all is itself a strong signal — every real browser
+  // sends one; its absence is far more common in scripted requests than
+  // in genuine visits.
+  if (!ua) return true
+  return BOT_USER_AGENT_PATTERN.test(ua)
+}
