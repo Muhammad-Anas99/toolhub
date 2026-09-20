@@ -40,34 +40,44 @@ export default function CookieConsentBanner() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={{ y: 80, opacity: 0 }}
+          initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 80, opacity: 0 }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
+          exit={{ y: 100, opacity: 0 }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
           role="region"
           aria-label="Cookie consent"
-          className="fixed inset-x-0 bottom-0 z-50 px-4 pb-4 sm:px-6"
+          className="fixed inset-x-0 bottom-0 z-50 w-full border-t-4 border-brand-500 bg-gradient-to-r from-brand-950 via-[#1c2560] to-brand-950 shadow-[0_-8px_30px_rgba(0,0,0,0.25)]"
         >
-          <div className="mx-auto flex max-w-3xl flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-xl dark:border-slate-800 dark:bg-slate-900 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
-            <div className="flex flex-shrink-0 items-center justify-center sm:order-1">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-50 text-brand-600 dark:bg-brand-950 dark:text-brand-400">
-                <HiOutlineHandRaised className="h-6 w-6" aria-hidden="true" />
+          <div className="flex w-full flex-col items-stretch gap-5 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:px-10 sm:py-7 lg:px-16">
+            <div className="flex items-center gap-4 sm:flex-1">
+              <span className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-brand-500/20 text-brand-300 ring-1 ring-inset ring-brand-400/40">
+                <HiOutlineHandRaised className="h-7 w-7" aria-hidden="true" />
               </span>
+              <div>
+                <p className="text-base font-bold text-white sm:text-lg">We use cookies</p>
+                <p className="mt-1 text-sm leading-relaxed text-slate-300 sm:text-[15px]">
+                  For analytics and to show ads. Nothing loads until you choose — reject and keep
+                  browsing without them, no penalty either way.{' '}
+                  <Link to="/privacy-policy" className="font-semibold text-brand-300 underline hover:text-brand-200">
+                    Privacy policy
+                  </Link>
+                </p>
+              </div>
             </div>
 
-            <p className="flex-1 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-              We use cookies for analytics and to show ads. Nothing loads until you choose —
-              you can accept, or reject and keep browsing without them.{' '}
-              <Link to="/privacy-policy" className="font-medium text-brand-600 underline hover:text-brand-700 dark:text-brand-400">
-                Privacy policy
-              </Link>
-            </p>
-
-            <div className="flex flex-shrink-0 gap-2.5">
-              <button type="button" onClick={handleReject} className="btn-secondary flex-1 justify-center text-sm sm:flex-none">
+            <div className="flex flex-shrink-0 gap-3 sm:gap-4">
+              <button
+                type="button"
+                onClick={handleReject}
+                className="flex-1 rounded-xl border border-white/25 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 sm:flex-none sm:px-8"
+              >
                 Reject
               </button>
-              <button type="button" onClick={handleAccept} className="btn-primary flex-1 justify-center text-sm sm:flex-none">
+              <button
+                type="button"
+                onClick={handleAccept}
+                className="flex-1 rounded-xl bg-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-500/30 transition-colors hover:bg-brand-400 sm:flex-none sm:px-8"
+              >
                 Accept all
               </button>
             </div>
