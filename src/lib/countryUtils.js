@@ -19,19 +19,23 @@ export function getCountryName(code) {
 }
 
 /**
- * Converts a 2-letter ISO country code to its flag emoji by mapping
- * each letter to a Unicode Regional Indicator Symbol (A-Z map to
- * U+1F1E6-U+1F1FF) - a genuine, mathematical construction that works
- * correctly for any valid code, not a hardcoded per-country lookup
- * table that could have gaps or errors. Verified independently against
- * all 6 countries in the reference design before being ported here.
- * Returns null for anything that isn't a valid 2-letter code, so the
- * caller can fall back to a generic globe icon instead of a broken emoji.
+ * Returns a flag image URL for a 2-letter ISO country code, from
+ * flagcdn.com — a free, widely-used, reliable flag image CDN. This
+ * exists specifically because Unicode's Regional Indicator Symbol flag
+ * emoji (the U+1F1E6-U+1F1FF approach) are a well-documented, real
+ * cross-platform inconsistency: macOS and iOS render them as actual
+ * flag images, but Windows (across many versions, still true on
+ * several current browser/font combinations) renders the same
+ * characters as two plain letters in small boxes instead of a flag at
+ * all — a font/OS limitation, not something fixable by generating the
+ * emoji differently. An actual image renders identically regardless of
+ * the visitor's operating system or installed fonts. Returns null for
+ * anything that isn't a valid 2-letter code, so the caller can fall
+ * back to a generic globe icon instead of a broken image.
  */
-export function getCountryFlagEmoji(code) {
+export function getCountryFlagUrl(code) {
   if (!code || code.length !== 2) return null
   const upper = code.toUpperCase()
   if (!/^[A-Z]{2}$/.test(upper)) return null
-  const codePoints = [...upper].map((c) => 0x1f1e6 + (c.charCodeAt(0) - 65))
-  return String.fromCodePoint(...codePoints)
+  return `https://flagcdn.com/w20/${upper.toLowerCase()}.png`
 }

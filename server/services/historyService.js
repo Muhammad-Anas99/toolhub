@@ -49,17 +49,21 @@ export async function deleteHistoryEntry(userId, entryId) {
  * that data on every single history record — a copy would drift out of
  * sync the moment a user changed their name or email.
  */
-export async function listAllHistoryAdmin({ page = 1, limit = 50 } = {}) {
+export async function listAllHistoryAdmin({ page = 1, limit = 50, ipAddress } = {}) {
   const safeLimit = Math.min(Number(limit) || 50, MAX_PAGE_SIZE)
   const safePage = Math.max(Number(page) || 1, 1)
+  // Exact match only (not a partial/regex search) - an IP address is
+  // either the one you're looking for or it isn't, and exact matching
+  // avoids the cost and complexity of a regex scan across every record.
+  const filter = ipAddress ? { ipAddress: ipAddress.trim() } : {}
 
   const [items, total] = await Promise.all([
-    ConversionHistory.find({})
+    ConversionHistory.find(filter)
       .sort({ createdAt: -1 })
       .skip((safePage - 1) * safeLimit)
       .limit(safeLimit)
       .populate('user', 'name email'),
-    ConversionHistory.countDocuments({}),
+    ConversionHistory.countDocuments(filter),
   ])
 
   return { items, total, page: safePage, pages: Math.ceil(total / safeLimit) }

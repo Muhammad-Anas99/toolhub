@@ -1,15 +1,27 @@
 /**
- * x-forwarded-for is the standard header Vercel (and virtually every
- * reverse proxy) sets to the real client IP, since the connection
- * reaching the server itself is from the proxy, not the visitor
- * directly. It can contain a comma-separated chain if multiple proxies
- * were involved — the first entry is the original client. Falls back
- * to the raw socket address for local development, where there's no
- * proxy in front of the server at all.
+ * cf-connecting-ip is the header Cloudflare itself sets to the genuine
+ * visitor IP, and Cloudflare's own documentation explicitly recommends
+ * reading it in preference to x-forwarded-for specifically because it's
+ * a single, authoritative value Cloudflare sets itself — never a chain
+ * to parse or trust a position within. x-forwarded-for, by contrast,
+ * can already contain earlier hops from before the request ever reached
+ * Cloudflare, and Cloudflare appends the confirmed client IP to the END
+ * of that existing chain rather than the front, meaning code that
+ * blindly takes the first entry (a reasonable assumption for a simple,
+ * single-hop reverse proxy with no CDN involved) can end up reading an
+ * earlier, less trustworthy hop instead of the address Cloudflare
+ * itself just confirmed. Falls back to the original x-forwarded-for
+ * parsing, and finally the raw socket address, for any request that
+ * doesn't arrive through Cloudflare at all (local development, or if
+ * the proxy setup ever changes).
  */
 export function getClientIp(req) {
+  const cfConnectingIp = req.headers['cf-connecting-ip']
+  if (cfConnectingIp) return cfConnectingIp.trim()
+
   const forwarded = req.headers['x-forwarded-for']
   if (forwarded) return forwarded.split(',')[0].trim()
+
   return req.socket?.remoteAddress || 'Unknown'
 }
 

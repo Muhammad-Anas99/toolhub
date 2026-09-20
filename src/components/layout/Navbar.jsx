@@ -14,14 +14,21 @@ import { useAuth } from '../../context/AuthContext.jsx'
 // the full "Categories" mega menu. Mobile: simple tap-through links to the
 // filtered Tools page instead (hover doesn't apply on touch, and mobile
 // already has the full Categories accordion for browsing everything).
+//
+// Calculator and Developer Tools specifically, rather than an arbitrary
+// pick — these are the categories containing the tools your own admin
+// usage data shows people actually reach for (Loan Calculator, Compound
+// Interest, Profit Margin, Timestamp Converter), replacing two earlier
+// shortcuts to single, individually-arbitrary tools (QR Code, URL
+// Shortener) that weren't among the site's actually most-used tools.
 const CATEGORY_SHORTCUTS = [
   { label: 'Image Tools', slug: 'image-tools' },
   { label: 'PDF Tools', slug: 'pdf-tools' },
+  { label: 'Calculators', slug: 'calculator-tools' },
+  { label: 'Developer Tools', slug: 'developer-tools' },
 ]
 
 const NAV_LINKS = [
-  { label: 'QR Code', to: '/tools/qr-code-generator' },
-  { label: 'URL Shortener', to: '/tools/url-shortener' },
   { label: 'Blog', to: '/blog' },
   { label: 'About', to: '/about' },
   { label: 'Contact', to: '/contact' },

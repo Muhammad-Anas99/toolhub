@@ -22,7 +22,7 @@ import DateRangeSelector from '../../components/admin/DateRangeSelector.jsx'
 import { api } from '../../lib/api.js'
 import { getCategoryBySlug } from '../../data/categories.js'
 import { getToolBySlug } from '../../data/tools.js'
-import { getCountryName, getCountryFlagEmoji } from '../../lib/countryUtils.js'
+import { getCountryName, getCountryFlagUrl } from '../../lib/countryUtils.js'
 
 const ACCENTS = {
   brand: {
@@ -229,6 +229,7 @@ export default function AdminOverview() {
                   View All
                 </a>
               </div>
+              <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">Over {RANGE_LABELS[range] || 'the selected period'}</p>
               {data.topTools && data.topTools.length > 0 ? (
                 <ul className="mt-4 space-y-4">
                   {data.topTools.map((row, index) => {
@@ -270,6 +271,7 @@ export default function AdminOverview() {
                 <HiOutlineSwatch className="h-4 w-4 text-brand-500" />
                 <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Most-used Categories</h2>
               </div>
+              <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">Over {RANGE_LABELS[range] || 'the selected period'}</p>
               {categorySegments && categorySegments.length > 0 ? (
                 <div className="mt-5">
                   <DonutChart segments={categorySegments} centerValue={categoryTotal} centerLabel="conversions" />
@@ -284,17 +286,26 @@ export default function AdminOverview() {
                 <HiOutlineGlobeAmericas className="h-4 w-4 text-brand-500" />
                 <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Top Countries</h2>
               </div>
+              <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">Over {RANGE_LABELS[range] || 'the selected period'}</p>
               {data.countries?.length > 0 ? (
                 <ul className="mt-4 space-y-2.5">
                   {data.countries.map((row) => {
                     const name = getCountryName(row.country)
-                    const flag = getCountryFlagEmoji(row.country)
+                    const flagUrl = getCountryFlagUrl(row.country)
                     return (
                       <li key={row.country || 'unknown'} className="flex items-center gap-2.5 text-sm">
-                        {flag ? (
-                          <span aria-hidden="true" className="text-base leading-none">
-                            {flag}
-                          </span>
+                        {flagUrl ? (
+                          <img
+                            src={flagUrl}
+                            alt=""
+                            width={20}
+                            height={15}
+                            className="h-[15px] w-5 flex-shrink-0 rounded-sm object-cover"
+                            aria-hidden="true"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none'
+                            }}
+                          />
                         ) : (
                           <HiOutlineGlobeAmericas className="h-4 w-4 flex-shrink-0 text-slate-300 dark:text-slate-600" aria-hidden="true" />
                         )}
@@ -314,6 +325,7 @@ export default function AdminOverview() {
                 <HiOutlineDevicePhoneMobile className="h-4 w-4 text-brand-500" />
                 <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Devices</h2>
               </div>
+              <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">Over {RANGE_LABELS[range] || 'the selected period'}</p>
               {devicesWithPercent.length > 0 ? (
                 <>
                   <div className="mt-4 space-y-4">

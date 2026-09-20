@@ -22,6 +22,23 @@ const DEBOUNCE_MS = 1500
  *   re-renders, retyping the same thing, or a slider settling back to
  *   where it started never produce duplicate entries.
  *
+ *   Many tools call this from a useEffect watching a computed value that
+ *   already has a real, non-empty default (a gradient with two preset
+ *   stops, a calculator pre-filled with example numbers, "now" as a
+ *   starting timestamp) — meaning that computed value exists the moment
+ *   the component first mounts, before the user has touched anything at
+ *   all. Since useEffect always runs at least once after the first
+ *   render, and the very first value is never equal to the initial
+ *   `null` baseline, every one of those tools was logging a "use" purely
+ *   from the page being opened and left alone for DEBOUNCE_MS — a real,
+ *   confirmed bug affecting every tool built this way, not a one-off.
+ *   The fix: the first call ever made to logDebounced for a given tool
+ *   instance only records its value as the starting baseline, silently,
+ *   with no log sent — there is nothing to compare it against yet, so it
+ *   cannot represent a genuine change. Only a second or later call,
+ *   which can only happen because the watched value has genuinely
+ *   changed from that baseline, ever reaches the actual log call.
+ *
  * Never pass raw sensitive values (a generated password, a decoded
  * secret) as `value` here — logDebounced only uses it to detect change,
  * but the safest habit is to pass a non-sensitive proxy (e.g. the
@@ -30,6 +47,7 @@ const DEBOUNCE_MS = 1500
 export function useHistoryLogger({ toolSlug, toolName, category }) {
   const lastLoggedValueRef = useRef(null)
   const debounceTimerRef = useRef(null)
+  const hasBaselineRef = useRef(false)
 
   const logNow = useCallback(
     (action) => {
@@ -42,6 +60,12 @@ export function useHistoryLogger({ toolSlug, toolName, category }) {
     (action, value) => {
       if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current)
       if (value === undefined || value === null || String(value).trim() === '') return
+
+      if (!hasBaselineRef.current) {
+        hasBaselineRef.current = true
+        lastLoggedValueRef.current = value
+        return
+      }
 
       debounceTimerRef.current = setTimeout(() => {
         if (value === lastLoggedValueRef.current) return

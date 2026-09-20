@@ -58,8 +58,8 @@ export const deleteHistoryEntry = asyncHandler(async (req, res) => {
  * special-case a missing user object.
  */
 export const getAllHistoryAdmin = asyncHandler(async (req, res) => {
-  const { page, limit } = req.query
-  const result = await historyService.listAllHistoryAdmin({ page, limit })
+  const { page, limit, ipAddress } = req.query
+  const result = await historyService.listAllHistoryAdmin({ page, limit, ipAddress })
 
   const items = result.items.map((entry) => ({
     id: entry._id,

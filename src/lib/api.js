@@ -219,7 +219,8 @@ export const api = {
   adminGetToolsUsage: (direction = 'desc') => authorizedRequest(`/analytics/tools-usage${toQuery({ direction })}`),
 
   // --- Admin: usage / conversions ------------------------------------------------------
-  adminGetAllConversions: (page = 1, limit = 50) => authorizedRequest(`/history/admin/all${toQuery({ page, limit })}`),
+  adminGetAllConversions: (page = 1, limit = 50, ipAddress = '') =>
+    authorizedRequest(`/history/admin/all${toQuery({ page, limit, ipAddress: ipAddress || undefined })}`),
   adminDeleteConversion: (id) => authorizedRequest(`/history/admin/${id}`, { method: 'DELETE' }),
 
   // --- Uploads (admin) -----------------------------------------------------------------

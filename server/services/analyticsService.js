@@ -30,6 +30,24 @@ function daysAgo(n) {
 const RANGE_DAYS = { today: 1, '7d': 7, '30d': 30, '90d': 90, '1y': 365 }
 
 /**
+ * Converts a range key into the actual `since` date matching that range's
+ * semantics, or null for 'lifetime' (meaning: no lower bound, match
+ * everything). Shared by every aggregation below that needs to genuinely
+ * respect the dashboard's selected range — several previously didn't,
+ * always computing an all-time aggregate regardless of which range the
+ * admin had selected, which is exactly why sections like Top Tools, Top
+ * Categories, Top Countries, and Devices appeared to silently ignore the
+ * range selector entirely while the main chart above them visibly
+ * responded to it.
+ */
+function sinceDateForRange(range) {
+  if (!range || range === 'lifetime') return null
+  if (range === 'today') return startOfToday()
+  const days = RANGE_DAYS[range] || 30
+  return daysAgo(days - 1)
+}
+
+/**
  * Real hour-by-hour conversion counts for today (00:00 through the
  * current hour) — used specifically for the 'today' range, where a
  * single daily bucket would be too little detail to chart meaningfully.
@@ -303,8 +321,10 @@ async function getConversionCounts() {
   return { total, today, week, month }
 }
 
-async function getMostUsedTools(limit = 5) {
+async function getMostUsedTools(limit = 5, range) {
+  const since = sinceDateForRange(range)
   return ConversionHistory.aggregate([
+    ...(since ? [{ $match: { createdAt: { $gte: since } } }] : []),
     { $group: { _id: { slug: '$toolSlug', name: '$toolName' }, count: { $sum: 1 } } },
     { $sort: { count: -1 } },
     { $limit: limit },
@@ -328,9 +348,10 @@ export async function getAllToolsUsage(direction = 'desc') {
   ])
 }
 
-async function getMostUsedCategories(limit = 5) {
+async function getMostUsedCategories(limit = 5, range) {
+  const since = sinceDateForRange(range)
   return ConversionHistory.aggregate([
-    { $match: { category: { $ne: null, $ne: '' } } },
+    { $match: { category: { $ne: null, $ne: '' }, ...(since ? { createdAt: { $gte: since } } : {}) } },
     { $group: { _id: '$category', count: { $sum: 1 } } },
     { $sort: { count: -1 } },
     { $limit: limit },
@@ -338,8 +359,10 @@ async function getMostUsedCategories(limit = 5) {
   ])
 }
 
-async function getCountryBreakdown(limit = 10) {
+async function getCountryBreakdown(limit = 10, range) {
+  const since = sinceDateForRange(range)
   return ConversionHistory.aggregate([
+    ...(since ? [{ $match: { createdAt: { $gte: since } } }] : []),
     { $group: { _id: '$country', count: { $sum: 1 } } },
     { $sort: { count: -1 } },
     { $limit: limit },
@@ -347,8 +370,10 @@ async function getCountryBreakdown(limit = 10) {
   ])
 }
 
-async function getDeviceBreakdown() {
+async function getDeviceBreakdown(range) {
+  const since = sinceDateForRange(range)
   return ConversionHistory.aggregate([
+    ...(since ? [{ $match: { createdAt: { $gte: since } } }] : []),
     { $group: { _id: '$device', count: { $sum: 1 } } },
     { $sort: { count: -1 } },
     { $project: { _id: 0, device: '$_id', count: 1 } },
@@ -400,10 +425,10 @@ export async function getDashboardOverview(range = '30d') {
     getUserCounts(),
     getNewUserCounts(),
     getConversionCounts(),
-    getMostUsedTools(),
-    getMostUsedCategories(),
-    getCountryBreakdown(),
-    getDeviceBreakdown(),
+    getMostUsedTools(5, safeRange),
+    getMostUsedCategories(5, safeRange),
+    getCountryBreakdown(10, safeRange),
+    getDeviceBreakdown(safeRange),
     getActivityForRange(safeRange),
     getActivityTrendForRange(safeRange),
     getNewUserTrend(),
