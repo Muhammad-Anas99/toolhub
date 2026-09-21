@@ -27,6 +27,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { getAllPublicRoutes } from './routeList.mjs'
+import { tools } from '../src/data/tools.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const SITE_URL = 'https://trytoolhub.net'
@@ -93,7 +94,16 @@ ${urlEntries}
 }
 
 function main() {
-  const routes = [...new Set([...getAllPublicRoutes(), ...EXTRA_ROUTES])]
+  // Tools individually flagged noIndex: true in tools.js (currently the
+  // handful of pure-novelty fun tools with a <meta name="robots"
+  // content="noindex"> tag of their own) are deliberately left out of
+  // the sitemap — including a URL here is Google-facing "please index
+  // this," which would directly contradict that page's own noindex
+  // meta tag. They're still prerendered and fully functional for
+  // anyone who visits directly; they're just not being submitted for
+  // indexing alongside everything else.
+  const noIndexedPaths = new Set(tools.filter((t) => t.noIndex).map((t) => t.path))
+  const routes = [...new Set([...getAllPublicRoutes(), ...EXTRA_ROUTES])].filter((route) => !noIndexedPaths.has(route))
   const xml = buildSitemap(routes)
   fs.writeFileSync(OUTPUT_PATH, xml, 'utf-8')
   console.log(`Sitemap generated: ${routes.length} URLs written to public/sitemap.xml`)

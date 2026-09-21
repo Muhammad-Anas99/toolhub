@@ -2071,6 +2071,7 @@ export const tools = [
     icon: FaShuffle,
     badge: 'new',
     comingSoon: false,
+    noIndex: true,
   },
   {
     id: 'sarcastic-text-alternator',
@@ -2083,6 +2084,7 @@ export const tools = [
     icon: FaMasksTheater,
     badge: 'new',
     comingSoon: false,
+    noIndex: true,
   },
   {
     id: 'tailwind-grid-generator',
@@ -2311,6 +2313,7 @@ export const tools = [
     icon: FaSoap,
     badge: 'new',
     comingSoon: false,
+    noIndex: true,
   },
   {
     id: 'pixel-art-pad',
@@ -2347,6 +2350,7 @@ export const tools = [
     icon: FaFaceGrinStars,
     badge: 'new',
     comingSoon: false,
+    noIndex: true,
   },
   {
     id: 'prompt-roulette',
@@ -2407,6 +2411,7 @@ export const tools = [
     icon: FaSpinner,
     badge: 'new',
     comingSoon: false,
+    noIndex: true,
   },
   {
     id: 'habit-streak-counter',
@@ -2431,6 +2436,7 @@ export const tools = [
     icon: FaMusic,
     badge: 'new',
     comingSoon: false,
+    noIndex: true,
   },
   {
     id: 'fake-error-designer',
@@ -2443,6 +2449,7 @@ export const tools = [
     icon: FaBug,
     badge: 'new',
     comingSoon: false,
+    noIndex: true,
   },
 ]
 

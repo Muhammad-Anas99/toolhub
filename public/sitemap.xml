@@ -860,16 +860,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/tools/anagram-name-shuffler</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://trytoolhub.net/tools/sarcastic-text-alternator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://trytoolhub.net/tools/tailwind-grid-generator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -960,22 +950,12 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/tools/bubble-wrap-popper</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://trytoolhub.net/tools/pixel-art-pad</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://trytoolhub.net/tools/8bit-character-creator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://trytoolhub.net/tools/emoji-mashup</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1000,22 +980,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://trytoolhub.net/tools/fake-loading-screen</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://trytoolhub.net/tools/habit-streak-counter</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://trytoolhub.net/tools/rickroll-generator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://trytoolhub.net/tools/fake-error-designer</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

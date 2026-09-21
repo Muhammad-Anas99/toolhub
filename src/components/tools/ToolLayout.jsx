@@ -154,6 +154,7 @@ export default function ToolLayout({ tool, children, faqItems }) {
         description={tool.description}
         canonicalPath={tool.path}
         structuredData={structuredData}
+        noIndex={tool.noIndex}
       />
 
       <Container className="py-10">
