@@ -342,7 +342,7 @@ Browser support has been effectively universal since 2020, which is long enough 
 
 ## A practical way to decide
 
-For a photograph destined for the web: WebP first, JPEG as the universally-safe fallback. For anything needing transparency, a logo, an icon, a graphic with a see-through background: PNG, or WebP if the file only needs to work in modern browsers. For a screenshot, a diagram, or anything with sharp text and fine lines where exactness matters: PNG, since JPEG's compression would visibly soften those sharp edges.
+For a photograph destined for the web: WebP first, JPEG as the universally-safe fallback — use [Convert to WebP](/tools/convert-to-webp) or [JPG to PNG](/tools/jpg-to-png) to switch between them without losing more quality than the format change itself requires. For anything needing transparency, a logo, an icon, a graphic with a see-through background: PNG, or WebP if the file only needs to work in modern browsers. For a screenshot, a diagram, or anything with sharp text and fine lines where exactness matters: PNG, since JPEG's compression would visibly soften those sharp edges.
 
 None of these formats is universally "best". Each one was built to solve a different problem, and the right choice depends entirely on what the image actually contains and where it's going to be used.`,
     category: 'Image Tools',
@@ -360,11 +360,11 @@ None of these formats is universally "best". Each one was built to solve a diffe
 
 This distinction matters more than almost anything else here. Resizing changes an image's pixel dimensions, how many pixels wide and tall it is. Compressing changes how efficiently those pixels are stored, without necessarily changing how many there are. A 4000-pixel-wide photo displayed at 800 pixels on a webpage is carrying nearly 25 times more pixel data than it needs to, regardless of how well-compressed the file already is.
 
-That makes resizing the first and often the biggest win. If an image is only ever going to be viewed at a specific size, there is no reason to store it at native camera resolution. Cutting it down to the size it's actually displayed at reduces file size dramatically, before compression is even considered.
+That makes resizing the first and often the biggest win. If an image is only ever going to be viewed at a specific size, there is no reason to store it at native camera resolution. Cutting it down to the size it's actually displayed at with a tool like our [Image Resizer](/tools/image-resizer) reduces file size dramatically, before compression is even considered.
 
 ## Compression: the real quality tradeoff
 
-Once an image is at the right dimensions, compression is the next lever. Lossy compression (used by JPEG and one of WebP's two modes) discards some image data permanently to shrink the file, targeting detail that's least noticeable to the eye. At a well-chosen quality setting, typically somewhere in the 70 to 85 percent range for JPEG, the size reduction is substantial while the visual difference is close to invisible at normal viewing size.
+Once an image is at the right dimensions, compression is the next lever — our [Image Compressor](/tools/image-compressor) handles this automatically, without needing to manually tune a quality slider. Lossy compression (used by JPEG and one of WebP's two modes) discards some image data permanently to shrink the file, targeting detail that's least noticeable to the eye. At a well-chosen quality setting, typically somewhere in the 70 to 85 percent range for JPEG, the size reduction is substantial while the visual difference is close to invisible at normal viewing size.
 
 Push the quality setting too low and the tradeoff becomes visible: blocky artifacts around sharp edges, smudged detail in busy areas, banding in smooth gradients. The right approach is incremental: reduce quality, compare the result at actual viewing size, and stop before artifacts become noticeable rather than applying the same aggressive setting to every image regardless of content.
 
@@ -390,7 +390,7 @@ For most images headed to a website: resize to the actual display dimensions fir
     title: 'The 2026 Social Media Image Size Guide',
     slug: 'social-media-image-size-guide-2026',
     excerpt: 'Up-to-date dimensions for Instagram, YouTube, and other platforms, plus tips for exporting crisp images every time.',
-    content: `Every social platform crops, compresses, or stretches an image that doesn't match its expected dimensions, which is exactly why a photo that looked sharp on your device can come out blurry, cropped strangely, or letterboxed once it's actually posted. These are the current recommended sizes for the platforms people upload to most, current as of 2026.
+    content: `Every social platform crops, compresses, or stretches an image that doesn't match its expected dimensions, which is exactly why a photo that looked sharp on your device can come out blurry, cropped strangely, or letterboxed once it's actually posted. These are the current recommended sizes for the platforms people upload to most, current as of 2026 — resize any image to the exact dimensions below with our [Image Resizer](/tools/image-resizer).
 
 ## Instagram
 
@@ -497,7 +497,7 @@ You don't have to take any site's word for it. Open your browser's developer too
 - Anything under an NDA or containing a client's business details
 - HR documents with personal or salary information
 
-For everyday, non-sensitive files, the distinction genuinely doesn't matter much. For anything above, it's worth choosing a tool that processes locally — not because every upload-based tool is doing something wrong, but because there's no reason to accept even a small, well-intentioned risk when a browser-based alternative exists and costs nothing extra to use.`,
+For everyday, non-sensitive files, the distinction genuinely doesn't matter much. For anything above, it's worth choosing a tool that processes locally, like our [Compress PDF](/tools/compress-pdf) or [PDF to Word](/tools/pdf-to-word), both of which run entirely in your browser — not because every upload-based tool is doing something wrong, but because there's no reason to accept even a small, well-intentioned risk when a browser-based alternative exists and costs nothing extra to use.`,
     category: 'PDF Tools',
     author: 'ToolHub Team',
     readTime: '5 min read',
@@ -547,6 +547,82 @@ Once you have a \`theme.json\`, open Power BI Desktop, go to the View tab, open 
     category: 'Design',
     author: 'ToolHub Team',
     readTime: '7 min read',
+    published: true,
+  },
+  {
+    title: 'Simple Interest vs. Compound Interest: What\u2019s the Real Difference?',
+    slug: 'simple-vs-compound-interest',
+    excerpt: 'Both calculate what a loan or investment earns over time, but they diverge fast. A worked example showing exactly how much that difference is worth, and where each one actually shows up in real financial products.',
+    content: `Two loans with the identical rate and term can end up costing completely different amounts, and the reason usually isn't the interest rate at all — it's whether that interest is simple or compound. The distinction sounds like a technicality until you see the actual numbers, at which point it stops being abstract fast.
+
+## Simple interest: calculated only on the original amount
+
+Simple interest is calculated exclusively on the principal, the original amount borrowed or invested, for the entire term. It never touches interest that's already accumulated, no matter how long the term runs. The formula is genuinely straightforward: Interest = Principal \u00d7 Rate \u00d7 Time.
+
+Lend \\$10,000 at 5% simple interest for 10 years, and the calculation is the same in year one as it is in year ten: \\$10,000 \u00d7 0.05 \u00d7 10 = \\$5,000 in total interest, regardless of when during those 10 years you check. The interest accumulates in a straight, predictable line.
+
+## Compound interest: interest earning interest
+
+Compound interest is calculated on the principal *plus* whatever interest has already accumulated, which means each compounding period's interest is calculated on a slightly larger base than the one before it. The formula: Final Amount = Principal \u00d7 (1 + Rate)^Time, for annual compounding specifically (more frequent compounding, monthly or daily, uses a modified version of this same formula).
+
+Apply that same \\$10,000 at 5%, compounded annually, for 10 years: \\$10,000 \u00d7 (1.05)^10 = \\$16,288.95, meaning \\$6,288.95 in interest, not \\$5,000. The difference, \\$1,288.95, comes entirely from interest earning its own interest along the way.
+
+## The gap grows the longer money sits
+
+This is the part that surprises people the most: the gap between the two isn't fixed, it widens the longer the term runs. Extend that same example to 20 years instead of 10, and simple interest reaches \\$20,000 total, while compound interest reaches \\$26,532.98, a gap of \\$6,532.98, more than five times wider than the 10-year gap, despite the time period only doubling. Compounding doesn't just add more over a longer term, it accelerates, which is exactly why it's described as growing exponentially rather than linearly.
+
+A quick way to get a feel for that acceleration without doing the full calculation: the Rule of 72. Divide 72 by the interest rate, and the result is roughly how many years it takes for money to double under compound interest. At 5%, that's 72 \u00f7 5 \u2248 14.4 years, close to the precise answer of 14.21 years, accurate enough for a fast mental estimate even though it's not exact. Our [Compound Interest Calculator](/tools/compound-interest-calculator) shows this estimate automatically alongside the precise result, for whatever rate you're actually working with.
+
+## Where each one actually shows up in real financial products
+
+Compound interest is the default for most everyday financial products: savings accounts, most investment accounts, credit cards, and the majority of mortgages all compound, typically daily or monthly rather than annually, which means the real-world gap versus simple interest is usually even larger than an annual-compounding example shows. This works in your favor as a saver or investor and against you as a borrower carrying a balance.
+
+Simple interest shows up less often, but genuinely does in specific products: some auto loans, certain short-term personal loans, and some bonds use it, generally because it's simpler for both sides to calculate and predict exactly what's owed at any point in the term.
+
+## Why this matters more for debt than for savings
+
+The practical takeaway differs depending on which side of the transaction you're on. As a saver or investor, compound interest working in your favor is exactly why starting early matters more than almost any other single factor, the earlier money starts compounding, the more time it has for that acceleration to take effect. As a borrower, compound interest working against you is exactly why a credit card balance can grow substantially even without new spending, the interest owed compounds right alongside the principal.
+
+Run your own numbers, whatever the actual amount, rate, and term are, with our [Compound Interest Calculator](/tools/compound-interest-calculator) rather than estimating — the exponential part of compound growth is genuinely easy to underestimate by eye, which is exactly why seeing the real figure for your own specific numbers is worth the 30 seconds it takes.`,
+    category: 'Calculators',
+    author: 'ToolHub Team',
+    readTime: '6 min read',
+    published: true,
+  },
+  {
+    title: 'The Rule of 72: How to Estimate Doubling Time Without a Calculator',
+    slug: 'rule-of-72-explained',
+    excerpt: 'Divide 72 by the interest rate and you\u2019ve got a close estimate of how many years it takes money to double. Where the number 72 actually comes from, how accurate it really is, and the lesser-known Rule of 114 and Rule of 144 for tripling and quadrupling.',
+    content: `Divide 72 by an interest rate, and the result is roughly how many years it takes money to double at that rate. That's the entire Rule of 72, a mental-math shortcut old enough that nobody can point to exactly who first wrote it down, yet accurate enough that it's still the fastest way to size up an investment without opening a calculator.
+
+## The formula and a worked example
+
+Years to double \u2248 72 \u00f7 interest rate. At a 12% annual return, that's 72 \u00f7 12 = 6 years. At a more conservative 6%, it's 72 \u00f7 6 = 12 years, twice as long for half the rate, which is itself a useful intuition the rule makes obvious at a glance.
+
+Checked against the actual precise doubling-time formula, the estimate holds up well across the range most real investments fall into: at 8%, the Rule of 72 gives 9.00 years against a precise 9.01, essentially exact. At 4%, it gives 18.00 years against a precise 17.67, off by about four months. The rule is genuinely most accurate in roughly the 6% to 15% range, and drifts further (though still usably close) outside it.
+
+## Why 72, specifically
+
+The real mathematical relationship behind doubling time comes from a natural logarithm: precisely, years to double = ln(2) \u00f7 ln(1 + rate), and ln(2) itself works out to approximately 0.693. Multiplied by 100 to work with whole-number percentage rates, that's 69.3, the actual, precise constant.
+
+72 is a deliberate rounding up from 69.3, not the mathematically purest choice, but a far more practical one: 72 divides evenly by 1, 2, 3, 4, 6, 8, 9, and 12, exactly the small numbers a real interest rate is likely to be. 69.3 divides cleanly by almost none of them. Trading a small amount of theoretical precision for a number that's actually fast to divide in your head is the entire reason 72 won out over the more "correct" 69.3.
+
+## The lesser-known extensions: Rule of 114 and Rule of 144
+
+The same shortcut extends naturally past doubling. The **Rule of 114** estimates years to triple: divide 114 by the rate. The **Rule of 144** estimates years to quadruple: divide 144 by the rate. Both follow the identical logic as the Rule of 72, just built around ln(3) and ln(4) instead of ln(2).
+
+At a 12% return: doubling takes about 72 \u00f7 12 = 6 years, tripling about 114 \u00f7 12 = 9.5 years, and quadrupling about 144 \u00f7 12 = 12 years.
+
+Worth knowing honestly: these two extensions are somewhat less precise than the Rule of 72 itself. The pure log-derived constants are 109.9 (for tripling) and 138.6 (for quadrupling), and 114 and 144 round further away from those than 72 does from 69.3, prioritizing easy divisibility (both numbers share many of the same clean factors as 72) over exactness. At 8%, the Rule of 114 gives 14.25 years against a precise 14.27, still excellent. At 15%, it gives 7.60 against a precise 7.86, a gap of about three months, noticeable but still a reasonable, fast estimate for a back-of-envelope decision.
+
+## What this is genuinely useful for, and where it isn't
+
+The Rule of 72 shines specifically for quick, comparative decisions: sizing up two investment options at a glance, sanity-checking whether a stated return sounds plausible, or explaining compound growth to someone without walking through the full formula. It's not built for precision, and it assumes a fixed, unchanging rate the entire period, a simplifying assumption real investments rarely honor exactly.
+
+For the actual, precise figure, our [Compound Interest Calculator](/tools/compound-interest-calculator) includes a Rule of 72 estimate alongside the exact calculation, so you can see both the fast mental shortcut and the real number for your own specific principal, rate, and term side by side.`,
+    category: 'Calculators',
+    author: 'ToolHub Team',
+    readTime: '6 min read',
     published: true,
   },
 ]

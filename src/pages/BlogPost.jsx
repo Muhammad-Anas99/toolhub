@@ -133,7 +133,7 @@ export default function BlogPost() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="mx-auto mt-8 max-w-2xl"
+          className="mx-auto mt-8 max-w-4xl"
         >
           <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700 dark:bg-brand-950 dark:text-brand-400">
             {post.category}
@@ -161,7 +161,7 @@ export default function BlogPost() {
             <img src={post.image} alt={post.title} className="mt-8 w-full rounded-2xl object-cover" />
           )}
 
-          <div className="prose prose-slate mt-8 max-w-none dark:prose-invert">
+          <div className="prose prose-slate mx-auto mt-8 max-w-3xl dark:prose-invert">
             {parseBlogContent(post.content).map((block) =>
               block.type === 'heading' ? (
                 <h2 key={block.key} className="mt-10 text-2xl font-extrabold tracking-tight text-slate-900 first:mt-0 dark:text-white">

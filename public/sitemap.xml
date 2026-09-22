@@ -1015,6 +1015,16 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://trytoolhub.net/blog/simple-vs-compound-interest</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://trytoolhub.net/blog/rule-of-72-explained</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://trytoolhub.net/tools/discord-timestamp-generator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
