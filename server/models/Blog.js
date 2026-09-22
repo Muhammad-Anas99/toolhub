@@ -62,6 +62,20 @@ const blogSchema = new mongoose.Schema(
       default: 0,
       min: 0,
     },
+    // A simple aggregate count, incremented once per page load - not a
+    // per-visitor log. Deliberately does not store IP addresses or any
+    // other detail about who viewed a post: the actual, stated need is
+    // "can I see that people are reading this," which a plain count
+    // answers completely, without the added privacy exposure of tying
+    // a specific visitor to a specific post read indefinitely - unlike
+    // ConversionHistory's IP logging, which serves a genuine, distinct
+    // purpose (spotting abusive/automated tool use) this counter has no
+    // equivalent need for.
+    views: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
   },
   { timestamps: true }
 )

@@ -70,11 +70,12 @@ export default function AdminBlogList() {
 
       {posts && posts.length > 0 && (
         <div className="card overflow-x-auto">
-          <table className="w-full min-w-[720px] text-left text-sm">
+          <table className="w-full min-w-[800px] text-left text-sm">
             <thead>
               <tr className="border-b border-slate-100 text-xs uppercase tracking-wide text-slate-400 dark:border-slate-800 dark:text-slate-500">
                 <th className="px-5 py-3 font-medium">Title</th>
                 <th className="px-5 py-3 font-medium">Category</th>
+                <th className="px-5 py-3 font-medium">Views</th>
                 <th className="px-5 py-3 font-medium">Status</th>
                 <th className="px-5 py-3 font-medium">Updated</th>
                 <th className="px-5 py-3 font-medium">Actions</th>
@@ -85,6 +86,7 @@ export default function AdminBlogList() {
                 <tr key={post.slug}>
                   <td className="px-5 py-3 font-medium text-slate-900 dark:text-white">{post.title}</td>
                   <td className="px-5 py-3 text-slate-500 dark:text-slate-400">{post.category || '\u2014'}</td>
+                  <td className="px-5 py-3 text-slate-500 dark:text-slate-400">{(post.views ?? 0).toLocaleString()}</td>
                   <td className="px-5 py-3">
                     <button
                       type="button"

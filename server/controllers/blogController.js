@@ -18,6 +18,7 @@ export const getAllBlogPostsAdmin = asyncHandler(async (req, res) => {
 
 export const getBlogPost = asyncHandler(async (req, res) => {
   const post = await blogService.getBlogPostBySlug(req.params.slug)
+  blogService.incrementBlogPostViews(req.params.slug).catch(() => {})
   sendSuccess(res, { data: post })
 })
 

@@ -40,6 +40,21 @@ export async function getBlogPostBySlug(slug, { includeUnpublished = false } = {
   return post
 }
 
+/**
+ * Increments a post's view count by 1, atomically via $inc rather than
+ * reading the current value and writing it back — the latter would lose
+ * increments under real concurrent traffic (two requests both reading
+ * "40" and both writing "41" instead of reaching "42"). Deliberately a
+ * fire-and-forget aggregate counter, not a per-visitor log: no IP,
+ * no identity, nothing beyond the running total — see the schema
+ * comment on Blog.views for why. Called only from the public
+ * getBlogPost endpoint, never the admin preview path, so opening a
+ * post in the Blog CMS to edit it doesn't inflate its own view count.
+ */
+export async function incrementBlogPostViews(slug) {
+  await Blog.updateOne({ slug: slug.toLowerCase(), published: true }, { $inc: { views: 1 } })
+}
+
 export async function createBlogPost(payload) {
   const slug = payload.slug ? slugify(payload.slug) : slugify(payload.title)
 
