@@ -78,8 +78,34 @@ function injectIntoTemplate(template, { html, helmet }) {
   let out = template
 
   if (helmet) {
+    // Previously only title and the plain description meta tag were
+    // injected here - a real, confirmed bug found via an external SEO
+    // checker reporting missing Open Graph markup on a live page. The
+    // <SEO> component (src/components/ui/SEO.jsx) genuinely renders
+    // Open Graph tags, the canonical link, structured data (JSON-LD),
+    // and noindex tags via the same <Helmet> - they were correctly
+    // defined in code the whole time, just never making it from
+    // Helmet's server-side capture into the actual prerendered HTML
+    // file a crawler reads, since this function only ever extracted
+    // two of Helmet's several managed tag categories. A real browser
+    // never showed this bug, since react-helmet-async also runs
+    // client-side and fixes the head up once JavaScript loads and
+    // hydrates - exactly why this went unnoticed until a tool that
+    // reads the raw, pre-JS HTML (an SEO checker, and more importantly
+    // Google's first-wave crawl, which doesn't always wait for a
+    // second JS-rendering pass) flagged it. Every one of Helmet's tag
+    // categories is now injected, not just two of them.
     out = out.replace(/<title>.*?<\/title>/s, helmet.title.toString())
-    out = out.replace(/<meta\s+name="description"[^>]*\/?>(?:\s*<\/meta>)?/s, helmet.meta.toString().match(/<meta[^>]*name="description"[^>]*>/)?.[0] || '')
+    out = out.replace(
+      /<meta\s+name="description"[^>]*\/?>(?:\s*<\/meta>)?/s,
+      [
+        helmet.meta.toString(),
+        helmet.link.toString(),
+        helmet.script.toString(),
+      ]
+        .filter(Boolean)
+        .join('\n    ')
+    )
   }
 
   out = out.replace('<div id="root"></div>', `<div id="root">${html}</div>`)

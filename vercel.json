@@ -1,6 +1,7 @@
 {
   "routes": [
+    { "src": "/index.html", "status": 301, "headers": { "Location": "/" } },
     { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    { "src": "/(.*)", "status": 404, "dest": "/index.html" }
   ]
 }
