@@ -21,32 +21,30 @@ export default function BlogCard({ post }) {
       viewport={{ once: true }}
       transition={{ duration: 0.3 }}
     >
-      <Link to={`/blog/${post.slug}`} className="card group flex h-full flex-col overflow-hidden hover:shadow-card-hover">
-        <div className="flex h-32 items-center justify-center bg-gradient-to-br from-brand-500 to-brand-700">
-          <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
-            {post.category}
+      <Link to={`/blog/${post.slug}`} className="card group flex h-full flex-col overflow-hidden p-5 hover:shadow-card-hover">
+        <h3 className="text-base font-semibold leading-snug text-slate-900 transition-colors group-hover:text-brand-600 dark:text-white dark:group-hover:text-brand-400">
+          {post.title}
+        </h3>
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+          {post.excerpt}
+        </p>
+        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400 dark:text-slate-500">
+          <span className="inline-flex items-center gap-1">
+            <HiOutlineCalendar className="h-3.5 w-3.5" />
+            {formatDate(post.createdAt)}
           </span>
+          <span className="inline-flex items-center gap-1">
+            <HiOutlineClock className="h-3.5 w-3.5" />
+            {post.readTime}
+          </span>
+          {post.category && (
+            <span className="rounded-full bg-slate-100 px-2 py-0.5 font-medium text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+              {post.category}
+            </span>
+          )}
         </div>
-        <div className="flex flex-1 flex-col p-5">
-          <h3 className="text-base font-semibold leading-snug text-slate-900 transition-colors group-hover:text-brand-600 dark:text-white dark:group-hover:text-brand-400">
-            {post.title}
-          </h3>
-          <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
-            {post.excerpt}
-          </p>
-          <div className="mt-4 flex items-center gap-4 text-xs text-slate-400 dark:text-slate-500">
-            <span className="inline-flex items-center gap-1">
-              <HiOutlineCalendar className="h-3.5 w-3.5" />
-              {formatDate(post.createdAt)}
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <HiOutlineClock className="h-3.5 w-3.5" />
-              {post.readTime}
-            </span>
-          </div>
-          <div className="mt-3">
-            <LikeDislikeButtons slug={post.slug} initialLikes={post.likes} initialDislikes={post.dislikes} size="sm" />
-          </div>
+        <div className="mt-3">
+          <LikeDislikeButtons slug={post.slug} initialLikes={post.likes} initialDislikes={post.dislikes} size="sm" />
         </div>
       </Link>
     </motion.div>
