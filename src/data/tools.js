@@ -2145,6 +2145,7 @@ export const tools = [
     icon: FaBriefcase,
     badge: 'new',
     comingSoon: false,
+    noIndex: true,
   },
   {
     id: 'hex-code-scroller',
@@ -2338,6 +2339,7 @@ export const tools = [
     icon: FaGamepad,
     badge: 'new',
     comingSoon: false,
+    noIndex: true,
   },
   {
     id: 'emoji-mashup',
