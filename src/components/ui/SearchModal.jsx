@@ -14,6 +14,12 @@ export default function SearchModal({ isOpen, onClose }) {
   const previouslyFocusedRef = useRef(null)
   const resultRefs = useRef([])
 
+  const results = useMemo(() => {
+    const normalized = query.trim()
+    if (!normalized) return tools.slice(0, 6)
+    return searchTools(normalized, tools).slice(0, 8)
+  }, [query])
+
   useEffect(() => {
     if (isOpen) {
       previouslyFocusedRef.current = document.activeElement
@@ -80,12 +86,6 @@ export default function SearchModal({ isOpen, onClose }) {
       document.body.style.overflow = ''
     }
   }, [isOpen, onClose, results, selectedIndex])
-
-  const results = useMemo(() => {
-    const normalized = query.trim()
-    if (!normalized) return tools.slice(0, 6)
-    return searchTools(normalized, tools).slice(0, 8)
-  }, [query])
 
   useEffect(() => {
     setSelectedIndex(0)
