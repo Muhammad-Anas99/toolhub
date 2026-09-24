@@ -5,38 +5,59 @@ import { validateDocumentFile } from '../lib/fileValidation.js'
  * Same drag/drop/validation lifecycle as usePdfUpload.js, but genuinely
  * generic — parameterized by acceptedTypes/acceptedExtensions instead of
  * hardcoding PDF, for the Excel/Word upload tools.
+ *
+ * `multiple` mirrors the same opt-in flag already proven in
+ * usePdfUpload.js — defaults to false, so every existing caller of this
+ * hook keeps its exact current single-file behavior unchanged. Only a
+ * tool that explicitly passes `multiple: true` gets the `files` array
+ * and batch-oriented API below; `file` (singular) still works as
+ * before for single-file callers.
  */
-export function useDocumentUpload({ acceptedTypes, acceptedExtensions, maxSizeMB } = {}) {
-  const [file, setFile] = useState(null)
+export function useDocumentUpload({ acceptedTypes, acceptedExtensions, maxSizeMB, multiple = false } = {}) {
+  const [files, setFiles] = useState([]) // always an array internally, even in single-file mode
   const [error, setError] = useState(null)
   const [isDragActive, setIsDragActive] = useState(false)
   const dragCounter = useRef(0)
 
   const reset = useCallback(() => {
-    setFile(null)
+    setFiles([])
     setError(null)
   }, [])
 
-  const addFile = useCallback(
-    (candidate) => {
+  const addFiles = useCallback(
+    (candidates) => {
       setError(null)
-      const validation = validateDocumentFile(candidate, acceptedTypes, acceptedExtensions, maxSizeMB)
-      if (!validation.valid) {
-        setError(validation.error)
-        return
+      const validFiles = []
+      for (const candidate of candidates) {
+        const validation = validateDocumentFile(candidate, acceptedTypes, acceptedExtensions, maxSizeMB)
+        if (!validation.valid) {
+          setError(validation.error)
+          return
+        }
+        validFiles.push(candidate)
       }
-      setFile(candidate)
+      setFiles((prev) => (multiple ? [...prev, ...validFiles] : validFiles.slice(0, 1)))
     },
-    [acceptedTypes, acceptedExtensions, maxSizeMB]
+    [acceptedTypes, acceptedExtensions, maxSizeMB, multiple]
   )
+
+  // Kept as a distinct single-file convenience method (rather than just
+  // telling every caller to use addFiles([candidate])) so the many
+  // existing single-file tools using this hook don't need to change
+  // anything about how they call it.
+  const addFile = useCallback((candidate) => addFiles([candidate]), [addFiles])
+
+  const removeFile = useCallback((index) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index))
+  }, [])
 
   const handleInputChange = useCallback(
     (event) => {
-      const candidate = event.target.files?.[0]
-      if (candidate) addFile(candidate)
+      const candidates = Array.from(event.target.files || [])
+      if (candidates.length > 0) addFiles(candidates)
       event.target.value = ''
     },
-    [addFile]
+    [addFiles]
   )
 
   const handleDrop = useCallback(
@@ -45,10 +66,10 @@ export function useDocumentUpload({ acceptedTypes, acceptedExtensions, maxSizeMB
       event.stopPropagation()
       dragCounter.current = 0
       setIsDragActive(false)
-      const candidate = event.dataTransfer.files?.[0]
-      if (candidate) addFile(candidate)
+      const candidates = Array.from(event.dataTransfer.files || [])
+      if (candidates.length > 0) addFiles(candidates)
     },
-    [addFile]
+    [addFiles]
   )
 
   const handleDragEnter = useCallback((event) => {
@@ -74,11 +95,14 @@ export function useDocumentUpload({ acceptedTypes, acceptedExtensions, maxSizeMB
   }, [])
 
   return {
-    file,
+    files,
+    file: files[0] || null, // convenience accessor, unchanged for single-file callers
     error,
     isDragActive,
     setError,
     reset,
+    addFile,
+    removeFile,
     dropZoneProps: {
       onDrop: handleDrop,
       onDragEnter: handleDragEnter,
@@ -87,7 +111,7 @@ export function useDocumentUpload({ acceptedTypes, acceptedExtensions, maxSizeMB
     },
     inputProps: {
       onChange: handleInputChange,
-      multiple: false,
+      multiple,
     },
   }
 }

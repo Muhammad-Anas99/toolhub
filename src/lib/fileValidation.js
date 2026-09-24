@@ -1,4 +1,4 @@
-export const DEFAULT_MAX_FILE_SIZE_MB = 25
+export const DEFAULT_MAX_FILE_SIZE_MB = 50
 
 const MIME_EXTENSIONS = {
   'image/jpeg': ['.jpg', '.jpeg'],

@@ -19,7 +19,7 @@ const PRESETS = [
 ]
 
 export default function InstagramResizerTool({ toolSlug, toolName, category }) {
-  const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 25 })
+  const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 50 })
   const { status, result, run, clearResult, download } = useToolResult({
     toolSlug,
     toolName,
@@ -56,7 +56,7 @@ export default function InstagramResizerTool({ toolSlug, toolName, category }) {
   }
 
   return (
-    <ToolWorkspace upload={upload} acceptedTypes={ACCEPTED_TYPES} maxSizeMB={25} onRemove={handleReset}>
+    <ToolWorkspace upload={upload} acceptedTypes={ACCEPTED_TYPES} maxSizeMB={50} onRemove={handleReset}>
       {status !== 'done' && (
         <>
           <PreviewPanel before={upload.previewUrl} />

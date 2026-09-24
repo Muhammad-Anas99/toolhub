@@ -120,7 +120,7 @@ export const toolSeed = [
   { name: 'Split PDF', slug: 'split-pdf', path: '/tools/split-pdf', category: 'pdf-tools', description: 'Extract specific pages or page ranges from a PDF into a new document.', icon: 'FaObjectUngroup', comingSoon: false },
   { name: 'PDF to JPG', slug: 'pdf-to-jpg', path: '/tools/pdf-to-jpg', category: 'pdf-tools', description: 'Convert PDF pages into JPG images, one page at a time.', icon: 'FaFileArrowDown', badge: 'new', comingSoon: false },
   { name: 'PDF to PNG', slug: 'pdf-to-png', path: '/tools/pdf-to-png', category: 'pdf-tools', description: 'Convert PDF pages into PNG images, one page at a time.', icon: 'FaFileArrowDown', comingSoon: false },
-  { name: 'Compress PDF', slug: 'compress-pdf', path: '/tools/compress-pdf', category: 'pdf-tools', description: 'Shrink a scanned or image-heavy PDF file size significantly while keeping it readable, free and right in your browser.', icon: 'FaFilePdf', comingSoon: false },
+  { name: 'Compress PDF', slug: 'compress-pdf', path: '/tools/compress-pdf', category: 'pdf-tools', description: 'Shrink a scanned or image-heavy PDF file size significantly while keeping it readable — free, right in your browser, and up to 10 PDFs at once.', icon: 'FaFilePdf', comingSoon: false },
   { name: 'PDF to Word', slug: 'pdf-to-word', path: '/tools/pdf-to-word', category: 'pdf-tools', description: 'Extract text from a PDF into an editable Word document.', icon: 'FaFileWord', comingSoon: false },
   { name: 'PDF to PowerPoint', slug: 'pdf-to-powerpoint', path: '/tools/pdf-to-powerpoint', category: 'pdf-tools', description: 'Turn every page of a PDF into a slide in a PowerPoint presentation.', icon: 'FaFilePowerpoint', comingSoon: false },
   { name: 'PowerPoint to PDF', slug: 'powerpoint-to-pdf', path: '/tools/powerpoint-to-pdf', category: 'pdf-tools', description: 'Extract the text and images from a PowerPoint file into a PDF.', icon: 'FaFilePowerpoint', badge: 'new', comingSoon: false },
@@ -192,8 +192,8 @@ export const toolSeed = [
   { name: 'Lorem Ipsum Generator', slug: 'lorem-ipsum-generator', path: '/tools/lorem-ipsum-generator', category: 'text-tools', description: 'Generate placeholder text for mockups and designs, by words, sentences or paragraphs.', icon: 'FaFont', comingSoon: false },
 
   // ---------- AI Tools ----------
-  { name: 'Image Upscaler', slug: 'image-upscaler', path: '/tools/image-upscaler', category: 'image-tools', description: 'Enlarge an image 2-4x using high-quality interpolation and sharpening.', icon: 'FaImages', badge: 'new', comingSoon: false },
-  { name: 'Image Enhancer', slug: 'image-enhancer', path: '/tools/image-enhancer', category: 'image-tools', description: 'Sharpen detail and reduce noise in a photo with adjustable controls.', icon: 'FaWandMagicSparkles', badge: 'new', comingSoon: false },
+  { name: 'Image Upscaler', slug: 'image-upscaler', path: '/tools/image-upscaler', category: 'image-tools', description: 'Enlarge up to 10 images at once, 2-4x, using high-quality interpolation and sharpening.', icon: 'FaImages', badge: 'new', comingSoon: false },
+  { name: 'Image Enhancer', slug: 'image-enhancer', path: '/tools/image-enhancer', category: 'image-tools', description: 'Sharpen detail and reduce noise across up to 10 photos at once, with adjustable controls.', icon: 'FaWandMagicSparkles', badge: 'new', comingSoon: false },
 
   // ---------- Security Tools ----------
   { name: 'Password Generator', slug: 'password-generator', path: '/tools/password-generator', category: 'security-tools', description: 'Generate a cryptographically secure random password online free. Adjustable length, character types, and a real entropy-based strength score.', icon: 'FaKey', badge: 'popular', comingSoon: false },

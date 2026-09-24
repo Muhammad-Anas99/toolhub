@@ -12,7 +12,7 @@ import { buildOutputFilename } from '../../lib/downloadBlob.js'
 const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 
 export default function SocialImageResizerTool({ toolSlug, toolName, category, platformName, presets }) {
-  const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 25 })
+  const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 50 })
   const { status, result, run, clearResult, download } = useToolResult({
     toolSlug,
     toolName,
@@ -49,7 +49,7 @@ export default function SocialImageResizerTool({ toolSlug, toolName, category, p
   }
 
   return (
-    <ToolWorkspace upload={upload} acceptedTypes={ACCEPTED_TYPES} maxSizeMB={25} onRemove={handleReset}>
+    <ToolWorkspace upload={upload} acceptedTypes={ACCEPTED_TYPES} maxSizeMB={50} onRemove={handleReset}>
       {status !== 'done' && (
         <>
           <PreviewPanel before={upload.previewUrl} />

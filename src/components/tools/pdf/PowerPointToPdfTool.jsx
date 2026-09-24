@@ -13,7 +13,7 @@ const ACCEPTED_TYPES = ['application/vnd.openxmlformats-officedocument.presentat
 const ACCEPTED_EXTENSIONS = ['.pptx']
 
 export default function PowerPointToPdfTool({ toolSlug, toolName, category }) {
-  const upload = useDocumentUpload({ acceptedTypes: ACCEPTED_TYPES, acceptedExtensions: ACCEPTED_EXTENSIONS, maxSizeMB: 25 })
+  const upload = useDocumentUpload({ acceptedTypes: ACCEPTED_TYPES, acceptedExtensions: ACCEPTED_EXTENSIONS, maxSizeMB: 50 })
   const { status, result, run, clearResult, download } = useToolResult({
     toolSlug,
     toolName,
@@ -53,7 +53,7 @@ export default function PowerPointToPdfTool({ toolSlug, toolName, category }) {
           dropZoneProps={upload.dropZoneProps}
           inputProps={upload.inputProps}
           acceptedTypes={ACCEPTED_TYPES}
-          maxSizeMB={25}
+          maxSizeMB={50}
           isDragActive={upload.isDragActive}
           label="Drag & drop a PowerPoint file here"
           uploadLabel="Upload Presentation"

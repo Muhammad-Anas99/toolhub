@@ -15,7 +15,7 @@ import { buildOutputFilename } from '../../../lib/downloadBlob.js'
  * format conversion (UnifiedImageTool.jsx).
  */
 export default function ImageToPdfTool({ acceptedTypes, toolSlug, toolName, category }) {
-  const upload = useImageUpload({ acceptedTypes, maxSizeMB: 25 })
+  const upload = useImageUpload({ acceptedTypes, maxSizeMB: 50 })
   const { status, result, run, clearResult, download } = useToolResult({
     toolSlug,
     toolName,
@@ -41,7 +41,7 @@ export default function ImageToPdfTool({ acceptedTypes, toolSlug, toolName, cate
   }
 
   return (
-    <ToolWorkspace upload={upload} acceptedTypes={acceptedTypes} maxSizeMB={25} onRemove={handleReset}>
+    <ToolWorkspace upload={upload} acceptedTypes={acceptedTypes} maxSizeMB={50} onRemove={handleReset}>
       {!result && status !== 'processing' && (
         <>
           <PreviewPanel before={upload.previewUrl} />

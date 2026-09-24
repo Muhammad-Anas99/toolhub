@@ -2399,6 +2399,11 @@ export const toolFaqs = {
       answer: 'Yes, but each additional pass re-compresses images that are already lossy, so quality degrades further each time. One careful pass at a reasonable quality setting usually gives a better result than compressing the same file repeatedly.',
     },
     {
+      id: 'batch-compress',
+      question: 'Can I compress multiple PDFs at once?',
+      answer: 'Yes \u2014 add up to 10 PDFs and they\u2019ll all compress in one run, at the same quality setting. Download them individually, or as a single ZIP file with the \u201cDownload All\u201d option once they\u2019re done.',
+    },
+    {
       id: 'compress-pdf-privacy',
       question: 'Is my PDF uploaded to a server to be compressed?',
       answer: 'No \u2014 compression happens entirely in your browser. Your PDF, including anything sensitive in it, is never uploaded anywhere.',

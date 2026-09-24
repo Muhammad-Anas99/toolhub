@@ -26,3 +26,24 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </HelmetProvider>
   </React.StrictMode>
 )
+
+// Service worker registration - production builds only. Registering
+// this during local development would mean every code change gets
+// silently served from a stale cache instead of the fresh dev build,
+// exactly the kind of confusing behavior that makes "why isn't my
+// change showing up" a common service-worker complaint. Registered
+// after the window's load event, not immediately, so it doesn't
+// compete with the page's own initial resources for bandwidth/priority
+// during the part of loading that actually matters to a first-time
+// visitor.
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {
+      // Registration can fail for reasons outside this app's control
+      // (browser policy, private browsing restrictions in some
+      // browsers) - offline support is a genuine enhancement, not a
+      // requirement, so a failure here shouldn't be surfaced as an
+      // error to a visitor who never asked for it.
+    })
+  })
+}

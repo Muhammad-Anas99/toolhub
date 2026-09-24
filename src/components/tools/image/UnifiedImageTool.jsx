@@ -58,7 +58,7 @@ export default function UnifiedImageTool({
   defaultResizeMode = 'percentage',
   outputSuffix = '-edited',
 }) {
-  const upload = useMultiImageUpload({ acceptedTypes, maxSizeMB: 25 })
+  const upload = useMultiImageUpload({ acceptedTypes, maxSizeMB: 50 })
 
   const [formatId, setFormatId] = useState(defaultFormatId)
   const [resizeEnabled, setResizeEnabled] = useState(defaultResizeEnabled)
@@ -208,7 +208,7 @@ export default function UnifiedImageTool({
           dropZoneProps={upload.dropZoneProps}
           inputProps={upload.inputProps}
           acceptedTypes={acceptedTypes}
-          maxSizeMB={25}
+          maxSizeMB={50}
           isDragActive={upload.isDragActive}
           label={`Drag & drop up to ${MAX_BATCH_FILES} images here`}
           uploadLabel="Upload images"

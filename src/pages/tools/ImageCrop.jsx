@@ -20,7 +20,7 @@ const STAGE_MAX_WIDTH = 560
 const STAGE_MAX_HEIGHT = 420
 
 export default function ImageCrop() {
-  const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 25 })
+  const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 50 })
   const { status, result, run, clearResult, setStatus, download } = useToolResult({
     toolSlug: tool.slug,
     toolName: tool.name,
@@ -125,7 +125,7 @@ export default function ImageCrop() {
       <ToolWorkspace
         upload={upload}
         acceptedTypes={ACCEPTED_TYPES}
-        maxSizeMB={25}
+        maxSizeMB={50}
         onRemove={handleReset}
       >
         {!result && working && box && (

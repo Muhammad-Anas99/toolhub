@@ -4,12 +4,15 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { HiOutlineMagnifyingGlass, HiXMark } from 'react-icons/hi2'
 import { tools } from '../../data/tools.js'
+import { searchTools } from '../../lib/toolSearch.js'
 
 export default function SearchModal({ isOpen, onClose }) {
   const [query, setQuery] = useState('')
+  const [selectedIndex, setSelectedIndex] = useState(0)
   const inputRef = useRef(null)
   const dialogRef = useRef(null)
   const previouslyFocusedRef = useRef(null)
+  const resultRefs = useRef([])
 
   useEffect(() => {
     if (isOpen) {
@@ -28,6 +31,25 @@ export default function SearchModal({ isOpen, onClose }) {
     function handleKeyDown(event) {
       if (event.key === 'Escape') {
         onClose()
+        return
+      }
+
+      if (event.key === 'ArrowDown') {
+        event.preventDefault()
+        setSelectedIndex((prev) => (results.length === 0 ? 0 : (prev + 1) % results.length))
+        return
+      }
+      if (event.key === 'ArrowUp') {
+        event.preventDefault()
+        setSelectedIndex((prev) => (results.length === 0 ? 0 : (prev - 1 + results.length) % results.length))
+        return
+      }
+      if (event.key === 'Enter' && results.length > 0) {
+        const tool = results[selectedIndex]
+        if (tool) {
+          event.preventDefault()
+          resultRefs.current[selectedIndex]?.click()
+        }
         return
       }
 
@@ -57,20 +79,21 @@ export default function SearchModal({ isOpen, onClose }) {
       document.removeEventListener('keydown', handleKeyDown)
       document.body.style.overflow = ''
     }
-  }, [isOpen, onClose])
+  }, [isOpen, onClose, results, selectedIndex])
 
   const results = useMemo(() => {
-    const normalized = query.trim().toLowerCase()
+    const normalized = query.trim()
     if (!normalized) return tools.slice(0, 6)
-
-    return tools
-      .filter(
-        (tool) =>
-          tool.name.toLowerCase().includes(normalized) ||
-          tool.description.toLowerCase().includes(normalized)
-      )
-      .slice(0, 8)
+    return searchTools(normalized, tools).slice(0, 8)
   }, [query])
+
+  useEffect(() => {
+    setSelectedIndex(0)
+  }, [results])
+
+  useEffect(() => {
+    resultRefs.current[selectedIndex]?.scrollIntoView({ block: 'nearest' })
+  }, [selectedIndex])
 
   return (
     <AnimatePresence>
@@ -126,14 +149,20 @@ export default function SearchModal({ isOpen, onClose }) {
 
                 <div className="overflow-y-auto p-2">
                   {results.length > 0 ? (
-                    results.map((tool) => {
+                    results.map((tool, index) => {
                       const Icon = tool.icon
                       return (
                         <Link
                           key={tool.id}
+                          ref={(el) => (resultRefs.current[index] = el)}
                           to={tool.comingSoon ? '/tools' : tool.path}
                           onClick={onClose}
-                          className="flex items-center gap-3 rounded-xl px-3 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800"
+                          onMouseEnter={() => setSelectedIndex(index)}
+                          className={`flex items-center gap-3 rounded-xl px-3 py-2.5 ${
+                            index === selectedIndex
+                              ? 'bg-slate-50 dark:bg-slate-800'
+                              : 'hover:bg-slate-50 dark:hover:bg-slate-800'
+                          }`}
                         >
                           <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-950 dark:text-brand-400">
                             <Icon className="h-4 w-4" />
@@ -160,6 +189,24 @@ export default function SearchModal({ isOpen, onClose }) {
                     </p>
                   )}
                 </div>
+
+                {results.length > 0 && (
+                  <div className="flex flex-shrink-0 items-center gap-3 border-t border-slate-100 px-4 py-2 text-[11px] text-slate-400 dark:border-slate-800 dark:text-slate-500">
+                    <span className="inline-flex items-center gap-1">
+                      <kbd className="rounded border border-slate-200 bg-slate-50 px-1 font-sans dark:border-slate-700 dark:bg-slate-800">↑</kbd>
+                      <kbd className="rounded border border-slate-200 bg-slate-50 px-1 font-sans dark:border-slate-700 dark:bg-slate-800">↓</kbd>
+                      to navigate
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <kbd className="rounded border border-slate-200 bg-slate-50 px-1 font-sans dark:border-slate-700 dark:bg-slate-800">↵</kbd>
+                      to select
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <kbd className="rounded border border-slate-200 bg-slate-50 px-1 font-sans dark:border-slate-700 dark:bg-slate-800">esc</kbd>
+                      to close
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>

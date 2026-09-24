@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { HiBars3, HiXMark, HiChevronDown } from 'react-icons/hi2'
+import { HiBars3, HiXMark, HiChevronDown, HiOutlineMagnifyingGlass } from 'react-icons/hi2'
 import Container from '../ui/Container.jsx'
 import ThemeToggle from '../ui/ThemeToggle.jsx'
 import MegaMenu from './MegaMenu.jsx'
@@ -14,6 +14,12 @@ const NAV_LINKS = [
   { label: 'About', to: '/about' },
   { label: 'Contact', to: '/contact' },
 ]
+
+// Guarded for prerendering: this file's module-level code also runs in
+// Node during the build's prerender step, where `navigator` doesn't
+// exist at all - an unguarded reference here would crash the build,
+// not just misrender in the browser.
+const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent || '')
 
 export default function Navbar() {
   const { isAuthenticated } = useAuth()
@@ -74,6 +80,17 @@ export default function Navbar() {
           </div>
 
           <div className="hidden items-center gap-3 md:flex">
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event('toolhub:open-search'))}
+              aria-label="Search tools"
+              className="flex items-center gap-2 rounded-lg border border-slate-200 px-2.5 py-1.5 text-slate-400 transition-colors hover:border-slate-300 hover:text-slate-600 dark:border-slate-700 dark:hover:border-slate-600 dark:hover:text-slate-300"
+            >
+              <HiOutlineMagnifyingGlass className="h-4 w-4" />
+              <kbd className="rounded border border-slate-200 bg-slate-50 px-1 text-[10px] font-sans dark:border-slate-700 dark:bg-slate-800">
+                {isMac ? '\u2318' : 'Ctrl'}K
+              </kbd>
+            </button>
             <ThemeToggle />
             {isAuthenticated ? (
               <UserMenu />
@@ -90,6 +107,14 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-1.5 md:hidden">
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event('toolhub:open-search'))}
+              aria-label="Search tools"
+              className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
+            >
+              <HiOutlineMagnifyingGlass className="h-5 w-5" />
+            </button>
             <ThemeToggle />
             {isAuthenticated ? (
               <UserMenu />

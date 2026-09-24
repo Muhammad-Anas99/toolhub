@@ -11,7 +11,7 @@ const ACCEPTED_TYPES = ['application/vnd.openxmlformats-officedocument.spreadshe
 const ACCEPTED_EXTENSIONS = ['.xlsx', '.xls']
 
 export default function ExcelToJsonTool({ toolSlug, toolName, category }) {
-  const upload = useDocumentUpload({ acceptedTypes: ACCEPTED_TYPES, acceptedExtensions: ACCEPTED_EXTENSIONS, maxSizeMB: 25 })
+  const upload = useDocumentUpload({ acceptedTypes: ACCEPTED_TYPES, acceptedExtensions: ACCEPTED_EXTENSIONS, maxSizeMB: 50 })
   const [json, setJson] = useState('')
   const { logNow } = useHistoryLogger({ toolSlug, toolName, category })
 
@@ -53,7 +53,7 @@ export default function ExcelToJsonTool({ toolSlug, toolName, category }) {
           dropZoneProps={upload.dropZoneProps}
           inputProps={upload.inputProps}
           acceptedTypes={ACCEPTED_TYPES}
-          maxSizeMB={25}
+          maxSizeMB={50}
           isDragActive={upload.isDragActive}
           label="Drag & drop an Excel file here"
           uploadLabel="Upload Spreadsheet"

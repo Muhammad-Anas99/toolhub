@@ -229,6 +229,37 @@ export default function ToolLayout({ tool, children, faqItems }) {
               </div>
             )}
 
+            {/* A compact, universal version of the same trust signal for
+                every other category — the PDF-tools banner above stays
+                as its own, more specific message (worth keeping distinct
+                given how sensitive PDF content often is), rather than
+                being replaced by this generic one.
+
+                Explicitly excludes the handful of tools that genuinely
+                do contact a server for real, necessary reasons a browser
+                can't work around on its own - DNS lookups, CORS-blocked
+                header/redirect checks, and the URL Shortener's stored
+                mapping, plus reading your own public IP, which is
+                inherently visible to whatever server responds at all.
+                Each of these already states this honestly in its own
+                privacy section; showing "never sent to a server" here
+                too would be a genuinely false claim on exactly these
+                five pages, not just an overstatement. */}
+            {tool.category !== 'pdf-tools' &&
+              ![
+                'url-shortener',
+                'dns-lookup',
+                'http-header-checker',
+                'url-redirect-checker',
+                'my-ip-address',
+                'youtube-thumbnail-downloader',
+              ].includes(tool.slug) && (
+                <div className="mx-auto mb-4 flex max-w-3xl items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                  <HiOutlineShieldCheck className="h-4 w-4 flex-shrink-0 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
+                  <span>Runs entirely in your browser — nothing you enter is ever sent to a server.</span>
+                </div>
+              )}
+
             <div className="mx-auto max-w-3xl rounded-2xl border border-slate-200 bg-white p-5 shadow-md dark:border-slate-800 dark:bg-slate-900 sm:p-7">{children}</div>
 
             {tool.promoImage && (

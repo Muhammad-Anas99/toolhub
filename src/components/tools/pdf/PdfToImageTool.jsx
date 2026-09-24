@@ -19,7 +19,7 @@ const ACCEPTED_TYPES = ['application/pdf']
  * src/lib/pdfRenderUtils.js for the rendering itself.
  */
 export default function PdfToImageTool({ outputMimeType, outputExtension, toolSlug, toolName, category }) {
-  const upload = usePdfUpload({ maxSizeMB: 25, multiple: false })
+  const upload = usePdfUpload({ maxSizeMB: 50, multiple: false })
   const { status, result, run, clearResult, download } = useToolResult({
     toolSlug,
     toolName,
@@ -76,7 +76,7 @@ export default function PdfToImageTool({ outputMimeType, outputExtension, toolSl
           dropZoneProps={upload.dropZoneProps}
           inputProps={upload.inputProps}
           acceptedTypes={ACCEPTED_TYPES}
-          maxSizeMB={25}
+          maxSizeMB={50}
           isDragActive={upload.isDragActive}
           label="Drag & drop a PDF here"
           uploadLabel="Upload PDF"

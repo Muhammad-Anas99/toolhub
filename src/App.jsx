@@ -1,9 +1,10 @@
-import React, { Suspense, lazy, useEffect } from 'react'
+import React, { Suspense, lazy, useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/layout/Layout.jsx'
 import ScrollToTop from './components/layout/ScrollToTop.jsx'
 import PageLoader from './components/ui/PageLoader.jsx'
 import CookieConsentBanner from './components/ui/CookieConsentBanner.jsx'
+import SearchModal from './components/ui/SearchModal.jsx'
 import { initConsent } from './lib/cookieConsent.js'
 import ProtectedRoute from './components/auth/ProtectedRoute.jsx'
 import DashboardLayout from './components/dashboard/DashboardLayout.jsx'
@@ -248,14 +249,42 @@ const Settings = lazy(() => import('./pages/dashboard/Settings.jsx'))
 const Subscription = lazy(() => import('./pages/dashboard/Subscription.jsx'))
 
 export default function App() {
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+
   useEffect(() => {
     initConsent()
+  }, [])
+
+  // Global Cmd+K (Mac) / Ctrl+K (Windows/Linux) to open the command
+  // palette from anywhere in the app, not just when a search input
+  // happens to be focused - matches the standard convention (Slack,
+  // Linear, GitHub, ...). Ignored while typing in a real input/textarea
+  // so it doesn't fight with, say, typing "k" into a tool's own text
+  // field while holding no modifier - only fires with the actual
+  // Cmd/Ctrl modifier held, which no ordinary typing does.
+  useEffect(() => {
+    function handleGlobalKeyDown(event) {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault()
+        setIsSearchOpen(true)
+      }
+    }
+    function handleOpenSearchEvent() {
+      setIsSearchOpen(true)
+    }
+    document.addEventListener('keydown', handleGlobalKeyDown)
+    window.addEventListener('toolhub:open-search', handleOpenSearchEvent)
+    return () => {
+      document.removeEventListener('keydown', handleGlobalKeyDown)
+      window.removeEventListener('toolhub:open-search', handleOpenSearchEvent)
+    }
   }, [])
 
   return (
     <>
       <ScrollToTop />
       <CookieConsentBanner />
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route element={<Layout />}>

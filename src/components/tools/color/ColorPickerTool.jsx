@@ -16,7 +16,7 @@ const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
  * image involved at all.
  */
 export default function ColorPickerTool({ toolSlug, toolName, category }) {
-  const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 25 })
+  const upload = useImageUpload({ acceptedTypes: ACCEPTED_TYPES, maxSizeMB: 50 })
   const canvasRef = useRef(null)
   const imgRef = useRef(null)
   const [pickedColor, setPickedColor] = useState(null)
@@ -75,7 +75,7 @@ export default function ColorPickerTool({ toolSlug, toolName, category }) {
           dropZoneProps={upload.dropZoneProps}
           inputProps={upload.inputProps}
           acceptedTypes={ACCEPTED_TYPES}
-          maxSizeMB={25}
+          maxSizeMB={50}
           isDragActive={upload.isDragActive}
           label="Drag & drop an image to pick colors from it"
         />

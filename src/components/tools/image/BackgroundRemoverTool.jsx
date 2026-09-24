@@ -14,7 +14,7 @@ const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 const ACCEPTED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp']
 
 export default function BackgroundRemoverTool({ toolSlug, toolName, category }) {
-  const upload = useDocumentUpload({ acceptedTypes: ACCEPTED_TYPES, acceptedExtensions: ACCEPTED_EXTENSIONS, maxSizeMB: 25 })
+  const upload = useDocumentUpload({ acceptedTypes: ACCEPTED_TYPES, acceptedExtensions: ACCEPTED_EXTENSIONS, maxSizeMB: 50 })
   const [tolerance, setTolerance] = useState(35)
   const [status, setStatus] = useState('idle')
   const [resultUrl, setResultUrl] = useState(null)
@@ -68,7 +68,7 @@ export default function BackgroundRemoverTool({ toolSlug, toolName, category }) 
           dropZoneProps={upload.dropZoneProps}
           inputProps={upload.inputProps}
           acceptedTypes={ACCEPTED_TYPES}
-          maxSizeMB={25}
+          maxSizeMB={50}
           isDragActive={upload.isDragActive}
           label="Drag & drop an image here"
           uploadLabel="Upload Image"

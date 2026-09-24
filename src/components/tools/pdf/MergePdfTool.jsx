@@ -12,7 +12,7 @@ import { formatBytes } from '../../../lib/formatBytes.js'
 const ACCEPTED_TYPES = ['application/pdf']
 
 export default function MergePdfTool({ toolSlug, toolName, category }) {
-  const upload = usePdfUpload({ maxSizeMB: 25, multiple: true })
+  const upload = usePdfUpload({ maxSizeMB: 50, multiple: true })
   const { status, result, run, clearResult, download } = useToolResult({
     toolSlug,
     toolName,
@@ -50,7 +50,7 @@ export default function MergePdfTool({ toolSlug, toolName, category }) {
           dropZoneProps={upload.dropZoneProps}
           inputProps={upload.inputProps}
           acceptedTypes={ACCEPTED_TYPES}
-          maxSizeMB={25}
+          maxSizeMB={50}
           isDragActive={upload.isDragActive}
           label="Drag & drop two or more PDFs here"
           uploadLabel="Upload PDFs"
