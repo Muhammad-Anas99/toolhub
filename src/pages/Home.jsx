@@ -161,6 +161,17 @@ export default function Home() {
             name: 'ToolHub',
             url: SITE_URL,
             logo: `${SITE_URL}/icon-512.png`,
+            // Confirms this specific ToolHub, at this specific domain, as
+            // a distinct, verifiable entity - genuinely useful given how
+            // generic "ToolHub" is as a name (an unrelated inventory
+            // management SaaS and a Python package share the exact same
+            // name). Only real, existing profiles belong here; a sameAs
+            // link that doesn't actually represent this site would
+            // actively undermine the disambiguation it's meant to help.
+            sameAs: [
+              'https://www.indiehackers.com/product/toolhub-free-online-tools',
+              'https://saasbrowser.com/saas/417836/toolhub',
+            ],
           },
         ]}
       />
