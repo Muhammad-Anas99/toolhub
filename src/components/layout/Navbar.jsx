@@ -56,27 +56,29 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/80 backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-950/80">
       <Container>
         <nav className="flex h-16 items-center justify-between">
-          <NavLink
-            to="/"
-            className="flex flex-shrink-0 items-center gap-2"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            <span
-              aria-hidden="true"
-              className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-sm font-bold text-white"
+          <div className="flex items-center gap-8">
+            <NavLink
+              to="/"
+              className="flex flex-shrink-0 items-center gap-2"
+              onClick={() => setIsMobileMenuOpen(false)}
             >
-              T
-            </span>
-            <span className="text-lg font-bold text-slate-900 dark:text-white">ToolHub</span>
-          </NavLink>
+              <span
+                aria-hidden="true"
+                className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-sm font-bold text-white"
+              >
+                T
+              </span>
+              <span className="text-lg font-bold text-slate-900 dark:text-white">ToolHub</span>
+            </NavLink>
 
-          <div className="hidden items-center gap-8 md:flex">
-            <MegaMenu />
-            {NAV_LINKS.map((link) => (
-              <NavLink key={link.to} to={link.to} className={linkClasses}>
-                {link.label}
-              </NavLink>
-            ))}
+            <div className="hidden items-center gap-6 md:flex">
+              <MegaMenu />
+              {NAV_LINKS.map((link) => (
+                <NavLink key={link.to} to={link.to} className={linkClasses}>
+                  {link.label}
+                </NavLink>
+              ))}
+            </div>
           </div>
 
           <div className="hidden items-center gap-3 md:flex">
@@ -84,10 +86,10 @@ export default function Navbar() {
               type="button"
               onClick={() => window.dispatchEvent(new Event('toolhub:open-search'))}
               aria-label="Search tools"
-              className="flex items-center gap-2 rounded-lg border border-slate-200 px-2.5 py-1.5 text-slate-400 transition-colors hover:border-slate-300 hover:text-slate-600 dark:border-slate-700 dark:hover:border-slate-600 dark:hover:text-slate-300"
+              className="flex items-center gap-2.5 rounded-lg border border-slate-200 px-3.5 py-2 text-slate-400 transition-colors hover:border-slate-300 hover:text-slate-600 dark:border-slate-700 dark:hover:border-slate-600 dark:hover:text-slate-300"
             >
-              <HiOutlineMagnifyingGlass className="h-4 w-4" />
-              <kbd className="rounded border border-slate-200 bg-slate-50 px-1 text-[10px] font-sans dark:border-slate-700 dark:bg-slate-800">
+              <HiOutlineMagnifyingGlass className="h-[18px] w-[18px]" />
+              <kbd className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-xs font-sans dark:border-slate-700 dark:bg-slate-800">
                 {isMac ? '\u2318' : 'Ctrl'}K
               </kbd>
             </button>
@@ -107,6 +109,13 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-1.5 md:hidden">
+            <Link
+              to="/tools"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+            >
+              All Tools
+            </Link>
             <button
               type="button"
               onClick={() => window.dispatchEvent(new Event('toolhub:open-search'))}
