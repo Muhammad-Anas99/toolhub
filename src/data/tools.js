@@ -146,6 +146,7 @@ export const tools = [
     category: 'image-tools',
     description: 'Convert JPG images to PNG format while preserving quality.',
     icon: FaFileImage,
+    relatedSlugs: ['png-to-jpg', 'image-compressor', 'image-resizer'],
     badge: 'popular',
     promoImage: '/images/promo/jpg-to-png.png',
     comingSoon: false,
@@ -206,6 +207,7 @@ export const tools = [
     description: 'Reduce image file size with an adjustable quality slider and live preview.',
     icon: FaCompress,
     badge: 'popular',
+    relatedSlugs: ['image-resizer', 'jpg-to-png', 'background-remover'],
     promoImage: '/images/promo/image-compressor.jpg',
     comingSoon: false,
   },
@@ -218,6 +220,7 @@ export const tools = [
     category: 'image-tools',
     description: 'Resize images to exact pixel dimensions or a percentage scale.',
     icon: FaExpand,
+    relatedSlugs: ['image-compressor', 'image-crop', 'jpg-to-png'],
     comingSoon: false,
   },
   {

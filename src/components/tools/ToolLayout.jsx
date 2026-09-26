@@ -287,7 +287,7 @@ export default function ToolLayout({ tool, children, faqItems }) {
             </div>
 
             <div className="mx-auto mt-20 max-w-3xl space-y-16">
-              <RelatedTools currentToolId={tool.id} category={tool.category} />
+              <RelatedTools currentToolId={tool.id} category={tool.category} relatedSlugs={tool.relatedSlugs} />
               <ToolFAQSection items={effectiveFaqItems} />
             </div>
 

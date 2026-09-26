@@ -232,6 +232,8 @@ export default function Home() {
                 <span className="text-slate-400 dark:text-slate-500">Popular:</span>
                 {[
                   { label: 'Image Compressor', to: '/tools/image-compressor' },
+                  { label: 'Image Resizer', to: '/tools/image-resizer' },
+                  { label: 'JPG to PNG', to: '/tools/jpg-to-png' },
                   { label: 'PDF Tools', to: '/tools?category=pdf-tools' },
                   { label: 'JSON Formatter', to: '/tools/json-formatter' },
                   { label: 'Password Generator', to: '/tools/password-generator' },
