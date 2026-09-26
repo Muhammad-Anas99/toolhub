@@ -5,78 +5,64 @@ import Blog from '../models/Blog.js'
 import { categorySeed, toolSeed, blogSeed } from './seedData.js'
 import { computeReadTime } from '../services/blogService.js'
 
-// Fields Tool and Blog documents accumulate at runtime (user ratings,
-// admin-added FAQs, the featured flag, tags, likes/dislikes, view
-// counts, an admin-uploaded cover image) are never part of the seed
-// data and must never be reset by seeding - previously, seeding wiped
-// and recreated every Tool and Blog document from scratch, silently
-// zeroing all of this out on every run. Upserting by slug and setting
-// only the fields the seed data actually controls fixes this: an
-// existing document keeps its accumulated data, a genuinely new one
-// gets the schema's own defaults (0 ratings, 0 views, etc, which is
-// correct for something that's never been rated or viewed).
+// Category, Tool, and Blog can all be created directly through their
+// own admin-only API routes (POST /api/categories, /api/tools,
+// /api/blog), not just from this seed file - genuinely live, real
+// content the admin panel creates. An earlier version of this script
+// upserted-and-deleted by slug, which broke that in two real ways:
+// (1) a post/tool/category created through the admin panel, having no
+// entry in this seed file, got deleted outright on the next seed run
+// - for a blog post specifically, this also orphaned any comments
+// left on it, since they reference the post by its database _id,
+// which a delete-and-later-different-insert would never restore; (2)
+// an admin's edit to an existing post or tool's title/content got
+// silently overwritten back to whatever this seed file says, since
+// the update path always applied this file's version on top.
 //
-// A tool or post removed from the codebase's seed data is still
-// removed from the database - this isn't a switch to "never delete
-// anything," just "don't delete AND recreate everything that still
-// exists," so the two collections stay in sync when something is
-// genuinely retired, not just when it's edited.
+// The fix: only ever INSERT a document whose slug doesn't exist in the
+// database yet - this is what actually gets a genuinely new tool or
+// post (something written here, in the codebase) into a database that
+// doesn't have it yet. Anything that already exists, whether it was
+// seeded before or created entirely through the admin panel, is left
+// completely untouched - no update, no delete. Editing an existing
+// tool or post's content is what the admin panel itself is for; this
+// script's job is only to make sure new things exist, not to keep
+// re-asserting old ones.
+async function seedNewOnly(Model, seedItems, label) {
+  const seedSlugs = seedItems.map((item) => item.slug)
+  const existing = await Model.find({ slug: { $in: seedSlugs } }, 'slug').lean()
+  const existingSlugs = new Set(existing.map((doc) => doc.slug))
+  const toInsert = seedItems.filter((item) => !existingSlugs.has(item.slug))
+
+  if (toInsert.length === 0) {
+    console.log(`[seed] ${label}: nothing new to add (${seedItems.length} in seed file, all already exist).`)
+    return
+  }
+
+  await Model.insertMany(toInsert)
+  console.log(`[seed] ${label}: added ${toInsert.length} new (${seedItems.length - toInsert.length} already existed, left untouched).`)
+}
+
 async function seed() {
   console.log('[seed] Connecting to MongoDB...')
   await connectDB()
 
-  console.log('[seed] Syncing categories...')
-  await Category.deleteMany({})
-  await Category.insertMany(categorySeed)
+  await seedNewOnly(Category, categorySeed, 'Categories')
 
-  console.log(`[seed] Upserting ${toolSeed.length} tools (preserving ratings, FAQs, featured, tags)...`)
-  for (const tool of toolSeed) {
-    await Tool.findOneAndUpdate(
-      { slug: tool.slug },
-      {
-        $set: {
-          name: tool.name,
-          path: tool.path,
-          category: tool.category,
-          description: tool.description,
-          icon: tool.icon,
-          badge: tool.badge ?? null,
-          comingSoon: tool.comingSoon ?? false,
-        },
-      },
-      { upsert: true, setDefaultsOnInsert: true }
-    )
-  }
-  const toolSlugs = toolSeed.map((tool) => tool.slug)
-  const { deletedCount: toolsRemoved } = await Tool.deleteMany({ slug: { $nin: toolSlugs } })
-  if (toolsRemoved > 0) console.log(`[seed] Removed ${toolsRemoved} tool(s) no longer in the seed data.`)
+  await seedNewOnly(Tool, toolSeed, 'Tools')
 
-  console.log(`[seed] Upserting ${blogSeed.length} blog posts (preserving views, likes, dislikes, cover image)...`)
-  for (const post of blogSeed) {
-    // readTime is computed fresh from each post's actual content here,
-    // the same logic the admin editor uses, rather than trusting
-    // whatever static value sits in the seed file - this is precisely
-    // what let the original seed data claim "6 min read" for a couple
-    // of sentences, so it's not something to keep trusting blindly.
-    await Blog.findOneAndUpdate(
-      { slug: post.slug },
-      {
-        $set: {
-          title: post.title,
-          excerpt: post.excerpt ?? '',
-          content: post.content,
-          author: post.author ?? 'ToolHub Team',
-          category: post.category ?? '',
-          readTime: computeReadTime(post.content),
-          published: post.published ?? false,
-        },
-      },
-      { upsert: true, setDefaultsOnInsert: true }
-    )
-  }
-  const blogSlugs = blogSeed.map((post) => post.slug)
-  const { deletedCount: postsRemoved } = await Blog.deleteMany({ slug: { $nin: blogSlugs } })
-  if (postsRemoved > 0) console.log(`[seed] Removed ${postsRemoved} blog post(s) no longer in the seed data.`)
+  // readTime is computed fresh from each new post's actual content
+  // here, the same logic the admin editor uses, rather than trusting
+  // whatever static value sits in the seed file - this is precisely
+  // what let the original seed data claim "6 min read" for a couple of
+  // sentences, so it's not something to keep trusting blindly. Only
+  // applied to posts actually being inserted - an existing post's
+  // readTime, like everything else about it, is left alone.
+  const blogSeedWithComputedReadTime = blogSeed.map((post) => ({
+    ...post,
+    readTime: computeReadTime(post.content),
+  }))
+  await seedNewOnly(Blog, blogSeedWithComputedReadTime, 'Blog posts')
 
   console.log('[seed] Done.')
   await disconnectDB()
