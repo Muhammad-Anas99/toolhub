@@ -44,7 +44,7 @@ export default function Favorites() {
         {favoriteSlugs === null && !error ? (
           <p className="text-sm text-slate-400 dark:text-slate-500">Loading...</p>
         ) : favoriteTools.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3 sm:gap-5">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {favoriteTools.map((tool) => (
               <ToolCard key={tool.id} tool={tool} />
             ))}

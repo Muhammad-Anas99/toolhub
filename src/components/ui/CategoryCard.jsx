@@ -20,7 +20,7 @@ export default function CategoryCard({ category }) {
     >
       <Link
         to={`/tools?category=${category.slug}`}
-        className="card group block h-full overflow-hidden p-4 transition-colors duration-200 hover:border-brand-200 hover:shadow-card-hover sm:p-5 dark:hover:border-brand-900"
+        className="card group block h-full overflow-hidden p-5 transition-colors duration-200 hover:border-brand-200 hover:shadow-card-hover dark:hover:border-brand-900"
       >
         <div className={`flex h-12 w-12 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-110 ${colors.bg} ${colors.text}`}>
           <Icon className="h-5 w-5" />
