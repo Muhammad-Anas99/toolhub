@@ -222,7 +222,7 @@ export default function Tools() {
 
             <div className="mt-6">
               {sortedTools.length > 0 ? (
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                <div className="grid grid-cols-2 gap-3 sm:gap-5 xl:grid-cols-3">
                   {sortedTools.map((tool) => (
                     <ToolCard key={tool.id} tool={tool} />
                   ))}

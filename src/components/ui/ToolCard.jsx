@@ -58,7 +58,7 @@ export default function ToolCard({ tool }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.3 }}
-        className="card group cursor-not-allowed p-5 opacity-90"
+        className="card group cursor-not-allowed p-4 opacity-90 sm:p-5"
         aria-disabled="true"
       >
         {cardContent}
@@ -76,7 +76,7 @@ export default function ToolCard({ tool }) {
     >
       <Link
         to={tool.path}
-        className="card group block overflow-hidden p-5 transition-colors duration-200 hover:border-brand-200 hover:shadow-card-hover dark:hover:border-brand-900"
+        className="card group block overflow-hidden p-4 transition-colors duration-200 hover:border-brand-200 hover:shadow-card-hover sm:p-5 dark:hover:border-brand-900"
       >
         {cardContent}
       </Link>
