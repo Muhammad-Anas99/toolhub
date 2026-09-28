@@ -2099,6 +2099,79 @@ export const toolFaqs = {
       answer: 'No \u2014 every hash is computed entirely in your browser using the Web Crypto API. Nothing you type here, including sensitive text you\u2019re checking or comparing, is ever transmitted anywhere.',
     },
   ],
+  'filetime-converter': [
+    {
+      id: 'what-is-filetime',
+      question: 'What is a Windows FILETIME?',
+      answer: 'A 64-bit number that counts 100-nanosecond intervals since 1 January 1601 at 00:00:00 UTC. Windows uses it for NTFS file times, the Win32 API, the registry, and many Active Directory attributes.',
+    },
+    {
+      id: 'filetime-to-unix',
+      question: 'How do I convert a FILETIME to a Unix timestamp?',
+      answer: 'Divide by 10,000,000 to get seconds, then subtract 11,644,473,600. For example, 133801632000000000 becomes 1735689600, which is 1 January 2025 at 00:00:00 UTC. The tool shows this for you as Unix seconds and milliseconds.',
+    },
+    {
+      id: 'why-1601',
+      question: 'Why does FILETIME start in 1601?',
+      answer: 'It is commonly explained as the start of a 400-year cycle of the Gregorian calendar, which keeps leap-year calculations simple. The starting point is 11,644,473,600 seconds before the Unix epoch of 1970.',
+    },
+    {
+      id: 'filetime-hex',
+      question: 'Can I enter a FILETIME in hex?',
+      answer: 'Yes. Use a 0x prefix, like 0x01DB5BE019BA4000, or paste bare hex that contains at least one letter from A to F. A value made only of digits is always read as decimal.',
+    },
+    {
+      id: 'ad-special-values',
+      question: 'What do 0 and 9223372036854775807 mean in Active Directory?',
+      answer: 'They are markers rather than dates. For accountExpires, both mean the account never expires. For pwdLastSet, 0 means the password must be changed at next logon. The tool shows a note for these instead of a misleading date.',
+    },
+    {
+      id: 'filetime-vs-unix-length',
+      question: 'How can I tell a FILETIME from a Unix timestamp?',
+      answer: 'By length. A current FILETIME has about 18 digits, Unix time in seconds has 10, and Unix time in milliseconds has 13.',
+    },
+    {
+      id: 'filetime-precision',
+      question: 'Why does the UTC time show seven digits after the seconds?',
+      answer: 'A FILETIME has 100-nanosecond precision, so the time has seven fractional digits. JavaScript dates only hold milliseconds, so the tool calculates the full value itself to keep every digit.',
+    },
+    {
+      id: 'lastlogon-vs-lastlogontimestamp',
+      question: 'Why do lastLogon and lastLogonTimestamp show different times?',
+      answer: 'lastLogon is stored separately on each domain controller and is not replicated. lastLogonTimestamp is replicated, but by default it is only updated when the stored value is more than about 14 days old, so it can lag behind the true last logon.',
+    },
+    {
+      id: 'filetime-local-vs-utc',
+      question: 'Why is the local time different from the UTC time?',
+      answer: 'A FILETIME is always UTC. The local time is that same instant shown in your device timezone, so it changes with where you are while the UTC time does not.',
+    },
+    {
+      id: 'what-is-ldap-timestamp',
+      question: 'What is an LDAP timestamp?',
+      answer: 'It usually means one of two things. Attributes like lastLogon and pwdLastSet return an 18-digit FILETIME. Attributes like whenCreated and whenChanged return text such as 20250101120000.0Z, called LDAP Generalized Time. This tool converts both.',
+    },
+    {
+      id: 'eighteen-digit-timestamp',
+      question: 'What is an 18-digit timestamp?',
+      answer: 'Almost always a Windows FILETIME: a count of 100-nanosecond intervals since 1 January 1601. Active Directory returns lastLogon, pwdLastSet and accountExpires this way.',
+    },
+    {
+      id: 'filetime-excel',
+      question: 'How do I convert a FILETIME or LDAP timestamp in Excel?',
+      answer: 'For an 18-digit value in cell A1, use =A1/864000000000-109205 and format the cell as a date and time. Excel keeps only 15 significant digits, so the last three digits are lost, and the seconds can occasionally display one second off. For exact results, paste the values into the batch box on this page.',
+    },
+    {
+      id: 'fourteen-digit-1601',
+      question: 'Why does my 14-digit number convert to a date in 1601?',
+      answer: 'A FILETIME for a modern date has about 18 digits, so a much shorter number lands in the first months of 1601. It is probably a date written as digits, like 20250101120000, or a Unix timestamp. If the value ends in Z or a timezone offset, like 20250101120000.0Z, the tool reads it as LDAP time instead.',
+    },
+    {
+      id: 'filetime-privacy',
+      question: 'Are the values I enter sent anywhere?',
+      answer: 'No. All conversion happens in your browser, and nothing you paste is uploaded.',
+    },
+  ],
+
   'timestamp-converter': [
     {
       id: 'what-is-unix-time',

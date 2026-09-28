@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { api } from '../lib/api.js'
-import { resolveIcon } from '../lib/iconRegistry.js'
+import { resolveIcon, iconRegistry } from '../lib/iconRegistry.js'
 import { tools as localTools } from '../data/tools.js'
+
+const localToolsBySlug = new Map(localTools.map((tool) => [tool.slug, tool]))
 
 /**
  * Normalizes an API tool document (icon as a string name) into the same
@@ -9,7 +11,7 @@ import { tools as localTools } from '../data/tools.js'
  * reference) — so ToolCard, RelatedTools, etc. never need to know whether
  * a tool came from the API or the local fallback.
  */
-function normalizeTool(apiTool) {
+export function normalizeTool(apiTool) {
   return {
     id: apiTool.slug,
     name: apiTool.name,
@@ -17,7 +19,16 @@ function normalizeTool(apiTool) {
     path: apiTool.path,
     category: apiTool.category,
     description: apiTool.description,
-    icon: resolveIcon(apiTool.icon),
+    // The registry only lists a subset of icon names (about 55), but the
+    // codebase already has the real icon component for every tool it ships,
+    // so resolving through the registry alone gave the generic "?" icon to
+    // most tools (126 of 194 at the time this was found) whenever tool data
+    // came from the API rather than the local fallback. Order matters: an
+    // icon name the registry knows still wins, so a deliberate choice made
+    // through the admin panel isn't overridden; otherwise the codebase's own
+    // icon for that tool; only a tool that exists solely in the database
+    // (created through the admin panel) reaches the generic fallback.
+    icon: iconRegistry[apiTool.icon] || localToolsBySlug.get(apiTool.slug)?.icon || resolveIcon(apiTool.icon),
     badge: apiTool.badge || undefined,
     comingSoon: apiTool.comingSoon,
   }

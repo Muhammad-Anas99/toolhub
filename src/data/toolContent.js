@@ -3502,6 +3502,68 @@ export const toolContent = {
     privacy: NO_FILE_PRIVACY,
   },
 
+  'filetime-converter': {
+    about:
+      'Converts Windows FILETIME values to readable dates and back. A FILETIME is a 64-bit number that counts 100-nanosecond intervals since 1 January 1601 at 00:00:00 UTC. It is the timestamp format used by NTFS file metadata, the Win32 API, the Windows registry, and many Active Directory attributes such as lastLogon, pwdLastSet and accountExpires, the values often called LDAP timestamps.\n\nPaste a value in decimal (like 133801632000000000), hex (like 0x01DB5BE019BA4000), or LDAP Generalized Time (like 20250101120000.0Z, the format of whenCreated and whenChanged) and the tool shows the exact UTC time with full 100 ns precision, your local time, the Unix timestamp in seconds and milliseconds, the hex form, the two 32-bit halves (dwHighDateTime and dwLowDateTime) that the Windows FILETIME structure stores, and the .NET DateTime tick count. It also converts the other way, from a date to a FILETIME, and can convert a whole column of values at once for Active Directory exports.\n\nValues this large cannot be handled reliably by ordinary JavaScript numbers, which lose precision above 9,007,199,254,740,991. The tool uses arbitrary-precision integers throughout, so the low digits, which hold the sub-second part of the time, stay exact.',
+    features: [
+      { title: 'Decimal or hex input', description: 'Paste a FILETIME as a decimal number or as hex, with or without a 0x prefix.', icon: HiOutlineCodeBracketSquare },
+      { title: 'LDAP Generalized Time', description: 'Also reads the text form Active Directory uses for whenCreated and whenChanged, like 20250101120000.0Z, including timezone offsets.', icon: HiOutlineCalendarDays },
+      { title: 'Exact 100 ns precision', description: 'Results use arbitrary-precision integers, so no digits are lost to rounding.', icon: HiOutlineCpuChip },
+      { title: 'Both directions', description: 'Convert a FILETIME to a date, or pick a date in UTC or local time to get its FILETIME, hex and DWORD halves.', icon: HiOutlineArrowsRightLeft },
+      { title: 'Batch conversion', description: 'Paste a column of values, one per line, and convert up to 500 at once.', icon: HiOutlineQueueList },
+      { title: 'Active Directory aware', description: 'Explains the special values AD uses, like 0 and 0x7FFFFFFFFFFFFFFF, instead of showing a misleading date.', icon: HiOutlineServerStack },
+    ],
+    howToUse: [
+      'Paste a FILETIME value (decimal or hex) or an LDAP time like 20250101120000.0Z, or click \u201cUse current time\u201d.',
+      'Read the UTC time, local time, Unix timestamps and hex form.',
+      'To go the other way, pick a date and choose whether it is UTC or your local time.',
+      'For a list of values, paste them one per line in the batch box and copy the results.',
+    ],
+    useCases: [
+      'Reading lastLogon, pwdLastSet or accountExpires values from an Active Directory export',
+      'Converting an LDAP timestamp, including whenCreated and whenChanged values, from a directory export',
+      'Decoding NTFS creation, modification and access times during incident review or forensics',
+      'Checking a timestamp returned by a Windows API or stored in a registry value',
+      'Converting between FILETIME, Unix time and .NET ticks while porting code',
+      'Working out whether an account expiry value is a real date or a \u201cnever\u201d marker',
+      'Reading timestamps in formats that use FILETIME, such as 7z archives and SMB network traffic',
+    ],
+    guideTitle: 'The Complete Guide to Windows FILETIME Timestamps',
+    guide: [
+      {
+        heading: 'What a FILETIME Actually Is',
+        body:
+          'A FILETIME is an unsigned 64-bit integer that counts how many 100-nanosecond intervals have passed since midnight UTC on 1 January 1601. One interval is a tenth of a microsecond, so there are 10,000,000 of them in a second. Windows stores it in a structure with two 32-bit halves, dwLowDateTime and dwHighDateTime, which is why the same value is sometimes written as two separate numbers.\n\nThe number looks enormous because the starting point is far in the past and the unit is tiny. A date in early 2025 is around 133,800,000,000,000,000, an 18-digit number. That is a useful sanity check: a Windows timestamp with about 18 digits is almost certainly a FILETIME. A 10-digit number is usually Unix time in seconds, and a 13-digit one is usually Unix time in milliseconds.\n\nThe choice of 1601 is commonly explained as the start of a 400-year cycle of the Gregorian calendar, which keeps leap-year arithmetic simple. Everything Windows records about time, from NTFS file dates to Active Directory logon times, counts from this same starting point.',
+      },
+      {
+        heading: 'Converting a FILETIME to Unix Time and Back',
+        body:
+          'The two epochs are 11,644,473,600 seconds apart, which is the number of seconds from 1 January 1601 to 1 January 1970. To turn a FILETIME into a Unix timestamp, divide by 10,000,000 to get seconds, then subtract 11,644,473,600. To go the other way, add 11,644,473,600 to a Unix timestamp in seconds and multiply by 10,000,000. As a check, 133801632000000000 works out to 1,735,689,600 seconds after 1970, which is midnight UTC on 1 January 2025.\n\nThe same idea works in code. In PowerShell, [DateTime]::FromFileTimeUtc(133801632000000000) returns the date directly, and in .NET, DateTime.FromFileTimeUtc and ToFileTimeUtc do the same. In Python, you can add the value divided by ten, as microseconds, to datetime(1601, 1, 1).\n\nJavaScript needs extra care. A FILETIME is larger than Number.MAX_SAFE_INTEGER, so reading it into an ordinary number silently rounds the low digits. Parse it as a BigInt instead, divide by 10000n, subtract 11644473600000n to get milliseconds, and only then hand it to Date. This tool does exactly that, which is why the sub-second digits come out exact.\n\nIf you also work with regular Unix timestamps, the [Timestamp Converter](/tools/timestamp-converter) covers seconds and milliseconds, and the [Time Converter](/tools/time-converter) handles plain durations.',
+      },
+      {
+        heading: 'Reading Active Directory Timestamps',
+        body:
+          'Active Directory stores many timestamps as FILETIME values in attributes such as lastLogon, lastLogonTimestamp, pwdLastSet, accountExpires, badPasswordTime and lockoutTime. Exports from PowerShell, LDAP browsers and CSV files show them as raw 18-digit integers, which is where a converter earns its keep.\n\nA few values are not dates at all. For accountExpires, both 0 and 9223372036854775807 (0x7FFFFFFFFFFFFFFF, the largest signed 64-bit number) mean the account never expires. For pwdLastSet, 0 means the user must change their password at next logon. This tool shows a note when it sees one of these, instead of presenting 1601 or the year 30828 as if it were a real date.\n\nIt also helps to know which attribute you are reading. lastLogon is kept separately by each domain controller and is not replicated, so the value you get depends on which controller you asked. lastLogonTimestamp is replicated across the domain, but by default it is only updated when the stored value is more than about 14 days old, so it can lag behind a real logon. It is meant for finding stale accounts, not for exact timing.\n\nFor a long list, paste the whole column into the batch box, one value per line. Lines that are not valid, such as a header row, are flagged individually without stopping the rest.',
+      },
+      {
+        heading: 'LDAP Timestamps: Two Different Formats',
+        body:
+          'When people search for an LDAP timestamp converter, they usually mean one of two different things, and mixing them up is the most common reason a conversion fails.\n\nThe first is the 18-digit number Active Directory returns for attributes such as lastLogon, lastLogonTimestamp, pwdLastSet and accountExpires. That is a FILETIME, exactly as described above. LDAP simply returns it as a plain number.\n\nThe second is a text value such as 20250101120000.0Z, which is what Active Directory uses for whenCreated and whenChanged. This is LDAP Generalized Time: the year, month, day, hour, minute and second written as 14 digits, an optional fraction of a second, and then a Z for UTC or an offset such as +0500. It is not a FILETIME, and pasting it into a converter that only expects the 18-digit kind gives an error or a wrong date.\n\nThis tool reads both. Paste either into the main box and it produces the same set of results, with a note when it recognises the text form. It only treats a value as LDAP time when it ends in Z or an offset, because a bare 14-digit number could just as easily be a FILETIME. A bare 14-digit number is therefore read as a FILETIME, and since that lands in the first months of 1601, the tool warns that it probably is not one. If you see that warning, check whether the value is really a date written as digits or a Unix timestamp.',
+      },
+      {
+        heading: 'Converting a FILETIME in Excel or Google Sheets',
+        body:
+          'Spreadsheets are a common place to end up with a column of 18-digit Active Directory values. In Excel and in Google Sheets, this formula turns a FILETIME in cell A1 into a date and time:\n\n=A1/864000000000-109205\n\nFormat the result cell as a date and time. The number 864000000000 is how many 100-nanosecond ticks fit in a day, and 109205 is the number of days from 1 January 1601 to the spreadsheet\u2019s day zero, 30 December 1899. As a check, 133801632000000000 gives 45658, which is 1 January 2025. A workbook set to the 1904 date system needs 110667 in place of 109205. To get a Unix timestamp in seconds instead, use =A1/10000000-11644473600.\n\nTwo limits are worth knowing. First, Excel keeps only 15 significant digits of a number you type or paste, so the last three digits of an 18-digit value turn into zeros. That affects less than a tenth of a millisecond, which rarely matters for logon times. Second, a date and time in a spreadsheet is stored as a floating-point number, so the seconds can occasionally display one second off. For exact results, or for many values at once, paste them into the batch box on this page instead.',
+      },
+      {
+        heading: 'Common Mistakes and Edge Cases',
+        body:
+          '**Mixing up the epoch.** A FILETIME of 0 is 1 January 1601, not 1970. If a converter shows 1970 for a small number, it is treating the value as Unix time.\n\n**Forgetting it is UTC.** A FILETIME carries no timezone. The local time shown here uses your device timezone, so two people in different places see different local times for the same value, while the UTC time never changes. When you enter a date to convert, choose whether it is UTC or local, since the results differ by your UTC offset.\n\n**Losing precision.** Any tool or script that puts the value through a floating-point number rounds the last digits. That is invisible for whole seconds but wrong for sub-second work such as ordering file events.\n\n**Signed versus unsigned.** A FILETIME is unsigned, but Active Directory stores these attributes as signed 64-bit integers, so the largest value they can hold, 9223372036854775807, is used as a \u201cnever\u201d marker. A negative number is not a valid FILETIME, and the tool rejects it.\n\n**Range.** Dates before 1 January 1601 cannot be represented. At the other end, the largest signed value lands in September of the year 30828, far beyond any real date.',
+      },
+    ],
+    privacy: NO_FILE_PRIVACY,
+  },
+
   'regex-tester': {
     about:
       'Build and debug regular expressions against real text, with matches highlighted live as you type. No more guessing whether a pattern actually works.\n\nA regular expression (regex) is a pattern that describes a set of strings, used for validating input (checking whether something looks like an email address), extracting data (pulling all phone numbers out of a block of text), or find-and-replace operations far more powerful than a literal text search. Regex syntax is notoriously easy to get subtly wrong, since small changes in a pattern can change what it matches in ways that aren\u2019t obvious just by reading it. Testing against real, representative text before using a pattern in actual code is the reliable way to know it behaves as intended.\n\nThe four flags supported here each change matching behavior in a specific way. Global (g) finds every match in the text instead of stopping at the first one. Case-insensitive (i) makes the pattern match regardless of letter case. Multiline (m) changes how ^ and $ behave, making them match the start and end of each individual line rather than only the very start and end of the whole string. Dot-matches-newline (s) makes the . character also match newline characters, which it doesn\u2019t by default, useful when a pattern needs to match across multiple lines.',

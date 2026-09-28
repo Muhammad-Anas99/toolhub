@@ -92,6 +92,7 @@ const AngleConverter = lazy(() => import('./pages/tools/AngleConverter.jsx'))
 const ShortUrlRedirect = lazy(() => import('./pages/ShortUrlRedirect.jsx'))
 const HashGenerator = lazy(() => import('./pages/tools/HashGenerator.jsx'))
 const TimestampConverter = lazy(() => import('./pages/tools/TimestampConverter.jsx'))
+const FiletimeConverter = lazy(() => import('./pages/tools/FiletimeConverter.jsx'))
 const DiscordTimestampGenerator = lazy(() => import('./pages/DiscordTimestampGenerator.jsx'))
 const RegexTester = lazy(() => import('./pages/tools/RegexTester.jsx'))
 const PdfToJpg = lazy(() => import('./pages/tools/PdfToJpg.jsx'))
@@ -360,6 +361,7 @@ export default function App() {
           <Route path="/s/:code" element={<ShortUrlRedirect />} />
           <Route path="/tools/hash-generator" element={<HashGenerator />} />
           <Route path="/tools/timestamp-converter" element={<TimestampConverter />} />
+          <Route path="/tools/filetime-converter" element={<FiletimeConverter />} />
           <Route path="/tools/discord-timestamp-generator" element={<DiscordTimestampGenerator />} />
           <Route path="/tools/regex-tester" element={<RegexTester />} />
           <Route path="/tools/pdf-to-jpg" element={<PdfToJpg />} />

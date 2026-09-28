@@ -50,6 +50,7 @@ import {
   FaYoutube,
   FaFileAudio,
   FaScissors,
+  FaWindows,
 } from 'react-icons/fa6'
 import { HiOutlineQuestionMarkCircle } from 'react-icons/hi2'
 
@@ -116,6 +117,7 @@ export const iconRegistry = {
   FaYoutube,
   FaFileAudio,
   FaScissors,
+  FaWindows,
 }
 
 /**

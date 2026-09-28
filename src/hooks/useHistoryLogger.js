@@ -44,10 +44,18 @@ const DEBOUNCE_MS = 1500
  * but the safest habit is to pass a non-sensitive proxy (e.g. the
  * input's length, or nothing at all via logNow) for anything sensitive.
  */
-export function useHistoryLogger({ toolSlug, toolName, category }) {
+export function useHistoryLogger({ toolSlug, toolName, category, startsEmpty = false }) {
   const lastLoggedValueRef = useRef(null)
   const debounceTimerRef = useRef(null)
-  const hasBaselineRef = useRef(false)
+  // `startsEmpty` is for a section of a tool that has no default value: it
+  // begins blank, so the first non-empty value it ever reports is the
+  // user's first real action, not a leftover from the page opening. With
+  // the default (false), that first value would be swallowed as the silent
+  // baseline described above - meaning someone who did exactly one
+  // conversion in that section and left would never be recorded. Only
+  // meant for sections that genuinely start empty; anything pre-filled on
+  // mount should keep the default.
+  const hasBaselineRef = useRef(startsEmpty)
 
   const logNow = useCallback(
     (action) => {

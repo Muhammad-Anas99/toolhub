@@ -133,6 +133,7 @@ import {
   FaQuoteRight,
   FaTicket,
   FaArrowsLeftRight,
+  FaWindows,
 } from 'react-icons/fa6'
 
 export const tools = [
@@ -1014,6 +1015,20 @@ export const tools = [
     category: 'developer-tools',
     description: 'Free timestamp converter — convert Unix epoch time to a human-readable date and back, instantly. Runs entirely in your browser, no sign-up.',
     icon: FaClock,
+    relatedSlugs: ['filetime-converter', 'time-converter', 'cron-expression-generator'],
+    comingSoon: false,
+  },
+  {
+    id: 'filetime-converter',
+    name: 'FILETIME Converter',
+    seoTitle: 'Windows Timestamp Converter — FILETIME & LDAP',
+    slug: 'filetime-converter',
+    path: '/tools/filetime-converter',
+    category: 'developer-tools',
+    description: 'Free Windows timestamp converter for FILETIME and LDAP values. Turn 18-digit Active Directory timestamps and hex into dates, and dates back, in batch. Runs in your browser.',
+    icon: FaWindows,
+    relatedSlugs: ['timestamp-converter', 'time-converter'],
+    badge: 'new',
     comingSoon: false,
   },
   {
