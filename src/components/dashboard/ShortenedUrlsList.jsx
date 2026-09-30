@@ -47,7 +47,7 @@ export default function ShortenedUrlsList() {
       {error && <ErrorMessage message={error} onDismiss={() => setError(null)} />}
 
       {urls === null && !error ? (
-        <p className="text-sm text-slate-400 dark:text-slate-500">Loading...</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Loading...</p>
       ) : urls && urls.length > 0 ? (
         <div className="card divide-y divide-slate-100 dark:divide-slate-800">
           {urls.map((entry) => (
@@ -58,7 +58,7 @@ export default function ShortenedUrlsList() {
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{entry.shortUrl}</p>
                 <p className="mt-0.5 truncate text-xs text-slate-500 dark:text-slate-400">{entry.originalUrl}</p>
-                <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">
+                <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
                   {formatDate(entry.createdAt)} · {entry.clicks} {entry.clicks === 1 ? 'click' : 'clicks'}
                 </p>
               </div>

@@ -22,7 +22,7 @@ export default function MyIpTool({ toolSlug, toolName, category }) {
   return (
     <div className="flex flex-col items-center gap-4 py-10">
       {error && <p className="text-sm text-rose-600 dark:text-rose-400">{error}</p>}
-      {!error && !ip && <p className="text-sm text-slate-400 dark:text-slate-500">Looking up your IP address...</p>}
+      {!error && !ip && <p className="text-sm text-slate-500 dark:text-slate-400">Looking up your IP address...</p>}
       {ip && (
         <>
           <p className="font-mono text-4xl font-bold text-brand-600 dark:text-brand-400">{ip}</p>

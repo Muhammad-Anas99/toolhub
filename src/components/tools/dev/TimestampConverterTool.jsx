@@ -88,7 +88,7 @@ export default function TimestampConverterTool({ toolSlug, toolName, category })
               ['Relative', display.relative],
             ].map(([label, value]) => (
               <div key={label} className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-                <dt className="text-xs text-slate-400 dark:text-slate-500">{label}</dt>
+                <dt className="text-xs text-slate-500 dark:text-slate-400">{label}</dt>
                 <div className="flex min-w-0 items-center gap-2">
                   <dd className="truncate font-mono text-sm text-slate-900 dark:text-white">{value}</dd>
                   <CopyButton value={value} label="" className="flex-shrink-0 px-1.5" />
@@ -97,7 +97,7 @@ export default function TimestampConverterTool({ toolSlug, toolName, category })
             ))}
 
             <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-t border-slate-100 pt-2.5 dark:border-slate-800">
-              <dt className="flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500">
+              <dt className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
                 Discord
                 <select
                   value={discordStyle}

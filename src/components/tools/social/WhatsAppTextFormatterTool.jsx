@@ -68,7 +68,7 @@ export default function WhatsAppTextFormatterTool({ toolSlug, toolName, category
 
       {text && (
         <div className="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2 dark:bg-slate-900/40">
-          <span className="text-xs text-slate-400 dark:text-slate-500">Ready to paste into WhatsApp</span>
+          <span className="text-xs text-slate-500 dark:text-slate-400">Ready to paste into WhatsApp</span>
           <CopyButton value={text} />
         </div>
       )}

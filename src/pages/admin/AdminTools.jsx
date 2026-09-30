@@ -150,10 +150,10 @@ export default function AdminTools() {
                       <span className="inline-flex items-center gap-1">
                         <FaStar className="h-3.5 w-3.5 text-amber-400" />
                         {(tool.ratingSum / tool.ratingCount).toFixed(1)}
-                        <span className="text-slate-400 dark:text-slate-500">({tool.ratingCount})</span>
+                        <span className="text-slate-500 dark:text-slate-400">({tool.ratingCount})</span>
                       </span>
                     ) : (
-                      <span className="text-slate-400 dark:text-slate-500">No ratings yet</span>
+                      <span className="text-slate-500 dark:text-slate-400">No ratings yet</span>
                     )}
                   </td>
                   <td className="px-5 py-3">

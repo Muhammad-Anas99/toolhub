@@ -57,7 +57,7 @@ export default function AdminBlogList() {
 
       {error && <ErrorMessage message={error} onDismiss={() => setError(null)} />}
 
-      {!posts && !error && <p className="text-sm text-slate-400 dark:text-slate-500">Loading posts...</p>}
+      {!posts && !error && <p className="text-sm text-slate-500 dark:text-slate-400">Loading posts...</p>}
 
       {posts && posts.length === 0 && (
         <div className="card p-8 text-center">

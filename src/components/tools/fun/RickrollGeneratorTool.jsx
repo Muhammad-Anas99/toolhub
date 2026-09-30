@@ -32,7 +32,7 @@ export default function RickrollGeneratorTool({ toolSlug, toolName, category }) 
         </button>
       </div>
 
-      <p className="text-xs text-slate-400 dark:text-slate-500">
+      <p className="text-xs text-slate-500 dark:text-slate-400">
         Want it to look less obvious when shared? You can shorten this link with this site&apos;s own{' '}
         <Link to="/tools/url-shortener" className="text-brand-600 hover:underline dark:text-brand-400">
           URL Shortener

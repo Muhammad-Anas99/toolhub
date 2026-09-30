@@ -55,7 +55,7 @@ export default function HashGeneratorTool({ toolSlug, toolName, category }) {
           {HASH_ALGORITHMS.map(({ id, label }) => (
             <div key={id} className="flex items-center justify-between gap-4 px-5 py-3.5">
               <div className="min-w-0">
-                <p className="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">
+                <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
                   {label}
                 </p>
                 <p className="mt-0.5 truncate font-mono text-sm text-slate-900 dark:text-white">

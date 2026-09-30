@@ -40,7 +40,7 @@ export default function DumbPhoneFormatterTool({ toolSlug, toolName, category })
             ))}
           </div>
           <div className="flex items-center justify-between">
-            <p className="text-xs text-slate-400 dark:text-slate-500">CSV, ready to import</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">CSV, ready to import</p>
             <CopyButton value={csv} />
           </div>
         </div>

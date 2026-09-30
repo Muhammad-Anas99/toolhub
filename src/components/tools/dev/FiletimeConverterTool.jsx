@@ -24,7 +24,7 @@ const inputClass =
 function ResultRow({ label, value }) {
   return (
     <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-      <dt className="text-xs text-slate-400 dark:text-slate-500">{label}</dt>
+      <dt className="text-xs text-slate-500 dark:text-slate-400">{label}</dt>
       <div className="flex min-w-0 items-center gap-2">
         <dd className="truncate font-mono text-sm text-slate-900 dark:text-white">{value}</dd>
         <CopyButton value={value} label="" className="flex-shrink-0 px-1.5" />
@@ -184,7 +184,7 @@ export default function FiletimeConverterTool({ toolSlug, toolName, category }) 
             />
           </div>
           <div>
-            <label htmlFor="filetime-date-mode" className="text-xs text-slate-400 dark:text-slate-500">
+            <label htmlFor="filetime-date-mode" className="text-xs text-slate-500 dark:text-slate-400">
               Treat this date as
             </label>
             <select
@@ -215,7 +215,7 @@ export default function FiletimeConverterTool({ toolSlug, toolName, category }) 
         <label htmlFor="filetime-batch" className="text-sm font-medium text-slate-700 dark:text-slate-300">
           Convert many at once (one FILETIME per line)
         </label>
-        <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
           Handy for a column of lastLogon, pwdLastSet, accountExpires or whenCreated values from an Active Directory export. FILETIME, hex and LDAP time can be mixed.
         </p>
         <textarea
@@ -231,7 +231,7 @@ export default function FiletimeConverterTool({ toolSlug, toolName, category }) 
         {batch && batch.rows.length > 0 && (
           <div className="mt-4">
             <div className="flex items-center justify-between gap-3">
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 {batchOkCount} of {batch.rows.length} converted
                 {batch.truncated && ' \u00b7 only the first 500 lines are converted'}
               </p>

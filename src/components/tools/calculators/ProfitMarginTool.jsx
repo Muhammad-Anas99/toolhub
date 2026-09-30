@@ -24,8 +24,8 @@ export default function ProfitMarginTool({ toolSlug, toolName, category }) {
       </div>
       {valid && (
         <div className="grid grid-cols-2 gap-3">
-          <div className="card p-4 text-center"><p className="text-xs text-slate-400 dark:text-slate-500">Profit margin</p><p className="text-2xl font-semibold text-emerald-600 dark:text-emerald-400">{margin.toFixed(2)}%</p></div>
-          <div className="card p-4 text-center"><p className="text-xs text-slate-400 dark:text-slate-500">Markup</p><p className="text-2xl font-semibold text-slate-900 dark:text-white">{mkup.toFixed(2)}%</p></div>
+          <div className="card p-4 text-center"><p className="text-xs text-slate-500 dark:text-slate-400">Profit margin</p><p className="text-2xl font-semibold text-emerald-600 dark:text-emerald-400">{margin.toFixed(2)}%</p></div>
+          <div className="card p-4 text-center"><p className="text-xs text-slate-500 dark:text-slate-400">Markup</p><p className="text-2xl font-semibold text-slate-900 dark:text-white">{mkup.toFixed(2)}%</p></div>
         </div>
       )}
     </div>

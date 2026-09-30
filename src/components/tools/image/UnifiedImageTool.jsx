@@ -316,7 +316,7 @@ export default function UnifiedImageTool({
                 {resizeMode === 'percentage' ? (
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-slate-400 dark:text-slate-500">Scale</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">Scale</span>
                       <span className="text-sm font-semibold text-brand-600 dark:text-brand-400">{scalePercent}%</span>
                     </div>
                     <input
@@ -330,7 +330,7 @@ export default function UnifiedImageTool({
                       className="mt-1 h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-brand-600 dark:bg-slate-700"
                     />
                     {upload.items.length > 1 && (
-                      <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+                      <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
                         Applied to each image&apos;s own size, so every image keeps its correct aspect ratio.
                       </p>
                     )}
@@ -338,7 +338,7 @@ export default function UnifiedImageTool({
                 ) : (
                   <div className="flex items-end gap-2">
                     <div className="flex-1">
-                      <label htmlFor="unified-width" className="text-xs text-slate-400 dark:text-slate-500">
+                      <label htmlFor="unified-width" className="text-xs text-slate-500 dark:text-slate-400">
                         Width (px)
                       </label>
                       <input
@@ -360,7 +360,7 @@ export default function UnifiedImageTool({
                       {lockAspect ? <HiOutlineLockClosed className="h-4 w-4" /> : <HiOutlineLockOpen className="h-4 w-4" />}
                     </button>
                     <div className="flex-1">
-                      <label htmlFor="unified-height" className="text-xs text-slate-400 dark:text-slate-500">
+                      <label htmlFor="unified-height" className="text-xs text-slate-500 dark:text-slate-400">
                         Height (px)
                       </label>
                       <input
@@ -373,7 +373,7 @@ export default function UnifiedImageTool({
                       />
                     </div>
                     {upload.items.length > 1 && (
-                      <p className="w-full text-xs text-slate-400 dark:text-slate-500">
+                      <p className="w-full text-xs text-slate-500 dark:text-slate-400">
                         Applied to every image identically — use percentage mode instead if your images are
                         different sizes and you want to keep each one's own proportions.
                       </p>
@@ -501,7 +501,7 @@ export default function UnifiedImageTool({
                   </div>
                   <div className="p-3">
                     <p className="truncate text-xs font-medium text-slate-900 dark:text-white">{result.filename}</p>
-                    <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">
+                    <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
                       {formatBytes(result.originalSize)} &rarr; {formatBytes(result.blob.size)}
                     </p>
                     <button type="button" onClick={() => handleDownloadOne(result)} className="btn-secondary mt-2 w-full text-xs">
@@ -572,7 +572,7 @@ function SingleResultView({ result, originalItem, isCompressor, onDownload }) {
             <CompressionRing percent={percentSmaller} />
             <div className="text-center">
               <p className="text-sm font-semibold text-slate-900 dark:text-white">{formatBytes(savedBytes)} Saved</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500">Total Savings</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Total Savings</p>
             </div>
             <button type="button" onClick={() => onDownload(result)} className="btn-primary whitespace-nowrap text-sm">
               <HiOutlineArrowDownTray className="h-4 w-4" />
@@ -644,7 +644,7 @@ function SingleResultView({ result, originalItem, isCompressor, onDownload }) {
       </div>
       <div className="p-4">
         <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{result.filename}</p>
-        <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
           {formatBytes(originalSize)} &rarr; {formatBytes(newSize)}
           {result.width ? ` \u00b7 ${result.width} \u00d7 ${result.height}` : ''}
         </p>

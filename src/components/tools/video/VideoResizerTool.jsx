@@ -81,7 +81,7 @@ export default function VideoResizerTool({ toolSlug, toolName, category }) {
           <div className="flex items-center gap-4 rounded-xl bg-slate-50 p-4 dark:bg-slate-900/40">
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{upload.file.name}</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 {formatBytes(upload.file.size)}
                 {dimensions && ` \u00b7 ${dimensions.width}\u00d7${dimensions.height}`}
               </p>
@@ -126,7 +126,7 @@ export default function VideoResizerTool({ toolSlug, toolName, category }) {
               <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
                 <div className="h-full bg-brand-600 transition-all" style={{ width: `${Math.round(progress * 100)}%` }} />
               </div>
-              <p className="mt-2 text-xs text-slate-400 dark:text-slate-500">Processing... {Math.round(progress * 100)}%</p>
+              <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">Processing... {Math.round(progress * 100)}%</p>
             </div>
           )}
 

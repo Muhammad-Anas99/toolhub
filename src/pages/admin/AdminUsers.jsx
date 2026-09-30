@@ -48,10 +48,10 @@ export default function AdminUsers() {
 
       {error && <ErrorMessage message={error} onDismiss={() => setError(null)} />}
 
-      {!users && !error && <p className="text-sm text-slate-400 dark:text-slate-500">Loading users...</p>}
+      {!users && !error && <p className="text-sm text-slate-500 dark:text-slate-400">Loading users...</p>}
 
       {users && users.length === 0 && (
-        <p className="text-sm text-slate-400 dark:text-slate-500">No users found.</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">No users found.</p>
       )}
 
       {users && users.length > 0 && (

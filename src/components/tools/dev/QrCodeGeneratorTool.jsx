@@ -299,7 +299,7 @@ export default function QrCodeGeneratorTool({ toolSlug, toolName, category }) {
           style={{ imageRendering: 'pixelated', maxWidth: '280px', width: '100%', height: 'auto' }}
         />
         {!readyToGenerate && (
-          <p className="py-12 text-sm text-slate-400 dark:text-slate-500">
+          <p className="py-12 text-sm text-slate-500 dark:text-slate-400">
             {fieldError ? 'Fix the error above to generate a QR code' : 'Fill in the details above to generate a QR code'}
           </p>
         )}

@@ -51,12 +51,12 @@ export default function AdminComments() {
         </div>
       )}
 
-      {!comments && !error && <p className="mt-6 text-sm text-slate-400 dark:text-slate-500">Loading comments...</p>}
+      {!comments && !error && <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">Loading comments...</p>}
 
       {comments && comments.length === 0 && (
         <div className="mt-6 flex flex-col items-center gap-2 rounded-2xl border border-dashed border-slate-200 py-12 text-center dark:border-slate-800">
           <HiOutlineChatBubbleLeftRight className="h-8 w-8 text-slate-300 dark:text-slate-600" />
-          <p className="text-sm text-slate-400 dark:text-slate-500">No comments yet.</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">No comments yet.</p>
         </div>
       )}
 
@@ -65,7 +65,7 @@ export default function AdminComments() {
           {comments.map((comment) => (
             <li key={comment._id} className="card p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400 dark:text-slate-500">
+                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                   <span className="font-medium text-slate-700 dark:text-slate-300">
                     {comment.user?.name || 'Deleted user'}
                   </span>

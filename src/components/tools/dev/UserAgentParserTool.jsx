@@ -110,7 +110,7 @@ export default function UserAgentParserTool({ toolSlug, toolName, category }) {
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {FIELDS.map(({ key, label }) => (
               <div key={key} className="rounded-xl bg-slate-50 px-4 py-3 dark:bg-slate-900/40">
-                <p className="text-xs text-slate-400 dark:text-slate-500">{label}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{label}</p>
                 <p className="mt-0.5 text-sm font-medium text-slate-900 dark:text-white">{result[key]}</p>
               </div>
             ))}

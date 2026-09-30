@@ -45,7 +45,7 @@ export default function DateRangeSelector({ value, onChange }) {
         aria-label="Select date range"
         className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
       >
-        <HiOutlineCalendarDays className="h-4 w-4 text-slate-400 dark:text-slate-500" />
+        <HiOutlineCalendarDays className="h-4 w-4 text-slate-500 dark:text-slate-400" />
         {activeLabel}
         <HiChevronDown className={`h-4 w-4 text-slate-400 transition-transform dark:text-slate-500 ${isOpen ? 'rotate-180' : ''}`} />
       </button>

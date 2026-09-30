@@ -84,7 +84,7 @@ export default function Blog() {
         )}
 
         {posts === null ? (
-          <p className="mt-12 text-center text-sm text-slate-400 dark:text-slate-500">Loading posts...</p>
+          <p className="mt-12 text-center text-sm text-slate-500 dark:text-slate-400">Loading posts...</p>
         ) : filteredPosts.length > 0 ? (
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredPosts.map((post) => (
@@ -93,7 +93,7 @@ export default function Blog() {
           </div>
         ) : (
           !error && (
-            <p className="mt-12 text-center text-sm text-slate-400 dark:text-slate-500">
+            <p className="mt-12 text-center text-sm text-slate-500 dark:text-slate-400">
               No posts published yet — check back soon.
             </p>
           )

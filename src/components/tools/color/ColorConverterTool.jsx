@@ -78,7 +78,7 @@ export default function ColorConverterTool({ toolSlug, toolName, category }) {
           {formats.map((format) => (
             <div key={format.label} className="flex items-center justify-between gap-4 px-5 py-4">
               <div>
-                <p className="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">
+                <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
                   {format.label}
                 </p>
                 <p className="mt-0.5 font-mono text-sm text-slate-900 dark:text-white">{format.value}</p>

@@ -52,7 +52,7 @@ export default function DonutChart({ segments, centerLabel, centerValue }) {
             {centerValue !== undefined && (
               <span className="text-xl font-bold text-slate-900 dark:text-white">{centerValue}</span>
             )}
-            {centerLabel && <span className="text-[11px] text-slate-400 dark:text-slate-500">{centerLabel}</span>}
+            {centerLabel && <span className="text-[11px] text-slate-500 dark:text-slate-400">{centerLabel}</span>}
           </div>
         )}
       </div>
@@ -65,7 +65,7 @@ export default function DonutChart({ segments, centerLabel, centerValue }) {
               aria-hidden="true"
             />
             <span className="truncate text-slate-600 dark:text-slate-300">{segment.label}</span>
-            <span className="ml-auto flex-shrink-0 text-slate-400 dark:text-slate-500">
+            <span className="ml-auto flex-shrink-0 text-slate-500 dark:text-slate-400">
               {Math.round((segment.value / total) * 100)}%
             </span>
           </div>

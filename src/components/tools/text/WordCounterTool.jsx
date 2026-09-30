@@ -47,7 +47,7 @@ export default function WordCounterTool({ toolSlug, toolName, category }) {
       </div>
 
       {stats.words > 0 && (
-        <p className="text-center text-sm text-slate-400 dark:text-slate-500">
+        <p className="text-center text-sm text-slate-500 dark:text-slate-400">
           {formatReadingTime(stats.readingTimeMinutes)}
         </p>
       )}

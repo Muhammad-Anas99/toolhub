@@ -86,7 +86,7 @@ export default function BlogPost() {
   if (!post) {
     return (
       <Container className="py-16 text-center">
-        <p className="text-sm text-slate-400 dark:text-slate-500">Loading...</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Loading...</p>
       </Container>
     )
   }
@@ -141,7 +141,7 @@ export default function BlogPost() {
           <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
             {post.title}
           </h1>
-          <div className="mt-4 flex items-center gap-4 text-sm text-slate-400 dark:text-slate-500">
+          <div className="mt-4 flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
             <span className="inline-flex items-center gap-1.5">
               <HiOutlineCalendar className="h-4 w-4" />
               {formatDate(post.createdAt)}

@@ -13,7 +13,7 @@ const SCORE_COLORS = [
 ]
 
 const LABEL_COLORS = [
-  'text-slate-400 dark:text-slate-500',
+  'text-slate-500 dark:text-slate-400',
   'text-red-600 dark:text-red-400',
   'text-orange-600 dark:text-orange-400',
   'text-yellow-600 dark:text-yellow-400',
@@ -86,7 +86,7 @@ export default function PasswordStrengthCheckerTool({ toolSlug, toolName, catego
                 />
               ))}
             </div>
-            <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">{result.bits} bits of entropy</p>
+            <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">{result.bits} bits of entropy</p>
           </div>
 
           {result.warnings.length > 0 && (

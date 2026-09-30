@@ -31,7 +31,7 @@ export default function WhatsAppLinkGeneratorTool({ toolSlug, toolName, category
           placeholder="+1 234 567 8900"
           className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
         />
-        <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
           Include the country code. Spaces, dashes, and a leading + are all fine.
         </p>
       </div>

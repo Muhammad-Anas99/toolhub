@@ -64,7 +64,7 @@ export default function ExifScrubberTool({ toolSlug, toolName, category }) {
           <img src={upload.previewUrl} alt="Uploaded preview" className="h-16 w-16 rounded-lg object-contain" />
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{upload.file.name}</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500">{formatBytes(upload.file.size)}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{formatBytes(upload.file.size)}</p>
           </div>
           <button type="button" onClick={handleReset} className="btn-secondary text-xs">
             Reset
@@ -78,13 +78,13 @@ export default function ExifScrubberTool({ toolSlug, toolName, category }) {
         </button>
       )}
 
-      {status === 'processing' && <p className="text-sm text-slate-400 dark:text-slate-500">Processing...</p>}
+      {status === 'processing' && <p className="text-sm text-slate-500 dark:text-slate-400">Processing...</p>}
 
       {status === 'done' && resultBlob && (
         <div className="card flex items-center justify-between gap-4 p-4">
           <div>
             <p className="text-sm font-medium text-slate-900 dark:text-white">Metadata removed</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500">{formatBytes(resultBlob.size)}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{formatBytes(resultBlob.size)}</p>
           </div>
           <button type="button" onClick={() => downloadBlob(resultBlob, 'scrubbed-' + upload.file.name)} className="btn-primary text-sm">
             <HiOutlineArrowDownTray className="h-4 w-4" />

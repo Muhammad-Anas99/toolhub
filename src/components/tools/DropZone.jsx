@@ -57,7 +57,7 @@ export default function DropZone({
         {...inputProps}
       />
 
-      <p className="mt-5 text-xs text-slate-400 dark:text-slate-500">
+      <p className="mt-5 text-xs text-slate-500 dark:text-slate-400">
         Supports {readableTypes} &middot; Max {maxSizeMB} MB &middot; Processed entirely in your
         browser
       </p>

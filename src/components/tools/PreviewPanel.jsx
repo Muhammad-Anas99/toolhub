@@ -15,7 +15,7 @@ export default function PreviewPanel({ before, after, beforeLabel = 'Original', 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <div>
-        <p className="mb-2 text-center text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">
+        <p className="mb-2 text-center text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
           {beforeLabel}
         </p>
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900">

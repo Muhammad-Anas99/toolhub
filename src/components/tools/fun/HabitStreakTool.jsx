@@ -130,10 +130,10 @@ export default function HabitStreakTool({ toolSlug, toolName, category }) {
             </div>
           )
         })}
-        {habits.length === 0 && <p className="text-center text-sm text-slate-400 dark:text-slate-500">Add a habit to start tracking your streak.</p>}
+        {habits.length === 0 && <p className="text-center text-sm text-slate-500 dark:text-slate-400">Add a habit to start tracking your streak.</p>}
       </div>
 
-      <p className="text-xs text-slate-400 dark:text-slate-500">
+      <p className="text-xs text-slate-500 dark:text-slate-400">
         Saved only in this browser (localStorage) \u2014 not synced across devices or accounts.
       </p>
     </div>

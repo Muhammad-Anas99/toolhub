@@ -46,7 +46,7 @@ export default function GenericToolPage() {
   if (!tool) {
     return (
       <Container className="py-16">
-        <p className="text-sm text-slate-400 dark:text-slate-500">Loading...</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Loading...</p>
       </Container>
     )
   }

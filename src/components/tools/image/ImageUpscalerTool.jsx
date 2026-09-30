@@ -150,7 +150,7 @@ export default function ImageUpscalerTool({ toolSlug, toolName, category }) {
                 >
                   <div className="min-w-0">
                     <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{file.name}</p>
-                    <p className="text-xs text-slate-400 dark:text-slate-500">{formatBytes(file.size)}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{formatBytes(file.size)}</p>
                   </div>
                   <button
                     type="button"
@@ -243,7 +243,7 @@ export default function ImageUpscalerTool({ toolSlug, toolName, category }) {
                   </div>
                   <div className="p-3">
                     <p className="truncate text-xs font-medium text-slate-900 dark:text-white">{result.filename}</p>
-                    <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">
+                    <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
                       {result.from} &rarr; {result.to}
                     </p>
                     <button type="button" onClick={() => handleDownloadOne(result)} className="btn-secondary mt-2 w-full text-xs">

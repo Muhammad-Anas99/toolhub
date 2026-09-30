@@ -47,7 +47,7 @@ export default function DataUriEncoderTool({ toolSlug, toolName, category }) {
           <img src={upload.previewUrl} alt="Uploaded preview" className="h-16 w-16 rounded-lg object-contain" />
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{upload.file.name}</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500">{formatBytes(upload.file.size)}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{formatBytes(upload.file.size)}</p>
           </div>
           <button type="button" onClick={upload.reset} className="btn-secondary text-xs">
             Reset
@@ -62,7 +62,7 @@ export default function DataUriEncoderTool({ toolSlug, toolName, category }) {
             <CopyButton value={dataUri} />
           </div>
           <textarea value={dataUri} readOnly rows={8} className="mt-1.5 w-full rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2.5 font-mono text-xs text-slate-900 dark:border-slate-700 dark:bg-slate-900/40 dark:text-white" />
-          <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">{dataUri.length.toLocaleString()} characters</p>
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{dataUri.length.toLocaleString()} characters</p>
         </div>
       )}
     </div>

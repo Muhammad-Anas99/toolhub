@@ -87,7 +87,7 @@ export default function AdminLayout() {
           </div>
 
           <div>
-            <h2 className="px-1 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
+            <h2 className="px-1 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
               Quick Links
             </h2>
             <ul className="mt-2 space-y-0.5">
@@ -130,7 +130,7 @@ export default function AdminLayout() {
         </Container>
 
         <footer className="border-t border-slate-200 px-4 py-5 dark:border-slate-800 lg:px-8">
-          <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400 dark:text-slate-500">
+          <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
             <p>{`\u00a9 ${currentYear} ToolHub. All rights reserved.`}</p>
             <div className="flex items-center gap-4">
               <Link to="/privacy-policy" className="hover:text-slate-600 dark:hover:text-slate-300">

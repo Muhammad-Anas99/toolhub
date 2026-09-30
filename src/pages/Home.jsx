@@ -229,7 +229,7 @@ export default function Home() {
               </form>
 
               <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm lg:justify-start">
-                <span className="text-slate-400 dark:text-slate-500">Popular:</span>
+                <span className="text-slate-500 dark:text-slate-400">Popular:</span>
                 {[
                   { label: 'Image Compressor', to: '/tools/image-compressor' },
                   { label: 'Image Resizer', to: '/tools/image-resizer' },
@@ -489,7 +489,7 @@ export default function Home() {
 
                   <div className="flex-1 p-6">
                     <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Image Compressor</h3>
-                    <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                       Reduce file size without losing quality.
                     </p>
                     <div className="mt-4 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 px-4 py-8 text-center dark:border-slate-700 dark:bg-slate-800/50">
@@ -499,7 +499,7 @@ export default function Home() {
                       <p className="mt-3 text-xs font-medium text-slate-600 dark:text-slate-300">
                         Drop your image here
                       </p>
-                      <p className="mt-0.5 text-[11px] text-slate-400 dark:text-slate-500">or click to browse</p>
+                      <p className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">or click to browse</p>
                     </div>
                     <div className="btn-primary mt-4 w-full justify-center py-2 text-xs">
                       Compress Image

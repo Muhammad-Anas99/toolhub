@@ -52,7 +52,7 @@ export default function JwtDecoderTool({ toolSlug, toolName, category }) {
             </div>
             <pre className="mt-1.5 overflow-x-auto rounded-lg bg-slate-50 p-3 font-mono text-xs text-slate-900 dark:bg-slate-900/40 dark:text-white">{JSON.stringify(decoded.payload, null, 2)}</pre>
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             This shows the header and payload only. The signature isn&apos;t verified here, since that would require the issuer&apos;s secret or public key.
           </p>
         </div>

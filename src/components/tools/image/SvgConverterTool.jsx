@@ -74,7 +74,7 @@ export default function SvgConverterTool({ toolSlug, toolName, category }) {
             <img src={upload.previewUrl} alt="Uploaded SVG preview" className="h-16 w-16 rounded-lg object-contain" />
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{upload.file.name}</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500">{formatBytes(upload.file.size)}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{formatBytes(upload.file.size)}</p>
             </div>
             <button type="button" onClick={handleReset} className="btn-secondary text-xs">
               Reset
@@ -130,7 +130,7 @@ export default function SvgConverterTool({ toolSlug, toolName, category }) {
           )}
 
           {format === 'ico' && (
-            <p className="text-xs text-slate-400 dark:text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Builds a real multi-resolution .ico file (16&times;16, 32&times;32, 48&times;48 bundled together), the
               format browsers and Windows expect for a favicon or app icon.
             </p>
@@ -152,7 +152,7 @@ export default function SvgConverterTool({ toolSlug, toolName, category }) {
                 className="h-24 w-24 rounded-lg object-contain"
                 style={{ imageRendering: format === 'ico' || size <= 48 ? 'pixelated' : 'auto' }}
               />
-              <p className="text-xs text-slate-400 dark:text-slate-500">{formatBytes(resultBlob.size)}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{formatBytes(resultBlob.size)}</p>
               <button type="button" onClick={handleDownload} className="btn-primary text-sm">
                 <HiOutlineArrowDownTray className="h-4 w-4" />
                 Download {format.toUpperCase()}

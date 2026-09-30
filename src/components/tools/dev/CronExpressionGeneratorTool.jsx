@@ -98,11 +98,11 @@ export default function CronExpressionGeneratorTool({ toolSlug, toolName, catego
                 aria-label={FIELD_LABELS[i]}
                 className="w-full rounded-lg border border-slate-200 bg-white px-2 py-2 text-center font-mono text-sm text-slate-900 focus:border-brand-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
               />
-              <p className="mt-1 text-center text-[11px] text-slate-400 dark:text-slate-500">{FIELD_LABELS[i]}</p>
+              <p className="mt-1 text-center text-[11px] text-slate-500 dark:text-slate-400">{FIELD_LABELS[i]}</p>
             </div>
           ))}
         </div>
-        <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+        <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
           You can also paste a full 5-field cron expression into any field above.
         </p>
       </div>
@@ -140,7 +140,7 @@ export default function CronExpressionGeneratorTool({ toolSlug, toolName, catego
                   </li>
                 ))}
               </ul>
-              <p className="mt-2 text-xs text-slate-400 dark:text-slate-500">
+              <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
                 Calculated in your browser's local time zone.
               </p>
             </div>

@@ -62,7 +62,7 @@ export default function AdminSettings() {
   }
 
   if (loading) {
-    return <p className="text-sm text-slate-400 dark:text-slate-500">Loading settings...</p>
+    return <p className="text-sm text-slate-500 dark:text-slate-400">Loading settings...</p>
   }
 
   return (

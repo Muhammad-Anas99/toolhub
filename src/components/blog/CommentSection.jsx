@@ -109,7 +109,7 @@ export default function CommentSection({ slug }) {
         {isAuthenticated ? (
           ownComment ? (
             editingId === ownComment._id ? null : (
-              <p className="text-sm text-slate-400 dark:text-slate-500">
+              <p className="text-sm text-slate-500 dark:text-slate-400">
                 You've already commented on this post, edit your comment below instead of posting a new one.
               </p>
             )
@@ -130,10 +130,10 @@ export default function CommentSection({ slug }) {
         )}
       </div>
 
-      {!comments && !error && <p className="mt-6 text-sm text-slate-400 dark:text-slate-500">Loading comments...</p>}
+      {!comments && !error && <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">Loading comments...</p>}
 
       {comments && comments.length === 0 && (
-        <p className="mt-6 text-sm text-slate-400 dark:text-slate-500">No comments yet. Be the first to share your thoughts.</p>
+        <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">No comments yet. Be the first to share your thoughts.</p>
       )}
 
       {comments && comments.length > 0 && (
@@ -154,7 +154,7 @@ export default function CommentSection({ slug }) {
                     <span className="text-sm font-semibold text-slate-900 dark:text-white">
                       {comment.user?.name || 'Deleted user'}
                     </span>
-                    <span className="text-xs text-slate-400 dark:text-slate-500">
+                    <span className="text-xs text-slate-500 dark:text-slate-400">
                       {formatCommentDate(comment.createdAt)}
                       {comment.edited && ' \u00b7 edited'}
                     </span>

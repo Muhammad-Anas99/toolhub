@@ -53,7 +53,7 @@ export default function HttpHeaderCheckerTool({ toolSlug, toolName, category }) 
           <div className="card divide-y divide-slate-100 dark:divide-slate-800">
             {Object.entries(result.headers).map(([key, value]) => (
               <div key={key} className="flex flex-col gap-0.5 px-5 py-3">
-                <p className="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">{key}</p>
+                <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">{key}</p>
                 <p className="break-all font-mono text-sm text-slate-900 dark:text-white">{value}</p>
               </div>
             ))}

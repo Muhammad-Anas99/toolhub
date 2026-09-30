@@ -36,7 +36,7 @@ export default function CaseConverterTool({ toolSlug, toolName, category }) {
             return (
               <div key={option.id} className="flex items-center justify-between gap-4 px-5 py-3.5">
                 <div className="min-w-0">
-                  <p className="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">
+                  <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
                     {option.label}
                   </p>
                   <p className="mt-0.5 truncate text-sm text-slate-900 dark:text-white">{converted}</p>

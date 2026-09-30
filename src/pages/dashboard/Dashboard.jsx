@@ -187,7 +187,7 @@ export default function Dashboard() {
 
         <div className="mt-4">
           {recentActivity === null ? (
-            <p className="py-4 text-sm text-slate-400 dark:text-slate-500">Loading...</p>
+            <p className="py-4 text-sm text-slate-500 dark:text-slate-400">Loading...</p>
           ) : activityError ? (
             <p className="py-4 text-sm text-rose-600 dark:text-rose-400">{activityError}</p>
           ) : recentActivity.length > 0 ? (
@@ -204,10 +204,10 @@ export default function Dashboard() {
                         {entry.toolName}
                       </p>
                       {entry.action && (
-                        <p className="truncate text-xs text-slate-400 dark:text-slate-500">{entry.action}</p>
+                        <p className="truncate text-xs text-slate-500 dark:text-slate-400">{entry.action}</p>
                       )}
                     </div>
-                    <span className="flex-shrink-0 text-xs text-slate-400 dark:text-slate-500">
+                    <span className="flex-shrink-0 text-xs text-slate-500 dark:text-slate-400">
                       {formatRelativeDate(entry.createdAt)}
                     </span>
                   </li>
@@ -226,19 +226,19 @@ export default function Dashboard() {
         <h2 className="text-base font-semibold text-slate-900 dark:text-white">Account</h2>
         <dl className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <dt className="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">
+            <dt className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
               Name
             </dt>
             <dd className="mt-1 text-sm text-slate-900 dark:text-white">{user?.name}</dd>
           </div>
           <div>
-            <dt className="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">
+            <dt className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
               Email
             </dt>
             <dd className="mt-1 text-sm text-slate-900 dark:text-white">{user?.email}</dd>
           </div>
           <div>
-            <dt className="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">
+            <dt className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
               Email status
             </dt>
             <dd className="mt-1 text-sm">
@@ -250,7 +250,7 @@ export default function Dashboard() {
             </dd>
           </div>
           <div>
-            <dt className="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">
+            <dt className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
               Member since
             </dt>
             <dd className="mt-1 text-sm text-slate-900 dark:text-white">

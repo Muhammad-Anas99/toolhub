@@ -83,7 +83,7 @@ export default function MetaTagGeneratorTool({ toolSlug, toolName, category }) {
 
       {(fields.title || fields.description) && (
         <div className="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
-          <p className="text-xs text-slate-400 dark:text-slate-500">Search result preview</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">Search result preview</p>
           <p className="mt-2 truncate text-sm text-emerald-700 dark:text-emerald-400">{fields.canonicalUrl || 'https://example.com/page'}</p>
           <p className="truncate text-lg text-blue-700 dark:text-blue-400">{fields.title || 'Page Title'}</p>
           <p className="mt-1 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">{fields.description || 'Meta description preview...'}</p>

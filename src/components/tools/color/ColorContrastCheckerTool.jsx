@@ -38,9 +38,9 @@ export default function ColorContrastCheckerTool({ toolSlug, toolName, category 
             <p className="text-2xl font-semibold">Sample Text</p>
           </div>
           <div className="grid grid-cols-3 gap-3">
-            <div className="card p-4 text-center"><p className="text-2xl font-semibold text-slate-900 dark:text-white">{ratio.toFixed(2)}:1</p><p className="text-xs text-slate-400 dark:text-slate-500">Contrast ratio</p></div>
-            <div className="card p-4 text-center"><p className={`text-2xl font-semibold ${getWcagLevel(ratio) === 'Fail' ? 'text-rose-600' : 'text-emerald-600'}`}>{getWcagLevel(ratio)}</p><p className="text-xs text-slate-400 dark:text-slate-500">Normal text</p></div>
-            <div className="card p-4 text-center"><p className={`text-2xl font-semibold ${getWcagLevel(ratio, true) === 'Fail' ? 'text-rose-600' : 'text-emerald-600'}`}>{getWcagLevel(ratio, true)}</p><p className="text-xs text-slate-400 dark:text-slate-500">Large text</p></div>
+            <div className="card p-4 text-center"><p className="text-2xl font-semibold text-slate-900 dark:text-white">{ratio.toFixed(2)}:1</p><p className="text-xs text-slate-500 dark:text-slate-400">Contrast ratio</p></div>
+            <div className="card p-4 text-center"><p className={`text-2xl font-semibold ${getWcagLevel(ratio) === 'Fail' ? 'text-rose-600' : 'text-emerald-600'}`}>{getWcagLevel(ratio)}</p><p className="text-xs text-slate-500 dark:text-slate-400">Normal text</p></div>
+            <div className="card p-4 text-center"><p className={`text-2xl font-semibold ${getWcagLevel(ratio, true) === 'Fail' ? 'text-rose-600' : 'text-emerald-600'}`}>{getWcagLevel(ratio, true)}</p><p className="text-xs text-slate-500 dark:text-slate-400">Large text</p></div>
           </div>
         </>
       )}

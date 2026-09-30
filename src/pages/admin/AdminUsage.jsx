@@ -68,7 +68,7 @@ export default function AdminUsage() {
         <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 dark:border-slate-800 dark:bg-slate-900">
           <HiOutlineChartBar className="h-5 w-5 text-brand-500" />
           <div>
-            <p className="text-xs text-slate-400 dark:text-slate-500">Total conversions</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">Total conversions</p>
             <p className="text-lg font-semibold leading-tight text-slate-900 dark:text-white">
               {loadedTotal(meta.total)}
             </p>
@@ -109,7 +109,7 @@ export default function AdminUsage() {
 
             {items !== null && items.length === 0 && (
               <tr>
-                <td colSpan={9} className="px-4 py-10 text-center text-sm text-slate-400 dark:text-slate-500">
+                <td colSpan={9} className="px-4 py-10 text-center text-sm text-slate-500 dark:text-slate-400">
                   No conversions recorded yet.
                 </td>
               </tr>
@@ -124,16 +124,16 @@ export default function AdminUsage() {
                   <td className="px-4 py-3">
                     {item.user?.email ? (
                       <span>
-                        {item.user.name} <span className="text-slate-400 dark:text-slate-500">({item.user.email})</span>
+                        {item.user.name} <span className="text-slate-500 dark:text-slate-400">({item.user.email})</span>
                       </span>
                     ) : (
-                      <span className="text-slate-400 dark:text-slate-500">Anonymous</span>
+                      <span className="text-slate-500 dark:text-slate-400">Anonymous</span>
                     )}
                   </td>
                   <td className="px-4 py-3 font-mono text-xs">{item.ipAddress || 'Unknown'}</td>
                   <td className="px-4 py-3">{item.country || 'Unknown'}</td>
                   <td className="px-4 py-3 capitalize">{item.device || 'unknown'}</td>
-                  <td className="px-4 py-3 whitespace-nowrap text-xs text-slate-400 dark:text-slate-500">{formatDate(item.createdAt)}</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-xs text-slate-500 dark:text-slate-400">{formatDate(item.createdAt)}</td>
                   <td className="px-4 py-3 text-right">
                     <button
                       type="button"

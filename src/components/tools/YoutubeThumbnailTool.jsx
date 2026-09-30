@@ -106,7 +106,7 @@ export default function YoutubeThumbnailTool({ toolSlug, toolName, category }) {
                 <div className="flex items-center justify-between gap-3 p-4">
                   <div>
                     <p className="text-sm font-medium text-slate-900 dark:text-white">{quality.label}</p>
-                    <p className="text-xs text-slate-400 dark:text-slate-500">{quality.dimensions}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{quality.dimensions}</p>
                   </div>
                   <div className="flex flex-shrink-0 gap-2">
                     <a

@@ -92,7 +92,7 @@ export default function CameraScannerTool({ toolSlug, toolName, category, format
 
       {error && <p className="text-sm text-rose-600 dark:text-rose-400">{error}</p>}
 
-      {scanning && <p className="text-center text-sm text-slate-400 dark:text-slate-500">Point your camera at a {label.toLowerCase()}...</p>}
+      {scanning && <p className="text-center text-sm text-slate-500 dark:text-slate-400">Point your camera at a {label.toLowerCase()}...</p>}
 
       {result && (
         <div className="card flex items-center justify-between gap-4 p-4">

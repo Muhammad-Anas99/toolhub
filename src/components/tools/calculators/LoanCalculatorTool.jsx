@@ -25,9 +25,9 @@ export default function LoanCalculatorTool({ toolSlug, toolName, category }) {
       </div>
       {result && (
         <div className="grid grid-cols-3 gap-3">
-          <div className="card p-4 text-center"><p className="text-xs text-slate-400 dark:text-slate-500">Monthly payment</p><p className="text-xl font-semibold text-slate-900 dark:text-white">{result.monthlyPayment.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p></div>
-          <div className="card p-4 text-center"><p className="text-xs text-slate-400 dark:text-slate-500">Total paid</p><p className="text-xl font-semibold text-slate-900 dark:text-white">{result.totalPaid.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p></div>
-          <div className="card p-4 text-center"><p className="text-xs text-slate-400 dark:text-slate-500">Total interest</p><p className="text-xl font-semibold text-amber-600 dark:text-amber-400">{result.totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p></div>
+          <div className="card p-4 text-center"><p className="text-xs text-slate-500 dark:text-slate-400">Monthly payment</p><p className="text-xl font-semibold text-slate-900 dark:text-white">{result.monthlyPayment.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p></div>
+          <div className="card p-4 text-center"><p className="text-xs text-slate-500 dark:text-slate-400">Total paid</p><p className="text-xl font-semibold text-slate-900 dark:text-white">{result.totalPaid.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p></div>
+          <div className="card p-4 text-center"><p className="text-xs text-slate-500 dark:text-slate-400">Total interest</p><p className="text-xl font-semibold text-amber-600 dark:text-amber-400">{result.totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p></div>
         </div>
       )}
     </div>

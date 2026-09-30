@@ -139,7 +139,7 @@ export default function MegaMenu({ onNavigate }) {
                 direct, one-click links. */}
             <div className="flex-1 p-4">
               <div className="mb-3 flex items-center justify-between">
-                <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                   Popular in {activeCategory.name}
                 </p>
                 <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${activeColors.bg} ${activeColors.text}`}>

@@ -50,7 +50,7 @@ export default function FindAndReplaceTool({ toolSlug, toolName, category }) {
         <label className="flex items-center gap-1.5"><input type="checkbox" checked={caseSensitive} onChange={(e) => setCaseSensitive(e.target.checked)} /> Case sensitive</label>
         <label className="flex items-center gap-1.5"><input type="checkbox" checked={wholeWord} onChange={(e) => setWholeWord(e.target.checked)} /> Whole word only</label>
       </div>
-      {find && <p className="text-xs text-slate-400 dark:text-slate-500">{matchCount} match{matchCount === 1 ? '' : 'es'} found</p>}
+      {find && <p className="text-xs text-slate-500 dark:text-slate-400">{matchCount} match{matchCount === 1 ? '' : 'es'} found</p>}
       <div>
         <div className="flex items-center justify-between">
           <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Result</label>

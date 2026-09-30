@@ -26,11 +26,11 @@ export default function LineCounterTool({ toolSlug, toolName, category }) {
       <div className="grid grid-cols-2 gap-3">
         <div className="card p-4 text-center">
           <p className="text-2xl font-semibold text-slate-900 dark:text-white">{text ? lineCount : 0}</p>
-          <p className="text-xs text-slate-400 dark:text-slate-500">Total lines</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">Total lines</p>
         </div>
         <div className="card p-4 text-center">
           <p className="text-2xl font-semibold text-slate-900 dark:text-white">{nonEmptyLines}</p>
-          <p className="text-xs text-slate-400 dark:text-slate-500">Non-empty lines</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">Non-empty lines</p>
         </div>
       </div>
     </div>

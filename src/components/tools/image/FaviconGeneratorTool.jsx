@@ -81,7 +81,7 @@ export default function FaviconGeneratorTool({ toolSlug, toolName, category }) {
             <img src={upload.previewUrl} alt="Uploaded preview" className="h-16 w-16 rounded-lg object-contain" />
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{upload.file.name}</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500">{formatBytes(upload.file.size)}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{formatBytes(upload.file.size)}</p>
             </div>
             <button type="button" onClick={handleReset} className="btn-secondary text-xs">
               Reset
@@ -108,7 +108,7 @@ export default function FaviconGeneratorTool({ toolSlug, toolName, category }) {
                       style={{ imageRendering: result.size <= 48 ? 'pixelated' : 'auto' }}
                     />
                     <p className="text-center text-xs font-medium text-slate-700 dark:text-slate-300">{result.label}</p>
-                    <p className="text-[11px] text-slate-400 dark:text-slate-500">{formatBytes(result.blob.size)}</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">{formatBytes(result.blob.size)}</p>
                     <button
                       type="button"
                       onClick={() => downloadBlob(result.blob, result.filename)}

@@ -28,7 +28,7 @@ export default function RandomNamePickerTool({ toolSlug, toolName, category }) {
           placeholder={'Alice\nBob\nCharlie'}
           className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
         />
-        <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">{names.length} name{names.length === 1 ? '' : 's'} entered</p>
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{names.length} name{names.length === 1 ? '' : 's'} entered</p>
       </div>
       <button type="button" onClick={pick} disabled={names.length === 0} className="btn-primary disabled:opacity-40">
         <HiOutlineSparkles className="h-4 w-4" />

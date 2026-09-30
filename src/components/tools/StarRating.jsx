@@ -38,7 +38,7 @@ export default function StarRating({ ratingSum, ratingCount, userRating, onRate 
           </button>
         ))}
       </div>
-      <span className="text-xs text-slate-400 dark:text-slate-500">
+      <span className="text-xs text-slate-500 dark:text-slate-400">
         {ratingCount >= MIN_RATINGS_TO_SHOW_COUNT
           ? `${average.toFixed(1)} (${ratingCount} rating${ratingCount === 1 ? '' : 's'})`
           : 'Not enough ratings yet'}

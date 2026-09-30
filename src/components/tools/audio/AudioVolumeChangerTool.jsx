@@ -67,7 +67,7 @@ export default function AudioVolumeChangerTool({ toolSlug, toolName, category })
           <div className="flex items-center gap-4 rounded-xl bg-slate-50 p-4 dark:bg-slate-900/40">
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{upload.file.name}</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500">{formatBytes(upload.file.size)}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{formatBytes(upload.file.size)}</p>
             </div>
             <button type="button" onClick={handleReset} className="btn-secondary text-xs">
               Reset
@@ -89,7 +89,7 @@ export default function AudioVolumeChangerTool({ toolSlug, toolName, category })
               aria-label="Volume percentage"
               className="mt-1 h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-brand-600 dark:bg-slate-700"
             />
-            <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+            <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
               100% is unchanged. Above 100% may clip if the original audio is already loud.
             </p>
           </div>

@@ -50,7 +50,7 @@ export default function WhiteNoiseMixerTool({ toolSlug, toolName, category }) {
           <div key={id}>
             <div className="flex items-center justify-between">
               <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{label}</label>
-              <span className="text-xs text-slate-400 dark:text-slate-500">{volumes[id]}%</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400">{volumes[id]}%</span>
             </div>
             <input
               type="range"
@@ -60,7 +60,7 @@ export default function WhiteNoiseMixerTool({ toolSlug, toolName, category }) {
               onChange={(e) => updateVolume(id, Number(e.target.value))}
               className="mt-1 w-full"
             />
-            <p className="text-xs text-slate-400 dark:text-slate-500">{description}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{description}</p>
           </div>
         ))}
       </div>

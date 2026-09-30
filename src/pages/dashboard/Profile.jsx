@@ -155,7 +155,7 @@ export default function Profile() {
                 />
               </div>
             </div>
-            <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">
+            <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
               JPG, PNG, WEBP or GIF. Max {MAX_AVATAR_SIZE_MB} MB.
             </p>
           </div>

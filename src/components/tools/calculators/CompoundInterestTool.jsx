@@ -59,8 +59,8 @@ export default function CompoundInterestTool({ toolSlug, toolName, category }) {
       </div>
       {result && (
         <div className="grid grid-cols-2 gap-3">
-          <div className="card p-4 text-center"><p className="text-xs text-slate-400 dark:text-slate-500">Final amount</p><p className="text-2xl font-semibold text-slate-900 dark:text-white">{result.finalAmount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p></div>
-          <div className="card p-4 text-center"><p className="text-xs text-slate-400 dark:text-slate-500">Interest earned</p><p className="text-2xl font-semibold text-emerald-600 dark:text-emerald-400">{result.interestEarned.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p></div>
+          <div className="card p-4 text-center"><p className="text-xs text-slate-500 dark:text-slate-400">Final amount</p><p className="text-2xl font-semibold text-slate-900 dark:text-white">{result.finalAmount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p></div>
+          <div className="card p-4 text-center"><p className="text-xs text-slate-500 dark:text-slate-400">Interest earned</p><p className="text-2xl font-semibold text-emerald-600 dark:text-emerald-400">{result.interestEarned.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p></div>
         </div>
       )}
       {yearsToDouble !== null && (

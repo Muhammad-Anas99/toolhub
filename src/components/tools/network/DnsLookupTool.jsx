@@ -50,7 +50,7 @@ export default function DnsLookupTool({ toolSlug, toolName, category }) {
           {Object.entries(results).map(([type, records]) => (
             records.length > 0 && (
               <div key={type} className="card p-4">
-                <p className="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">{type} Records</p>
+                <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">{type} Records</p>
                 <div className="mt-2 space-y-1">
                   {records.map((r, i) => (
                     <p key={i} className="break-all font-mono text-sm text-slate-900 dark:text-white">

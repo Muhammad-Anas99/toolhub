@@ -26,7 +26,7 @@ export default function TriviaFlashcardsTool({ toolSlug, toolName, category }) {
         {!revealed ? (
           <>
             <p className="text-lg font-medium text-slate-900 dark:text-white">{card.q}</p>
-            <span className="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500">
+            <span className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
               <HiOutlineEye className="h-4 w-4" />
               Click to reveal answer
             </span>

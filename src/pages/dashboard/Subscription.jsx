@@ -52,21 +52,21 @@ export default function Subscription() {
       {usage && (
         <div className="mt-6 card p-5">
           <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Your usage</h3>
-          <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
             The Free plan has no usage limit today — this is just a record of your activity.
           </p>
           <div className="mt-4 grid grid-cols-3 gap-4 text-center">
             <div>
               <p className="text-2xl font-bold text-slate-900 dark:text-white">{usage.usage.today}</p>
-              <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">Today</p>
+              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Today</p>
             </div>
             <div>
               <p className="text-2xl font-bold text-slate-900 dark:text-white">{usage.usage.month}</p>
-              <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">This month</p>
+              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">This month</p>
             </div>
             <div>
               <p className="text-2xl font-bold text-slate-900 dark:text-white">{usage.usage.total}</p>
-              <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">All time</p>
+              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">All time</p>
             </div>
           </div>
         </div>

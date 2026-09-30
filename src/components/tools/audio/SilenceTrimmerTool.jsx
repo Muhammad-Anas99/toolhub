@@ -103,7 +103,7 @@ export default function SilenceTrimmerTool({ toolSlug, toolName, category }) {
           <div className="flex items-center gap-4 rounded-xl bg-slate-50 p-4 dark:bg-slate-900/40">
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{upload.file.name}</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 {formatBytes(upload.file.size)}
                 {duration != null && ` \u00b7 ${formatDuration(duration)}`}
               </p>
@@ -132,7 +132,7 @@ export default function SilenceTrimmerTool({ toolSlug, toolName, category }) {
                   aria-label="Silence detection sensitivity"
                   className="mt-1 h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-brand-600 dark:bg-slate-700"
                 />
-                <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+                <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
                   Anything quieter than this is treated as silence at the start and end. Raise it if quiet background
                   noise is being kept; lower it if real audio is getting cut off.
                 </p>

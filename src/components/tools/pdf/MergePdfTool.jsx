@@ -65,7 +65,7 @@ export default function MergePdfTool({ toolSlug, toolName, category }) {
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{file.name}</p>
-                  <p className="text-xs text-slate-400 dark:text-slate-500">{formatBytes(file.size)}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">{formatBytes(file.size)}</p>
                 </div>
                 <div className="flex flex-shrink-0 items-center gap-1">
                   <button

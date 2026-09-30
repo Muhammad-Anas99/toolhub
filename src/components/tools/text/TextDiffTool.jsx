@@ -63,7 +63,7 @@ export default function TextDiffTool({ toolSlug, toolName, category }) {
         </div>
       </div>
 
-      <p className="text-xs text-slate-400 dark:text-slate-500">Supports up to {MAX_LINES.toLocaleString()} lines per side.</p>
+      <p className="text-xs text-slate-500 dark:text-slate-400">Supports up to {MAX_LINES.toLocaleString()} lines per side.</p>
 
       <div className="flex flex-wrap gap-2">
         <button type="button" onClick={handleCompare} className="btn-primary text-sm">

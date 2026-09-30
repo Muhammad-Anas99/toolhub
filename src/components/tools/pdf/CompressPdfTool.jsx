@@ -134,7 +134,7 @@ export default function CompressPdfTool({ toolSlug, toolName, category }) {
                 >
                   <div className="min-w-0">
                     <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{file.name}</p>
-                    <p className="text-xs text-slate-400 dark:text-slate-500">{formatBytes(file.size)}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{formatBytes(file.size)}</p>
                   </div>
                   <button
                     type="button"
@@ -157,7 +157,7 @@ export default function CompressPdfTool({ toolSlug, toolName, category }) {
 
             <div>
               <div className="flex items-center justify-between">
-                <span className="text-xs text-slate-400 dark:text-slate-500">Compression Level</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">Compression Level</span>
                 <span className="text-sm font-semibold text-brand-600 dark:text-brand-400">{quality}%</span>
               </div>
               <input
@@ -170,7 +170,7 @@ export default function CompressPdfTool({ toolSlug, toolName, category }) {
                 aria-label="Compression level"
                 className="mt-1 h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-brand-600 dark:bg-slate-700"
               />
-              <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+              <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
                 Lower quality means a smaller file. 65% is a good starting point for most PDFs.
               </p>
 
@@ -210,7 +210,7 @@ export default function CompressPdfTool({ toolSlug, toolName, category }) {
                 >
                   <div className="min-w-0">
                     <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{result.filename}</p>
-                    <p className="text-xs text-slate-400 dark:text-slate-500">
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
                       {formatBytes(result.file.size)} &rarr; {formatBytes(result.blob.size)}
                       {percentSmaller > 0 && ` \u00b7 ${percentSmaller}% smaller`}
                     </p>

@@ -42,7 +42,7 @@ export default function DownloadsList() {
       {error && <ErrorMessage message={error} onDismiss={() => setError(null)} />}
 
       {downloads === null && !error ? (
-        <p className="text-sm text-slate-400 dark:text-slate-500">Loading...</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Loading...</p>
       ) : downloads && downloads.length > 0 ? (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {downloads.map((entry) => {
@@ -79,7 +79,7 @@ export default function DownloadsList() {
                     </div>
                     <p className="truncate text-xs font-semibold text-slate-900 dark:text-white">{entry.toolName}</p>
                   </div>
-                  <p className="mt-1 truncate text-[11px] text-slate-400 dark:text-slate-500">
+                  <p className="mt-1 truncate text-[11px] text-slate-500 dark:text-slate-400">
                     {formatBytes(entry.fileSize)} &middot; {formatDate(entry.createdAt)}
                   </p>
                   <div className="mt-2 flex items-center justify-between gap-1">

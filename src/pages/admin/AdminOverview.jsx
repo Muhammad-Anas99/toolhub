@@ -71,7 +71,7 @@ function KpiCard({ label, value, icon: Icon, sublabel, accent, trend, sparklineP
         {trend !== undefined && trend !== null && <TrendBadge percentChange={trend} />}
       </div>
       <p className="mt-3 text-3xl font-bold text-slate-900 dark:text-white">{value ?? '\u2014'}</p>
-      <p className="mt-0.5 text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">{label}</p>
+      <p className="mt-0.5 text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">{label}</p>
       {sublabel && <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">{sublabel}</p>}
       {sparklinePoints && sparklinePoints.length >= 2 && (
         <div className="mt-2">
@@ -154,7 +154,7 @@ export default function AdminOverview() {
 
       {error && <ErrorMessage message={error} onDismiss={() => setError(null)} />}
 
-      {!data && !error && <p className="text-sm text-slate-400 dark:text-slate-500">Loading analytics...</p>}
+      {!data && !error && <p className="text-sm text-slate-500 dark:text-slate-400">Loading analytics...</p>}
 
       {data && (
         <div className="space-y-6">
@@ -203,7 +203,7 @@ export default function AdminOverview() {
                   </div>
                   <div>
                     <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Site Activity</h2>
-                    <p className="text-xs text-slate-400 dark:text-slate-500">
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
                       Total visits over {RANGE_LABELS[range] || 'the selected period'}
                     </p>
                   </div>
@@ -212,7 +212,7 @@ export default function AdminOverview() {
               </div>
               <p className="mt-4 text-3xl font-bold text-slate-900 dark:text-white">
                 {data.activityTrend?.current ?? '\u2014'}
-                <span className="ml-2 text-sm font-normal text-slate-400 dark:text-slate-500">total conversions</span>
+                <span className="ml-2 text-sm font-normal text-slate-500 dark:text-slate-400">total conversions</span>
               </p>
               <div className="mt-3">
                 <ActivityChart points={dailyPoints} labels={dayLabels} />
@@ -229,7 +229,7 @@ export default function AdminOverview() {
                   View All
                 </a>
               </div>
-              <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">Over {RANGE_LABELS[range] || 'the selected period'}</p>
+              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Over {RANGE_LABELS[range] || 'the selected period'}</p>
               {data.topTools && data.topTools.length > 0 ? (
                 <ul className="mt-4 space-y-4">
                   {data.topTools.map((row, index) => {
@@ -249,7 +249,7 @@ export default function AdminOverview() {
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center justify-between text-sm">
                             <span className="truncate font-medium text-slate-700 dark:text-slate-300">{row.toolName || 'Unknown'}</span>
-                            <span className="flex-shrink-0 text-slate-400 dark:text-slate-500">{row.count}</span>
+                            <span className="flex-shrink-0 text-slate-500 dark:text-slate-400">{row.count}</span>
                           </div>
                           <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
                             <div className="h-full rounded-full bg-brand-500" style={{ width: `${percent}%` }} />
@@ -260,7 +260,7 @@ export default function AdminOverview() {
                   })}
                 </ul>
               ) : (
-                <p className="mt-4 text-sm text-slate-400 dark:text-slate-500">No conversions logged yet.</p>
+                <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">No conversions logged yet.</p>
               )}
             </article>
           </section>
@@ -271,13 +271,13 @@ export default function AdminOverview() {
                 <HiOutlineSwatch className="h-4 w-4 text-brand-500" />
                 <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Most-used Categories</h2>
               </div>
-              <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">Over {RANGE_LABELS[range] || 'the selected period'}</p>
+              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Over {RANGE_LABELS[range] || 'the selected period'}</p>
               {categorySegments && categorySegments.length > 0 ? (
                 <div className="mt-5">
                   <DonutChart segments={categorySegments} centerValue={categoryTotal} centerLabel="conversions" />
                 </div>
               ) : (
-                <p className="mt-4 text-sm text-slate-400 dark:text-slate-500">No conversions logged yet.</p>
+                <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">No conversions logged yet.</p>
               )}
             </article>
 
@@ -286,7 +286,7 @@ export default function AdminOverview() {
                 <HiOutlineGlobeAmericas className="h-4 w-4 text-brand-500" />
                 <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Top Countries</h2>
               </div>
-              <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">Over {RANGE_LABELS[range] || 'the selected period'}</p>
+              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Over {RANGE_LABELS[range] || 'the selected period'}</p>
               {data.countries?.length > 0 ? (
                 <ul className="mt-4 space-y-2.5">
                   {data.countries.map((row) => {
@@ -310,13 +310,13 @@ export default function AdminOverview() {
                           <HiOutlineGlobeAmericas className="h-4 w-4 flex-shrink-0 text-slate-300 dark:text-slate-600" aria-hidden="true" />
                         )}
                         <span className="min-w-0 flex-1 truncate text-slate-600 dark:text-slate-300">{name}</span>
-                        <span className="flex-shrink-0 text-slate-400 dark:text-slate-500">{row.count}</span>
+                        <span className="flex-shrink-0 text-slate-500 dark:text-slate-400">{row.count}</span>
                       </li>
                     )
                   })}
                 </ul>
               ) : (
-                <p className="mt-4 text-sm text-slate-400 dark:text-slate-500">No data yet.</p>
+                <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">No data yet.</p>
               )}
             </article>
 
@@ -325,7 +325,7 @@ export default function AdminOverview() {
                 <HiOutlineDevicePhoneMobile className="h-4 w-4 text-brand-500" />
                 <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Devices</h2>
               </div>
-              <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">Over {RANGE_LABELS[range] || 'the selected period'}</p>
+              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Over {RANGE_LABELS[range] || 'the selected period'}</p>
               {devicesWithPercent.length > 0 ? (
                 <>
                   <div className="mt-4 space-y-4">
@@ -336,7 +336,7 @@ export default function AdminOverview() {
                             <DeviceIcon device={row.device} />
                             {row.device || 'Unknown'}
                           </span>
-                          <span className="text-slate-400 dark:text-slate-500">
+                          <span className="text-slate-500 dark:text-slate-400">
                             {row.count} <span className="ml-1 text-xs">({row.percent}%)</span>
                           </span>
                         </div>
@@ -359,7 +359,7 @@ export default function AdminOverview() {
                   )}
                 </>
               ) : (
-                <p className="mt-4 text-sm text-slate-400 dark:text-slate-500">No data yet.</p>
+                <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">No data yet.</p>
               )}
             </article>
           </section>

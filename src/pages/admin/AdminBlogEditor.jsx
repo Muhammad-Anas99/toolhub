@@ -75,7 +75,7 @@ export default function AdminBlogEditor() {
   }
 
   if (loading) {
-    return <p className="text-sm text-slate-400 dark:text-slate-500">Loading post...</p>
+    return <p className="text-sm text-slate-500 dark:text-slate-400">Loading post...</p>
   }
 
   return (
@@ -129,7 +129,7 @@ export default function AdminBlogEditor() {
               disabled
               className="mt-1.5 w-full cursor-not-allowed rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400"
             />
-            <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
               The slug can&apos;t be changed after a post is created — it may already be linked to.
             </p>
           </div>
@@ -196,7 +196,7 @@ export default function AdminBlogEditor() {
           </div>
           <div>
             <p className="text-sm font-medium text-slate-700 dark:text-slate-300">Read time</p>
-            <p className="mt-1.5 flex h-[42px] items-center text-sm text-slate-400 dark:text-slate-500">
+            <p className="mt-1.5 flex h-[42px] items-center text-sm text-slate-500 dark:text-slate-400">
               Calculated automatically from your content{post.readTime ? ` (currently ${post.readTime})` : ''}
             </p>
           </div>

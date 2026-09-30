@@ -26,6 +26,7 @@ export default function CopyButton({ value, label = 'Copy', className = '' }) {
     <button
       type="button"
       onClick={handleCopy}
+      aria-label={copied ? 'Copied' : label || 'Copy'}
       className={`btn-secondary text-xs ${className}`}
     >
       {copied ? (

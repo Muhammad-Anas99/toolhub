@@ -29,7 +29,7 @@ function niceMax(rawMax) {
 export default function ActivityChart({ points, labels, width = 760 }) {
   if (!points || points.length < 2) {
     return (
-      <div className="flex h-[220px] items-center justify-center text-sm text-slate-400 dark:text-slate-500">
+      <div className="flex h-[220px] items-center justify-center text-sm text-slate-500 dark:text-slate-400">
         Not enough data yet to show a chart.
       </div>
     )

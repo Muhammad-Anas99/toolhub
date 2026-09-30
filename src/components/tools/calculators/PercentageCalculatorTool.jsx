@@ -42,7 +42,7 @@ export default function PercentageCalculatorTool({ toolSlug, toolName, category 
       </div>
       {valid && (
         <div className="card p-4 text-center">
-          <p className="text-xs text-slate-400 dark:text-slate-500">{label}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">{label}</p>
           <p className="text-2xl font-semibold text-slate-900 dark:text-white">{result.toLocaleString(undefined, { maximumFractionDigits: 4 })}{mode !== 'percentOf' ? '%' : ''}</p>
         </div>
       )}

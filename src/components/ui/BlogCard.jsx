@@ -28,7 +28,7 @@ export default function BlogCard({ post }) {
         <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
           {post.excerpt}
         </p>
-        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400 dark:text-slate-500">
+        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
           <span className="inline-flex items-center gap-1">
             <HiOutlineCalendar className="h-3.5 w-3.5" />
             {formatDate(post.createdAt)}

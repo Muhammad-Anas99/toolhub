@@ -74,7 +74,7 @@ export default function HistoryList({ emptyTitle, emptyDescription }) {
       {error && <ErrorMessage message={error} onDismiss={() => setError(null)} />}
 
       {entries === null && !error ? (
-        <p className="text-sm text-slate-400 dark:text-slate-500">Loading...</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Loading...</p>
       ) : entries && entries.length > 0 ? (
         <>
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
@@ -144,7 +144,7 @@ export default function HistoryList({ emptyTitle, emptyDescription }) {
                     <p className="mt-0.5 truncate text-xs text-slate-500 dark:text-slate-400">
                       {entry.action || 'Used'}
                     </p>
-                    <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">
+                    <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
                       {formatDate(entry.createdAt)}
                     </p>
                   </div>
