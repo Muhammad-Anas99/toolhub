@@ -25,7 +25,7 @@ export default function ToolCard({ tool }) {
   const cardContent = (
     <>
       <div className="flex items-start justify-between">
-        <div className={`flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-200 group-hover:scale-110 ${colors.bg} ${colors.text}`}>
+        <div className={`flex h-11 w-11 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-110 ${colors.bg} ${colors.text}`}>
           <Icon className="h-5 w-5" />
         </div>
         {badgeKey && (
