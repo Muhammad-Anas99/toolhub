@@ -1,9 +1,19 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { motion } from 'framer-motion'
 import { compoundInterest } from '../../../lib/calculatorUtils.js'
 import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 
 const inputClass = 'mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white'
+
+// Same values as FiletimeConverterTool.jsx and TimestampConverterTool.jsx -
+// a result appearing is a genuine feedback moment, matching the
+// ui-animation skill's enter curve and sub-300ms duration rule.
+const resultReveal = {
+  initial: { opacity: 0, y: 8 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
+}
 
 // Matches how people actually describe compounding frequency ("daily
 // compound interest calculator" and "monthly compound interest
@@ -58,15 +68,19 @@ export default function CompoundInterestTool({ toolSlug, toolName, category }) {
         <div><label className="text-sm font-medium text-slate-700 dark:text-slate-300">Years</label><input type="number" value={years} onChange={(e) => setYears(e.target.value)} className={inputClass} /></div>
       </div>
       {result && (
-        <div className="grid grid-cols-2 gap-3">
+        <motion.div {...resultReveal} className="grid grid-cols-2 gap-3">
           <div className="card p-4 text-center"><p className="text-xs text-slate-500 dark:text-slate-400">Final amount</p><p className="text-2xl font-semibold text-slate-900 dark:text-white">{result.finalAmount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p></div>
           <div className="card p-4 text-center"><p className="text-xs text-slate-500 dark:text-slate-400">Interest earned</p><p className="text-2xl font-semibold text-emerald-600 dark:text-emerald-400">{result.interestEarned.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p></div>
-        </div>
+        </motion.div>
       )}
       {yearsToDouble !== null && (
-        <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900/50 dark:text-slate-300">
+        <motion.div
+          {...resultReveal}
+          transition={{ ...resultReveal.transition, delay: 0.06 }}
+          className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900/50 dark:text-slate-300"
+        >
           <strong className="text-slate-900 dark:text-white">Rule of 72 estimate:</strong> at {rate}%, your money roughly doubles every <strong className="text-slate-900 dark:text-white">{yearsToDouble.toFixed(1)} years</strong>. This is a quick mental-math approximation (72 \u00f7 rate), not the precise result above.
-        </div>
+        </motion.div>
       )}
     </div>
   )

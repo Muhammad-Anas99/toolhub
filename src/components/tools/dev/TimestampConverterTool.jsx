@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import { unixToDate, dateToUnix, formatDateForDisplay } from '../../../lib/devToolsUtils.js'
 import CopyButton from '../CopyButton.jsx'
 import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 import PropTypes from 'prop-types'
+
+// Same values as FiletimeConverterTool.jsx - a result appearing is a
+// genuine feedback moment (happens once per conversion, not per keystroke
+// since the block stays mounted while only its content updates), matching
+// the ui-animation skill's enter curve and sub-300ms duration rule.
+const resultReveal = {
+  initial: { opacity: 0, y: 8 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
+}
 
 const DISCORD_STYLES = [
   { value: 'F', label: 'Long Date/Time', example: 'Monday, October 31, 2022 12:26 AM' },
@@ -80,7 +91,7 @@ export default function TimestampConverterTool({ toolSlug, toolName, category })
         )}
 
         {display && (
-          <dl className="mt-4 space-y-2.5">
+          <motion.dl {...resultReveal} className="mt-4 space-y-2.5">
             {[
               ['Local time', display.local],
               ['UTC', display.utc],
@@ -119,7 +130,7 @@ export default function TimestampConverterTool({ toolSlug, toolName, category })
                 <CopyButton value={`<t:${unixInput.trim()}:${discordStyle}>`} label="" className="flex-shrink-0 px-1.5" />
               </div>
             </div>
-          </dl>
+          </motion.dl>
         )}
       </div>
 
@@ -135,10 +146,10 @@ export default function TimestampConverterTool({ toolSlug, toolName, category })
           className="mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
         />
         {unixFromDate !== null && (
-          <div className="mt-3 flex items-center justify-between gap-3">
+          <motion.div {...resultReveal} className="mt-3 flex items-center justify-between gap-3">
             <span className="font-mono text-sm text-slate-900 dark:text-white">{unixFromDate}</span>
             <CopyButton value={String(unixFromDate)} />
-          </div>
+          </motion.div>
         )}
       </div>
     </div>

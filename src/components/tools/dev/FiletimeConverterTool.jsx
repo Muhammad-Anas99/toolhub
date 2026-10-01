@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import { motion } from 'framer-motion'
 import CopyButton from '../CopyButton.jsx'
 import { useHistoryLogger } from '../../../hooks/useHistoryLogger.js'
 import {
@@ -17,6 +18,18 @@ import {
 // 2025-01-01 00:00:00 UTC. A fixed example rather than "right now" so the
 // prerendered page and the browser render identical text on load.
 const EXAMPLE_FILETIME = '133801632000000000'
+
+// A result appearing is a genuine feedback moment - it happens once per
+// conversion, not on every keystroke, since these blocks only mount when
+// the relevant result first becomes non-null (React doesn't replay this on
+// later re-renders where the same block stays mounted and only its content
+// changes). Values match the ui-animation skill's enter curve and the
+// "keep routine UI animation under 300ms" rule.
+const resultReveal = {
+  initial: { opacity: 0, y: 8 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
+}
 
 const inputClass =
   'mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 font-mono text-sm text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-white'
@@ -149,7 +162,7 @@ export default function FiletimeConverterTool({ toolSlug, toolName, category }) 
         )}
 
         {info && (
-          <dl className="mt-4 space-y-2.5">
+          <motion.dl {...resultReveal} className="mt-4 space-y-2.5">
             <ResultRow label="UTC (ISO 8601, 100 ns precision)" value={info.iso} />
             {mounted && (
               <ResultRow
@@ -164,7 +177,7 @@ export default function FiletimeConverterTool({ toolSlug, toolName, category }) 
             <ResultRow label="dwHighDateTime" value={info.highDword.toString()} />
             <ResultRow label="dwLowDateTime" value={info.lowDword.toString()} />
             <ResultRow label=".NET DateTime ticks" value={info.dotNetTicks} />
-          </dl>
+          </motion.dl>
         )}
       </div>
 
@@ -202,12 +215,12 @@ export default function FiletimeConverterTool({ toolSlug, toolName, category }) 
         {dateResult && !dateResult.ok && <p className="mt-2 text-sm text-rose-500">{dateResult.error}</p>}
 
         {dateInfo && (
-          <dl className="mt-4 space-y-2.5">
+          <motion.dl {...resultReveal} className="mt-4 space-y-2.5">
             <ResultRow label="FILETIME (decimal)" value={dateInfo.decimal} />
             <ResultRow label="Hexadecimal" value={toHex(dateInfo.value)} />
             <ResultRow label="dwHighDateTime" value={dateInfo.highDword.toString()} />
             <ResultRow label="dwLowDateTime" value={dateInfo.lowDword.toString()} />
-          </dl>
+          </motion.dl>
         )}
       </div>
 
@@ -229,7 +242,7 @@ export default function FiletimeConverterTool({ toolSlug, toolName, category }) 
         />
 
         {batch && batch.rows.length > 0 && (
-          <div className="mt-4">
+          <motion.div {...resultReveal} className="mt-4">
             <div className="flex items-center justify-between gap-3">
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 {batchOkCount} of {batch.rows.length} converted
@@ -261,7 +274,7 @@ export default function FiletimeConverterTool({ toolSlug, toolName, category }) 
                 </tbody>
               </table>
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </div>
