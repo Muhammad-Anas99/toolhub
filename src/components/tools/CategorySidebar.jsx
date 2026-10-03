@@ -77,14 +77,18 @@ function SidebarItem({ active, onSelect, slug, icon: Icon, iconClasses, children
 
   if (onSelect) {
     return (
-      <button type="button" onClick={() => onSelect(slug)} className={className}>
+      <button type="button" onClick={() => onSelect(slug)} aria-pressed={active} className={className}>
         {content}
       </button>
     )
   }
 
   return (
-    <Link to={slug === 'all' ? '/tools' : `/tools?category=${slug}`} className={className}>
+    <Link
+      to={slug === 'all' ? '/tools' : `/tools?category=${slug}`}
+      aria-current={active ? 'page' : undefined}
+      className={className}
+    >
       {content}
     </Link>
   )

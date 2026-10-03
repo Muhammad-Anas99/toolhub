@@ -71,6 +71,7 @@ export default function Blog() {
               <Link
                 key={category}
                 to={category === 'all' ? '/blog' : `/blog?category=${category}`}
+                aria-current={activeCategory === category ? 'page' : undefined}
                 className={`rounded-full px-4 py-1.5 text-sm font-medium capitalize transition-colors ${
                   activeCategory === category
                     ? 'bg-brand-600 text-white'

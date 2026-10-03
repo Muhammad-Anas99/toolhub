@@ -162,6 +162,7 @@ export default function Tools() {
         <div className="mt-6 flex flex-wrap items-center gap-2 lg:hidden">
           <Link
             to="/tools"
+            aria-current={activeCategory === 'all' ? 'page' : undefined}
             className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
               activeCategory === 'all'
                 ? 'bg-brand-600 text-white shadow-sm'
@@ -174,6 +175,7 @@ export default function Tools() {
             <Link
               key={category.id}
               to={`/tools?category=${category.slug}`}
+              aria-current={activeCategory === category.slug ? 'page' : undefined}
               className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
                 activeCategory === category.slug
                   ? 'bg-brand-600 text-white shadow-sm'

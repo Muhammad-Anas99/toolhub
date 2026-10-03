@@ -626,4 +626,50 @@ For the actual, precise figure, our [Compound Interest Calculator](/tools/compou
     readTime: '6 min read',
     published: true,
   },
+  {
+    title: 'Do QR Codes Expire? Static vs. Dynamic, Explained',
+    slug: 'do-qr-codes-expire',
+    excerpt: 'Some QR codes genuinely do stop working after a while \u2014 but not because of anything inherent to QR codes themselves. The real reason comes down to which of two fundamentally different kinds you made.',
+    content: `If you've ever had a QR code stop working \u2014 printed on a flyer, a menu, a poster \u2014 the confusing part is usually that it seemed to work fine for a while first. The code didn't get damaged. The printer didn't make a mistake. What happened is almost always the same thing: it was never a QR code that could last forever in the first place.
+
+## The one distinction that explains almost all of it
+
+There are two fundamentally different kinds of QR code, and the difference isn't about size, design, or which generator made them \u2014 it's about *where the data lives*.
+
+A **static QR code** has its actual content \u2014 the full URL, the text, whatever it encodes \u2014 built directly into the pattern of black-and-white squares itself. Nothing about scanning it involves contacting any server. The code *is* the data, the same way a printed phone number is the number, not a reference to it.
+
+A **dynamic QR code** encodes something much shorter: a redirect link pointing to a service run by whoever generated the code. Scanning it sends you to that service first, which then forwards you to the real destination. This is what makes editing the destination after printing possible, and what makes scan-tracking analytics possible \u2014 genuinely useful features. But it also means the code now depends on that service staying online and your account staying active to keep working at all.
+
+## Why dynamic codes are the ones that "expire"
+
+A static code can't expire in any technical sense \u2014 there's no account, no subscription, no server in the loop to shut anything off. The only way a static code stops working is if the destination itself goes away (a webpage gets deleted) or the printed code gets physically damaged enough to be unreadable.
+
+A dynamic code is a different story, and it's where genuine expiration happens:
+
+- **Free-tier limits.** Many dynamic QR generators cap how many scans a free code gets, or how long it stays active, before asking you to pay to keep it working.
+- **Account or subscription lapses.** If the account tied to the code is cancelled or the subscription ends, the redirect stops resolving \u2014 and every printed copy of that code, no matter how many you handed out, breaks at once.
+- **The service shutting down.** If the company behind the generator closes or discontinues the redirect feature, every dynamic code it ever issued stops working, permanently, with no way to fix the ones already printed.
+
+This is genuinely the most common way someone ends up asking "why did my QR code stop working" months after it seemed fine \u2014 not a flaw in QR codes as a technology, but a dynamic code's redirect service quietly reaching the end of what it was going to keep supporting for free.
+
+## Why dynamic codes exist at all, despite this risk
+
+They're not a worse technology \u2014 they trade permanence for real capability. Editing where a printed code points without reprinting anything, and seeing how many times it's actually been scanned, are both genuinely useful for a marketing campaign or something that might change. The tradeoff is reasonable for a short-term use case; it's the wrong tradeoff for something meant to last indefinitely.
+
+## Which one you actually need
+
+**Use a static QR code when:** the destination is permanent (a business's own website, a fixed document, contact details that won't change), or you're printing something that needs to work indefinitely \u2014 a product label, a sign, anything that isn't getting reprinted next month.
+
+**A dynamic code might genuinely be worth it when:** you need to change the destination after printing, or scan analytics matter enough to justify an ongoing account dependency.
+
+## How to tell which kind you already have
+
+If you're not sure whether an existing QR code is static or dynamic, scan it and look at the URL in your browser's address bar before it redirects (most phones briefly show this, or you can check in a desktop browser). A long URL going straight to the real destination is static. A short link through a service domain, which then forwards you somewhere else, is dynamic.
+
+Our [QR Code Generator](/tools/qr-code-generator) creates static codes specifically \u2014 the data is encoded directly in your browser with nothing sent to any server, so there's no account, no subscription, and nothing that can later shut the code off. A code generated today will scan exactly the same way in ten years, for the same structural reason a printed phone number doesn't "expire": there's no service in the middle whose continued existence it depends on.`,
+    category: 'Developer Tools',
+    author: 'ToolHub Team',
+    readTime: '5 min read',
+    published: true,
+  },
 ]

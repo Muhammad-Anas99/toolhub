@@ -1,5 +1,6 @@
 import User from '../models/User.js'
 import ConversionHistory from '../models/ConversionHistory.js'
+import Blog from '../models/Blog.js'
 
 function startOfToday() {
   const date = new Date()
@@ -403,6 +404,22 @@ export async function getPublicStats() {
 
 const VALID_RANGES = ['today', '7d', '30d', '90d', '1y', 'lifetime']
 
+/**
+ * Top blog posts by view count. Unlike getMostUsedTools, this is
+ * genuinely all-time, not range-aware - a post's views field is a
+ * simple running total with no per-day log behind it the way tool
+ * conversions have (ConversionHistory), so there's no "views in the
+ * last 30 days" to compute even in principle. The dashboard widget
+ * using this says "All-time" rather than reusing the range selector's
+ * label, so it doesn't imply a precision this data doesn't have.
+ */
+export async function getTopBlogPosts(limit = 5) {
+  return Blog.find({ published: true }, 'title slug views')
+    .sort({ views: -1 })
+    .limit(limit)
+    .lean()
+}
+
 export async function getDashboardOverview(range = '30d') {
   const safeRange = VALID_RANGES.includes(range) ? range : '30d'
 
@@ -421,6 +438,7 @@ export async function getDashboardOverview(range = '30d') {
     conversionMonthTrend,
     dailyNewUsers,
     fixed30DayActivity,
+    topBlogPosts,
   ] = await Promise.all([
     getUserCounts(),
     getNewUserCounts(),
@@ -436,6 +454,7 @@ export async function getDashboardOverview(range = '30d') {
     getConversionMonthTrend(),
     getDailyNewUsers(30),
     getDailyActivity(30),
+    getTopBlogPosts(5),
   ])
 
   return {
@@ -444,6 +463,7 @@ export async function getDashboardOverview(range = '30d') {
     conversions,
     topTools,
     topCategories,
+    topBlogPosts,
     countries,
     devices,
     dailyActivity,
