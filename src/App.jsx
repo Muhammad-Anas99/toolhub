@@ -6,6 +6,7 @@ import PageLoader from './components/ui/PageLoader.jsx'
 import CookieConsentBanner from './components/ui/CookieConsentBanner.jsx'
 import SearchModal from './components/ui/SearchModal.jsx'
 import { initConsent } from './lib/cookieConsent.js'
+import { usePageViewLogger } from './hooks/usePageViewLogger.js'
 import ProtectedRoute from './components/auth/ProtectedRoute.jsx'
 import DashboardLayout from './components/dashboard/DashboardLayout.jsx'
 import AdminLayout from './components/admin/AdminLayout.jsx'
@@ -240,6 +241,7 @@ const AdminBlogList = lazy(() => import('./pages/admin/AdminBlogList.jsx'))
 const AdminBlogEditor = lazy(() => import('./pages/admin/AdminBlogEditor.jsx'))
 const AdminSettings = lazy(() => import('./pages/admin/AdminSettings.jsx'))
 const AdminContactMessages = lazy(() => import('./pages/admin/AdminContactMessages.jsx'))
+const AdminPageViews = lazy(() => import('./pages/admin/AdminPageViews.jsx'))
 const AdminComments = lazy(() => import('./pages/admin/AdminComments.jsx'))
 const Profile = lazy(() => import('./pages/dashboard/Profile.jsx'))
 const Favorites = lazy(() => import('./pages/dashboard/Favorites.jsx'))
@@ -251,6 +253,8 @@ const Subscription = lazy(() => import('./pages/dashboard/Subscription.jsx'))
 
 export default function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+
+  usePageViewLogger()
 
   useEffect(() => {
     initConsent()
@@ -537,6 +541,7 @@ export default function App() {
               <Route path="blog/:slug/edit" element={<AdminBlogEditor />} />
               <Route path="settings" element={<AdminSettings />} />
               <Route path="contact" element={<AdminContactMessages />} />
+              <Route path="pageviews" element={<AdminPageViews />} />
               <Route path="comments" element={<AdminComments />} />
             </Route>
           </Route>

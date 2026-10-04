@@ -41,11 +41,33 @@ const RANGE_DAYS = { today: 1, '7d': 7, '30d': 30, '90d': 90, '1y': 365 }
  * range selector entirely while the main chart above them visibly
  * responded to it.
  */
+function startOfYesterday() {
+  return daysAgo(1)
+}
+
 function sinceDateForRange(range) {
-  if (!range || range === 'lifetime') return null
+  if (!range || range === 'lifetime' || range === 'yesterday') return null
   if (range === 'today') return startOfToday()
   const days = RANGE_DAYS[range] || 30
   return daysAgo(days - 1)
+}
+
+/**
+ * Every other range is open-ended ("N days ago through now"), which a
+ * plain $gte filter expresses fine. "Yesterday" is the one genuinely
+ * bounded range - it needs both a lower AND upper bound, or today's
+ * still-accumulating data would leak into what's supposed to be a
+ * closed, already-finished day. Returns a ready-to-spread MongoDB match
+ * clause (an empty object for 'lifetime', where no bound applies at
+ * all) so every call site stays a one-line change instead of each
+ * needing its own since/until branching.
+ */
+function createdAtMatchForRange(range) {
+  if (range === 'yesterday') {
+    return { createdAt: { $gte: startOfYesterday(), $lt: startOfToday() } }
+  }
+  const since = sinceDateForRange(range)
+  return since ? { createdAt: { $gte: since } } : {}
 }
 
 /**
@@ -66,6 +88,28 @@ async function getHourlyActivityToday() {
 
   const result = []
   for (let h = 0; h <= currentHour; h += 1) {
+    result.push({ date: `${String(h).padStart(2, '0')}:00`, count: countByHour[h] || 0 })
+  }
+  return result
+}
+
+/**
+ * Real hour-by-hour conversion counts for yesterday (all 24 hours,
+ * since unlike "today" the day is already finished) - mirrors
+ * getHourlyActivityToday above exactly, just over a closed window
+ * instead of "through the current hour."
+ */
+async function getHourlyActivityYesterday() {
+  const since = startOfYesterday()
+  const until = startOfToday()
+  const rows = await ConversionHistory.aggregate([
+    { $match: { createdAt: { $gte: since, $lt: until } } },
+    { $group: { _id: { $hour: '$createdAt' }, count: { $sum: 1 } } },
+  ])
+  const countByHour = Object.fromEntries(rows.map((row) => [row._id, row.count]))
+
+  const result = []
+  for (let h = 0; h <= 23; h += 1) {
     result.push({ date: `${String(h).padStart(2, '0')}:00`, count: countByHour[h] || 0 })
   }
   return result
@@ -102,6 +146,7 @@ async function getWeeklyActivity(weeks) {
  */
 async function getActivityForRange(range) {
   if (range === 'today') return getHourlyActivityToday()
+  if (range === 'yesterday') return getHourlyActivityYesterday()
   if (range === 'lifetime') return getLifetimeActivity()
   if (range === '1y') return getWeeklyActivity(52)
   const days = RANGE_DAYS[range] || 30
@@ -162,6 +207,17 @@ async function getActivityTrendForRange(range) {
       }),
     ])
     return { current: today, previous: yesterdaySoFar, percentChange: percentChange(today, yesterdaySoFar) }
+  }
+
+  if (range === 'yesterday') {
+    const yesterdayStart = startOfYesterday()
+    const todayStart = startOfToday()
+    const dayBeforeStart = daysAgo(2)
+    const [current, previous] = await Promise.all([
+      ConversionHistory.countDocuments({ createdAt: { $gte: yesterdayStart, $lt: todayStart } }),
+      ConversionHistory.countDocuments({ createdAt: { $gte: dayBeforeStart, $lt: yesterdayStart } }),
+    ])
+    return { current, previous, percentChange: percentChange(current, previous) }
   }
 
   if (range === 'lifetime') {
@@ -323,9 +379,9 @@ async function getConversionCounts() {
 }
 
 async function getMostUsedTools(limit = 5, range) {
-  const since = sinceDateForRange(range)
+  const match = createdAtMatchForRange(range)
   return ConversionHistory.aggregate([
-    ...(since ? [{ $match: { createdAt: { $gte: since } } }] : []),
+    ...(Object.keys(match).length ? [{ $match: match }] : []),
     { $group: { _id: { slug: '$toolSlug', name: '$toolName' }, count: { $sum: 1 } } },
     { $sort: { count: -1 } },
     { $limit: limit },
@@ -350,9 +406,9 @@ export async function getAllToolsUsage(direction = 'desc') {
 }
 
 async function getMostUsedCategories(limit = 5, range) {
-  const since = sinceDateForRange(range)
+  const match = createdAtMatchForRange(range)
   return ConversionHistory.aggregate([
-    { $match: { category: { $ne: null, $ne: '' }, ...(since ? { createdAt: { $gte: since } } : {}) } },
+    { $match: { category: { $ne: null, $ne: '' }, ...match } },
     { $group: { _id: '$category', count: { $sum: 1 } } },
     { $sort: { count: -1 } },
     { $limit: limit },
@@ -361,9 +417,9 @@ async function getMostUsedCategories(limit = 5, range) {
 }
 
 async function getCountryBreakdown(limit = 10, range) {
-  const since = sinceDateForRange(range)
+  const match = createdAtMatchForRange(range)
   return ConversionHistory.aggregate([
-    ...(since ? [{ $match: { createdAt: { $gte: since } } }] : []),
+    ...(Object.keys(match).length ? [{ $match: match }] : []),
     { $group: { _id: '$country', count: { $sum: 1 } } },
     { $sort: { count: -1 } },
     { $limit: limit },
@@ -372,9 +428,9 @@ async function getCountryBreakdown(limit = 10, range) {
 }
 
 async function getDeviceBreakdown(range) {
-  const since = sinceDateForRange(range)
+  const match = createdAtMatchForRange(range)
   return ConversionHistory.aggregate([
-    ...(since ? [{ $match: { createdAt: { $gte: since } } }] : []),
+    ...(Object.keys(match).length ? [{ $match: match }] : []),
     { $group: { _id: '$device', count: { $sum: 1 } } },
     { $sort: { count: -1 } },
     { $project: { _id: 0, device: '$_id', count: 1 } },
@@ -402,7 +458,7 @@ export async function getPublicStats() {
   return { topTools, totalConversions, totalUsers }
 }
 
-const VALID_RANGES = ['today', '7d', '30d', '90d', '1y', 'lifetime']
+const VALID_RANGES = ['today', 'yesterday', '7d', '30d', '90d', '1y', 'lifetime']
 
 /**
  * Top blog posts by view count. Unlike getMostUsedTools, this is

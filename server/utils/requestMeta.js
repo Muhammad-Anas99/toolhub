@@ -35,6 +35,31 @@ export function getCountry(req) {
 }
 
 /**
+ * Same mechanism as getCountry above - x-vercel-ip-city is set
+ * automatically by Vercel's own proxy, confirmed in Vercel's own
+ * documentation and @vercel/edge source, no separate geolocation
+ * lookup or API call involved.
+ *
+ * Vercel's own documentation states non-ASCII characters in this
+ * header are RFC3986-encoded, so a multi-word or accented city name
+ * (e.g. "New York", "São Paulo") arrives percent-encoded rather than
+ * as plain text - decoding is required, not optional, or the admin
+ * panel would display raw encoded strings like "New%20York". The
+ * try/catch guards against a header value that isn't actually valid
+ * percent-encoding, which would otherwise throw and break the request
+ * entirely over what's ultimately just a display detail.
+ */
+export function getCity(req) {
+  const raw = req.headers['x-vercel-ip-city']
+  if (!raw) return 'Unknown'
+  try {
+    return decodeURIComponent(raw)
+  } catch {
+    return raw
+  }
+}
+
+/**
  * Lightweight User-Agent sniffing — good enough for rough analytics
  * (desktop vs mobile vs tablet breakdown), not meant to be bulletproof
  * device detection. Deliberately dependency-free.

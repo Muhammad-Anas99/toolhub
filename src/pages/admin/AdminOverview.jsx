@@ -54,6 +54,7 @@ const ACCENTS = {
 
 const RANGE_LABELS = {
   today: 'today',
+  yesterday: 'yesterday',
   '7d': 'the last 7 days',
   '30d': 'the last 30 days',
   '90d': 'the last 90 days',
@@ -220,7 +221,6 @@ export default function AdminOverview() {
               </div>
             </article>
 
-            <div className="space-y-5">
             <article className="card p-5">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -265,58 +265,6 @@ export default function AdminOverview() {
                 <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">No conversions logged yet.</p>
               )}
             </article>
-
-            <article className="card p-5">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <HiOutlineDocumentText className="h-4 w-4 text-brand-500" />
-                  <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Top Blog Posts</h2>
-                </div>
-                <a href="/admin/blog" className="text-xs font-medium text-brand-600 hover:underline dark:text-brand-400">
-                  View All
-                </a>
-              </div>
-              {/* All-time, not scoped to the range selector above - a
-                  post's view count is a simple running total with no
-                  per-day log behind it the way tool conversions have, so
-                  there's no "views in the last 30 days" to show even in
-                  principle. Saying so explicitly rather than reusing the
-                  Most-used Tools label, which would misrepresent this as
-                  more precise than it actually is. */}
-              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">All-time views</p>
-              {data.topBlogPosts && data.topBlogPosts.length > 0 ? (
-                <ul className="mt-4 space-y-4">
-                  {data.topBlogPosts.map((post, index) => {
-                    const max = data.topBlogPosts[0].views || 1
-                    const percent = Math.round(((post.views || 0) / max) * 100)
-                    return (
-                      <li key={post.slug || index} className="flex items-center gap-3">
-                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-500 dark:bg-slate-800 dark:text-slate-400">
-                          {index + 1}
-                        </span>
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-center justify-between text-sm">
-                            <a
-                              href={`/admin/blog/${post.slug}/edit`}
-                              className="truncate font-medium text-slate-700 hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-400"
-                            >
-                              {post.title}
-                            </a>
-                            <span className="flex-shrink-0 text-slate-500 dark:text-slate-400">{post.views || 0}</span>
-                          </div>
-                          <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
-                            <div className="h-full rounded-full bg-brand-500" style={{ width: `${percent}%` }} />
-                          </div>
-                        </div>
-                      </li>
-                    )
-                  })}
-                </ul>
-              ) : (
-                <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">No published posts yet.</p>
-              )}
-            </article>
-            </div>
           </section>
 
           <section aria-label="Categories, countries and devices" className="grid grid-cols-1 gap-5 lg:grid-cols-3">
@@ -414,6 +362,59 @@ export default function AdminOverview() {
                 </>
               ) : (
                 <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">No data yet.</p>
+              )}
+            </article>
+          </section>
+
+          <section aria-label="Top blog posts">
+            <article className="card p-5">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <HiOutlineDocumentText className="h-4 w-4 text-brand-500" />
+                  <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Top Blog Posts</h2>
+                </div>
+                <a href="/admin/blog" className="text-xs font-medium text-brand-600 hover:underline dark:text-brand-400">
+                  View All
+                </a>
+              </div>
+              {/* All-time, not scoped to the range selector above - a
+                  post's view count is a simple running total with no
+                  per-day log behind it the way tool conversions have, so
+                  there's no "views in the last 30 days" to show even in
+                  principle. Saying so explicitly rather than reusing the
+                  Most-used Tools label, which would misrepresent this as
+                  more precise than it actually is. */}
+              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">All-time views</p>
+              {data.topBlogPosts && data.topBlogPosts.length > 0 ? (
+                <ul className="mt-4 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
+                  {data.topBlogPosts.map((post, index) => {
+                    const max = data.topBlogPosts[0].views || 1
+                    const percent = Math.round(((post.views || 0) / max) * 100)
+                    return (
+                      <li key={post.slug || index} className="flex items-center gap-3">
+                        <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+                          {index + 1}
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between text-sm">
+                            <a
+                              href={`/admin/blog/${post.slug}/edit`}
+                              className="truncate font-medium text-slate-700 hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-400"
+                            >
+                              {post.title}
+                            </a>
+                            <span className="flex-shrink-0 text-slate-500 dark:text-slate-400">{post.views || 0}</span>
+                          </div>
+                          <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+                            <div className="h-full rounded-full bg-brand-500" style={{ width: `${percent}%` }} />
+                          </div>
+                        </div>
+                      </li>
+                    )
+                  })}
+                </ul>
+              ) : (
+                <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">No published posts yet.</p>
               )}
             </article>
           </section>
