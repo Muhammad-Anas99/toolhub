@@ -38,7 +38,7 @@ export default function AdminContactMessages() {
 
   return (
     <>
-      <SEO title="Admin \u2014 Contact Messages" description="Messages submitted through the contact form." canonicalPath="/admin/contact" noIndex />
+      <SEO title="Admin — Contact Messages" description="Messages submitted through the contact form." canonicalPath="/admin/contact" noIndex />
 
       <h1 className="text-lg font-semibold text-slate-900 dark:text-white">Contact Messages</h1>
       <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">

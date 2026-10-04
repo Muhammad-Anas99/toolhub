@@ -67,7 +67,7 @@ export default function AdminSettings() {
 
   return (
     <>
-      <SEO title="Admin \u2014 Settings" description="ToolHub site settings." canonicalPath="/admin/settings" noIndex />
+      <SEO title="Admin — Settings" description="ToolHub site settings." canonicalPath="/admin/settings" noIndex />
 
       <h1 className="text-lg font-semibold text-slate-900 dark:text-white">Site Settings</h1>
       <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">

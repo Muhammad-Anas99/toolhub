@@ -30,7 +30,7 @@ export default function SoundboardTool({ toolSlug, toolName, category }) {
 
   return (
     <div className="space-y-5">
-      <p className="text-sm text-slate-500 dark:text-slate-400">Click a button, or use keys 1\u20136.</p>
+      <p className="text-sm text-slate-500 dark:text-slate-400">Click a button, or use keys 1–6.</p>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
         {SOUNDBOARD_SOUNDS.map((sound) => (
           <button

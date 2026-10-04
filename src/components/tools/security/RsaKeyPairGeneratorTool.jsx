@@ -44,7 +44,7 @@ export default function RsaKeyPairGeneratorTool({ toolSlug, toolName, category }
             <pre className="mt-1.5 overflow-x-auto rounded-lg bg-slate-50 p-3 font-mono text-xs text-slate-900 dark:bg-slate-900/40 dark:text-white">{keys.privateKey}</pre>
           </div>
           <p className="text-xs text-amber-600 dark:text-amber-400">
-            Keep your private key secret. Since this was generated in your browser, it exists only here \u2014 refreshing the page will lose it unless you\u2019ve saved a copy.
+            Keep your private key secret. Since this was generated in your browser, it exists only here — refreshing the page will lose it unless you’ve saved a copy.
           </p>
         </div>
       )}

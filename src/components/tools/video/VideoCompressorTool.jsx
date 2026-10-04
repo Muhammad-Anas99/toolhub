@@ -120,7 +120,7 @@ export default function VideoCompressorTool({ toolSlug, toolName, category }) {
                   ))}
                 </select>
                 <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
-                  Reduces the video\u2019s resolution, the most reliable way to shrink file size in the browser.
+                  Reduces the video’s resolution, the most reliable way to shrink file size in the browser.
                 </p>
               </div>
 

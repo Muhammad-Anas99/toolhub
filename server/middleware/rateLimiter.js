@@ -15,7 +15,7 @@ export const apiRateLimiter = rateLimit({
   // applied unconditionally ahead of routing, so without this skip the
   // stricter limit here would still cap those requests regardless of
   // whatever the dedicated limiter allows, making it pointless.
-  skip: (req) => req.path.startsWith('/pageviews'),
+  skip: (req) => req.method === 'POST' && req.path.startsWith('/pageviews'),
   message: {
     success: false,
     message: 'Too many requests from this IP. Please try again later.',

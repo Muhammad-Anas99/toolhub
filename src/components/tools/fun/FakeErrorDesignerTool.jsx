@@ -22,7 +22,7 @@ export default function FakeErrorDesignerTool({ toolSlug, toolName, category }) 
   return (
     <div className="space-y-5">
       <div className="rounded-xl bg-slate-50 px-4 py-3 text-xs text-slate-500 dark:bg-slate-900/40 dark:text-slate-400">
-        A fun, obviously-a-joke error card for memes and pranks among friends \u2014 not a realistic system dialog.
+        A fun, obviously-a-joke error card for memes and pranks among friends — not a realistic system dialog.
       </div>
 
       <div className="flex gap-2">

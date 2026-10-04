@@ -134,7 +134,7 @@ export default function HabitStreakTool({ toolSlug, toolName, category }) {
       </div>
 
       <p className="text-xs text-slate-500 dark:text-slate-400">
-        Saved only in this browser (localStorage) \u2014 not synced across devices or accounts.
+        Saved only in this browser (localStorage) — not synced across devices or accounts.
       </p>
     </div>
   )

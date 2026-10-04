@@ -38,7 +38,7 @@ export default function AdminComments() {
 
   return (
     <>
-      <SEO title="Admin \u2014 Comments" description="Comments posted across every blog post." canonicalPath="/admin/comments" noIndex />
+      <SEO title="Admin — Comments" description="Comments posted across every blog post." canonicalPath="/admin/comments" noIndex />
 
       <h1 className="text-lg font-semibold text-slate-900 dark:text-white">Comments</h1>
       <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">

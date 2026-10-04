@@ -12,7 +12,12 @@ const RANGE_OPTIONS = [
   { value: 'lifetime', label: 'Lifetime' },
 ]
 
-export default function DateRangeSelector({ value, onChange }) {
+// `options` optionally limits which ranges are offered, as a list of range
+// values. Left out, every range is shown (what the overview dashboard
+// uses). Page Views passes a shorter list because that data is only kept
+// for 90 days, so "Last year" and "Lifetime" would promise more than exists.
+export default function DateRangeSelector({ value, onChange, options }) {
+  const visibleOptions = options ? RANGE_OPTIONS.filter((option) => options.includes(option.value)) : RANGE_OPTIONS
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef(null)
 
@@ -56,7 +61,7 @@ export default function DateRangeSelector({ value, onChange }) {
           role="listbox"
           className="absolute right-0 top-full z-30 mt-2 w-44 overflow-hidden rounded-xl border border-slate-200 bg-white py-1.5 shadow-lg dark:border-slate-700 dark:bg-slate-900"
         >
-          {RANGE_OPTIONS.map((option) => (
+          {visibleOptions.map((option) => (
             <li key={option.value} role="option" aria-selected={value === option.value}>
               <button
                 type="button"
@@ -83,4 +88,5 @@ export default function DateRangeSelector({ value, onChange }) {
 DateRangeSelector.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string),
 }

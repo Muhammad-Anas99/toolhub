@@ -19,7 +19,7 @@ export default function DumbPhoneFormatterTool({ toolSlug, toolName, category })
   return (
     <div className="space-y-5">
       <div>
-        <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Contacts (Name, Phone \u2014 one per line)</label>
+        <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Contacts (Name, Phone — one per line)</label>
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}

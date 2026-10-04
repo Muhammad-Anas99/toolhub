@@ -11,6 +11,7 @@ const router = Router()
 // rateLimiter.js) in favor of this more generous, purpose-built one.
 router.post('/', pageViewRateLimiter, pageViewController.logPageView)
 
-router.get('/', protect, authorize('admin'), pageViewController.getRecentPageViews)
+router.get('/summary', protect, authorize('admin'), pageViewController.getPageViewSummary)
+router.get('/visitors', protect, authorize('admin'), pageViewController.getPageViewVisitors)
 
 export default router

@@ -62,7 +62,7 @@ export default function AdminUsage() {
           <h1 className="text-lg font-semibold text-slate-900 dark:text-white">Usage</h1>
           <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
             Every individual conversion recorded site-wide, newest first — including anonymous, logged-out traffic that
-            never shows up in any single user\u2019s own history.
+            never shows up in any single user’s own history.
           </p>
         </div>
         <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 dark:border-slate-800 dark:bg-slate-900">

@@ -3,6 +3,7 @@ import { sendSuccess } from '../utils/ApiResponse.js'
 import { ApiError } from '../utils/ApiError.js'
 import * as pageViewService from '../services/pageViewService.js'
 import { getCountry, getCity, getClientIp, isLikelyBot } from '../utils/requestMeta.js'
+import { isValidPagePath } from '../utils/validPagePath.js'
 
 /**
  * Logs a single page view - any page, not just tool pages, which is
@@ -16,8 +17,8 @@ import { getCountry, getCity, getClientIp, isLikelyBot } from '../utils/requestM
  */
 export const logPageView = asyncHandler(async (req, res) => {
   const { path } = req.body
-  if (!path) {
-    throw ApiError.badRequest('path is required')
+  if (!isValidPagePath(path)) {
+    throw ApiError.badRequest('path must be a site path starting with "/"')
   }
 
   if (isLikelyBot(req)) {
@@ -34,9 +35,16 @@ export const logPageView = asyncHandler(async (req, res) => {
   sendSuccess(res, { statusCode: 201, message: 'Page view logged' })
 })
 
-export const getRecentPageViews = asyncHandler(async (req, res) => {
+export const getPageViewSummary = asyncHandler(async (req, res) => {
+  const range = pageViewService.normalizeRange(req.query.range)
+  const summary = await pageViewService.getPageViewSummary(range)
+  sendSuccess(res, { data: { ...summary, range } })
+})
+
+export const getPageViewVisitors = asyncHandler(async (req, res) => {
+  const range = pageViewService.normalizeRange(req.query.range)
   const page = Math.max(1, parseInt(req.query.page, 10) || 1)
-  const limit = Math.min(100, Math.max(1, parseInt(req.query.limit, 10) || 50))
-  const result = await pageViewService.getRecentPageViews({ page, limit })
-  sendSuccess(res, { data: result })
+  const limit = Math.min(50, Math.max(1, parseInt(req.query.limit, 10) || 25))
+  const result = await pageViewService.getVisitors(range, { page, limit })
+  sendSuccess(res, { data: { ...result, range } })
 })

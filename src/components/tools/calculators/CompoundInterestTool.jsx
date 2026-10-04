@@ -79,7 +79,7 @@ export default function CompoundInterestTool({ toolSlug, toolName, category }) {
           transition={{ ...resultReveal.transition, delay: 0.06 }}
           className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900/50 dark:text-slate-300"
         >
-          <strong className="text-slate-900 dark:text-white">Rule of 72 estimate:</strong> at {rate}%, your money roughly doubles every <strong className="text-slate-900 dark:text-white">{yearsToDouble.toFixed(1)} years</strong>. This is a quick mental-math approximation (72 \u00f7 rate), not the precise result above.
+          <strong className="text-slate-900 dark:text-white">Rule of 72 estimate:</strong> at {rate}%, your money roughly doubles every <strong className="text-slate-900 dark:text-white">{yearsToDouble.toFixed(1)} years</strong>. This is a quick mental-math approximation (72 ÷ rate), not the precise result above.
         </motion.div>
       )}
     </div>

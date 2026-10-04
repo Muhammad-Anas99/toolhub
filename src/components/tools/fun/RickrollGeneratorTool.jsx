@@ -20,7 +20,7 @@ export default function RickrollGeneratorTool({ toolSlug, toolName, category }) 
   return (
     <div className="space-y-5">
       <div className="rounded-xl bg-slate-50 px-4 py-3 text-sm text-slate-600 dark:bg-slate-900/40 dark:text-slate-300">
-        This always links to the same well-known video \u2014 it\u2019s a classic, harmless internet joke, not a tool for
+        This always links to the same well-known video — it’s a classic, harmless internet joke, not a tool for
         disguising where a link actually goes.
       </div>
 

@@ -62,7 +62,7 @@ function sinceDateForRange(range) {
  * all) so every call site stays a one-line change instead of each
  * needing its own since/until branching.
  */
-function createdAtMatchForRange(range) {
+export function createdAtMatchForRange(range) {
   if (range === 'yesterday') {
     return { createdAt: { $gte: startOfYesterday(), $lt: startOfToday() } }
   }

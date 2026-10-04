@@ -30,7 +30,7 @@ export default function RobotsTxtValidatorTool({ toolSlug, toolName, category })
           {issues.length === 0 ? (
             <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400">
               <HiOutlineCheckCircle className="h-5 w-5" />
-              <p className="text-sm font-medium">No issues found \u2014 this looks like valid robots.txt syntax.</p>
+              <p className="text-sm font-medium">No issues found — this looks like valid robots.txt syntax.</p>
             </div>
           ) : (
             <div className="space-y-2">

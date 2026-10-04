@@ -197,7 +197,8 @@ export const api = {
 
   // --- Page views ------------------------------------------------------------------
   logPageView: (path) => authorizedRequest('/pageviews', { method: 'POST', body: JSON.stringify({ path }) }),
-  adminGetRecentPageViews: (params = {}) => authorizedRequest(`/pageviews${toQuery(params)}`),
+  adminGetPageViewSummary: (params = {}) => authorizedRequest(`/pageviews/summary${toQuery(params)}`),
+  adminGetPageViewVisitors: (params = {}) => authorizedRequest(`/pageviews/visitors${toQuery(params)}`),
   saveDownload: (data) => authorizedRequest('/downloads', { method: 'POST', body: JSON.stringify(data) }),
   getMyDownloads: () => authorizedRequest('/downloads'),
   deleteDownload: (id) => authorizedRequest(`/downloads/${id}`, { method: 'DELETE' }),

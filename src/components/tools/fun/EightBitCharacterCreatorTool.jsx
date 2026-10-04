@@ -57,7 +57,7 @@ export default function EightBitCharacterCreatorTool({ toolSlug, toolName, categ
   return (
     <div className="space-y-5">
       <p className="text-sm text-slate-500 dark:text-slate-400">
-        Symmetric drawing \u2014 paint one side and the mirror side fills in automatically.
+        Symmetric drawing — paint one side and the mirror side fills in automatically.
       </p>
 
       <div className="flex flex-wrap items-center gap-2">
