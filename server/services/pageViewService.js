@@ -36,6 +36,15 @@ export async function getPageViewSummary(range) {
   }
 }
 
+/**
+ * Removes every recorded page view from one IP address (all dates, not
+ * just the range being viewed). Returns how many were deleted.
+ */
+export async function deleteViewsByIp(ipAddress) {
+  const { deletedCount } = await PageView.deleteMany({ ipAddress })
+  return deletedCount
+}
+
 export async function getVisitors(range, { page = 1, limit = 25 } = {}) {
   const match = createdAtMatchForRange(range)
   const skip = (page - 1) * limit

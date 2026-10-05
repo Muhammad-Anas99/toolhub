@@ -5,8 +5,8 @@
   "type": "module",
   "description": "ToolHub - Free online tools for images, PDFs, text, and more.",
   "scripts": {
-    "dev": "vite",
-    "build": "node scripts/generate-sitemap.mjs && vite build && node scripts/run-prerender.mjs",
+    "dev": "node api.js && vite",
+    "build": "node api.js && node scripts/generate-sitemap.mjs && vite build && node scripts/run-prerender.mjs",
     "preview": "vite preview",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
   },

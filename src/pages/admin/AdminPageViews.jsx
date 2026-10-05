@@ -9,6 +9,9 @@ import {
   HiOutlineEye,
   HiOutlineUsers,
   HiOutlineDocumentDuplicate,
+  HiOutlineTrash,
+  HiOutlineCheckCircle,
+  HiXMark,
 } from 'react-icons/hi2'
 import SEO from '../../components/ui/SEO.jsx'
 import ErrorMessage from '../../components/tools/ErrorMessage.jsx'
@@ -129,7 +132,7 @@ RankedList.propTypes = {
   loading: PropTypes.bool,
 }
 
-function VisitorRow({ visitor, isOpen, onToggle, detailId }) {
+function VisitorRow({ visitor, isOpen, onToggle, detailId, isYou, onRemove, removing }) {
   return (
     <>
       <tr>
@@ -146,6 +149,11 @@ function VisitorRow({ visitor, isOpen, onToggle, detailId }) {
               aria-hidden="true"
             />
             {visitor.ipAddress}
+            {isYou && (
+              <span className="rounded-full bg-brand-50 px-2 py-0.5 font-sans text-[10px] font-semibold uppercase tracking-wide text-brand-700 dark:bg-brand-950 dark:text-brand-300">
+                You
+              </span>
+            )}
           </button>
         </td>
         <td className="px-5 py-3 text-slate-600 dark:text-slate-300">
@@ -182,6 +190,17 @@ function VisitorRow({ visitor, isOpen, onToggle, detailId }) {
                 Showing the {visitor.pages.length} most recent of {visitor.views.toLocaleString()} page views.
               </p>
             )}
+            <div className="mt-4 border-t border-slate-200 pt-3 dark:border-slate-800">
+              <button
+                type="button"
+                onClick={onRemove}
+                disabled={removing}
+                className="inline-flex items-center gap-1.5 rounded text-xs font-medium text-rose-700 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:opacity-50 dark:text-rose-400"
+              >
+                <HiOutlineTrash className="h-3.5 w-3.5" aria-hidden="true" />
+                {removing ? 'Removing...' : isYou ? 'Remove my visits' : "Remove this visitor's data"}
+              </button>
+            </div>
           </td>
         </tr>
       )}
@@ -202,6 +221,9 @@ VisitorRow.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onToggle: PropTypes.func.isRequired,
   detailId: PropTypes.string.isRequired,
+  isYou: PropTypes.bool,
+  onRemove: PropTypes.func.isRequired,
+  removing: PropTypes.bool,
 }
 
 export default function AdminPageViews() {
@@ -212,6 +234,10 @@ export default function AdminPageViews() {
   const [visitorsLoading, setVisitorsLoading] = useState(true)
   const [expanded, setExpanded] = useState(() => new Set())
   const [error, setError] = useState(null)
+  const [notice, setNotice] = useState(null)
+  const [removingIp, setRemovingIp] = useState(null)
+  // Bumped after a removal to re-run both fetches.
+  const [reloadKey, setReloadKey] = useState(0)
 
   // Each effect ignores a response that arrives after the range or page
   // has already changed again, so a slow earlier request can't overwrite
@@ -230,7 +256,7 @@ export default function AdminPageViews() {
     return () => {
       cancelled = true
     }
-  }, [range])
+  }, [range, reloadKey])
 
   useEffect(() => {
     let cancelled = false
@@ -241,6 +267,9 @@ export default function AdminPageViews() {
         if (cancelled) return
         setVisitors(data)
         setVisitorsLoading(false)
+        // Removing visitors can leave the current page past the last one
+        // (e.g. the only visitor on page 2 was removed): step back.
+        if (data.visitors.length === 0 && data.total > 0 && data.page > data.pages) setPage(data.pages)
       })
       .catch((err) => {
         if (cancelled) return
@@ -250,7 +279,7 @@ export default function AdminPageViews() {
     return () => {
       cancelled = true
     }
-  }, [range, page])
+  }, [range, page, reloadKey])
 
   function handleRangeChange(next) {
     setRange(next)
@@ -261,6 +290,26 @@ export default function AdminPageViews() {
   function goToPage(updater) {
     setPage(updater)
     setExpanded(new Set())
+  }
+
+  async function handleRemove(ip) {
+    const confirmed = window.confirm(
+      `Delete all recorded page views from ${ip}? This removes them from every date range and can't be undone.`
+    )
+    if (!confirmed) return
+    setRemovingIp(ip)
+    setError(null)
+    setNotice(null)
+    try {
+      const { data } = await api.adminDeletePageViewVisitor(ip)
+      setNotice(`Removed ${data.deleted} page view${data.deleted === 1 ? '' : 's'} from ${ip}.`)
+      setExpanded(new Set())
+      setReloadKey((key) => key + 1)
+    } catch (err) {
+      setError(err.message || 'Could not remove that visitor.')
+    } finally {
+      setRemovingIp(null)
+    }
   }
 
   function toggleVisitor(ip) {
@@ -294,7 +343,8 @@ export default function AdminPageViews() {
           <h1 className="text-lg font-semibold text-slate-900 dark:text-white">Page Views</h1>
           <p className="mt-1 max-w-2xl text-sm text-slate-500 dark:text-slate-400">
             Where visitors land and who they are. Only visitors who accepted cookies are recorded, and entries are deleted
-            after 90 days.
+            after 90 days. Visits from admin accounts, including any browser you've signed in to as an admin, are not
+            counted.
           </p>
         </div>
         <DateRangeSelector value={range} onChange={handleRangeChange} options={RANGE_CHOICES} />
@@ -303,6 +353,24 @@ export default function AdminPageViews() {
       {error && (
         <div className="mt-4">
           <ErrorMessage message={error} onDismiss={() => setError(null)} />
+        </div>
+      )}
+
+      {notice && (
+        <div
+          role="status"
+          className="mt-4 flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-300"
+        >
+          <HiOutlineCheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0" aria-hidden="true" />
+          <p className="flex-1">{notice}</p>
+          <button
+            type="button"
+            onClick={() => setNotice(null)}
+            aria-label="Dismiss message"
+            className="flex-shrink-0 text-emerald-600 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-200"
+          >
+            <HiXMark className="h-4 w-4" aria-hidden="true" />
+          </button>
         </div>
       )}
 
@@ -385,6 +453,9 @@ export default function AdminPageViews() {
                       isOpen={expanded.has(visitor.ipAddress)}
                       onToggle={() => toggleVisitor(visitor.ipAddress)}
                       detailId={`visitor-detail-${visitor.ipAddress.replace(/[^a-zA-Z0-9]/g, '-')}`}
+                      isYou={visitors.yourIp === visitor.ipAddress}
+                      onRemove={() => handleRemove(visitor.ipAddress)}
+                      removing={removingIp === visitor.ipAddress}
                     />
                   ))}
                 </tbody>
