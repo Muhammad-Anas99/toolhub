@@ -199,6 +199,7 @@ export const api = {
   logPageView: (path) => authorizedRequest('/pageviews', { method: 'POST', body: JSON.stringify({ path }) }),
   adminGetPageViewSummary: (params = {}) => authorizedRequest(`/pageviews/summary${toQuery(params)}`),
   adminGetPageViewVisitors: (params = {}) => authorizedRequest(`/pageviews/visitors${toQuery(params)}`),
+  adminDeletePageViewVisitor: (ip) => authorizedRequest(`/pageviews/visitor${toQuery({ ip })}`, { method: 'DELETE' }),
   saveDownload: (data) => authorizedRequest('/downloads', { method: 'POST', body: JSON.stringify(data) }),
   getMyDownloads: () => authorizedRequest('/downloads'),
   deleteDownload: (id) => authorizedRequest(`/downloads/${id}`, { method: 'DELETE' }),
