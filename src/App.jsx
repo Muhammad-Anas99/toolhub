@@ -1,103 +1,20 @@
-import React, { Suspense, lazy } from 'react'
-import { Routes, Route } from 'react-router-dom'
-import Layout from './components/layout/Layout.jsx'
-import PageLoader from './components/ui/PageLoader.jsx'
-import ProtectedRoute from './components/auth/ProtectedRoute.jsx'
-import DashboardLayout from './components/dashboard/DashboardLayout.jsx'
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import MainLayout from "./layouts/MainLayout";
+import AboutPage from "./pages/AboutPage";
+import HomePage from "./pages/HomePage";
 
-// Route-level code splitting: each page is only downloaded when it's
-// visited, instead of bundling all pages into a single initial chunk.
-const Home = lazy(() => import('./pages/Home.jsx'))
-const Tools = lazy(() => import('./pages/Tools.jsx'))
-const About = lazy(() => import('./pages/About.jsx'))
-const Contact = lazy(() => import('./pages/Contact.jsx'))
-const Blog = lazy(() => import('./pages/Blog.jsx'))
-const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy.jsx'))
-const Terms = lazy(() => import('./pages/Terms.jsx'))
-const NotFound = lazy(() => import('./pages/NotFound.jsx'))
-
-// Image tools (Phase 3 - fully working, browser-based)
-const JpgToPng = lazy(() => import('./pages/tools/JpgToPng.jsx'))
-const PngToJpg = lazy(() => import('./pages/tools/PngToJpg.jsx'))
-const WebpToPng = lazy(() => import('./pages/tools/WebpToPng.jsx'))
-const WebpToJpg = lazy(() => import('./pages/tools/WebpToJpg.jsx'))
-const ConvertToWebp = lazy(() => import('./pages/tools/ConvertToWebp.jsx'))
-const ImageCompressor = lazy(() => import('./pages/tools/ImageCompressor.jsx'))
-const ImageResizer = lazy(() => import('./pages/tools/ImageResizer.jsx'))
-const ImageCrop = lazy(() => import('./pages/tools/ImageCrop.jsx'))
-const ImageRotate = lazy(() => import('./pages/tools/ImageRotate.jsx'))
-const FlipImage = lazy(() => import('./pages/tools/FlipImage.jsx'))
-
-// Auth (Phase 5)
-const Login = lazy(() => import('./pages/auth/Login.jsx'))
-const Register = lazy(() => import('./pages/auth/Register.jsx'))
-const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword.jsx'))
-const ResetPassword = lazy(() => import('./pages/auth/ResetPassword.jsx'))
-const VerifyEmail = lazy(() => import('./pages/auth/VerifyEmail.jsx'))
-const CheckEmail = lazy(() => import('./pages/auth/CheckEmail.jsx'))
-
-// User dashboard (Phase 5)
-const Dashboard = lazy(() => import('./pages/dashboard/Dashboard.jsx'))
-const Profile = lazy(() => import('./pages/dashboard/Profile.jsx'))
-const Favorites = lazy(() => import('./pages/dashboard/Favorites.jsx'))
-const History = lazy(() => import('./pages/dashboard/History.jsx'))
-const Downloads = lazy(() => import('./pages/dashboard/Downloads.jsx'))
-const Settings = lazy(() => import('./pages/dashboard/Settings.jsx'))
-const Subscription = lazy(() => import('./pages/dashboard/Subscription.jsx'))
-
-export default function App() {
+function App() {
   return (
-    <Suspense fallback={<PageLoader />}>
+    <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/tools" element={<Tools />} />
-
-          {/* Image tools */}
-          <Route path="/tools/jpg-to-png" element={<JpgToPng />} />
-          <Route path="/tools/png-to-jpg" element={<PngToJpg />} />
-          <Route path="/tools/webp-to-png" element={<WebpToPng />} />
-          <Route path="/tools/webp-to-jpg" element={<WebpToJpg />} />
-          <Route path="/tools/convert-to-webp" element={<ConvertToWebp />} />
-          <Route path="/tools/image-compressor" element={<ImageCompressor />} />
-          <Route path="/tools/image-resizer" element={<ImageResizer />} />
-          <Route path="/tools/image-crop" element={<ImageCrop />} />
-          <Route path="/tools/image-rotate" element={<ImageRotate />} />
-          <Route path="/tools/flip-image" element={<FlipImage />} />
-
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<Terms />} />
-
-          {/* Auth */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/verify-email" element={<VerifyEmail />} />
-          <Route path="/check-email" element={<CheckEmail />} />
-
-          {/* User dashboard - requires authentication */}
-          <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={<DashboardLayout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="favorites" element={<Favorites />} />
-              <Route path="history" element={<History />} />
-              <Route path="downloads" element={<Downloads />} />
-              <Route path="settings" element={<Settings />} />
-              <Route path="subscription" element={<Subscription />} />
-            </Route>
-          </Route>
-
-          {/* Admin dashboard routes land here next session — the backend
-              endpoints (protect + authorize('admin')) are already live. */}
-
-          <Route path="*" element={<NotFound />} />
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
-    </Suspense>
-  )
+    </BrowserRouter>
+  );
 }
+
+export default App;
