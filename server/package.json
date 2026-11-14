@@ -6,8 +6,8 @@
   "description": "ToolHub REST API - Node.js, Express, MongoDB (Mongoose)",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server.js",
+    "dev": "node init && nodemon server.js",
+    "start": "node init && node server.js",
     "seed": "node utils/seedDatabase.js",
     "seed:admin": "node utils/seedAdmin.js"
   },
